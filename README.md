@@ -6,42 +6,52 @@
 ## Table Of Contents
 <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
-  - [**Description**](#description)
-  - [**Technologies**](#technologies)
-  - [**Feature List: MVP**](#feature-list-mvp)
-    - [User Account](#user-account)
-    - [Habit Tracker](#habit-tracker)
-    - [Results display](#results-display)
-  - [**Feature List: Stretch Goals**](#feature-list-stretch-goals)
-    - [* Extending Habit-tracker:](#extending-habit-tracker)
-    - [* Extending Results Display:](#extending-results-display)
-    - [Full Feature: Progress Reward System](#full-new-feature-progress-reward-system)
-    - [(Low-Priority) Miscellaneous](#low-priority-miscellaneous)
-  - [**Models & Schema**](#models-schema)
-  - [**Routes & Endpoints**](#routes-endpoints)
-    - [Frontend](#frontend)
-    - [Backend](#backend)
-  - [**Wireframes & Templates**](#wireframes-templates)
-    - [General Theming](#general-theming)
-    - [Responsive Web Design (RWD) Considerations...](#responsive-web-design-rwd-considerations)
-    - [Habit tracker page](#habit-tracker-page)
-    - [Results display page(s)](#results-display-pages)
-    - [User profile (popup options only?)](#user-profile-popup-options-only)
-    - [Signup (splash)/signin/logout](#signup-splashsigninlogout)
-    - [Add, delete, edit, etc. forms (popups?)](#add-delete-edit-etc-forms-popups)
-  - [**User Story**](#user-story)
-    - [Signup/signin/signout](#signupsigninsignout)
-    - [Navigation](#navigation)
-    - [Creating a habit](#creating-a-habit)
-    - [Editing/deleting a habit](#editingdeleting-a-habit)
-    - [Examining results displays](#examining-results-displays)
-    - [Navigator user settings](#navigator-user-settings)
-    - [* Browsing and 'buying' rewards](#browsing-and-buying-rewards)
-  - [**Seeder Data**](#seeder-data)
-    - [Users](#users)
-    - [User's Habits](#users-habits)
-    - [User's Habit Histories](#users-habit-histories)
-    - [User's Rewards/Points](#users-rewardspoints)
+- [**Description**](#description)
+- [**Technologies**](#technologies)
+- [**Feature List: MVP**](#feature-list-mvp)
+  - [User Account](#user-account)
+  - [Habit Tracker](#habit-tracker)
+  - [Results display](#results-display)
+- [**Feature List: Stretch Goals**](#feature-list-stretch-goals)
+  - [Extending Habit-tracker:](#extending-habit-tracker)
+  - [Extending Results Display:](#extending-results-display)
+  - [Full New Feature: Progress Reward System](#full-new-feature-progress-reward-system)
+  - [(Low-Priority) Miscellaneous](#low-priority-miscellaneous)
+- [**Models & Schema**](#models-schema)
+  - [`users`](#users)
+  - [`habits`](#habits)
+  - [`habit_days`](#habit_days)
+  - [`colors`](#colors)
+  - [`rewards`](#rewards)
+  - [`user_rewards`](#user_rewards)
+- [**Routes & Endpoints**](#routes-endpoints)
+  - [Frontend](#frontend)
+    - [Entry/exit points-ROOT: `/`](#entryexit-points-root)
+    - [User-ROOT: `/users/:id`](#user-root-usersid)
+    - [Habits-ROOT: `/users/:id/habits`](#habits-root-usersidhabits)
+    - [Individual Habit History-ROOT: `/users/:id/habits/:id`](#individual-habit-history-root-usersidhabitsid)
+  - [Backend](#backend)
+- [**Wireframes & Templates**](#wireframes-templates)
+  - [General Theming](#general-theming)
+  - [Responsive Web Design (RWD) Considerations...](#responsive-web-design-rwd-considerations)
+  - [Navigation](#navigation)
+  - [Signup (splash)/signin/logout](#signup-splashsigninlogout)
+  - [Habit tracker page](#habit-tracker-page)
+  - [Results display page(s)](#results-display-pages)
+  - [Add, delete, edit, etc. forms (popups?)](#add-delete-edit-etc-forms-popups)
+- [**User Story**](#user-story)
+  - [Signup/signin/signout](#signupsigninsignout)
+  - [Navigation](#navigation-1)
+  - [Creating a habit](#creating-a-habit)
+  - [Editing/deleting a habit](#editingdeleting-a-habit)
+  - [Examining results displays](#examining-results-displays)
+  - [Navigator user settings](#navigator-user-settings)
+  - [Browsing and 'buying' rewards](#browsing-and-buying-rewards)
+- [**Seeder Data**](#seeder-data)
+  - [Users](#users-1)
+  - [User's Habits](#users-habits)
+  - [User's Habit Histories](#users-habit-histories)
+  - [User's Rewards/Points](#users-rewardspoints)
 
 <!-- /code_chunk_output -->
 
@@ -75,17 +85,17 @@ Purpose, market, functionality
 
 
 ## Feature List: MVP
-### **User Account**
+### User Account
 - Signup/login/logout
 - User-specific dashboard
 - Store habit history
 
-### **Habit Tracker**
+### Habit Tracker
 - User can create habits with a title
 - Habits are displayed in an interactive list, with check-off buttons for each previous day per habit.
 - Habits can be edited or deleted.
 
-### **Results display**
+### Results display
 - The user can click a habit to see a visual history of the habit.
 - The top shows a few statistics like total number and success rate
 - At least one visual display of the data:
@@ -99,7 +109,7 @@ Purpose, market, functionality
     - Calendar display (color in successful days)
     - Frequency-dot-chart (??)
 
-## **Feature List: Stretch Goals**
+## Feature List: Stretch Goals
 ### * Extending Habit-tracker:
 - * (high) Choose habit color
 - * Sort-by: name, color, manual (allow user to move habits)
@@ -111,7 +121,7 @@ Purpose, market, functionality
 - * (high/low) Adding addition display types (see above options in MVP). Ideally at least three total (high), max of five (low)
 - * Change display mode to daily/weekly/monthly/yearly
     
-### **Full New Feature: Progress Reward System**
+### Full New Feature: Progress Reward System
  - * User can accumulate reward-points with activity and spend them on a variety of minor rewards (virtual currency).
  - * Rewards should be minimal and cosmetic. Ideas/examples:
   - * Earn 'titles' to reflect their progress. Perhaps madlib-style, or Animal-Crossing-like (choose an adjective and a noun from lists)
@@ -133,6 +143,8 @@ Purpose, market, functionality
 Separate color table, or just a value on the habits table?
 Is `created_at` needed for habit_days or habits on top of `date`?
 
+![Table Models](https://cdn.discordapp.com/attachments/778064934318637110/778772759735566367/Productivity_Project_2.png)
+
 **TABLES LIST**
  - users
  - habits
@@ -140,8 +152,8 @@ Is `created_at` needed for habit_days or habits on top of `date`?
  - ?colors?
  - rewards
  - user_rewards
-
-### Tables
+ 
+### `users`
 | users      | Constraints                                   |
 |------------|-----------------------------------------------|
 | id         | SERIAL, PRIMARY KEY                           |
@@ -152,7 +164,7 @@ Is `created_at` needed for habit_days or habits on top of `date`?
 |*points     | INTEGER, NOT NULL, DEFAULT VALUE=0            |
 |*setting    | VARCHAR(250)                                  |
 
-
+### `habits`
 | habits      | Constraints                                   |
 |-------------|-----------------------------------------------|
 | id          | SERIAL, PRIMARY KEY                           |
@@ -163,7 +175,7 @@ Is `created_at` needed for habit_days or habits on top of `date`?
 | frequency   | INTEGER                                       |
 | ?created_at | TIMESTAMP, NOT NULL, DEFAULT VALUE=new Date() |
 
-
+### `habit_days`
 | habit_days  | Constraints                                   |
 |-------------|-----------------------------------------------|
 | id          | SERIAL, PRIMARY KEY                           |
@@ -172,13 +184,13 @@ Is `created_at` needed for habit_days or habits on top of `date`?
 | habit_id    | INTEGER, FOREIGN KEY=habits.id, NOT NULL      |
 | ?created_at | TIMESTAMP, NOT NULL, DEFAULT VALUE=new Date() |
 
-
+### `colors`
 | colors | Constraints                   |
 |--------|-------------------------------|
 | id     | SERIAL, PRIMARY KEY           |
 | color  | VARCHAR(50), NOT NULL, UNIQUE |
 
-
+### `rewards`
 | rewards | Constraints                        |
 |---------|------------------------------------|
 | id      | SERIAL, PRIMARY KEY                |
@@ -186,7 +198,7 @@ Is `created_at` needed for habit_days or habits on top of `date`?
 | type    | VARCHAR(20)                        |
 | cost    | INTEGER, NOT NULL, DEFAULT VALUE=1 |
 
-
+### `user_rewards`
 | user_rewards | Constraints                               |
 |--------------|-------------------------------------------|
 | id           | SERIAL, PRIMARY KEY                       |
