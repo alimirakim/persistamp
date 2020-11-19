@@ -113,6 +113,8 @@ Purpose, market, functionality
  - * Dark/light mode
  - * Share options. Send images of results as email, twitter, etc.
  - * (very low-vague idea only) 'Friend-Accountability': Able to friend others and see their progress.
+ - * Unique/random welcome messages
+ - * reminder/alarm/notification system?
 
 ---------
 
@@ -121,15 +123,114 @@ Purpose, market, functionality
 
 **NOTES** For now, quick thoughts: User, Habit, Day, Habit-Success (boolean), Habit-history?, rewards, reward-points, user-owned-rewards...
 
+* users
+  - id
+  - name 50
+  - email 250
+  - hashword 250
+  - * perhaps settings?
+  - * reward points integer
+  - * setting
+* habit
+  - id
+  - user_id
+  - title 50
+  - * description 250
+  - * color (id)
+  - * frequency
+* colors
+  - id
+  - color
+* habit_days
+  - id
+  - habit_id
+  - date datetime
+  - checked (boolean)
+* rewards
+  - id
+  - reward
+  - ? cost ? 
+  - color rewards??
+* user_rewards
+  -id
+  -user_id
+  -reward_id
+
+### Reward Ideas
+* Themes (colors)
+* Titles
+* Checkmark symbols
+* Colors
+* avatar badge? reward? 
+
+
+  
+  
+* (x - decided no) History
+  - id
+  - start_date
+  - [True,True,True,False,False,False]
+
+
+grab user's habit list
+wash dishes, [dayhabit1, habit2, 3] LIMIT 
+checked?
+count +1
+7/31
+
 
 ---------
 
 ## Routes & Endpoints
 ### Frontend
 
+GET - / (splash) signup/signin, the pitch
+GET, POST - /signup, /signing, /logout?
+
+GET, PUT, POST, EDIT, DELETE?? / (home) habit tracker list
+/add_habit, /post_habit?
+
+/users/:id
+profiles - results display - private unless friends
+
+/users/current??? - user's profile page?
+results display?
+
+/settings???
+
+* idea for user accountability connection-creation
+/users/:id
+friend join table boolean
 
 ### Backend
+/users - login, tokens, security
+post - make new user
+put - edit user details
+get - get user details
+delete - delete user account
+token????
 
+user/id/habits/id - get user's list of habits - to show list, crud
+get - get all habits by user,
+  get with filter? color, other?
+  /patch - edit habit
+  /delete - delete habit
+  /create - make a habit
+  get only select time? day, last week, last month, last year
+  * clean up data back here before sending back? ex. for bar graph, etc.{}
+  
+/days - history
+POST habit_days/:id/post - boolean - toggle, not 'turn on'
+/days/current_week for the interactive ribbon display
+
+/days/bar/weeks/:limit - somehow customize the query and data structure to suit the exact needs
+for the requested graph-data???
+
+* GET /users/:id/rewards - get user 'inventory'? 
+* GET /rewards - get all rewards for shop
+* POST /rewards/:id/purchase - give user reward, lower points
+
+* plant/status icon indicator? how handle, don't forget
 
 ---------
 
