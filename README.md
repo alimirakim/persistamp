@@ -1,5 +1,4 @@
 # Team SBADE - Habit Tracker Productivity App
-A minimalist productivity app based on Loop Habit Tracker (See: https://play.google.com/store/apps/details?id=org.isoron.uhabits&hl=en_US&gl=US) .
 
 **Team:** Alicia M Kim, David Lee, Eric Lyda, Brian Wang, Scrum Leader Sergey Gridin
 
@@ -47,6 +46,17 @@ A minimalist productivity app based on Loop Habit Tracker (See: https://play.goo
 <!-- /code_chunk_output -->
 
 ## Description
+A minimalist productivity app that helps track habit history and review their trends over time, based on Loop Habit Tracker.
+
+(**See Loop Habit Tracker:** https://play.google.com/store/apps/details?id=org.isoron.uhabits&hl=en_US&gl=US)
+
+As this will be a browser app, as opposed to a phone app like the inspiration, we would like to consider features or tweaks that would
+make this app suit its platform better, and provide some benefit or feature that the other does not. 
+
+Ideas so far include showing more friendly and intuitive 'habit-health' indicator (like a plant icon), providing a simplistic and 
+minimal reward system to motivate usersto continue their habits, and some kind of sharing and/or friend-connecting/accountability 
+buddy functionality.
+
 Purpose, market, functionality
 
 
@@ -119,82 +129,138 @@ Purpose, market, functionality
 ---------
 
 ## Models & Schema
-**TODO** Break these out into separate feature packets?
+**NOTE-MIRA** Break these out into separate feature packets?
+Separate color table, or just a value on the habits table?
+Is `created_at` needed for habit_days or habits on top of `date`?
 
-**NOTES** For now, quick thoughts: User, Habit, Day, Habit-Success (boolean), Habit-history?, rewards, reward-points, user-owned-rewards...
+**TABLES LIST**
+ - users
+ - habits
+ - habit_days
+ - ?colors?
+ - rewards
+ - user_rewards
 
-* users
-  - id
-  - name 50
-  - email 250
-  - hashword 250
-  - * perhaps settings?
-  - * reward points integer
-  - * setting
-* habit
-  - id
-  - user_id
-  - title 50
-  - * description 250
-  - * color (id)
-  - * frequency
-* colors
-  - id
-  - color
-* habit_days
-  - id
-  - habit_id
-  - date datetime
-  - checked (boolean)
-* rewards
-  - id
-  - reward
-  - ? cost ? 
-  - color rewards??
-* user_rewards
-  -id
-  -user_id
-  -reward_id
-
-### Reward Ideas
-* Themes (colors)
-* Titles
-* Checkmark symbols
-* Colors
-* avatar badge? reward? 
+### Tables
+| users      | Constraints                                   |
+|------------|-----------------------------------------------|
+| id         | SERIAL, PRIMARY KEY                           |
+| name       | VARCHAR(50) NOT NULL                          |
+| email      | VARCHAR(50), NOT NULL, UNIQUE                 |
+| hashword   | VARCHAR(250) NOT NULL                         |
+| created_at | TIMESTAMP, NOT NULL, DEFAULT VALUE=new Date() |
+|*points     | INTEGER, NOT NULL, DEFAULT VALUE=0            |
+|*setting    | VARCHAR(250)                                  |
 
 
-  
-  
-* (x - decided no) History
-  - id
-  - start_date
-  - [True,True,True,False,False,False]
+| habits      | Constraints                                   |
+|-------------|-----------------------------------------------|
+| id          | SERIAL, PRIMARY KEY                           |
+| habit       | VARCHAR(50), NOT NULL                         |
+| user_id     | INTEGER, FOREIGN KEY=users.id, NOT NULL       |
+| color_id    | INTEGER, FOREIGN KEY=colors.id, NOT NULL      |
+| description | VARCHAR(250)                                  |
+| frequency   | INTEGER                                       |
+| ?created_at | TIMESTAMP, NOT NULL, DEFAULT VALUE=new Date() |
 
 
-grab user's habit list
-wash dishes, [dayhabit1, habit2, 3] LIMIT 
-checked?
-count +1
-7/31
+| habit_days  | Constraints                                   |
+|-------------|-----------------------------------------------|
+| id          | SERIAL, PRIMARY KEY                           |
+| date        | DATE, NOT NULL, DEFAULT VALUE=new Date()      |
+| checked     | BOOLEAN, DEFAULT VALUE=false                  |
+| habit_id    | INTEGER, FOREIGN KEY=habits.id, NOT NULL      |
+| ?created_at | TIMESTAMP, NOT NULL, DEFAULT VALUE=new Date() |
+
+
+| colors | Constraints                   |
+|--------|-------------------------------|
+| id     | SERIAL, PRIMARY KEY           |
+| color  | VARCHAR(50), NOT NULL, UNIQUE |
+
+
+| rewards | Constraints                        |
+|---------|------------------------------------|
+| id      | SERIAL, PRIMARY KEY                |
+| reward  | VARCHAR(50)                        |
+| type    | VARCHAR(20)                        |
+| cost    | INTEGER, NOT NULL, DEFAULT VALUE=1 |
+
+
+| user_rewards | Constraints                               |
+|--------------|-------------------------------------------|
+| id           | SERIAL, PRIMARY KEY                       |
+| user_id      | INTEGER, FOREIGN KEY=users.id, NOT NULL   |
+| reward_id    | INTEGER, FOREIGN KEY=rewards.id, NOT NULL |
+
+
+<!-- 
+|       | Constraints         |
+|-------|---------------------|
+| id    | SERIAL, PRIMARY KEY |
+|       |  |
+|       |  | 
+-->
 
 
 ---------
 
 ## Routes & Endpoints
 ### Frontend
+**NOTE** Remember to decide and integrate authentication/privacy setting concerns too for each route, 
+based on how we decide to go about it.
 
-GET - / (splash) signup/signin, the pitch
-GET, POST - /signup, /signing, /logout?
+#### Entry/exit points-ROOT: `/`
+| METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
+| GET    | `/`          | render splash page |
+| GET    | `/home`      | render user's habit-tracker homepage | 
+| POST   | `/signup` | Create new account and log them in |
+| POST   | `/signin` | Verify auth and log them in |
+| POST   | `/signout` | Delete auth and logout |
+|  |
+| 
 
-GET, PUT, POST, EDIT, DELETE?? / (home) habit tracker list
-/add_habit, /post_habit?
+#### User-ROOT: `/users/:id`
+| METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
+| GET | `/` | renders user profile page with habits |
+| GET | `/habits/:id/history` | renders page with visual data displays of specific habit's history |
+|  |  | 
 
-/users/:id
-profiles - results display - private unless friends
 
-/users/current??? - user's profile page?
-results display?
+#### Habits-ROOT: `/users/:id/habits`
+| METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
+<!-- | GET    | `/` | Get a list of all the user's habits | -->
+| GET    | `/:habit_id` | Get a single habit's full details (`habit_days` history) |
+| POST   | `/` | Create a new habit |
+| PATCH  | `/:habit_id` | Edit a habit | 
+| DELETE | `/:habit_id` | Delete a habit |
+
+#### Individual Habit History-ROOT: `/users/:id/habits/:id`
+`/days`, `/weeks`, `/months`, `/years`? 
+`/data/bar`, `/data/line`, `/data/dot`, `/data/calendar`?
+| METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
+| GET | |
+|  |   |
+|  |  | 
+
+
+| METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
+|  |  |
+|  |  |
+|  |  | 
+
+
+<!-- | METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
+|  |  |
+|  |  |
+|  |  |  -->
+
 
 /settings???
 
@@ -248,19 +314,37 @@ I feel as though compared to a phone app, 'visiting a website' each day to track
 Any ideas on how to mitigate that?
 ...Browser extension? :S
 
-### Habit tracker page
-
-
-### Results display page(s)
-Perhaps combine with habit tracker on landscape/desktop displays?
-
-### User profile (popup options only?)
-
+### Navigation
+Should be able to:
+- Go to habit-tracker home
+- Check settings/edit user
+- Log out
+- Misc: about, contact, help/faq
 
 ### Signup (splash)/signin/logout
+Popup forms, or embedded in splash page, or both?
+Should be fairly straightforward.
+
+### Habit tracker page
+Show list of habits.
+Each habit is a row in a table: status icon, habit title, daily check-buttons for past 7 days.
+Perhaps in desktop mode, a button on the side for edit/deleting.
+'Sort by' dropdown menu.
+Links to each habit's history page.
+Buttons to add/edit/delete tasks.
+Perhaps the user's name and any user-spec
+
+### Results display page(s)
+On mobile/portrait, a column of displays, scroll down. On landscape/desktop, fit
+as a responsive grid at breakpoint.
+
+*A ? help button (or tooltip!) in the corner of data displays to explain what
+
+*Share button for each grid, and the entire page.
 
 
 ### Add, delete, edit, etc. forms (popups?)
+How to present the forms for these CRUD options to the user?
 
 
 ---------
@@ -305,14 +389,26 @@ Perhaps combine with habit tracker on landscape/desktop displays?
 **TODO** MVP 1, ideally at least 3, more would be nice but low-priority.
 
 ### Users
-
+Different users having different styles to showcase the app's flexibility?
 
 ### User's Habits
-
+- Exercise and health goals.
+- Social commitment goals.
+- Fun/work-life balance goals.
+- Chores/utilitarian.
+- Learning/hobbies/personal
 
 ### User's Habit Histories
-
+- Example of a committed habit-builder
+- Volatile habit-builder
+- Failed habit builder
+- Normalish habit-builder
 
 ### User's Rewards/Points
-
+**NOTE-MIRA** For now, just reward ideas:
+* Themes (colors)
+* Titles
+* Checkmark symbols
+* Colors
+* avatar badge? reward? 
 
