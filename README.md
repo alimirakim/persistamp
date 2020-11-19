@@ -16,7 +16,7 @@
     - [* Extending Habit-tracker:](#extending-habit-tracker)
     - [* Extending Results Display:](#extending-results-display)
     - [Full Feature: Progress Reward System](#full-new-feature-progress-reward-system)
-    - [(Low-Priority) Miscellaneous](#low-priority-miscellaneious)
+    - [(Low-Priority) Miscellaneous](#low-priority-miscellaneous)
   - [**Models & Schema**](#models-schema)
   - [**Routes & Endpoints**](#routes-endpoints)
     - [Frontend](#frontend)
@@ -119,7 +119,7 @@ Purpose, market, functionality
   - * Unlock new avatar/progress-symbol icons (ex. fire, runner/exerciser, flower, trophy, smiley...)
   - * Still open to thinking of other ideas as rewards. Should be low-cost(thesaurus needed).
   
-### (Low-Priority) Miscellaneious
+### (Low-Priority) Miscellaneous
  - * Dark/light mode
  - * Share options. Send images of results as email, twitter, etc.
  - * (very low-vague idea only) 'Friend-Accountability': Able to friend others and see their progress.
