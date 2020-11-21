@@ -11,19 +11,6 @@
 ## Table Of Contents
 <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
-- [**Description**](#description)
-- [Team SBADE - Habit Tracker Productivity App](#team-sbade-habit-tracker-productivity-app)
-    - [GOAL Tables and good testing seeder data created](#goal-tables-and-good-testing-seeder-data-created)
-    - [GOAL: Have backend CRUDs working with postman.](#goal-have-backend-cruds-working-with-postman)
-    - [Have frontend fetching, posting, and displaying on templates, full interactivity for user implemented](#have-frontend-fetching-posting-and-displaying-on-templates-full-interactivity-for-user-implemented)
-    - [GOAL Make it presentable](#goal-make-it-presentable)
-    - [GOAL: Reward CRUDs](#goal-reward-cruds)
-    - [GOAL: pretty up the shop, quality check](#goal-pretty-up-the-shop-quality-check)
-  - [ACCOUNTABILITY BUDDY FEATURE](#accountability-buddy-feature)
-    - [BACKEND](#backend)
-    - [FRONTEND](#frontend)
-    - [MULTIPLE BUDDIES/PROGRAMS FEATURE](#multiple-buddiesprograms-feature)
-  - [Table Of Contents](#table-of-contents)
   - [Description](#description)
   - [Technologies](#technologies)
   - [Feature List: MVP](#feature-list-mvp)
