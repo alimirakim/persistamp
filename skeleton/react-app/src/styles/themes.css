@@ -1,0 +1,6 @@
+/* For aesthetic-only css rules, which do not effect the layout or state and are
+not global. If changing the rule would effect functionality in any way, it
+does not belong here. Valid examples are changing a sidebar's background color
+and font or adding drop shadows to certain modules.
+
+Naming convention: start with `th-`. EXAMPLE: th-bg-primary */

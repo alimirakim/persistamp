@@ -1,0 +1,5 @@
+/* For layout-effecting css rules. If it effects the placement and physical
+layout of elements on the page, it probably belongs here. Think flexboxes and
+grids, floats, margins and padding, positioning, display types.
+
+Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
