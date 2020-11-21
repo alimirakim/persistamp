@@ -2,11 +2,72 @@
 
 **Team:** Alicia M Kim, David Lee, Eric Lyda, Brian Wang, Scrum Leader Sergey Gridin
 
-**Goal Milestones**
-* MVP: habit tracker - make a habit, mark it each day, see the trend results
-* Major Stretch 1: reward system - earn points, add custom rewards, 'buy' rewards - provide simple default rewards. MVP, just one easy one. 
-* Major Stretch 2: accountability buddy - connect accounts, assigning the 'giver'. click habit to ask for confirmation. giver is pinged and confirms. giver can add custom rewards.
-* Major Stretch 3: multiple buddies and programs/trackers - make 'friends'. create trackers specific to 'program', rather than specific to 'user', then associate programs to users. programs have program-specific tasks, rewards, and buddies.
+**NOTE-MIRA** I have commented out a lot of details that will only be relevant for later stretch goals (mainly rewards and accountability buddies) to hopefully make it easier to read the important things. Please look at the code of this readme if you wish to see any of that. The section immediately below of 'goals' is just a rough spit-out of thoughts to help start thinking about potential workflow, to give some kind of starting point. Please add your own notes as any of you see fit.
+
+**GOALS, IN CHRONOLOGICAL ORDER**
+* habit tracker - make a habit, mark it each day, see the trend results
+* reward system - earn points, add custom rewards, 'buy' rewards - provide simple default rewards. MVP, just one easy one. 
+* accountability buddy - connect accounts, assigning the 'giver'. click habit to ask for confirmation. giver is pinged and confirms. giver can add custom rewards.
+* multiple buddies and programs/trackers - make 'friends'. create trackers specific to 'program', rather than specific to 'user', then associate programs to users. programs have program-specific tasks, rewards, and buddies.
+
+### GOAL Tables and good testing seeder data created
+* create database with flask/sqlalchemy/alembic - make ALL, keep non-mvps separate
+* create nice seeder data. users, their habits, their histories
+
+### GOAL: Have backend CRUDs working with postman.
+### Have frontend fetching, posting, and displaying on templates, full interactivity for user implemented
+* set up routes - mvp ONLY
+  * backend - user/auth, habits, days. Try to clean the data back here. Perhaps provide extra routes just for different data grabs.
+  * frontend - user signup/login, habit tracker render/connects (crud), results displays (Read, api), navigation, render, skeleton templates - LOGIC ONLY, forms, links, prove that results print to template, forms and buttons function and perform all CRUDs. helper functions refactored
+**IDEALLY by monday**
+
+### GOAL Make it presentable
+* decide and stump out components and structure
+* build the react components based on structure and semantics
+* work on CSS/Sass for styling. Decide on naming convention - SMACSS is my pref.
+* Organize by base, layout, module, function, theming.
+* graphs
+* add polish and user qol 
+**IDEALLY wed**
+
+### GOAL: Reward CRUDs 
+* backend route - adding points, shop, spending, and rewards
+* frontend - similarly so. add points when user checks habit. navigate to shop.
+  buy items. track rewards - apply in some way (like color theme)
+* add user 'settings' - custom features per use like avatar, color, title
+  design so they can all work together similarly, as rewards and settings
+  show options/buttons to change settings like avatar for user.
+* add custom rewards
+
+### GOAL: pretty up the shop, quality check
+* potential super-polish step - add explanations/helper tooltips
+* make rewards feel satisfying
+**rewards done by sunday**
+
+## ACCOUNTABILITY BUDDY FEATURE
+### BACKEND
+  * routes to fetch buddy/relation and position/status
+### FRONTEND
+  * add form/template for sending invite/adding friend. the GIVER must send the invite. the TAKER must accept. has only a title for now. once accepted, can add
+  tasks and rewards
+  * add functionality to assign 'giver/rewardee' roles and permissions
+  * confirmation-system where taker sends request and giver confirms. giver can
+    also just click it on their own without being pinged.
+  * giver - modify templates as needed for giver accounts
+  * giver-permissions for custom reward-making
+  * display giver/taker buddy
+**tuesday**
+
+### MULTIPLE BUDDIES/PROGRAMS FEATURE
+* hook up all unused tables to bundle tasks/rewards/etc. into 'programs' that
+  users can have and switch between
+
+FRONT 
+* provide a menu to quickly and easily switch between and differentiate programs
+* make it clear which programs you are a giver and a taker.
+* switch the rewards system, points, tasks, and buddy based on selected program
+<!-- * friends/followers/bonds/cheerleaders? - allows each other to view each other's progress/habits? -->
+
 
 ## Table Of Contents
 <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
@@ -36,16 +97,18 @@
     - [`bonds`](#bonds)
   - [Routes & Endpoints](#routes-endpoints)
     - [Frontend](#frontend-1)
-      - [Entry/exit points-ROOT: `/`](#entryexit-points-root)
-      - [User-ROOT: `/users/:id`](#user-root-usersid)
-      - [Habits-ROOT: `/users/:id/habits`](#habits-root-usersidhabits)
-      - [Individual Habit History-ROOT: `/users/:id/habits/:id`](#individual-habit-history-root-usersidhabitsid)
+      - [ROOT: `/`](#root)
+      - [ROOT: `/users/:uid`](#root-usersuid)
+      - [ROOT: `/settings`](#root-settings)
+      - [ROOT: `/programs/:pid/habits`](#root-programspidhabits)
+      - [ROOT: `/users/:uid/habits/:hid/history` MIRA I dunno' if this is the ideal routing for these LOL just winged something](#root-usersuidhabitshidhistory-mira-i-dunno-if-this-is-the-ideal-routing-for-these-lol-just-winged-something)
+      - [ROOT: `/programs/:pid/stampers`](#root-programspidstampers)
     - [Backend](#backend-1)
       - [ROOT: `/users`](#root-users)
       - [ROOT: `/programs`](#root-programs)
-      - [ROOT: `/programs/:id/members`](#root-programsidmembers)
-      - [ROOT: `/programs/:id/habits`](#root-programsidhabits)
-      - [ROOT: `/programs/:id/habits/:habit_id/members/:member_id`](#root-programsidhabitshabit_idmembersmember_id)
+      - [ROOT: `/programs/:pid/members`](#root-programspidmembers)
+      - [ROOT: `/programs/:pid/habits`](#root-programspidhabits-1)
+      - [ROOT: `/programs/:pid/habits/:hid/members/:uid`](#root-programspidhabitshidmembersuid)
   - [Wireframes & Templates](#wireframes-templates)
     - [General Theming](#general-theming)
     - [Responsive Web Design (RWD) Considerations...](#responsive-web-design-rwd-considerations)
@@ -158,8 +221,7 @@ Purpose, market, functionality
 Separate color table, or just a value on the habits table?
 Is `created_at` needed for habit_days or habits on top of `date`?
 
-![Table Models](https://dbdiagram.io/embed/5fb84e793a78976d7b7ccdcb)
-<iframe width="560" height="315" src='https://dbdiagram.io/embed/5fb84e793a78976d7b7ccdcb'> </iframe>
+![Table Models](N:\OneDrive\Studies\aa\w20\PersiStamp.png)
 
 **TABLES LIST**
 - users
@@ -237,9 +299,10 @@ Is `created_at` needed for habit_days or habits on top of `date`?
 | reward  | VARCHAR(50), NOT NULL                |
 | description | VARCHAR(250) |
 | cost     | INTEGER, NOT NULL, DEFAULT VALUE=7  |
-| quantity | INTEGER, NOT NULL, DEFAULT VALUE=1  | NOTE -1 = unlimited?
 | color    | VARCHAR(7), NOT NULL, DEFAULT VALUE='#000000' |
 | stamp    | VARCHAR(50), NOT NULL, DEFAULT VALUE='award' |
+| limit_per_member | INTEGER, NOT NULL, DEFAULT VALUE=-1 |
+| quantity | INTEGER, NOT NULL, DEFAULT VALUE=1  | NOTE -1 = unlimited?
 | program_id | INTEGER, FOREIGN KEY=programs.id  | NULLABLE
 | creator_id | INTEGER, FOREIGN KEY=users.id | NULLABLE
 | created_at | TIMESTAMP, DEFAULT VALUE=new Date() | NULLABLE
@@ -265,66 +328,142 @@ Is `created_at` needed for habit_days or habits on top of `date`?
 
 ## Routes & Endpoints
 ### Frontend
-splash
-habit tracker
-results
-shop
-
-friends
-badges/rewards
-signup form
-login form
-logout form
-settings form
-task maker form
-program maker form
-
-
 
 **NOTE** Remember to decide and integrate authentication/privacy setting concerns too for each route, 
 based on how we decide to go about it.
 
-#### Entry/exit points-ROOT: `/`
+#### ROOT: `/`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
-| GET    | `/`          | render splash page |
+| GET    | `/`        | render splash page, if no auth |
+| GET    | `/`        | renders user profile dash-page, if auth checks |
 | GET    | `/home`    | render user's habit-tracker homepage | 
-| POST   | `/signup` | Create new account and log them in |
-| POST   | `/signin` | Verify auth and log them in |
+| GET    | `/signup`  | Render the signup form |
+| POST   | `/signup`  | Create new account and log them in |
+| GET    | `/signin`  | Render the sign-in form |
+| POST   | `/signin`  | Verify auth and log them in |
+| GET    | `/signout` | Render the logout form (may be unnecessary) |
 | POST   | `/signout` | Delete auth and logout |
 
-#### User-ROOT: `/users/:id`
+#### ROOT: `/users/:uid`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
-| GET | `/` | renders user profile page with habits |
-| GET | `/habits/:id/history` | renders page with visual data displays of specific habit's history |
+| GET    | `/` | renders user's public profile page |
+<!-- 
+| GET    | `/redeemed` | renders user's redeemed reward history |
+| GET    | `/programs/:pid/redeemed` | renders user's redeemed reward history for a program |
+| GET    | `/programs/:pid/habits/:hid/history` | renders the public habit history page for a user's habit (MIRA not for MVP, I think, because I think having the option to make this private would be best?) | 
+| GET    | `/bonds` | renders a list of user's bonds. |
+| GET    | `/bonds/create` | renders a form to request a bond with another user. |
+| POST   | `/bonds/create` | creates a bond between users. |
+| GET    | `/bonds/remove` | renders a form to confirm removal of a bond. |
+| DELETE | `/bonds/remove` | deletes a bond between users.. |
+-->
 
-#### Habits-ROOT: `/users/:id/habits`
+#### ROOT: `/settings`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
-<!-- | GET    | `/` | Get a list of all the user's habits | -->
-| GET    | `/:habit_id` | Get a single habit's full details (`habit_days` history) |
-| POST   | `/` | Create a new habit |
-| PATCH  | `/:habit_id` | Edit a habit | 
-| DELETE | `/:habit_id` | Delete a habit |
+| GET    | `/`        | renders a logged-in user's settings page. |
+| GET    | `/edit`    | Render a form to edit details of a user's account. |
+| PATCH  | `/edit`    | Edit details of a user's account. |
+| GET    | `/delete`  | Render a form to delete the logged-in user's account. |
+| DELETE | `/delete`  | Delete the logged-in user's account. |
 
-#### Individual Habit History-ROOT: `/users/:id/habits/:id`
-`/days`, `/weeks`, `/months`, `/years`? 
-`/data/bar`, `/data/line`, `/data/dot`, `/data/calendar`?
+<!-- 
+#### ROOT: `/programs`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
-| GET | |
-|  |   |
-|  |  | 
+| GET    | `/`        | renders a list of a logged-in user's programs |
+| GET    | `/create`  | Render 'create new program' form. |
+| POST   | `/create`  | Create a new program |
+| GET    | `/:pid/edit` | Edit a program | 
+| PATCH  | `/:pid/edit` | Render 'edit' form for a program. | 
+| GET    | `/:pid/delete` | Render a delete confirmation for a program. |
+| DELETE | `/:pid/delete` | Delete a program | 
+-->
 
+#### ROOT: `/programs/:pid/habits`
+| METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
+| GET    | `/`        | renders a logged-in user's program of habits and daily-stamps. |
+| GET    | `/create`  | Render 'create new habit' form. |
+| POST   | `/create`  | Create a new habit |
+| GET    | `/:hid/edit` | Edit a habit | 
+| PATCH  | `/:hid/edit` | Render 'edit' form for a habit. | 
+| GET    | `/:hid/delete` | Render a delete confirmation for a habit. |
+| DELETE | `/:hid/delete` | Delete a habit |
+
+#### ROOT: `/users/:uid/habits/:hid/history` MIRA I dunno' if this is the ideal routing for these LOL just winged something
+> **NOTE-MIRA:**  - I believe we agreed MVP would include line and calendar graphs and only one type of depiction (by weeks, the same as Loop Habit Tracker's default?)
 
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
-|  |  |
-|  |  |
-|  |  | 
+| GET    |`/`         | renders page with visual data displays of specific habit's history |  
+| GET    | `/line/days`  |  |
+| GET    | `/line/weeks` | MVP |
+| GET    | `/line/months` |  |
+| GET    | `/line/years`  |  |
+| GET    | `/calendar/days`   |  |
+| GET    | `/calendar/weeks`  | MVP |
+| GET    | `/calendar/months` |  |
+| GET    | `/calendar/years`  |  |
+| GET    | `/bar/days`   |  |
+| GET    | `/bar/weeks`  |  |
+| GET    | `/bar/months` |  |
+| GET    | `/bar/years`  |  |
+| GET    | `/bubble/days`   |  |
+| GET    | `/bubble/weeks`  |  |
+| GET    | `/bubble/months` |  |
+| GET    | `/bubble/years`  |  |
+<!-- 
+| GET    | `/days`   | Not sure if day-only routes might have a use, keeping this here just in case |
+| GET    | `/weeks`  |  |
+| GET    | `/months` |  |
+| GET    | `/years`  |  | 
+-->
 
-<!-- | METHOD | Route Path | Purpose         |
+<!-- #### ROOT: `/programs/:pid/rewards`
+| GET    | `/` | render the reward shop page for a program. |
+| POST   | `/:pid/create` | create a custom reward for a program |
+| PATCH  | `/:rid/edit`   | edit a custom reward for a program |
+| DELETE | `/:rid/delete` | delete a custom reward for a program |
+| GET    | `/redeemed` | render a history of redeemed rewards for a program |
+| GET    | `/:rid/redeemed` | render a history of redemptions for one of a program's rewards | -->
+
+<!-- #### ROOT: `/rewards`
+| METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
+| GET    | `/create` | render the create-custom-reward form |
+| GET    | `/edit`   | render the edit-custom-reward form
+| GET |  | `/delete` | render the delete-confirmation reward form -->
+
+<!-- #### ROOT: `/programs/:pid/users`
+| METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
+| GET    | `/` | Render the list of users of a program |
+| GET    | `/members` | Render the list of members of a program |
+| GET    | `/stampers` | Render the list of stampers of a program |
+| GET    | `/join` | Render a form to join a program as a member or stamper. |
+| POST   | `/join` | Add a user as a member or stamper of a program. |
+| GET    | `/leave` | Render a form to leave a program. |
+| DELETE | `/leave` | Remove a user from a program. |
+| GET    | `/invite` | Render a form to invite a bonded user to a program as a member or stamper. |
+| POST   | `/invite` | Send an invite to program to a user. -->
+
+#### ROOT: `/programs/:pid/stampers`
+| METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
+| GET    |  |
+| POST   | `/programs/:pid/habits/:hid/members/:uid/stamp` | Give stamp to a user for a habit program and day.
+| POST   | `/programs/:pid/habits/:hid/members/:uid/ping` | Ping stamper for approval for a habit program and day.
+| POST   | `/programs/:pid/habits/:hid/members/:uid/unstamp` | Remove a stamp for a habit program and day.
+| POST   |  |
+| PATCH  |  | 
+| DELETE |  |
+
+<!-- 
+#### ROOT: ``
+| METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
 |  |  |
 |  |  |
@@ -336,86 +475,90 @@ based on how we decide to go about it.
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
 | POST   | `/`        | Validate signup and make new user account. |
-| GET    | `/:id/cookie` | Authenticate login, return cookie and `user` | NOTE Not quite sure yet this would be the right way to do this...
-| GET    | `/:id`     | Get `user` information |
-| PATCH  | `/:id`     | Authenticate and edit `user` details |
-| DELETE | `/:id`     | Delete a `user` account |
-| GET    | `/:id/auth` | Not sure, but I think we may need a route just to check auth? |
-| GET    | `/:id/programs` | Get all a `user`'s subscribed `programs`. |
+| GET    | `/:uid/cookie` | Authenticate login, return cookie and `user` | NOTE Not quite sure yet this would be the right way to do this...
+| GET    | `/:uid`     | Get `user` information |
+| PATCH  | `/:uid`     | Authenticate and edit `user` details |
+| DELETE | `/:uid`     | Delete a `user` account |
+| GET    | `/:uid/auth` | Not sure, but I think we may need a route just to check auth? |
+| GET    | `/:uid/programs` | Get all a `user`'s subscribed `programs`. |
 <!-- 
 **NOTE-MIRA** For reward and buddies stretch goal features only.
-| GET    | `/:id/redeemed` | Get all a `user`'s `redeem`ed rewards. |
-| GET    | `/:id/redeemed/:type` | Get all a `user`'s `redeem`ed rewards of a specific `type`. |
-| GET    | `/:id/bonds` | Get all a `user`'s `bond`s. |
-| POST   | `/:id/bonds` | Create a `bond` with another `user`. |
-| DELETE | `/:id/bonds/:buddy_id` | Delete a `bond` with a `user`. |
+| GET    | `/:uid/redeemed` | Get all a `user`'s `redeem`ed rewards. |
+| GET    | `/:uid/redeemed/:type` | Get all a `user`'s `redeem`ed rewards of a specific `type`. |
+| GET    | `/:uid/bonds` | Get all a `user`'s `bond`s. |
+| POST   | `/:uid/bonds` | Create a `bond` with another `user`. |
+| DELETE | `/:uid/bonds/:bid` | Delete a `bond` with a `user`. |
 -->
 
 #### ROOT: `/programs`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
 | POST   | `/`        | Create a new `program`.    |
-| GET    | `/:id`     | Get a `program`'s details. |
-<!-- | PATCH  | `/:id`     | Edit a `program`.   |
-| DELETE | `/:id`     | Delete a `program`. |
-| GET    | `/:id/stampers` | Get all a `program`'s `stamper`s. |
-| GET    | `/:id/stampers/:stamper_id` | Get a specific `stamper` and the member(s) they are accountable for. | -->
+| GET    | `/:pid`    | Get a `program`'s details. |
+<!-- 
+| PATCH  | `/:pid`    | Edit a `program`.   |
+| DELETE | `/:pid`    | Delete a `program`. |
+| GET    | `/:pid/stampers` | Get all a `program`'s `stamper`s. |
+| GET    | `/:pid/stampers/:uid` | Get a specific `stamper` and the member(s) they are accountable for. | 
+-->
 
-#### ROOT: `/programs/:id/members`
+#### ROOT: `/programs/:pid/members`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
 | GET    | `/`        | Get a `program`'s `member`s. |
-<!-- | POST   | `/:member_id` | Add a `member` to the `program`. |
-| DELETE | `/:member_id` | Delete a `member` from the `program`. | -->
-| GET    | `/:member_id/habits` | Get a `member`'s `habit`s for a `program`, including last seven days of history for each. |
-| GET    | `/:member_id/habits/:habit_id` | Get a `user` `habit`'s details, including full history (via `stamp_checks`) |
-<!-- | GET    | `/:member_id/stamper` | Get a `member`'s `stamper` in the program.
-| PATCH  | `/:member_id/stamper` | Change a `member`'s `stamper` in the program.
-| DELETE | `/:member_id/stamper` | Remove the assigned `stamper`. -->
+<!-- 
+| POST   | `/:uid`    | Add a `member` to the `program`. |
+| DELETE | `/:uid`    | Delete a `member` from the `program`. | 
+-->
+| GET    | `/:uid/habits` | Get a `member`'s `habit`s for a `program`, including last seven days of history for each. |
+| GET    | `/:uid/habits/:hid` | Get a `user` `habit`'s details, including full history (via `stamp_checks`) |
+<!-- 
+| GET    | `/:uid/stamper` | Get a `member`'s `stamper` in the `program`.
+| PATCH  | `/:uid/stamper` | Change a `member`'s `stamper` in the `program`.
+| DELETE | `/:uid/stamper` |  Unassign the assigned `stamper`.
+-->
 
-#### ROOT: `/programs/:id/habits`
+#### ROOT: `/programs/:pid/habits`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
-| GET    | `/` | Get all a `program`'s `habits`, including last seven days of history for each. |
-| GET    | `/:habit_id` | Get a `habit`'s details, including full histories for from all members (via `stamp_checks`) |
+| GET    | `/`        | Get all a `program`'s `habits`, including last seven days of history for each. |
+| GET    | `/:hid`    | Get a `habit`'s details, including full histories for from all members (via `stamp_checks`) |
 | POST   | `/`        | Create a `habit` for a `program`. |
-| PATCH  | `/:habit_id` | Edit a `habit` for a `program`. |
-| DELETE | `/:habit_id` | Delete a `habit` for a `program`. |
+| PATCH  | `/:hid`    | Edit a `habit` for a `program`. |
+| DELETE | `/:hid`    | Delete a `habit` for a `program`. |
 
-#### ROOT: `/programs/:id/habits/:habit_id/members/:member_id`
-| POST   | `/stamp`     | Change status of associated `daily_stamp` to 'stamped' |
+#### ROOT: `/programs/:pid/habits/:hid/members/:uid`
+| POST   | `/stamp`   | Change status of associated `daily_stamp` to 'stamped' |
 | DELETE | `/`     | Change status of associated `daily_stamp` to 'unstamped' |
-<!-- | POST   | `/ping`     | Change status of associated `daily_stamp` to 'pending' | -->
+<!-- 
+| POST   | `/ping`     | Change status of associated `daily_stamp` to 'pending' | 
+-->
 
 <!-- #### ROOT: `/rewards`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
-| GET    | `/` | Get all default rewards. |
-| GET    | `/:type` | Get all rewards of a specific type. | <-- maybe default-permanent options only?
+| GET    | `/`        | Get all default rewards. |
+| GET    | `/:type`   | Get all rewards of a specific type. | <-- default-permanent options only
  -->
 
 <!-- 
-#### ROOT: `/programs/:id/rewards`
+#### ROOT: `/programs/:pid/rewards`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
-| GET    | `/` | Get all a `program`'s custom `reward`s. |
-| POST   | `/` | Create a new custom `reward`. |
-| PATCH  | `/:reward_id` | Edit a custom `reward`.    |
-| DELETE | `/:reward_id` | Delete a custom `reward`.  | 
-| POST   | `/:reward_id/redeem/users/:user_id` | Redeem a `reward` for a `user` | <-- effects points
+| GET    | `/`        | Get all a `program`'s custom `reward`s. |
+| POST   | `/`        | Create a new custom `reward`. |
+| PATCH  | `/:rid`    | Edit a custom `reward`.    |
+| DELETE | `/:rid`    | Delete a custom `reward`.  | 
+| POST   | `/:rid/redeem/users/:uid` | Redeem a `reward` for a `user` | <-- effects points
 -->
 
-**NOTE** Consider additional routes specific to length of time, for different sort options? Examples: `/:id/days`, `/:id/weeks`, `/:id/months`, `/:id/days/:limit`. Routes that fetch and order by specific values, like color, when created,, name, etc? Examples: `/by-colors`, `by-names`, `by-created-at`. Clean up data back here thoroughly before sending back? ex. for bar graph, etc.{}
-
-**NOTE** Create and run these routes so that there is a default program and it
-is used, even if we aren't planning on implementing the feature. I want it.
-
-
-<!-- | METHOD | Route Path | Purpose         |
+<!--
+| METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
-|  |  |
-|  |  |
-|  |  |  -->
+|  |  |  |
+|  |  |  |
+|  |  |  | 
+-->
 
 ---------
 
