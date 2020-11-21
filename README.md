@@ -2,56 +2,84 @@
 
 **Team:** Alicia M Kim, David Lee, Eric Lyda, Brian Wang, Scrum Leader Sergey Gridin
 
+**Goal Milestones**
+* MVP: habit tracker - make a habit, mark it each day, see the trend results
+* Major Stretch 1: reward system - earn points, add custom rewards, 'buy' rewards - provide simple default rewards. MVP, just one easy one. 
+* Major Stretch 2: accountability buddy - connect accounts, assigning the 'giver'. click habit to ask for confirmation. giver is pinged and confirms. giver can add custom rewards.
+* Major Stretch 3: multiple buddies and programs/trackers - make 'friends'. create trackers specific to 'program', rather than specific to 'user', then associate programs to users. programs have program-specific tasks, rewards, and buddies.
 
 ## Table Of Contents
 <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
 - [**Description**](#description)
-- [**Technologies**](#technologies)
-- [**Feature List: MVP**](#feature-list-mvp)
-  - [User Account](#user-account)
-  - [Habit Tracker](#habit-tracker)
-  - [Results display](#results-display)
-- [**Feature List: Stretch Goals**](#feature-list-stretch-goals)
-  - [Extending Habit-tracker:](#extending-habit-tracker)
-  - [Extending Results Display:](#extending-results-display)
-  - [Full New Feature: Progress Reward System](#full-new-feature-progress-reward-system)
-  - [(Low-Priority) Miscellaneous](#low-priority-miscellaneous)
-- [**Models & Schema**](#models-schema)
-  - [`users`](#users)
-  - [`habits`](#habits)
-  - [`habit_days`](#habit_days)
-  - [`colors`](#colors)
-  - [`rewards`](#rewards)
-  - [`user_rewards`](#user_rewards)
-- [**Routes & Endpoints**](#routes-endpoints)
-  - [Frontend](#frontend)
-    - [Entry/exit points-ROOT: `/`](#entryexit-points-root)
-    - [User-ROOT: `/users/:id`](#user-root-usersid)
-    - [Habits-ROOT: `/users/:id/habits`](#habits-root-usersidhabits)
-    - [Individual Habit History-ROOT: `/users/:id/habits/:id`](#individual-habit-history-root-usersidhabitsid)
-  - [Backend](#backend)
-- [**Wireframes & Templates**](#wireframes-templates)
-  - [General Theming](#general-theming)
-  - [Responsive Web Design (RWD) Considerations...](#responsive-web-design-rwd-considerations)
-  - [Navigation](#navigation)
-  - [Signup (splash)/signin/logout](#signup-splashsigninlogout)
-  - [Habit tracker page](#habit-tracker-page)
-  - [Results display page(s)](#results-display-pages)
-  - [Add, delete, edit, etc. forms (popups?)](#add-delete-edit-etc-forms-popups)
-- [**User Story**](#user-story)
-  - [Signup/signin/signout](#signupsigninsignout)
-  - [Navigation](#navigation-1)
-  - [Creating a habit](#creating-a-habit)
-  - [Editing/deleting a habit](#editingdeleting-a-habit)
-  - [Examining results displays](#examining-results-displays)
-  - [Navigator user settings](#navigator-user-settings)
-  - [Browsing and 'buying' rewards](#browsing-and-buying-rewards)
-- [**Seeder Data**](#seeder-data)
-  - [Users](#users-1)
-  - [User's Habits](#users-habits)
-  - [User's Habit Histories](#users-habit-histories)
-  - [User's Rewards/Points](#users-rewardspoints)
+- [Team SBADE - Habit Tracker Productivity App](#team-sbade-habit-tracker-productivity-app)
+    - [GOAL Tables and good testing seeder data created](#goal-tables-and-good-testing-seeder-data-created)
+    - [GOAL: Have backend CRUDs working with postman.](#goal-have-backend-cruds-working-with-postman)
+    - [Have frontend fetching, posting, and displaying on templates, full interactivity for user implemented](#have-frontend-fetching-posting-and-displaying-on-templates-full-interactivity-for-user-implemented)
+    - [GOAL Make it presentable](#goal-make-it-presentable)
+    - [GOAL: Reward CRUDs](#goal-reward-cruds)
+    - [GOAL: pretty up the shop, quality check](#goal-pretty-up-the-shop-quality-check)
+  - [ACCOUNTABILITY BUDDY FEATURE](#accountability-buddy-feature)
+    - [BACKEND](#backend)
+    - [FRONTEND](#frontend)
+    - [MULTIPLE BUDDIES/PROGRAMS FEATURE](#multiple-buddiesprograms-feature)
+  - [Table Of Contents](#table-of-contents)
+  - [Description](#description)
+  - [Technologies](#technologies)
+  - [Feature List: MVP](#feature-list-mvp)
+    - [User Account](#user-account)
+    - [Habit Tracker](#habit-tracker)
+    - [Results display](#results-display)
+  - [Feature List: Stretch Goals](#feature-list-stretch-goals)
+    - [* Extending Habit-tracker:](#extending-habit-tracker)
+    - [* Extending Results Display:](#extending-results-display)
+    - [Full New Feature: Progress Reward System](#full-new-feature-progress-reward-system)
+    - [(Low-Priority) Miscellaneous](#low-priority-miscellaneous)
+  - [Models & Schema](#models-schema)
+  - [MVP FEATURE TABLES](#mvp-feature-tables)
+    - [`users`](#users)
+    - [`programs`](#programs)
+    - [`members`](#members)
+    - [`habits`](#habits)
+    - [`daily_stamps`](#daily_stamps)
+  - [REWARD SYSTEM FEATURE](#reward-system-feature)
+    - [`rewards`](#rewards)
+    - [`redeemed`](#redeemed)
+  - [ACCOUNTABILITY CONNECTION FEATURE](#accountability-connection-feature)
+    - [`bonds`](#bonds)
+  - [Routes & Endpoints](#routes-endpoints)
+    - [Frontend](#frontend-1)
+      - [Entry/exit points-ROOT: `/`](#entryexit-points-root)
+      - [User-ROOT: `/users/:id`](#user-root-usersid)
+      - [Habits-ROOT: `/users/:id/habits`](#habits-root-usersidhabits)
+      - [Individual Habit History-ROOT: `/users/:id/habits/:id`](#individual-habit-history-root-usersidhabitsid)
+    - [Backend](#backend-1)
+      - [ROOT: `/users`](#root-users)
+      - [ROOT: `/programs`](#root-programs)
+      - [ROOT: `/programs/:id/members`](#root-programsidmembers)
+      - [ROOT: `/programs/:id/habits`](#root-programsidhabits)
+      - [ROOT: `/programs/:id/habits/:habit_id/members/:member_id`](#root-programsidhabitshabit_idmembersmember_id)
+  - [Wireframes & Templates](#wireframes-templates)
+    - [General Theming](#general-theming)
+    - [Responsive Web Design (RWD) Considerations...](#responsive-web-design-rwd-considerations)
+    - [Navigation](#navigation)
+    - [Signup (splash)/signin/logout](#signup-splashsigninlogout)
+    - [Habit tracker page](#habit-tracker-page)
+    - [Results display page(s)](#results-display-pages)
+    - [Add, delete, edit, etc. forms (popups?)](#add-delete-edit-etc-forms-popups)
+  - [User Story](#user-story)
+    - [Signup/signin/signout](#signupsigninsignout)
+    - [Navigation](#navigation-1)
+    - [Creating a habit](#creating-a-habit)
+    - [Editing/deleting a habit](#editingdeleting-a-habit)
+    - [Examining results displays](#examining-results-displays)
+    - [Navigator user settings](#navigator-user-settings)
+    - [* Browsing and 'buying' rewards](#browsing-and-buying-rewards)
+  - [Seeder Data](#seeder-data)
+    - [Users](#users-1)
+    - [User's Habits](#users-habits)
+    - [User's Habit Histories](#users-habit-histories)
+    - [User's Rewards/Points](#users-rewardspoints)
 
 <!-- /code_chunk_output -->
 
@@ -143,82 +171,129 @@ Purpose, market, functionality
 Separate color table, or just a value on the habits table?
 Is `created_at` needed for habit_days or habits on top of `date`?
 
-![Table Models](https://cdn.discordapp.com/attachments/778064934318637110/778772759735566367/Productivity_Project_2.png)
+![Table Models](https://dbdiagram.io/embed/5fb84e793a78976d7b7ccdcb)
+<iframe width="560" height="315" src='https://dbdiagram.io/embed/5fb84e793a78976d7b7ccdcb'> </iframe>
 
 **TABLES LIST**
- - users
- - habits
- - habit_days
- - ?colors?
- - rewards
- - user_rewards
- 
+- users
+- programs
+- members
+- habits
+- daily_stamps
+- rewards
+- redeemed
+- bonds
+
+
+## MVP FEATURE TABLES
 ### `users`
 | users      | Constraints                                   |
 |------------|-----------------------------------------------|
 | id         | SERIAL, PRIMARY KEY                           |
-| name       | VARCHAR(50) NOT NULL                          |
+| first_name | VARCHAR(50) NOT NULL                          |
+| last_name  | VARCHAR(50) NOT NULL                          |
 | email      | VARCHAR(50), NOT NULL, UNIQUE                 |
 | hashword   | VARCHAR(250) NOT NULL                         |
 | created_at | TIMESTAMP, NOT NULL, DEFAULT VALUE=new Date() |
-|*points     | INTEGER, NOT NULL, DEFAULT VALUE=0            |
-|*setting    | VARCHAR(250)                                  |
+| color      | VARCHAR(7), NOT NULL, DEFAULT VALUE='#000000'  |
+| stamp      | VARCHAR(50), NOT NULL, DEFAULT VALUE='user-circle' |
+
+### `programs`
+| columns   | Constraints                              |
+|-----------|------------------------------------------|
+| id        | SERIAL, PRIMARY KEY                      |
+| program   | VARCHAR(50), NOT NULL |
+| description | VARCHAR(250)
+| color     | VARCHAR(7), NOT NULL, DEFAULT VALUE='#000000' |
+| stamp     | VARCHAR(50), NOT NULL, DEFAULT VALUE='calendar-alt' |
+| creator_id | INTEGER, FOREIGN KEY=users.id, NOT NULL |
+| created_at | TIMESTAMP, NOT NULL, DEFAULT VALUE=new Date() |
+
+### `members`
+| columns   | Constraints                              |
+|-----------|------------------------------------------|
+| id        | SERIAL, PRIMARY KEY                      |
+| program_id | INTEGER, FOREIGN KEY=programs.id, NOT NULL |
+| member_id  | INTEGER, FOREIGN KEY=users.id, NOT NULL |
+| stamper_id | INTEGER, FOREIGN KEY=users.id           | - null by default. if null, memberself-stamps. OR same as member id.
+| points | INTEGER, NOT NULL, DEFAULT VALUE=0 |
 
 ### `habits`
 | habits      | Constraints                                   |
 |-------------|-----------------------------------------------|
 | id          | SERIAL, PRIMARY KEY                           |
 | habit       | VARCHAR(50), NOT NULL                         |
-| user_id     | INTEGER, FOREIGN KEY=users.id, NOT NULL       |
-| color_id    | INTEGER, FOREIGN KEY=colors.id, NOT NULL      |
 | description | VARCHAR(250)                                  |
-| frequency   | INTEGER                                       |
-| ?created_at | TIMESTAMP, NOT NULL, DEFAULT VALUE=new Date() |
+| frequency   | ENUM(0, 1, 2, 3, 4, 5, 6, 7)                  |
+| color       | VARCHAR(7), NOT NULL, DEFAULT VALUE='#000000' |
+| stamp       | VARCHAR(50), NOT NULL, DEFAULT VALUE='check-circle' |
+| program_id  | INTEGER, FOREIGN KEY=programs.id, NOT NULL    |
+| creator_id  | INTEGER, FOREIGN KEY=users.id, NOT NULL       |
+| created_at  | TIMESTAMP, NOT NULL, DEFAULT VALUE=new Date() |
 
-### `habit_days`
-| habit_days  | Constraints                                   |
+
+### `daily_stamps`
+| columns     | Constraints                                   |
 |-------------|-----------------------------------------------|
 | id          | SERIAL, PRIMARY KEY                           |
-| date        | DATE, NOT NULL, DEFAULT VALUE=new Date()      |
-| checked     | BOOLEAN, DEFAULT VALUE=false                  |
+| date        | DATE, NOT NULL                                |
+| status      | ENUM('unstamped', 'pending', 'stamped'), NOT NULL, DEFAULT VALUE='unstamped' |
+| member_id   | INTEGER, FOREIGN KEY=users.id, NOT NULL       |
 | habit_id    | INTEGER, FOREIGN KEY=habits.id, NOT NULL      |
-| ?created_at | TIMESTAMP, NOT NULL, DEFAULT VALUE=new Date() |
 
-### `colors`
-| colors | Constraints                   |
-|--------|-------------------------------|
-| id     | SERIAL, PRIMARY KEY           |
-| color  | VARCHAR(50), NOT NULL, UNIQUE |
-
+## REWARD SYSTEM FEATURE
 ### `rewards`
-| rewards | Constraints                        |
-|---------|------------------------------------|
-| id      | SERIAL, PRIMARY KEY                |
-| reward  | VARCHAR(50)                        |
-| type    | VARCHAR(20)                        |
-| cost    | INTEGER, NOT NULL, DEFAULT VALUE=1 |
+| columns | Constraints                          |
+|---------|--------------------------------------|
+| id      | SERIAL, PRIMARY KEY                  |
+| type    | ENUM('color', 'stamp', 'badge', 'sprite', 'title', 'other', 'custom') |
+| reward  | VARCHAR(50), NOT NULL                |
+| description | VARCHAR(250) |
+| cost     | INTEGER, NOT NULL, DEFAULT VALUE=7  |
+| quantity | INTEGER, NOT NULL, DEFAULT VALUE=1  | NOTE -1 = unlimited?
+| color    | VARCHAR(7), NOT NULL, DEFAULT VALUE='#000000' |
+| stamp    | VARCHAR(50), NOT NULL, DEFAULT VALUE='award' |
+| program_id | INTEGER, FOREIGN KEY=programs.id  | NULLABLE
+| creator_id | INTEGER, FOREIGN KEY=users.id | NULLABLE
+| created_at | TIMESTAMP, DEFAULT VALUE=new Date() | NULLABLE
 
-### `user_rewards`
+### `redeemed`
 | user_rewards | Constraints                               |
 |--------------|-------------------------------------------|
 | id           | SERIAL, PRIMARY KEY                       |
 | user_id      | INTEGER, FOREIGN KEY=users.id, NOT NULL   |
 | reward_id    | INTEGER, FOREIGN KEY=rewards.id, NOT NULL |
+| redeemed_at  | TIMESTAMP, DEFAULT VALUE=new Date(), NOT NULL |
 
 
-<!-- 
-|       | Constraints         |
-|-------|---------------------|
-| id    | SERIAL, PRIMARY KEY |
-|       |  |
-|       |  | 
--->
-
+## ACCOUNTABILITY CONNECTION FEATURE
+### `bonds`
+| columns  | Constraints                             |
+|----------|-----------------------------------------|
+| id       | SERIAL, PRIMARY KEY                     |
+| user_id  | INTEGER, FOREIGN KEY=users.id, NOT NULL | combo-unique
+| buddy_id | INTEGER, FOREIGN KEY=users.id, NOT NULL |
 
 ---------
 
 ## Routes & Endpoints
 ### Frontend
+splash
+habit tracker
+results
+shop
+
+friends
+badges/rewards
+signup form
+login form
+logout form
+settings form
+task maker form
+program maker form
+
+
+
 **NOTE** Remember to decide and integrate authentication/privacy setting concerns too for each route, 
 based on how we decide to go about it.
 
@@ -226,20 +301,16 @@ based on how we decide to go about it.
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
 | GET    | `/`          | render splash page |
-| GET    | `/home`      | render user's habit-tracker homepage | 
+| GET    | `/home`    | render user's habit-tracker homepage | 
 | POST   | `/signup` | Create new account and log them in |
 | POST   | `/signin` | Verify auth and log them in |
 | POST   | `/signout` | Delete auth and logout |
-|  |
-| 
 
 #### User-ROOT: `/users/:id`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
 | GET | `/` | renders user profile page with habits |
 | GET | `/habits/:id/history` | renders page with visual data displays of specific habit's history |
-|  |  | 
-
 
 #### Habits-ROOT: `/users/:id/habits`
 | METHOD | Route Path | Purpose         |
@@ -266,7 +337,6 @@ based on how we decide to go about it.
 |  |  |
 |  |  | 
 
-
 <!-- | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
 |  |  |
@@ -274,50 +344,131 @@ based on how we decide to go about it.
 |  |  |  -->
 
 
-/settings???
-
-* idea for user accountability connection-creation
-/users/:id
-friend join table boolean
-
 ### Backend
-/users - login, tokens, security
-post - make new user
-put - edit user details
-get - get user details
-delete - delete user account
-token????
+#### ROOT: `/users`
+| METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
+| POST   | `/`        | Validate signup and make new user account. |
+| GET    | `/:id/cookie` | Authenticate login, return cookie and `user` | NOTE Not quite sure yet this would be the right way to do this...
+| GET    | `/:id`     | Get `user` information |
+| PATCH  | `/:id`     | Authenticate and edit `user` details |
+| DELETE | `/:id`     | Delete a `user` account |
+| GET    | `/:id/auth` | Not sure, but I think we may need a route just to check auth? |
+| GET    | `/:id/programs` | Get all a `user`'s subscribed `programs`. |
+<!-- 
+**NOTE-MIRA** For reward and buddies stretch goal features only.
+| GET    | `/:id/redeemed` | Get all a `user`'s `redeem`ed rewards. |
+| GET    | `/:id/redeemed/:type` | Get all a `user`'s `redeem`ed rewards of a specific `type`. |
+| GET    | `/:id/bonds` | Get all a `user`'s `bond`s. |
+| POST   | `/:id/bonds` | Create a `bond` with another `user`. |
+| DELETE | `/:id/bonds/:buddy_id` | Delete a `bond` with a `user`. |
+-->
 
-user/id/habits/id - get user's list of habits - to show list, crud
-get - get all habits by user,
-  get with filter? color, other?
-  /patch - edit habit
-  /delete - delete habit
-  /create - make a habit
-  get only select time? day, last week, last month, last year
-  * clean up data back here before sending back? ex. for bar graph, etc.{}
-  
-/days - history
-POST habit_days/:id/post - boolean - toggle, not 'turn on'
-/days/current_week for the interactive ribbon display
+#### ROOT: `/programs`
+| METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
+| POST   | `/`        | Create a new `program`.    |
+| GET    | `/:id`     | Get a `program`'s details. |
+<!-- | PATCH  | `/:id`     | Edit a `program`.   |
+| DELETE | `/:id`     | Delete a `program`. |
+| GET    | `/:id/stampers` | Get all a `program`'s `stamper`s. |
+| GET    | `/:id/stampers/:stamper_id` | Get a specific `stamper` and the member(s) they are accountable for. | -->
 
-/days/bar/weeks/:limit - somehow customize the query and data structure to suit the exact needs
-for the requested graph-data???
+#### ROOT: `/programs/:id/members`
+| METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
+| GET    | `/`        | Get a `program`'s `member`s. |
+<!-- | POST   | `/:member_id` | Add a `member` to the `program`. |
+| DELETE | `/:member_id` | Delete a `member` from the `program`. | -->
+| GET    | `/:member_id/habits` | Get a `member`'s `habit`s for a `program`, including last seven days of history for each. |
+| GET    | `/:member_id/habits/:habit_id` | Get a `user` `habit`'s details, including full history (via `stamp_checks`) |
+<!-- | GET    | `/:member_id/stamper` | Get a `member`'s `stamper` in the program.
+| PATCH  | `/:member_id/stamper` | Change a `member`'s `stamper` in the program.
+| DELETE | `/:member_id/stamper` | Remove the assigned `stamper`. -->
 
-* GET /users/:id/rewards - get user 'inventory'? 
-* GET /rewards - get all rewards for shop
-* POST /rewards/:id/purchase - give user reward, lower points
+#### ROOT: `/programs/:id/habits`
+| METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
+| GET    | `/` | Get all a `program`'s `habits`, including last seven days of history for each. |
+| GET    | `/:habit_id` | Get a `habit`'s details, including full histories for from all members (via `stamp_checks`) |
+| POST   | `/`        | Create a `habit` for a `program`. |
+| PATCH  | `/:habit_id` | Edit a `habit` for a `program`. |
+| DELETE | `/:habit_id` | Delete a `habit` for a `program`. |
 
-* plant/status icon indicator? how handle, don't forget
+#### ROOT: `/programs/:id/habits/:habit_id/members/:member_id`
+| POST   | `/stamp`     | Change status of associated `daily_stamp` to 'stamped' |
+| DELETE | `/`     | Change status of associated `daily_stamp` to 'unstamped' |
+<!-- | POST   | `/ping`     | Change status of associated `daily_stamp` to 'pending' | -->
+
+<!-- #### ROOT: `/rewards`
+| METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
+| GET    | `/` | Get all default rewards. |
+| GET    | `/:type` | Get all rewards of a specific type. | <-- maybe default-permanent options only?
+ -->
+
+<!-- 
+#### ROOT: `/programs/:id/rewards`
+| METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
+| GET    | `/` | Get all a `program`'s custom `reward`s. |
+| POST   | `/` | Create a new custom `reward`. |
+| PATCH  | `/:reward_id` | Edit a custom `reward`.    |
+| DELETE | `/:reward_id` | Delete a custom `reward`.  | 
+| POST   | `/:reward_id/redeem/users/:user_id` | Redeem a `reward` for a `user` | <-- effects points
+-->
+
+**NOTE** Consider additional routes specific to length of time, for different sort options? Examples: `/:id/days`, `/:id/weeks`, `/:id/months`, `/:id/days/:limit`. Routes that fetch and order by specific values, like color, when created,, name, etc? Examples: `/by-colors`, `by-names`, `by-created-at`. Clean up data back here thoroughly before sending back? ex. for bar graph, etc.{}
+
+**NOTE** Create and run these routes so that there is a default program and it
+is used, even if we aren't planning on implementing the feature. I want it.
+
+
+<!-- | METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
+|  |  |
+|  |  |
+|  |  |  -->
 
 ---------
 
 ## Wireframes & Templates
 ### General Theming
+- **Title Ideas** PersiStamp or Persistamp (Persistent/Stamp)
+
+- **Logo Ideas** A turtle stamp
+
 - **Colors** (base/background, primary, secondary, accent...)
+Colorful and friendly. Dark mode first. Light mode as stretch goal.
+
+  - red-violet-crayola: #af4d98ff;
+  - wild-orchid: #d66ba0ff;
+  - pastel-pink: #e5a9a9ff;
+  - dutch-white: #f4e4baff;
+  - celeste: #baf2e9ff;
+  - granny-smith-apple: #b0f2b4ff;
+  - magic-mint: #9df7e5ff;
+  - blizzard-blue: #b8f3ffff;
+  - middle-blue: #8ac6d0ff;
+  - cadet-blue: #58a4b0ff;
+  - dark-slate-blue: #54478cff;
+  - sapphire-blue: #2c699aff;
+  - blue-munsell: #048ba8ff;
+  - keppel: #0db39eff;
+  - medium-aquamarine: #16db93ff;
+  - light-green: #83e377ff;
+  - inchworm: #b9e769ff;
+  - corn: #efea5aff;
+  - maize-crayola: #f1c453ff;
+  - sandy-brown: #f29e4cff;
+
 - **Fonts** (Choose 1-2 main ones, 3-5 sizes (relative), don't have more than 3 fonts, less is more)
 - **Aesthetic** (If based on Loop Habit Tracker, perhaps ex. Clean, minimal, cheerful, * slightly customizable to people's tastes with rewards)
+
+Analog-feel of paper, stamps, traditional materials, sticky notes/journals, 'reward boards', et cetera? Chalkboard?
+
 - ** Etcetera** ...
+
 
 ### Responsive Web Design (RWD) Considerations...
 **TODO** Should we try a mobile-first approach for the CSS/design layout?
@@ -423,4 +574,3 @@ Different users having different styles to showcase the app's flexibility?
 * Checkmark symbols
 * Colors
 * avatar badge? reward? 
-
