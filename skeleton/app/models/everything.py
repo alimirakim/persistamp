@@ -12,13 +12,6 @@ default_stamps = {
   "reward": 4, #"award"
 }
 
-bonds = db.Table( # combined unique constraint
-  "bonds",
-  db.Column("id", db.Integer, primary_key=True),
-  db.Column("user1_id", db.Integer, db.ForeignKey("users.id"), nullable=False),
-  db.Column("user2_id", db.Integer, db.ForeignKey("users.id"), nullable=False),
-  db.Column("created_at", db.DateTime, default=datetime.now()),
-)
 
 redeemed = db.Table(
   "redeemed",
@@ -27,6 +20,16 @@ redeemed = db.Table(
   db.Column("reward_id", db.Integer, db.ForeignKey("rewards.id"), nullable=False),
   db.Column("redeemed_at", db.DateTime, nullable=False, default=datetime.now())
 )
+
+class Bond(db.Model): # combined unique constraint
+  __tablename__ = 'bonds'
+  id = db.Column(db.Integer, primary_key=True)
+  user1_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+  user2_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+  created_at = db.Column(db.DateTime, default=datetime.now())
+
+  user1 = db.relationship("User", foreign_keys=[user1_id], back_populates="users1")
+  user2 = db.relationship("User", foreign_keys=[user2_id], back_populates="users2")
 
 
 class Stamp(db.Model):
@@ -49,7 +52,7 @@ class User(db.Model):
   last_name = db.Column(db.String(50))
   email = db.Column(db.String(50), nullable=False, unique=True)
   color = db.Column(db.String(7), nullable=False, default=default_color)
-  stamp_id = db.Column(db.Integer, db.ForeignKey("stamps.id"), nullable=False, default=default_stamps["user"])
+  stamp_id = db.Column(db.Integer, db.ForeignKey("stamps.id")) #, nullable=False, default=default_stamps["user"])
   birthday = db.Column(db.Date)
   hashed_password = db.Column(db.String(255), nullable=False)
   created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
@@ -61,7 +64,8 @@ class User(db.Model):
   members = db.relationship("Member", back_populates="member", foreign_keys="[Member.member_id]")
   stampers = db.relationship("Member", back_populates="stamper", foreign_keys="[Member.stamper_id]")
   redeemed = db.relationship("Reward", secondary=redeemed, back_populates="redeemed")
-  bonds = db.relationship("User", secondary=bonds, back_populates="bonds", foreign_keys="[user1_id, user2_id]")
+  users1 = db.relationship("Bond", back_populates="user1", foreign_keys="[Bond.user1_id]")
+  users2 = db.relationship("Bond", back_populates="user2", foreign_keys="[Bond.user2_id]")
 
   @property
   def password(self):
