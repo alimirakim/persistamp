@@ -71,6 +71,7 @@ def sign_up():
             last_name=form.data['last_name'],
             birthday=form.data['birthday']
         )
+        # do we need to hash password here? or does the model handle it
         db.session.add(user)
         db.session.commit()
         login_user(user)
