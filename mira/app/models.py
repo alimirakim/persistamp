@@ -31,9 +31,9 @@ redeemed = db.Table(
 class Stamp(db.Model):
     __tablename__ = "stamps"
     id = db.Column(db.Integer, primary_key=True)
-    stamp = db.Column(db.String(50), nullable=False, unique=True) 
+    stamp = db.Column(db.String(50), nullable=False, unique=True)
     type = db.Column(db.String(50), nullable=False)
-  
+
     users = db.relationship("User", back_populates="stamp")
     programs = db.relationship("Program", back_populates="stamp")
     habits = db.relationship("Habit", back_populates="stamp")
@@ -50,9 +50,9 @@ class User(db.Model):
     color = db.Column(db.String(7), nullable=False, default=default_color)
     stamp_id = db.Column(db.Integer, db.ForeignKey("stamps.id"), nullable=False, default=default_stamps["user"])
     birthday = db.Column(db.Date)
-    hashword = db.Column(db.String(250), nullable=False)
+    hashed_password = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
-    
+
     stamp = db.relationship("Stamp", back_populates="users")
     created_programs = db.relationship("Program", back_populates="creator")
     created_habits = db.relationship("Habit", back_populates="creator")
@@ -72,7 +72,7 @@ class Program(db.Model):
     stamp_id = db.Column(db.Integer, db.ForeignKey("stamps.id"), nullable=False, default=default_stamps["program"])
     creator_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
-    
+
     stamp = db.relationship("Stamp", back_populates="programs")
     creator = db.relationship("User", back_populates="created_programs")
     members = db.relationship("Member", back_populates="program")
@@ -89,7 +89,7 @@ class Member(db.Model):
     points = db.Column(db.Integer, nullable=False, default=0)
     joined_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
     # TODO Program+member should be unique
-    
+
     program = db.relationship("Program", back_populates="members")
     member = db.relationship("User", back_populates="members")
     stamper = db.relationship("User", back_populates="stampers")
@@ -108,7 +108,7 @@ class Habit(db.Model):
     creator_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
     # TODO habit+program should be unique
-    
+
     stamp = db.relationship("Stamp", back_populates="habits")
     program = db.relationship("Program", back_populates="habits")
     creator = db.relationship("User", back_populates="created_habits")
@@ -144,7 +144,7 @@ class Reward(db.Model):
     creator_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
     # TODO program+ reward should be unique
-    
+
     stamp = db.relationship("Stamp", back_populates="rewards")
     program = db.relationship("Program", back_populates="rewards")
     creator = db.relationship("User", back_populates="created_rewards")
