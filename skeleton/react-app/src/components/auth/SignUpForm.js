@@ -3,6 +3,9 @@ import { Redirect } from 'react-router-dom';
 import { signUp } from '../../services/auth';
 
 const SignUpForm = ({authenticated, setAuthenticated}) => {
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [birthday, setBirthday] = useState("");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -11,13 +14,29 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const user = await signUp(username, email, password);
+      const user = await signUp(
+        first_name,
+        last_name,
+        birthday,
+        username,
+        email,
+        password,
+        );
       if (!user.errors) {
         setAuthenticated(true);
       }
     }
   };
 
+  const updateFirstName = (e) => {
+    setFirstName(e.target.value);
+  };
+  const updateLastName = (e) => {
+    setLastName(e.target.value);
+  };
+  const updateBirthday = (e) => {
+    setBirthday(e.target.value);
+  };
   const updateUsername = (e) => {
     setUsername(e.target.value);
   };
@@ -41,7 +60,34 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
   return (
     <form onSubmit={onSignUp}>
       <div>
-        <label>User Name</label>
+        <label>First name</label>
+        <input
+          type="text"
+          name="first_name"
+          onChange={updateFirstName}
+          value={first_name}
+        ></input>
+      </div>
+      <div>
+        <label>Last name</label>
+        <input
+          type="text"
+          name="last_name"
+          onChange={updateLastName}
+          value={last_name}
+        ></input>
+      </div>
+      <div>
+        <label>Birthday</label>
+        <input
+          type="date"
+          name="birthday"
+          onChange={updateBirthday}
+          value={birthday}
+        ></input>
+      </div>
+      <div>
+        <label>Username</label>
         <input
           type="text"
           name="username"
@@ -68,7 +114,7 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
         ></input>
       </div>
       <div>
-        <label>Repeat Password</label>
+        <label>Confirm Password</label>
         <input
           type="password"
           name="repeat_password"
