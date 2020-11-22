@@ -2,7 +2,7 @@ from flask import Flask
 from flask_migrate import Migrate
 from app.config import Configuration
 from app.models import db
-from app.routes import users, programs, members, habits, rewards
+from app.routes import users, programs, members, rewards, habits
 
 app = Flask(__name__)
 app.config.from_object(Configuration)

@@ -1,41 +1,71 @@
 from flask import Blueprint, render_template, redirect
+from app.models import Program, User, Member
+from app.schemas import program_schema, user_schema, member_schema
 
 programs = Blueprint("programs", __name__, url_prefix="/programs")
-
 
 
 # PROGRAMS
 @programs.route("/", methods=["POST"])
 def create_program():
     """Create a new program."""
-    pass
+    program = Program(program=program,
+                      description=,
+                      color=,
+                      stamp_id=,
+                      creator_id=,)
+    db.session.add(program)
+    db.session.commit()
+    program_data = program_schema.dump(program)
+    return jsonify(program_data)
+    
   
 @programs.route("/<int:pid>")
-def program():
+def program_details(pid):
     """Get a program's details by id."""
-    pass
+    program = Program.query.filter(Program.id == pid).one()
+    program_data = program_schema.dump(program)
+    return jsonify(program_data)
   
 
 @programs.route("/<int:pid>", methods=["PATCH"])
-def edit_program():
+def edit_program(pid):
     """Edit a program's details."""
-    pass 
+    program = Program.query.filter(Program.id == pid).one()
+    # program.program = 
+    # program.description = 
+    # program.color = 
+    # program.stamp_id = 
+    # program.creator_id = 
+    db.session.commit()
+    program_data = program_schema.dump(program)
+    return jsonify(program_data)
 
 
+# TODO Does this need cascade delete?
 @programs.route("/<int:pid>", methods=["DELETE"])
-def delete_program():
+def delete_program(pid):
     """Delete a program by id."""
-    pass
+    program = Program.query.filter(Program.id == pid).one()
+    db.session.delete(program)
+    return "Program successfully deleted!"
 
 
-# PROGRAM STAMPERS
+# TODO How do I filter this?
 @programs.route("/<int:pid>/stampers")
-def program_stampers():
+def program_stampers(pid):
     """Get a list of a program's stampers and their details."""
-    pass
+    stampers = User.query.filter().all()
+    program_stampers = []
+    for stamper in stampers:
+        program_stampers.append(user_schema.dump(stamper))
+    return jsonify(program_stampers)
 
 
+# TODO How the heckers
 @programs.route("/<int:pid>/stampers/<int:uid>")
-def program_stamper_members():
+def program_stamper_members(pid, uid):
     """Get a stamper's details and a list of the members they stamp for."""
-    pass
+    stamper = User.query.filter().one()
+    stamper_data = user_schema.dump(stamper)
+    return jsonify(stamper_data)
