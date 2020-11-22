@@ -58,10 +58,10 @@ class User(db.Model):
   created_programs = db.relationship("Program", back_populates="creator")
   created_habits = db.relationship("Habit", back_populates="creator")
   created_rewards = db.relationship("Reward", back_populates="creator")
-  members = db.relationship("Member", back_populates="member")
-  stampers = db.relationship("Member", back_populates="stamper")
+  members = db.relationship("Member", back_populates="member", foreign_keys="[Member.member_id]")
+  stampers = db.relationship("Member", back_populates="stamper", foreign_keys="[Member.stamper_id]")
   redeemed = db.relationship("Reward", secondary=redeemed, back_populates="redeemed")
-  bonds = db.relationship("Bond", secondary=bonds, back_populates="bonds")
+  bonds = db.relationship("User", secondary=bonds, back_populates="bonds", foreign_keys="[user1_id, user2_id]")
 
   @property
   def password(self):
@@ -115,8 +115,8 @@ class Member(db.Model):
     # TODO Program+member should be unique
 
     program = db.relationship("Program", back_populates="members")
-    member = db.relationship("User", back_populates="members")
-    stamper = db.relationship("User", back_populates="stampers")
+    member = db.relationship("User", back_populates="members", foreign_keys=[member_id])
+    stamper = db.relationship("User", back_populates="stampers", foreign_keys=[stamper_id])
     daily_stamps = db.relationship("Daily_Stamp", back_populates="member")
 
 
@@ -143,7 +143,7 @@ class Daily_Stamp(db.Model):
     __tablename__ = "daily_stamps"
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date, nullable=False, default=datetime.today())
-    status = db.Column(db.Enum('unstamped', 'pending', 'stamped', name="status"))
+    status = db.Column(db.Enum('unstamped', 'pending', 'stamped', name="status", create_type=False))
     habit_id = db.Column(db.Integer, db.ForeignKey("habits.id"))
     member_id = db.Column(db.Integer, db.ForeignKey("members.id"))
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
