@@ -3,6 +3,9 @@ from datetime import datetime
 
 db = SQLAlchemy()
 
+
+
+
 default_color = "#000"
 default_stamps = {
   "user": 1, #"user-circle"
@@ -57,10 +60,10 @@ class User(db.Model):
     created_programs = db.relationship("Program", back_populates="creator")
     created_habits = db.relationship("Habit", back_populates="creator")
     created_rewards = db.relationship("Reward", back_populates="creator")
-    members = db.relationship("Member", back_populates="member")
-    stampers = db.relationship("Member", back_populates="stamper")
+    members = db.relationship("Member", foreign_keys="[Member.member_id]", back_populates="member")
+    stampers = db.relationship("Member", foreign_keys="[Member.stamper_id]", back_populates="stamper")
     redeemed = db.relationship("Reward", secondary=redeemed, back_populates="redeemed")
-    bonds = db.relationship("Bond", secondary=bonds, back_populates="bonds")
+    # bonds = db.relationship("User", secondary=bonds, foreign_keys=[] back_populates="bonds")
 
 
 class Program(db.Model):
@@ -75,10 +78,10 @@ class Program(db.Model):
     
     stamp = db.relationship("Stamp", back_populates="programs")
     creator = db.relationship("User", back_populates="created_programs")
+    
     members = db.relationship("Member", back_populates="program")
     habits = db.relationship("Habit", back_populates="program")
     rewards = db.relationship("Reward", back_populates="program")
-
 
 class Member(db.Model):
     __tablename__ = "members"
@@ -91,8 +94,8 @@ class Member(db.Model):
     # TODO Program+member should be unique
     
     program = db.relationship("Program", back_populates="members")
-    member = db.relationship("User", back_populates="members")
-    stamper = db.relationship("User", back_populates="stampers")
+    member = db.relationship("User", foreign_keys=[member_id], back_populates="members")
+    stamper = db.relationship("User", foreign_keys=[stamper_id], back_populates="stampers")
     daily_stamps = db.relationship("Daily_Stamp", back_populates="member")
 
 
