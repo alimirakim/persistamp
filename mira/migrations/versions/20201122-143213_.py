@@ -1,8 +1,8 @@
-"""create all tables
+"""empty message
 
-Revision ID: c99122151a03
+Revision ID: d13a722a2ae8
 Revises: 
-Create Date: 2020-11-21 15:44:56.479310
+Create Date: 2020-11-22 14:32:13.559255
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'c99122151a03'
+revision = 'd13a722a2ae8'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -110,7 +110,7 @@ def upgrade():
     op.create_table('daily_stamps',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('date', sa.Date(), nullable=False),
-    sa.Column('status', sa.Enum('unstamped', 'pending', 'stamped', name="status"), nullable=True),
+    sa.Column('status', sa.Enum('unstamped', 'pending', 'stamped', name='status'), nullable=True),
     sa.Column('habit_id', sa.Integer(), nullable=True),
     sa.Column('member_id', sa.Integer(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=False),
@@ -141,4 +141,5 @@ def downgrade():
     op.drop_table('bonds')
     op.drop_table('users')
     op.drop_table('stamps')
+    op.execute('DROP TYPE status;')
     # ### end Alembic commands ###

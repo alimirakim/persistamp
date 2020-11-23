@@ -14,6 +14,7 @@ wtforms = "*"
 flask-wtf = "*"
 python-dotenv = "*"
 datetime = "*"
+marshmallow-sqlalchemy = "*"
 
 [dev-packages]
 rope = "*"

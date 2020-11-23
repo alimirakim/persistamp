@@ -11,6 +11,7 @@ default_stamps = {
   "reward": 4, #"award"
 }
 
+
 bonds = db.Table( # combined unique constraint
     "bonds",
     db.Column("id", db.Integer, primary_key=True),
@@ -18,6 +19,7 @@ bonds = db.Table( # combined unique constraint
     db.Column("user2_id", db.Integer, db.ForeignKey("users.id"), nullable=False),
     db.Column("created_at", db.DateTime, default=datetime.now()),
 )
+
 
 redeemed = db.Table(
     "redeemed",
@@ -57,10 +59,10 @@ class User(db.Model):
     created_programs = db.relationship("Program", back_populates="creator")
     created_habits = db.relationship("Habit", back_populates="creator")
     created_rewards = db.relationship("Reward", back_populates="creator")
-    members = db.relationship("Member", back_populates="member")
-    stampers = db.relationship("Member", back_populates="stamper")
+    members = db.relationship("Member", foreign_keys="[Member.member_id]", back_populates="member")
+    stampers = db.relationship("Member", foreign_keys="[Member.stamper_id]", back_populates="stamper")
     redeemed = db.relationship("Reward", secondary=redeemed, back_populates="redeemed")
-    bonds = db.relationship("Bond", secondary=bonds, back_populates="bonds")
+    # bonds = db.relationship("User", secondary=bonds, foreign_keys=[] back_populates="bonds")
 
 
 class Program(db.Model):
@@ -75,6 +77,7 @@ class Program(db.Model):
 
     stamp = db.relationship("Stamp", back_populates="programs")
     creator = db.relationship("User", back_populates="created_programs")
+    
     members = db.relationship("Member", back_populates="program")
     habits = db.relationship("Habit", back_populates="program")
     rewards = db.relationship("Reward", back_populates="program")
@@ -91,9 +94,9 @@ class Member(db.Model):
     # TODO Program+member should be unique
 
     program = db.relationship("Program", back_populates="members")
-    member = db.relationship("User", back_populates="members")
-    stamper = db.relationship("User", back_populates="stampers")
-    daily_stamps = db.relationship("Daily_Stamp", back_populates="member")
+    member = db.relationship("User", foreign_keys=[member_id], back_populates="members")
+    stamper = db.relationship("User", foreign_keys=[stamper_id], back_populates="stampers")
+    daily_stamps = db.relationship("DailyStamp", back_populates="member")
 
 
 class Habit(db.Model):
@@ -112,23 +115,22 @@ class Habit(db.Model):
     stamp = db.relationship("Stamp", back_populates="habits")
     program = db.relationship("Program", back_populates="habits")
     creator = db.relationship("User", back_populates="created_habits")
-    daily_stamps = db.relationship("Daily_Stamp", back_populates="habit")
+    daily_stamps = db.relationship("DailyStamp", back_populates="habit")
 
 
-class Daily_Stamp(db.Model):
+class DailyStamp(db.Model):
     __tablename__ = "daily_stamps"
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date, nullable=False, default=datetime.today())
     status = db.Column(db.Enum('unstamped', 'pending', 'stamped', name="status"))
-    habit_id = db.Column(db.Integer, db.ForeignKey("habits.id"))
-    member_id = db.Column(db.Integer, db.ForeignKey("members.id"))
+    habit_id = db.Column(db.Integer, db.ForeignKey("habits.id"), nullable=False)
+    member_id = db.Column(db.Integer, db.ForeignKey("members.id"), nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     habit = db.relationship("Habit", back_populates="daily_stamps")
     member = db.relationship("Member", back_populates="daily_stamps")
 
 
-### FOR REWARD SHOP STRETCH GOAL BELOW:
 class Reward(db.Model):
     __tablename__ = "rewards"
     id = db.Column(db.Integer, primary_key=True)
