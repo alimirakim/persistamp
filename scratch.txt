@@ -28,6 +28,9 @@ Components
 - habit creation form component
 - habit detail component (edit the title, delete the component entirely)
 
+(Settings page)
+- user Settings
+
 (Habit Performance Display Page)
 - line graph component ( for each habit ) - eric, david
 - (for now, print out habit history)
