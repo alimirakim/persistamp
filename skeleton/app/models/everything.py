@@ -13,59 +13,40 @@ default_stamps = {
 }
 
 
-redeemed = db.Table(
-  "redeemed",
-  db.Column("id", db.Integer, primary_key=True),
-  db.Column("user_id", db.Integer, db.ForeignKey("users.id"), nullable=False),
-  db.Column("reward_id", db.Integer, db.ForeignKey("rewards.id"), nullable=False),
-  db.Column("redeemed_at", db.DateTime, nullable=False, default=datetime.now())
-)
-
-class Bond(db.Model): # combined unique constraint
-  __tablename__ = 'bonds'
-  id = db.Column(db.Integer, primary_key=True)
-  user1_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-  user2_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-  created_at = db.Column(db.DateTime, default=datetime.now())
-
-  user1 = db.relationship("User", foreign_keys=[user1_id], back_populates="users1")
-  user2 = db.relationship("User", foreign_keys=[user2_id], back_populates="users2")
-
-
 class Stamp(db.Model):
-  __tablename__ = "stamps"
-  id = db.Column(db.Integer, primary_key=True)
-  stamp = db.Column(db.String(50), nullable=False, unique=True)
-  type = db.Column(db.String(50), nullable=False)
+    __tablename__ = "stamps"
+    id = db.Column(db.Integer, primary_key=True)
+    stamp = db.Column(db.String(50), nullable=False, unique=True)
+    type = db.Column(db.String(50), nullable=False)
 
-  users = db.relationship("User", back_populates="stamp")
-  programs = db.relationship("Program", back_populates="stamp")
-  habits = db.relationship("Habit", back_populates="stamp")
-  rewards = db.relationship("Reward", back_populates="stamp")
+    users = db.relationship("User", back_populates="stamp")
+    programs = db.relationship("Program", back_populates="stamp")
+    habits = db.relationship("Habit", back_populates="stamp")
+    rewards = db.relationship("Reward", back_populates="stamp")
 
 
 class User(db.Model):
-  __tablename__ = "users"
-  id = db.Column(db.Integer, primary_key=True)
-  username = db.Column(db.String(50), nullable=False, unique=True)
-  first_name = db.Column(db.String(50), nullable=False)
-  last_name = db.Column(db.String(50))
-  email = db.Column(db.String(50), nullable=False, unique=True)
-  color = db.Column(db.String(7), nullable=False, default=default_color)
-  stamp_id = db.Column(db.Integer, db.ForeignKey("stamps.id")) #, nullable=False, default=default_stamps["user"])
-  birthday = db.Column(db.Date)
-  hashed_password = db.Column(db.String(255), nullable=False)
-  created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    __tablename__ = "users"
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), nullable=False, unique=True)
+    first_name = db.Column(db.String(50), nullable=False)
+    last_name = db.Column(db.String(50))
+    email = db.Column(db.String(50), nullable=False, unique=True)
+    color = db.Column(db.String(7), nullable=False, default=default_color)
+    stamp_id = db.Column(db.Integer, db.ForeignKey("stamps.id"), nullable=False, default=default_stamps["user"])
+    birthday = db.Column(db.Date)
+    hashed_password = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
-  stamp = db.relationship("Stamp", back_populates="users")
-  created_programs = db.relationship("Program", back_populates="creator")
-  created_habits = db.relationship("Habit", back_populates="creator")
-  created_rewards = db.relationship("Reward", back_populates="creator")
-  members = db.relationship("Member", back_populates="member", foreign_keys="[Member.member_id]")
-  stampers = db.relationship("Member", back_populates="stamper", foreign_keys="[Member.stamper_id]")
-  redeemed = db.relationship("Reward", secondary=redeemed, back_populates="redeemed")
-  users1 = db.relationship("Bond", back_populates="user1", foreign_keys="[Bond.user1_id]")
-  users2 = db.relationship("Bond", back_populates="user2", foreign_keys="[Bond.user2_id]")
+    stamp = db.relationship("Stamp", back_populates="users")
+    created_programs = db.relationship("Program", back_populates="creator")
+    created_habits = db.relationship("Habit", back_populates="creator")
+    created_rewards = db.relationship("Reward", back_populates="creator")
+    memberships = db.relationship("Member", foreign_keys="[Member.member_id]", back_populates="member")
+    stampers = db.relationship("Member", foreign_keys="[Member.stamper_id]", back_populates="stamper")
+    redeemed = db.relationship("Redeemed", back_populates="user")
+    # bonds1 = db.relationship("Bond", foreign_keys="[Bond.user1_id, Bond.user2_id]", back_populates=["bonded_user1", "bonded_user2"])
+    bonds = db.relationship("Bond", foreign_keys="[Bond.user2_id]", back_populates="bond")
 
   @property
   def password(self):
@@ -119,9 +100,9 @@ class Member(db.Model):
     # TODO Program+member should be unique
 
     program = db.relationship("Program", back_populates="members")
-    member = db.relationship("User", back_populates="members", foreign_keys=[member_id])
-    stamper = db.relationship("User", back_populates="stampers", foreign_keys=[stamper_id])
-    daily_stamps = db.relationship("Daily_Stamp", back_populates="member")
+    member = db.relationship("User", foreign_keys=[member_id], back_populates="memberships")
+    stamper = db.relationship("User", foreign_keys=[stamper_id], back_populates="stampers")
+    daily_stamps = db.relationship("DailyStamp", back_populates="member")
 
 
 class Habit(db.Model):
@@ -140,23 +121,22 @@ class Habit(db.Model):
     stamp = db.relationship("Stamp", back_populates="habits")
     program = db.relationship("Program", back_populates="habits")
     creator = db.relationship("User", back_populates="created_habits")
-    daily_stamps = db.relationship("Daily_Stamp", back_populates="habit")
+    daily_stamps = db.relationship("DailyStamp", back_populates="habit")
 
 
-class Daily_Stamp(db.Model):
+class DailyStamp(db.Model):
     __tablename__ = "daily_stamps"
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date, nullable=False, default=datetime.today())
-    status = db.Column(db.Enum('unstamped', 'pending', 'stamped', name="status", create_type=False))
-    habit_id = db.Column(db.Integer, db.ForeignKey("habits.id"))
-    member_id = db.Column(db.Integer, db.ForeignKey("members.id"))
+    status = db.Column(db.Enum('unstamped', 'pending', 'stamped', name="status"))
+    habit_id = db.Column(db.Integer, db.ForeignKey("habits.id"), nullable=False)
+    member_id = db.Column(db.Integer, db.ForeignKey("members.id"), nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     habit = db.relationship("Habit", back_populates="daily_stamps")
     member = db.relationship("Member", back_populates="daily_stamps")
 
 
-### FOR REWARD SHOP STRETCH GOAL BELOW:
 class Reward(db.Model):
     __tablename__ = "rewards"
     id = db.Column(db.Integer, primary_key=True)
@@ -176,4 +156,25 @@ class Reward(db.Model):
     stamp = db.relationship("Stamp", back_populates="rewards")
     program = db.relationship("Program", back_populates="rewards")
     creator = db.relationship("User", back_populates="created_rewards")
-    redeemed = db.relationship("User", back_populates="redeemed")
+    redeemed = db.relationship("Redeemed", back_populates="reward")
+
+
+class Redeemed(db.Model):
+    __tablename__ = "redeemed"
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    reward_id = db.Column(db.Integer, db.ForeignKey("rewards.id"), nullable=False)
+    redeemed_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
+
+    user = db.relationship("User", back_populates="redeemed")
+    reward = db.relationship("Reward", back_populates="redeemed")
+
+
+class Bond(db.Model):
+    __tablename__ = "bonds"
+    id = db.Column(db.Integer, primary_key=True)
+    user1_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    user2_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now())
+
+    bond = db.relationship("User", foreign_keys=[user2_id], back_populates="bonds")
