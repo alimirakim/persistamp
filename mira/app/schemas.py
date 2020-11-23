@@ -1,5 +1,5 @@
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
-from app.models import User, Program, Habit, DailyStamp, Member, Reward 
+from app.models import User, Program, Habit, DailyStamp, Member, Reward, Redeemed, Bond
 
 
 class UserSchema(SQLAlchemyAutoSchema):
@@ -50,9 +50,17 @@ class RewardSchema(SQLAlchemyAutoSchema):
 reward_schema = RewardSchema()
 
 
-# class BondSchema(SQLAlchemyAutoSchema):
-#     class Meta:
-#         model = Bond
-#         include_relationships = True
-#         load_instance = True
-# bond_schema = BondSchema()
+class RedeemedSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Redeemed
+        include_relationships = True
+        load_instance = True
+redeemed_schema = RedeemedSchema()
+
+
+class BondSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Bond
+        include_relationships = True
+        load_instance = True
+bond_schema = BondSchema()

@@ -6,8 +6,6 @@ from app import app, db
 from app.models import User, Program, Habit, Stamp, DailyStamp, Member, Reward
 
 
-
-
 with app.app_context():
     db.drop_all()
     db.create_all()

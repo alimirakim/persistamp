@@ -9,12 +9,12 @@ programs = Blueprint("programs", __name__, url_prefix="/programs")
 @programs.route("/", methods=["POST"])
 def create_program():
     """Create a new program."""
-    program = Program(program=program,
-                      description=,
-                      color=,
-                      stamp_id=,
-                      creator_id=,)
-    db.session.add(program)
+    # program = Program(program=program,
+    #                   description=,
+    #                   color=,
+    #                   stamp_id=,
+    #                   creator_id=,)
+    # db.session.add(program)
     db.session.commit()
     program_data = program_schema.dump(program)
     return jsonify(program_data)
@@ -24,8 +24,7 @@ def create_program():
 def program_details(pid):
     """Get a program's details by id."""
     program = Program.query.filter(Program.id == pid).one()
-    program_data = program_schema.dump(program)
-    return jsonify(program_data)
+    return jsonify(program_schema.dump(program))
   
 
 @programs.route("/<int:pid>", methods=["PATCH"])
@@ -38,8 +37,7 @@ def edit_program(pid):
     # program.stamp_id = 
     # program.creator_id = 
     db.session.commit()
-    program_data = program_schema.dump(program)
-    return jsonify(program_data)
+    return jsonify(program_schema.dump(program))
 
 
 # TODO Does this need cascade delete?
@@ -56,10 +54,7 @@ def delete_program(pid):
 def program_stampers(pid):
     """Get a list of a program's stampers and their details."""
     stampers = User.query.filter().all()
-    program_stampers = []
-    for stamper in stampers:
-        program_stampers.append(user_schema.dump(stamper))
-    return jsonify(program_stampers)
+    return jsonify(dump_data_list(stampers, user_schema))
 
 
 # TODO How the heckers
@@ -67,5 +62,4 @@ def program_stampers(pid):
 def program_stamper_members(pid, uid):
     """Get a stamper's details and a list of the members they stamp for."""
     stamper = User.query.filter().one()
-    stamper_data = user_schema.dump(stamper)
-    return jsonify(stamper_data)
+    return jsonify(user_schema.dump(stamper))
