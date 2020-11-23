@@ -1,0 +1,13 @@
+ status = postgresql.ENUM('unstamped', 'pending', 'stamped', name='status')
+    status.create(op.get_bind())
+    op.add_column('status', sa.Column('status', sa.Enum('unstamped', 'pending', 'stamped', name='status'), nullable=True))
+
+
+# bonds = db.Table( # combined unique constraint
+#   "bonds",
+#   db.Model.metadata,
+#   db.Column("id", db.Integer, primary_key=True),
+#   db.Column("user1_id", db.Integer, db.ForeignKey("users.id"), nullable=False),
+#   db.Column("user2_id", db.Integer, db.ForeignKey("users.id"), nullable=False),
+#   db.Column("created_at", db.DateTime, default=datetime.now()),
+# )
