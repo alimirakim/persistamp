@@ -3,11 +3,11 @@ from app.models import db, User, Program, Habit, Member, DailyStamp
 from app.schemas import user_schema, program_schema, habit_schema, member_schema, dailystamp_schema
 from app.utils import dump_data_list
 
-habits = Blueprint("habits", __name__, url_prefix="/habits")
+habit_routes = Blueprint("habits", __name__, url_prefix="/habits")
 
 
 # TESTED Functions
-@habits.route("/programs/<int:pid>")
+@habit_routes.route("/programs/<int:pid>")
 def program_habits(pid):
     """Get a list of a program's habits."""
     habits = Habit.query.filter(Habit.program_id == pid).all()
@@ -15,7 +15,7 @@ def program_habits(pid):
   
 
 # TESTED Functions
-@habits.route("/<int:hid>")
+@habit_routes.route("/<int:hid>")
 def habit_details(hid):
     """Get a habit's details, including recent histories for all members."""
     habit = Habit.query.filter(Habit.id == hid).one()
@@ -23,7 +23,7 @@ def habit_details(hid):
 
 
 # TESTED Functions. Should the route just be / and just pass in program id?
-@habits.route("/programs/<int:pid>", methods=["POST"])
+@habit_routes.route("/programs/<int:pid>", methods=["POST"])
 def create_habit(pid):
     """Create a new habit for a program."""
     data = request.json
@@ -44,8 +44,8 @@ def create_habit(pid):
     return jsonify(habit_schema.dump(habit))
 
 
-# 
-@habits.route("/<int:hid>", methods=["PATCH"])
+# TESTED Functions.
+@habit_routes.route("/<int:hid>", methods=["PATCH"])
 def edit_habit(hid):
     """Edit a habit's details by id."""
     data = request.json
@@ -64,7 +64,8 @@ def edit_habit(hid):
     return jsonify(habit_schema.dump(habit))
     
 
-@habits.route("/<int:hid>", methods=["DELETE"])
+# TESTED Functions
+@habit_routes.route("/<int:hid>", methods=["DELETE"])
 def delete_habit(hid):
     """Delete a habit by id."""
     habit = Habit.query.filter(Habit.id == hid).one()
@@ -78,7 +79,7 @@ def delete_habit(hid):
 # If no stamper, just toggle the status.
 # If stamper, check stamper id from params. If it's the member, NOT stamper,
 # change to pending. If it IS the stamper, change to checked or unchecked.
-@habits.route("/dailystamps/<int:sid>/stamper/<int:uid>", methods=["POST"])
+@habit_routes.route("/dailystamps/<int:sid>/stamper/<int:uid>", methods=["POST"])
 def stamp_day(sid, uid):
     """Change the status of a daily_stamp to 'stamped' or 'pending'."""
     day = DailyStamp.query.filter(DailyStamp.id == sid)

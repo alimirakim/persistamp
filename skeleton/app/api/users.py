@@ -14,7 +14,7 @@ def user_details(uid):
     """Get a user's information by id."""
     user = User.query.filter(User.id == uid).one()
     user_data = user_schema.dump(user)
-    del user_data["hashword"]
+    del user_data["hashed_password"]
     return jsonify(user_data)
 
 
@@ -39,7 +39,7 @@ def create_user():
       last_name=data["last_name"],
       birthday=data["birthday"],
       email=data["email"],
-      hashword=data["password"], # hash this.
+      hashed_password=data["password"], # hash this.
     )
     
     if "color" in data.keys():
@@ -50,7 +50,7 @@ def create_user():
     db.session.add(user)
     db.session.commit()
     user_data = user_schema.dump(user)
-    del user_data["hashword"]
+    del user_data["hashed_password"]
     return jsonify(user_data)
 
 
@@ -77,10 +77,10 @@ def edit_user(uid):
     if "email" in data.keys():
         user.email = data["email"]
     if "password" in data.keys():
-        user.hashword = data["password"] # TODO Must be hashed
+        user.hashed_password = data["password"] # TODO Must be hashed
     db.session.commit()
     user_data = user_schema.dump(user)
-    del user_data["hashword"]
+    del user_data["hashed_password"]
     return jsonify(user_data)
 
 
