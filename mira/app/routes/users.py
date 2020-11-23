@@ -5,6 +5,7 @@ from app.utils import dump_data_list
 
 users = Blueprint("users", __name__, url_prefix="/users")
 
+
 # TODO: Prune unnecessary info and eager-load necessary info
 # TODO What info is unneeded?
 # TESTED Functions 
@@ -116,15 +117,16 @@ def user_redeemed_program_rewards(uid, pid):
     return jsonify(dump_data_list(program_redeemed, reward_schema))
     
 
-# 
+# TESTED Seems to function, returns empty list for now, must add seeders
 @users.route("/<int:uid>/bonds")
 def user_bonds(uid):
     """Get a user's list of bonds with other users."""
-    bonds = Bond.query.filter(Bond.user_id == uid).all()
-    return dump_data_list(bonds, bond_schema)
+    bonds = Bond.query.filter(Bond.user1_id == uid).all()
+    return jsonify(dump_data_list(bonds, bond_schema))
 
 
-# NOTE Not sure if putting bonding-user's id in params is best, or JSON instead.
+# NOTE May prefer JSON instead of params?
+# TESTED Functions, adds a bond.
 @users.route("/<int:uid>/bonds/users/<int:uid2>", methods=["POST"])
 def create_bond(uid, uid2):
     """Create a 'bond' with another user."""
@@ -132,9 +134,10 @@ def create_bond(uid, uid2):
                 user2_id=uid2)
     db.session.add(bond)
     db.session.commit()
-    return bond_schema.dump(bond)
+    return jsonify(bond_schema.dump(bond))
 
 
+# TESTED Functions. But should try user-id instead of bid maybe?
 @users.route("/<int:uid>/bonds/<int:bid>", methods=["DELETE"])
 def delete_bond(uid, bid):
     """Delete a bond with another user."""

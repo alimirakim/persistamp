@@ -43,7 +43,7 @@ class User(db.Model):
     color = db.Column(db.String(7), nullable=False, default=default_color)
     stamp_id = db.Column(db.Integer, db.ForeignKey("stamps.id"), nullable=False, default=default_stamps["user"])
     birthday = db.Column(db.Date)
-    hashed_password = db.Column(db.String(255), nullable=False)
+    hashword = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     stamp = db.relationship("Stamp", back_populates="users")

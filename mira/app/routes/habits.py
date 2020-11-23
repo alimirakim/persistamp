@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect
+from flask import Blueprint, render_template, redirect, jsonify, request
 from app.models import db, User, Program, Habit, Member, DailyStamp
 from app.schemas import user_schema, program_schema, habit_schema, member_schema, dailystamp_schema
 from app.utils import dump_data_list
@@ -6,6 +6,7 @@ from app.utils import dump_data_list
 habits = Blueprint("habits", __name__, url_prefix="/habits")
 
 
+# TESTED Functions
 @habits.route("/programs/<int:pid>")
 def program_habits(pid):
     """Get a list of a program's habits."""
@@ -13,6 +14,7 @@ def program_habits(pid):
     return jsonify(dump_data_list(habits, habit_schema))
   
 
+# TESTED Functions
 @habits.route("/<int:hid>")
 def habit_details(hid):
     """Get a habit's details, including recent histories for all members."""
@@ -20,32 +22,44 @@ def habit_details(hid):
     return jsonify(habit_schema.dump(habit))
 
 
+# TESTED Functions. Should the route just be / and just pass in program id?
 @habits.route("/programs/<int:pid>", methods=["POST"])
 def create_habit(pid):
     """Create a new habit for a program."""
-    # habit = Habit(habit=,
-    #               description=,
-    #               frequency=,
-    #               color=,
-    #               stamp_id=,
-    #               program_id=,
-    #               creator_id=,)
-    # db.session.add(habit)
+    data = request.json
+    habit = Habit(habit=data["habit"],
+                  program_id=pid,
+                  creator_id=data["creator_id"],)
+    if "description" in data.keys():
+        habit.description = data["description"]
+    if "frequency" in data.keys():
+        habit.frequency = data["frequency"]
+    if "color" in data.keys():
+        habit.color = data["color"]
+    if "stamp_id" in data.keys():
+        habit.stamp_id = data["stamp_id"]
+        
+    db.session.add(habit)
     db.session.commit()
     return jsonify(habit_schema.dump(habit))
 
 
+# 
 @habits.route("/<int:hid>", methods=["PATCH"])
 def edit_habit(hid):
     """Edit a habit's details by id."""
+    data = request.json
     habit = Habit.query.filter(Habit.id == hid).one()
-    # habit.habit = 
-    # habit.description = 
-    # habit.frequency = 
-    # habit.color = 
-    # habit.stamp_id = 
-    # habit.program_id = 
-    # habit.creator_id = 
+    if "habit" in data.keys():
+        habit.habit = data["habit"]
+    if "description" in data.keys():
+        habit.description = data["description"]
+    if "frequency" in data.keys():
+        habit.frequency = data["frequency"]
+    if "color" in data.keys():
+        habit.color = data["color"]
+    if "stamp_id" in data.keys():
+        habit.stamp_id = data["stamp_id"]
     db.session.commit()
     return jsonify(habit_schema.dump(habit))
     
@@ -55,7 +69,7 @@ def delete_habit(hid):
     """Delete a habit by id."""
     habit = Habit.query.filter(Habit.id == hid).one()
     db.session.delete(habit)
-    db.commit()
+    db.session.commit()
     return "Habit is donezo~!"
 
 

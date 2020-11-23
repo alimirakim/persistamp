@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect
+from flask import Blueprint, render_template, redirect, jsonify, request
 from app.models import Reward, Redeemed
 from app.schemas import reward_schema, redeemed_schema
 from app.utils import dump_data_list

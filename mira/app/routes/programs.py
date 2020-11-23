@@ -1,55 +1,70 @@
-from flask import Blueprint, render_template, redirect
-from app.models import Program, User, Member
+from flask import Blueprint, render_template, redirect, jsonify, request
+from app.models import db, Program, User, Member
 from app.schemas import program_schema, user_schema, member_schema
 
 programs = Blueprint("programs", __name__, url_prefix="/programs")
 
 
-# PROGRAMS
-@programs.route("/", methods=["POST"])
-def create_program():
-    """Create a new program."""
-    # program = Program(program=program,
-    #                   description=,
-    #                   color=,
-    #                   stamp_id=,
-    #                   creator_id=,)
-    # db.session.add(program)
-    db.session.commit()
-    program_data = program_schema.dump(program)
-    return jsonify(program_data)
-    
-  
+# TESTED Returns a program json
 @programs.route("/<int:pid>")
 def program_details(pid):
     """Get a program's details by id."""
     program = Program.query.filter(Program.id == pid).one()
     return jsonify(program_schema.dump(program))
-  
+    
+    
+# TESTED Functions, creates new program.
+@programs.route("/", methods=["POST"])
+def create_program():
+    """Create a new program."""
+    data = request.json
+    program = Program(program=data["program"], creator_id=data["creator_id"])
+    
+    if "description" in data.keys():
+        program.description = data["description"]
+    if "color" in data.keys():
+        program.color = data["color"]
+    if "stamp_id" in data.keys():
+        program.stamp_id = data["stamp_id"]
+        
+    db.session.add(program)
+    db.session.commit()
+    return jsonify(program_schema.dump(program))
 
+
+# TESTED Functions
 @programs.route("/<int:pid>", methods=["PATCH"])
 def edit_program(pid):
     """Edit a program's details."""
+    data = request.json
     program = Program.query.filter(Program.id == pid).one()
-    # program.program = 
-    # program.description = 
-    # program.color = 
-    # program.stamp_id = 
-    # program.creator_id = 
+    
+    if "program" in data.keys():
+        program.program = data["program"]
+    if "description" in data.keys():
+        program.description = data["description"]
+    if "color" in data.keys():
+        program.color = data["color"]
+    if "stamp_id" in data.keys():
+        program.stamp_id = data["stamp_id"]
+        
     db.session.commit()
     return jsonify(program_schema.dump(program))
 
 
 # TODO Does this need cascade delete?
+# TESTED Functions
 @programs.route("/<int:pid>", methods=["DELETE"])
 def delete_program(pid):
     """Delete a program by id."""
     program = Program.query.filter(Program.id == pid).one()
     db.session.delete(program)
+    db.session.commit()
     return "Program successfully deleted!"
 
 
 # TODO How do I filter this?
+# Untested
 @programs.route("/<int:pid>/stampers")
 def program_stampers(pid):
     """Get a list of a program's stampers and their details."""
@@ -58,6 +73,7 @@ def program_stampers(pid):
 
 
 # TODO How the heckers
+# Untested
 @programs.route("/<int:pid>/stampers/<int:uid>")
 def program_stamper_members(pid, uid):
     """Get a stamper's details and a list of the members they stamp for."""
