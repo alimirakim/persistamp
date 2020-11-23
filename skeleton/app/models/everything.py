@@ -48,29 +48,29 @@ class User(db.Model):
     # bonds1 = db.relationship("Bond", foreign_keys="[Bond.user1_id, Bond.user2_id]", back_populates=["bonded_user1", "bonded_user2"])
     bonds = db.relationship("Bond", foreign_keys="[Bond.user2_id]", back_populates="bond")
 
-  @property
-  def password(self):
-    return self.hashed_password
+    @property
+    def password(self):
+      return self.hashed_password
 
 
-  @password.setter
-  def password(self, password):
-    self.hashed_password = generate_password_hash(password)
+    @password.setter
+    def password(self, password):
+      self.hashed_password = generate_password_hash(password)
 
 
-  def check_password(self, password):
-    return check_password_hash(self.password, password)
+    def check_password(self, password):
+      return check_password_hash(self.password, password)
 
 
-  def to_dict(self):
-    return {
-      "id": self.id,
-      "username": self.username,
-      "email": self.email,
-      "first_name": self.first_name,
-      "last_name": self.last_name,
-      "birthday": self.birthday,
-    }
+    def to_dict(self):
+      return {
+        "id": self.id,
+        "username": self.username,
+        "email": self.email,
+        "first_name": self.first_name,
+        "last_name": self.last_name,
+        "birthday": self.birthday,
+      }
 
 class Program(db.Model):
     __tablename__ = "programs"
