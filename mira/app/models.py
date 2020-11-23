@@ -12,22 +12,13 @@ default_stamps = {
 }
 
 
-bonds = db.Table( # combined unique constraint
-    "bonds",
-    db.Column("id", db.Integer, primary_key=True),
-    db.Column("user1_id", db.Integer, db.ForeignKey("users.id"), nullable=False),
-    db.Column("user2_id", db.Integer, db.ForeignKey("users.id"), nullable=False),
-    db.Column("created_at", db.DateTime, default=datetime.now()),
-)
-
-
-redeemed = db.Table(
-    "redeemed",
-    db.Column("id", db.Integer, primary_key=True),
-    db.Column("user_id", db.Integer, db.ForeignKey("users.id"), nullable=False),
-    db.Column("reward_id", db.Integer, db.ForeignKey("rewards.id"), nullable=False),
-    db.Column("redeemed_at", db.DateTime, nullable=False, default=datetime.now())
-)
+# bonds = db.Table( # combined unique constraint
+#     "bonds",
+#     db.Column("id", db.Integer, primary_key=True),
+#     db.Column("user1_id", db.Integer, db.ForeignKey("users.id"), nullable=False),
+#     db.Column("user2_id", db.Integer, db.ForeignKey("users.id"), nullable=False),
+#     db.Column("created_at", db.DateTime, default=datetime.now()),
+# )
 
 
 class Stamp(db.Model):
@@ -59,10 +50,11 @@ class User(db.Model):
     created_programs = db.relationship("Program", back_populates="creator")
     created_habits = db.relationship("Habit", back_populates="creator")
     created_rewards = db.relationship("Reward", back_populates="creator")
-    members = db.relationship("Member", foreign_keys="[Member.member_id]", back_populates="member")
+    memberships = db.relationship("Member", foreign_keys="[Member.member_id]", back_populates="member")
     stampers = db.relationship("Member", foreign_keys="[Member.stamper_id]", back_populates="stamper")
-    redeemed = db.relationship("Reward", secondary=redeemed, back_populates="redeemed")
-    # bonds = db.relationship("User", secondary=bonds, foreign_keys=[] back_populates="bonds")
+    redeemed = db.relationship("Redeemed", back_populates="user")
+    # bonds1 = db.relationship("Bond", foreign_keys="[Bond.user1_id, Bond.user2_id]", back_populates=["bonded_user1", "bonded_user2"])
+    bonds = db.relationship("Bond", foreign_keys="[Bond.user2_id]", back_populates="bond")
 
 
 class Program(db.Model):
@@ -77,7 +69,6 @@ class Program(db.Model):
 
     stamp = db.relationship("Stamp", back_populates="programs")
     creator = db.relationship("User", back_populates="created_programs")
-    
     members = db.relationship("Member", back_populates="program")
     habits = db.relationship("Habit", back_populates="program")
     rewards = db.relationship("Reward", back_populates="program")
@@ -94,7 +85,7 @@ class Member(db.Model):
     # TODO Program+member should be unique
 
     program = db.relationship("Program", back_populates="members")
-    member = db.relationship("User", foreign_keys=[member_id], back_populates="members")
+    member = db.relationship("User", foreign_keys=[member_id], back_populates="memberships")
     stamper = db.relationship("User", foreign_keys=[stamper_id], back_populates="stampers")
     daily_stamps = db.relationship("DailyStamp", back_populates="member")
 
@@ -150,4 +141,25 @@ class Reward(db.Model):
     stamp = db.relationship("Stamp", back_populates="rewards")
     program = db.relationship("Program", back_populates="rewards")
     creator = db.relationship("User", back_populates="created_rewards")
-    redeemed = db.relationship("User", back_populates="redeemed")
+    redeemed = db.relationship("Redeemed", back_populates="reward")
+
+
+class Redeemed(db.Model):
+    __tablename__ = "redeemed"
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    reward_id = db.Column(db.Integer, db.ForeignKey("rewards.id"), nullable=False)
+    redeemed_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    
+    user = db.relationship("User", back_populates="redeemed")
+    reward = db.relationship("Reward", back_populates="redeemed")
+
+
+class Bond(db.Model):
+    __tablename__ = "bonds"
+    id = db.Column(db.Integer, primary_key=True)
+    user1_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    user2_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now())
+    
+    bond = db.relationship("User", foreign_keys=[user2_id], back_populates="bonds")
