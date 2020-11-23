@@ -60,14 +60,22 @@ def sign_up():
     """
     Creates a new user and logs them in
     """
+    # print("REQUEST FORM: ", request.form.get("username"))
+    # print("DIR REQUEST:  ", dir(request.form))
     form = SignUpForm()
+    print("DATA:  ", form.data)
+
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         user = User(
             username=form.data['username'],
             email=form.data['email'],
-            password=form.data['password']
+            password=form.data['password'],
+            first_name=form.data['first_name'],
+            last_name=form.data['last_name'],
+            birthday=form.data['birthday']
         )
+        # do we need to hash password here? or does the model handle it
         db.session.add(user)
         db.session.commit()
         login_user(user)

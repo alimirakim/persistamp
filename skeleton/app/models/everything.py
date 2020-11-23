@@ -1,7 +1,8 @@
-from flask_sqlalchemy import SQLAlchemy
+from .db import db
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 from datetime import datetime
 
-db = SQLAlchemy()
 
 default_color = "#000"
 default_stamps = {
@@ -10,15 +11,6 @@ default_stamps = {
   "habit": 3, #"check-circle"
   "reward": 4, #"award"
 }
-
-
-# bonds = db.Table( # combined unique constraint
-#     "bonds",
-#     db.Column("id", db.Integer, primary_key=True),
-#     db.Column("user1_id", db.Integer, db.ForeignKey("users.id"), nullable=False),
-#     db.Column("user2_id", db.Integer, db.ForeignKey("users.id"), nullable=False),
-#     db.Column("created_at", db.DateTime, default=datetime.now()),
-# )
 
 
 class Stamp(db.Model):
@@ -56,6 +48,29 @@ class User(db.Model):
     # bonds1 = db.relationship("Bond", foreign_keys="[Bond.user1_id, Bond.user2_id]", back_populates=["bonded_user1", "bonded_user2"])
     bonds = db.relationship("Bond", foreign_keys="[Bond.user2_id]", back_populates="bond")
 
+    @property
+    def password(self):
+      return self.hashed_password
+
+
+    @password.setter
+    def password(self, password):
+      self.hashed_password = generate_password_hash(password)
+
+
+    def check_password(self, password):
+      return check_password_hash(self.password, password)
+
+
+    def to_dict(self):
+      return {
+        "id": self.id,
+        "username": self.username,
+        "email": self.email,
+        "first_name": self.first_name,
+        "last_name": self.last_name,
+        "birthday": self.birthday,
+      }
 
 class Program(db.Model):
     __tablename__ = "programs"
@@ -150,7 +165,7 @@ class Redeemed(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     reward_id = db.Column(db.Integer, db.ForeignKey("rewards.id"), nullable=False)
     redeemed_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
-    
+
     user = db.relationship("User", back_populates="redeemed")
     reward = db.relationship("Reward", back_populates="redeemed")
 
@@ -161,5 +176,5 @@ class Bond(db.Model):
     user1_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     user2_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now())
-    
+
     bond = db.relationship("User", foreign_keys=[user2_id], back_populates="bonds")
