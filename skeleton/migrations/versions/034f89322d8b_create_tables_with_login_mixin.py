@@ -1,8 +1,8 @@
-"""create tables
+"""create tables with login mixin
 
-Revision ID: 396423bc4c84
+Revision ID: 034f89322d8b
 Revises: 
-Create Date: 2020-11-22 22:06:30.026738
+Create Date: 2020-11-22 22:34:15.465356
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '396423bc4c84'
+revision = '034f89322d8b'
 down_revision = None
 branch_labels = None
 depends_on = None
