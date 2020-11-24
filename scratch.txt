@@ -19,7 +19,7 @@ Components
 -
 
 (Home page)
-- user profile card? (user details, avatar, birthday, first and last name)
+- user profile card? (user details, avatar, birthday, first and last name) *update have data rendering, need a way to get userId*
 - habit board container
    - grabs the list of user habits
    - habit Components
