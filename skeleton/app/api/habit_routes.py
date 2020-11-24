@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, jsonify, request
 from app.models import db, User, Program, Habit, Member, DailyStamp
 from app.schemas import user_schema, program_schema, habit_schema, member_schema, dailystamp_schema
 from app.utils import dump_data_list
+from app.forms import HabitForm
 from datetime import date, timedelta
 import calendar
 
@@ -26,7 +27,7 @@ def current_week(hid, mid):
     print('past_week_dates: ', past_week_dates)
     stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[6]).all()
     return jsonify(days=past_week_days, dates=past_week_dates, stamps=[dailystamp_schema.dump(stamp) for stamp in stamps])
-  
+
 
 # TESTED Functions
 @habit_routes.route("/<int:hid>")
@@ -52,7 +53,7 @@ def create_habit(pid):
         habit.color = data["color"]
     if "stamp_id" in data.keys():
         habit.stamp_id = data["stamp_id"]
-        
+
     db.session.add(habit)
     db.session.commit()
     return jsonify(habit_schema.dump(habit))
@@ -76,7 +77,7 @@ def edit_habit(hid):
         habit.stamp_id = data["stamp_id"]
     db.session.commit()
     return jsonify(habit_schema.dump(habit))
-    
+
 
 # TESTED Functions
 @habit_routes.route("/<int:hid>", methods=["DELETE"])
@@ -108,3 +109,21 @@ def stamp_day(sid, uid):
         elif day.status == 'pending':
             day.status = 'unstamped'
     return jsonify(dailystamp_schema.dump(day))
+
+
+# @habit_routes.route("/create", methods=["POST"])
+# def create_habit():
+#     form = HabitForm()
+#     print(form)
+
+#     if form.validate_on_submit():
+#         newHabit = Habit(
+#             habit=form.data['habit'],
+#             description=form.data['description'],
+#             frequency=form.data['frequency'],
+#             color=form.data['color'],
+#         )
+#         db.session.add(newHabit)
+#         db.session.commit()
+#         return newHabit.to_dict()
+#     return "Error"

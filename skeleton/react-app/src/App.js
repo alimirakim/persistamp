@@ -12,6 +12,7 @@ import UserProfileCard from "./components/UserProfileCard";
 import UserContext from './context/UserContext';
 
 
+import HabitForm from "./components/HabitForm";
 
 
 function App() {
@@ -27,11 +28,7 @@ function App() {
   useEffect(() => {
     (async () => {
       const user = await authenticate();
-<<<<<<< HEAD
       // console.log("USERRRR: ", user)
-=======
-      console.log("authenticated???")
->>>>>>> main
       if (!user.errors) {
         setAuthenticated(true);
         setUser(user)
@@ -58,32 +55,22 @@ function App() {
       <Route path="/sign-up" exact={true}>
         <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
       </Route>
-<<<<<<< HEAD
 
       <UserContext.Provider value={user}>
         <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
-          <UsersList/>
+          <UsersList />
         </ProtectedRoute>
         <ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
           <User />
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
+          <h1>My Home Page</h1>
           <UserProfileCard />
+          <HabitForm />
+          <HabitBoard />
         </ProtectedRoute>
       </UserContext.Provider>
-=======
-      <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
-        <UsersList />
-      </ProtectedRoute>
-      <ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
-        <User />
-      </ProtectedRoute>
-      <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
-        <h1>My Home Page</h1>
-        <UserProfileCard />
-        <HabitBoard />
-      </ProtectedRoute>
->>>>>>> main
+
     </BrowserRouter>
   );
 }

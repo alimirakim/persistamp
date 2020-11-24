@@ -5,22 +5,22 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
 
-from .models import (db, 
-                     User, 
-                     Program, 
-                     Member, 
-                     Habit, 
-                     DailyStamp, 
-                     Reward, 
-                     Redeemed, 
+from .models import (db,
+                     User,
+                     Program,
+                     Member,
+                     Habit,
+                     DailyStamp,
+                     Reward,
+                     Redeemed,
                      Bond,
                      Stamp,
                      Color)
 from .api import (users, user_routes,
-                  auth_routes, 
-                  program_routes, 
-                  habit_routes, 
-                  member_routes, 
+                  auth_routes,
+                  program_routes,
+                  habit_routes,
+                  member_routes,
                   reward_routes)
 
 from .seeds import seed_commands
