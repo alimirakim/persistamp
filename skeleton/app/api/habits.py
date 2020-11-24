@@ -2,8 +2,9 @@ from flask import Blueprint, render_template, redirect, jsonify, request
 from app.models import db, User, Program, Habit, Member, DailyStamp
 from app.schemas import user_schema, program_schema, habit_schema, member_schema, dailystamp_schema
 from app.utils import dump_data_list
+from app.forms import HabitForm
 
-habits = Blueprint("habits", __name__, url_prefix="/habits")
+habits = Blueprint("habits", __name__, url_prefix="/")
 
 
 # TESTED Functions
@@ -12,7 +13,7 @@ def program_habits(pid):
     """Get a list of a program's habits."""
     habits = Habit.query.filter(Habit.program_id == pid).all()
     return jsonify(dump_data_list(habits, habit_schema))
-  
+
 
 # TESTED Functions
 @habits.route("/<int:hid>")
@@ -23,28 +24,28 @@ def habit_details(hid):
 
 
 # TESTED Functions. Should the route just be / and just pass in program id?
-@habits.route("/programs/<int:pid>", methods=["POST"])
-def create_habit(pid):
-    """Create a new habit for a program."""
-    data = request.json
-    habit = Habit(habit=data["habit"],
-                  program_id=pid,
-                  creator_id=data["creator_id"],)
-    if "description" in data.keys():
-        habit.description = data["description"]
-    if "frequency" in data.keys():
-        habit.frequency = data["frequency"]
-    if "color" in data.keys():
-        habit.color = data["color"]
-    if "stamp_id" in data.keys():
-        habit.stamp_id = data["stamp_id"]
-        
-    db.session.add(habit)
-    db.session.commit()
-    return jsonify(habit_schema.dump(habit))
+# @habits.route("/programs/<int:pid>", methods=["POST"])
+# def create_habit(pid):
+#     """Create a new habit for a program."""
+#     data = request.json
+#     habit = Habit(habit=data["habit"],
+#                   program_id=pid,
+#                   creator_id=data["creator_id"],)
+#     if "description" in data.keys():
+#         habit.description = data["description"]
+#     if "frequency" in data.keys():
+#         habit.frequency = data["frequency"]
+#     if "color" in data.keys():
+#         habit.color = data["color"]
+#     if "stamp_id" in data.keys():
+#         habit.stamp_id = data["stamp_id"]
+
+#     db.session.add(habit)
+#     db.session.commit()
+#     return jsonify(habit_schema.dump(habit))
 
 
-# 
+#
 @habits.route("/<int:hid>", methods=["PATCH"])
 def edit_habit(hid):
     """Edit a habit's details by id."""
@@ -62,7 +63,7 @@ def edit_habit(hid):
         habit.stamp_id = data["stamp_id"]
     db.session.commit()
     return jsonify(habit_schema.dump(habit))
-    
+
 
 @habits.route("/<int:hid>", methods=["DELETE"])
 def delete_habit(hid):
@@ -93,3 +94,21 @@ def stamp_day(sid, uid):
         elif day.status == 'pending':
             day.status = 'unstamped'
     return jsonify(dailystamp_schema.dump(day))
+
+
+@habits.route("/create", methods=["POST"])
+def create_habit():
+    form = HabitForm()
+    print(form)
+
+    if form.validate_on_submit():
+        newHabit = Habit(
+            habit=form.data['habit'],
+            description=form.data['description'],
+            frequency=form.data['frequency'],
+            color=form.data['color'],
+        )
+        db.session.add(newHabit)
+        db.session.commit()
+        return newHabit.to_dict()
+    return "Error"
