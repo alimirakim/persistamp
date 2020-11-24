@@ -9,14 +9,23 @@ const AppWithUserContext = () => {
         return setUser(e.target.value)
     }
 
+    useEffect(() => {
+        (async () => {
+            if (!user) {
+                const res = await fetch(`/api/users`)
+                const userData = await res.json();
+                setUser(userData);
+            }
+        })()
+    })
 
-    render() {
-        return (
-            <UserContext.Provider value={this.state}>
-                <App />
-            </UserContext.Provider>
-        )
-    }
+    if (!user) return null;
+
+    return (
+        <UserContext.Provider value={user}>
+            <App />
+        </UserContext.Provider>
+    )
 }
 
 export default AppWithUserContext;
