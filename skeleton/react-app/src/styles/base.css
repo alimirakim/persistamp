@@ -1,2 +1,6 @@
 /* For global css rules. If the rule is on a generic tag, like 'a', 'h1', etc.,
 it probably belongs here. */
+
+body {
+    margin: 0px;
+}
