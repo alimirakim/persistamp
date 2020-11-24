@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, redirect, jsonify, request
 from app.models import db, User, Program, Habit, Member, DailyStamp
 from app.schemas import user_schema, program_schema, habit_schema, member_schema, dailystamp_schema
 from app.utils import dump_data_list
+from datetime import date, timedelta
+import calendar
 
 habit_routes = Blueprint("habits", __name__, url_prefix="/habits")
 
@@ -12,6 +14,18 @@ def program_habits(pid):
     """Get a list of a program's habits."""
     habits = Habit.query.filter(Habit.program_id == pid).all()
     return jsonify(dump_data_list(habits, habit_schema))
+
+@habit_routes.route("<int:hid>/member/<int:mid>/current_week")
+def current_week(hid, mid):
+    """Get the past 7 days"""
+    current_date = date.today()
+    past_week = [(current_date - timedelta(days=i)) for i in range(7)]
+    past_week_days = [day.strftime('%A')[0:3] for day in past_week]
+    past_week_dates = [date.strftime('%Y-%m-%d') for date in past_week]
+    print('past_week_days: ', past_week)
+    print('past_week_dates: ', past_week_dates)
+    stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[6]).all()
+    return jsonify(days=past_week_days, dates=past_week_dates, stamps=[dailystamp_schema.dump(stamp) for stamp in stamps])
   
 
 # TESTED Functions
