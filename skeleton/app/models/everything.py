@@ -24,6 +24,11 @@ class Stamp(db.Model):
     habits = db.relationship("Habit", back_populates="stamp")
     rewards = db.relationship("Reward", back_populates="stamp")
 
+    def to_dict(self):
+      return {
+        "stamp": self.stamp
+      }
+
 
 class User(db.Model, UserMixin):
     __tablename__ = "users"
@@ -70,6 +75,8 @@ class User(db.Model, UserMixin):
         "first_name": self.first_name,
         "last_name": self.last_name,
         "birthday": self.birthday,
+        "color": self.color,
+        "stamp_id": self.stamp_id
       }
 
 class Program(db.Model):

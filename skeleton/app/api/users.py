@@ -1,5 +1,5 @@
 # from flask import Blueprint, render_template, redirect, jsonify, request
-# from app.models import db, User, Program, Member, Reward, Redeemed, Bond
+# from app.models import db, User, Program, Member, Reward, Redeemed, Bond, Stamp
 # from app.schemas import user_schema, program_schema, reward_schema, bond_schema
 # from app.utils import dump_data_list
 
@@ -9,13 +9,13 @@
 # # TODO: Prune unnecessary info and eager-load necessary info
 # # TODO What info is unneeded?
 # # TESTED Functions
-# @users.route("/<int:uid>")
-# def user_details(uid):
-#     """Get a user's information by id."""
-#     user = User.query.filter(User.id == uid).one()
-#     user_data = user_schema.dump(user)
-#     del user_data["hashword"]
-#     return jsonify(user_data)
+# # @users.route("/<int:uid>")
+# # def user_details(uid):
+# #     """Get a user's information by id."""
+# #     user = User.query.filter(User.id == uid)
+# #     user_data = user_schema.dump(user)
+# #     del user_data["hashword"]
+# #     return jsonify(user_data)
 
 
 # # TODO How to filter by whether the program includes the member?
