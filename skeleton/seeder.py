@@ -3,7 +3,7 @@ load_dotenv()
 
 from datetime import datetime
 from app import app, db
-from app.models.everything import User, Program, Habit, Stamp, DailyStamp, Member, Reward
+from app.models.everything import User, Program, Habit, Stamp, DailyStamp, Member, Reward, Color
 
 
 with app.app_context():
@@ -21,37 +21,82 @@ with app.app_context():
     }
 
     users = [""]
-
-    stamp_user = Stamp(stamp="user-circle",type="people")
-    stamp_program = Stamp(stamp="calendar-alt",type="things",)
-    stamp_habit = Stamp(stamp="check-circle",type="symbols",)
-    stamp_reward = Stamp(stamp="award",type="things",)
-    stamp_turtle = Stamp(stamp="turtle",type="animals",)
-    stamp_tooth = Stamp(stamp="tooth", type="body")
-    stamp_carrot = Stamp(stamp="carrot", type="food")
-    stamp_dog = Stamp(stamp="dog",type="animals",)
-    stamp_turtle = Stamp(stamp="cat", type="animals",)
-    stamp_heart = Stamp(stamp="heart", type="symbols")
-    stamp_paint = Stamp(stamp="paint", type="things")
-    stamp_star = Stamp(stamp="star", type="symbols")
-    stamp_cookie = Stamp(stamp="cookie", type="food")
-    stamp_palette = Stamp(stamp="palette", type="things")
-
-    stamps = [
-        stamp_carrot, stamp_dog, stamp_habit, stamp_heart, stamp_paint,
-        stamp_program, stamp_reward, stamp_star, stamp_tooth, stamp_turtle,
-        stamp_user,
-    ]
+    stamp_sets = {
+        "defaults": ["user-circle", "calendar-alt", "check-circle", "award"],
+        "symbols": ["heart", "star"],
+        "things": ["palette"],
+        "people": [],
+        "body": ["tooth"],
+        "animals": ["turtle", "dog", "cat"],
+        "food": ["carrot", "cookie"],
+    }    
+    
+    stamps = []
+    for type, names in stamp_sets.items():
+        [stamps.append(Stamp(type=type, stamp=stamp)) for stamp in names]
     for stamp in stamps:
         db.session.add(stamp)
+
+
+    darkmode_colors = {
+        "fiery-rose":         "#ff5964",
+        "wild-orchid":        "#d66ba0",
+        "cyclamen":           "#e87ea1",
+        "antique-brass":      "#dc9e82",
+        "melon":              "#ebb3a9",
+        "gold-crayola":       "#dcc48e",
+        "dutch-white":        "#f4e4ba",
+        "beige":              "#f2f3d9",
+        "tea-green":          "#c2d8b9",
+        "granny-smith-apple": "#b0f2b4", # 10
+        "magic-mint":         "#9df7e5",
+        "blizzard-blue":      "#b8f3ff",
+        "wisteria":           "#b49fcc",
+        "african-violet":     "#b07bac", # 14
+    }
+    lightmode_colors = {
+        "vivid-burgundy":     "#a5243d",
+        "cedar-chest":        "#be5a38", # 16
+        "sandy-brown":        "#f29e4c", # 17
+        "maize-crayola":      "#f1c453",
+        "corn":               "#efea5a",
+        "inchworm":           "#b9e769", # 20
+        "light-green":        "#83e377",
+        "medium-aquamarine":  "#16db93",
+        "keppel":             "#0db39e",
+        "middle-blue":        "#8ac6d0",
+        "cadet-blue":         "#58a4b0", # 25
+        "blue-munsell":       "#048ba8",
+        "sapphire-blue":      "#2c699a",
+        "dark-slate-blue":    "#54478c",
+        "red-violet-crayola": "#af4d98", # 29
+    }
+    colors = []
+    for name, hex in darkmode_colors.items():
+        color = Color(name=name,
+                      hex=hex,
+                      mode="dark",
+        )
+        colors.append(color)
+        db.session.add(color)
+        
+    for name, hex in lightmode_colors.items():
+        color = Color(name=name,
+                      hex=hex,
+                      mode="light",
+                      )
+        db.session.add(color)
+        colors.append(color)
+    db.session.commit()
+
 
     myki = User(username="myki",
                   first_name="Mira",
                   last_name="Kim",
                   email="alimirakim@gmail.com",
                   hashed_password="password",
-                  color="#af4d98",
-                  stamp=stamp_user,
+                  color=colors[1],
+                  stamp=stamps[0],
                   birthday=datetime(1991, 6, 27)
     )
     dyclee = User(username="dyclee",
@@ -59,8 +104,8 @@ with app.app_context():
                   last_name="Lee",
                   email="fakedavid@gmail.com",
                   hashed_password="password",
-                  color="#d66ba0",
-                  stamp=stamp_user,
+                  color=colors[2],
+                  stamp=stamps[0],
                   birthday=datetime(1994, 8, 18)
     )
     awod = User(username="Awodfkai",
@@ -68,8 +113,8 @@ with app.app_context():
                   last_name="Wang",
                   email="fakebrian@gmail.com",
                   hashed_password="password",
-                  color="#b0f2b4",
-                  stamp=stamp_user,
+                  color=colors[3],
+                  stamp=stamps[0],
                   birthday=datetime(1992, 7, 17)
     )
     eric = User(username="eric",
@@ -77,8 +122,8 @@ with app.app_context():
                   last_name="Lyda",
                   email="fakeeric@gmail.com",
                   hashed_password="password",
-                  color="#58a4b0",
-                  stamp=stamp_user,
+                  color=colors[4],
+                  stamp=stamps[0],
                   birthday=datetime(1990, 6, 6)
     )
     yn = User(username="yn",
@@ -86,16 +131,16 @@ with app.app_context():
                   last_name="Nidirg",
                   email="yegresnidirg@gmail.com",
                   hashed_password="password",
-                  color="#f1c453",
-                  stamp=stamp_user,
+                  color=colors[5],
+                  stamp=stamps[0],
     )
     inho = User(username="InhoShi",
                   first_name="Derek",
                   last_name="Kim",
                   email="fakederek@gmail.com",
                   hashed_password="password",
-                  color="#efea5a",
-                  stamp=stamp_user,
+                  color=colors[6],
+                  stamp=stamps[0],
                   birthday=datetime(1993, 4, 4)
     )
     aly = User(username="Aly Cat",
@@ -103,8 +148,8 @@ with app.app_context():
                   last_name="Cat",
                   email="fakeali@gmail.com",
                   hashed_password="password",
-                  color="#54478c",
-                  stamp=stamp_user,
+                  color=colors[7],
+                  stamp=stamps[0],
                   birthday=datetime(1994, 3, 3)
     )
     sophie = User(username="sophie",
@@ -112,8 +157,8 @@ with app.app_context():
                   last_name="S.",
                   email="sophie@gmail.com",
                   hashed_password="password",
-                  color="#0db39e",
-                  stamp=stamp_user,
+                  color=colors[8],
+                  stamp=stamps[0],
                   birthday=datetime(1995, 2, 2)
     )
     ashe = User(username="ashen",
@@ -121,16 +166,16 @@ with app.app_context():
                   last_name="Dawn",
                   email="ashendawn@gmail.com",
                   hashed_password="password",
-                  color="#16db93",
-                  stamp=stamp_user,
+                  color=colors[9],
+                  stamp=stamps[0],
     )
     mom = User(username="DemoMom",
                   first_name="demo",
                   last_name="lina",
                   email="demolina@gmail.com",
                   hashed_password="password",
-                  color="#0db39e",
-                  stamp=stamp_user,
+                  color=colors[10],
+                  stamp=stamps[0],
     )
     users = [myki, dyclee, awod, eric, yn, inho, aly, sophie, ashe, mom]
     for user in users:
@@ -140,17 +185,17 @@ with app.app_context():
     # Programs
     program_mom = Program(program="Sophia and Mom",
                         description="",
-                        color="#d66ba0",
+                        color=colors[11],
                         creator_id=1,
     )
     program_me = Program(program="Promises to Me",
                         description="",
-                        color="#d66ba0",
+                        color=colors[12],
                         creator_id=2,
     )
     program_ashe = Program(program="Mario Kart Championships",
                         description="",
-                        color="#d66ba0",
+                        color=colors[13],
                         creator_id=2,
     )
     programs = [program_mom, program_me, program_ashe]
@@ -164,64 +209,64 @@ with app.app_context():
     habit_veggies = Habit(habit="Eat Veggies",
                     description="",
                     frequency="ttttttt",
-                    color="#f1c453",
-                    stamp=stamp_carrot,
+                    color=colors[16],
+                    stamp=stamps[11],
                     program=program_mom,
                     creator=mom,
     )
     habit_dog = Habit(habit="Walk Bentley",
                     description="",
                     frequency="ttttttt",
-                    color="#54478c",
-                    stamp=stamp_dog,
+                    color=colors[13],
+                    stamp=stamps[9],
                     program=program_mom,
                     creator=mom,
     )
     habit_teeth = Habit(habit="Brush Teeth",
                     description="",
                     frequency="ttttttt",
-                    color="#048ba8",
-                    stamp=stamp_tooth,
+                    color=colors[10],
+                    stamp=stamps[7],
                     program=program_mom,
                     creator=mom,
     )
     habit_hair = Habit(habit="brush hair",
                     description="",
                     frequency="ttttttt",
-                    color="#d66ba0",
-                    stamp=stamp_heart,
+                    color=colors[2],
+                    stamp=stamps[4],
                     program=program_me,
                     creator=sophie,
     )
     habit_dress = Habit(habit="wear a pretty dress",
                     description="",
                     frequency="ttttttt",
-                    color="#d66ba0",
-                    stamp=stamp_heart,
+                    color=colors[2],
+                    stamp=stamps[4],
                     program=program_me,
                     creator=sophie,
     )
     habit_draw = Habit(habit="draw a picture",
                     description="",
                     frequency="tffffft",
-                    color="#d66ba0",
-                    stamp=stamp_paint,
+                    color=colors[2],
+                    stamp=stamps[6],
                     program=program_me,
                     creator=sophie,
     )
     habit_play = Habit(habit="play with Ashe",
                     description="",
                     frequency="tffffft",
-                    color="#d66ba0",
-                    stamp=stamp_heart,
+                    color=colors[2],
+                    stamp=stamps[4],
                     program=program_me,
                     creator=sophie,
     )
     habit_win = Habit(habit="win at mario kart",
                     description="",
                     frequency="tffffft",
-                    color="#efea5a",
-                    stamp=stamp_star,
+                    color=colors[18],
+                    stamp=stamps[5],
                     program=program_ashe,
                     creator=ashe,
     )
@@ -290,47 +335,18 @@ with app.app_context():
             db.session.add(daily2)
 
 
-    colors = {
-        "fiery-rose":         "#ff5964",
-        "wild-orchid":        "#d66ba0",
-        "cyclamen":           "#e87ea1",
-        "antique-brass":      "#dc9e82",
-        "melon":              "#ebb3a9",
-        "gold-crayola":       "#dcc48e",
-        "dutch-white":        "#f4e4ba",
-        "beige":              "#f2f3d9",
-        "tea-green":          "#c2d8b9",
-        "granny-smith-apple": "#b0f2b4",
-        "magic-mint":         "#9df7e5",
-        "blizzard-blue":      "#b8f3ff",
-        "wisteria":           "#b49fcc",
-        "african-violet":     "#b07bac",
-        "vivid-burgundy":     "#a5243d",
-        "cedar-chest":        "#be5a38",
-        "sandy-brown":        "#f29e4c",
-        "maize-crayola":      "#f1c453",
-        "corn":               "#efea5a",
-        "inchworm":           "#b9e769",
-        "light-green":        "#83e377",
-        "medium-aquamarine":  "#16db93",
-        "keppel":             "#0db39e",
-        "middle-blue":        "#8ac6d0",
-        "cadet-blue":         "#58a4b0",
-        "blue-munsell":       "#048ba8",
-        "sapphire-blue":      "#2c699a",
-        "dark-slate-blue":    "#54478c",
-        "red-violet-crayola": "#af4d98",
-    }
 
-    for color, hex in colors.items():
+
+
+    for color in colors:
         reward = Reward(type='color',
-                        reward=f"Color: {color.title()}",
-                        description=f"Gain access to the '{color.title()}' color theme!",
+                        reward=f"Color: {color.name.title()}",
+                        description=f"Gain access to the '{color.name.title()}' color theme!",
                         cost=7,
-                        color=hex,
+                        color=color,
                         limit_per_member=1,
                         quantity=-1,
-                        stamp=stamp_palette,
+                        stamp=stamps[6],
         )
         db.session.add(reward)
 
@@ -340,10 +356,10 @@ with app.app_context():
                         reward=f"{cookie} Cookie",
                         description=f"One giant {cookie.lower()} cookie.",
                         cost=7,
-                        color="#be5a38",
+                        color=colors[7],
                         limit_per_member=-1,
                         quantity=-1,
-                        stamp=stamp_cookie,
+                        stamp=stamps[12],
                         program=program_mom,
                         creator=mom,
         )

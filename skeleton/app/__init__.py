@@ -13,8 +13,10 @@ from .models import (db,
                      DailyStamp, 
                      Reward, 
                      Redeemed, 
-                     Bond)
-from .api import (user_routes, 
+                     Bond,
+                     Stamp,
+                     Color)
+from .api import (users, user_routes,
                   auth_routes, 
                   program_routes, 
                   habit_routes, 
@@ -40,6 +42,7 @@ def load_user(id):
 app.cli.add_command(seed_commands)
 
 app.config.from_object(Config)
+# app.register_blueprint(users, url_prefix='/api/users')
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(program_routes, url_prefix="/api/programs")

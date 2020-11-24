@@ -1,8 +1,32 @@
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
-from app.models import User, Program, Habit, DailyStamp, Member, Reward, Redeemed, Bond
+from marshmallow_sqlalchemy.fields import Nested
+from app.models import User, Program, Habit, DailyStamp, Member, Reward, Redeemed, Bond, Stamp, Color
+
+
+# class SmartNested(Nested):
+#     def serialize(self, attr, obj, accessor=None):
+#         if attr not in obj.__dict__:
+#             return {"id": int(getattr(obj, attr + "_id"))}
+#         return super(SmartNested, self).serialize(attr, obj, accessor)
+
+class ColorSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Color
+        include_relationships = True
+        load_instance = True
+color_schema = ColorSchema()
+
+
+class StampSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = Stamp
+        include_relationships = True
+        load_instance = True
+stamp_schema = StampSchema()
 
 
 class UserSchema(SQLAlchemyAutoSchema):
+    # stamp = SmartNested(StampSchema)
     class Meta:
         model = User
         include_relationships = True

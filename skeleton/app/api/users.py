@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, redirect, jsonify, request
-from app.models import db, User, Program, Member, Reward, Redeemed, Bond
-from app.schemas import user_schema, program_schema, reward_schema, bond_schema
+from app.models import db, User, Program, Member, Reward, Redeemed, Bond, Stamp
+from app.schemas import user_schema, program_schema, reward_schema, bond_schema, stamp_schema
 from app.utils import dump_data_list
 
-users = Blueprint("users", __name__, url_prefix="/users")
+users = Blueprint("usersss", __name__, url_prefix="/users")
 
 
 # TODO: Prune unnecessary info and eager-load necessary info
@@ -14,7 +14,10 @@ def user_details(uid):
     """Get a user's information by id."""
     user = User.query.filter(User.id == uid).one()
     user_data = user_schema.dump(user)
+    user_stamp = stamp_schema.dump(user.stamp)
+    print("\nSTAMP?", user_stamp)
     del user_data["hashed_password"]
+    user_data["stamp"] = user_stamp
     return jsonify(user_data)
 
 

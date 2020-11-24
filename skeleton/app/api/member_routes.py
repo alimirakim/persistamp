@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, jsonify, request
-from app.models import Member, Program, User, Habit
-from app.schemas import member_schema, program_schema, user_schema, habit_schema
+from sqlalchemy.orm import joinedload
+from app.models import db, Member, Program, User, Habit, Color
+from app.schemas import member_schema, program_schema, user_schema, habit_schema, stamp_schema, color_schema
 from app.utils import dump_data_list
 member_routes = Blueprint("members", __name__, url_prefix="/members")
 
@@ -44,8 +45,15 @@ def remove_member(mid):
 @member_routes.route("/<int:mid>/habits")
 def member_habits(mid):
     """Get a list of a program member's habits (program-specific)."""
-    habits = Habit.query.filter().all() # dunno
-    return jsonify(dump_data_list(habits, habit_schema))
+    habits = Habit.query.options(joinedload(Habit.stamp)).all() # dunno
+    habits_data = dump_data_list(habits, habit_schema)
+    for i in range(len(habits)):
+        habit_stamp = stamp_schema.dump(habits[i].stamp)
+        habit_color = color_schema.dump(habits[i].color)
+        habits_data[i]["stamp"] = habit_stamp
+        habits_data[i]["color"] = habit_color
+        
+    return jsonify(habits_data)
 
 
 @member_routes.route("/<int:mid>/habits/<int:hid>")
