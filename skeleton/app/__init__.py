@@ -5,13 +5,25 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
 
-from .models import db, User
-from .api.user_routes import user_routes
-from .api.auth_routes import auth_routes
-from .api.habits import habits
+from .models import (db,
+                     User,
+                     Program,
+                     Member,
+                     Habit,
+                     DailyStamp,
+                     Reward,
+                     Redeemed,
+                     Bond,
+                     Stamp,
+                     Color)
+from .api import (users, user_routes,
+                  auth_routes,
+                  program_routes,
+                  habit_routes,
+                  member_routes,
+                  reward_routes)
 
 from .seeds import seed_commands
-
 from .config import Config
 
 app = Flask(__name__)
@@ -30,9 +42,13 @@ def load_user(id):
 app.cli.add_command(seed_commands)
 
 app.config.from_object(Config)
+# app.register_blueprint(users, url_prefix='/api/users')
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
-app.register_blueprint(habits, url_prefix='/api/habits')
+app.register_blueprint(program_routes, url_prefix="/api/programs")
+app.register_blueprint(habit_routes, url_prefix="/api/habits")
+app.register_blueprint(member_routes, url_prefix="/api/members")
+app.register_blueprint(reward_routes, url_prefix="/api/rewards")
 db.init_app(app)
 Migrate(app, db)
 
@@ -55,7 +71,7 @@ def inject_csrf_token(response):
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def react_root(path):
-    print("path", path)
+    print("path:", path)
     if path == 'favicon.ico':
         return app.send_static_file('favicon.ico')
     return app.send_static_file('index.html')

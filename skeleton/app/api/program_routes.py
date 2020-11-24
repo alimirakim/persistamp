@@ -2,11 +2,11 @@ from flask import Blueprint, render_template, redirect, jsonify, request
 from app.models import db, Program, User, Member
 from app.schemas import program_schema, user_schema, member_schema
 
-programs = Blueprint("programs", __name__, url_prefix="/programs")
+program_routes = Blueprint("programs", __name__, url_prefix="/programs")
 
 
 # TESTED Returns a program json
-@programs.route("/<int:pid>")
+@program_routes.route("/<int:pid>")
 def program_details(pid):
     """Get a program's details by id."""
     program = Program.query.filter(Program.id == pid).one()
@@ -14,7 +14,7 @@ def program_details(pid):
     
     
 # TESTED Functions, creates new program.
-@programs.route("/", methods=["POST"])
+@program_routes.route("/", methods=["POST"])
 def create_program():
     """Create a new program."""
     data = request.json
@@ -33,7 +33,7 @@ def create_program():
 
 
 # TESTED Functions
-@programs.route("/<int:pid>", methods=["PATCH"])
+@program_routes.route("/<int:pid>", methods=["PATCH"])
 def edit_program(pid):
     """Edit a program's details."""
     data = request.json
@@ -54,7 +54,7 @@ def edit_program(pid):
 
 # TODO Does this need cascade delete?
 # TESTED Functions
-@programs.route("/<int:pid>", methods=["DELETE"])
+@program_routes.route("/<int:pid>", methods=["DELETE"])
 def delete_program(pid):
     """Delete a program by id."""
     program = Program.query.filter(Program.id == pid).one()
@@ -65,7 +65,7 @@ def delete_program(pid):
 
 # TODO How do I filter this?
 # Untested
-@programs.route("/<int:pid>/stampers")
+@program_routes.route("/<int:pid>/stampers")
 def program_stampers(pid):
     """Get a list of a program's stampers and their details."""
     stampers = User.query.filter().all()
@@ -74,7 +74,7 @@ def program_stampers(pid):
 
 # TODO How the heckers
 # Untested
-@programs.route("/<int:pid>/stampers/<int:uid>")
+@program_routes.route("/<int:pid>/stampers/<int:uid>")
 def program_stamper_members(pid, uid):
     """Get a stamper's details and a list of the members they stamp for."""
     stamper = User.query.filter().one()

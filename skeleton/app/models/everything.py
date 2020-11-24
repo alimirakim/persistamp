@@ -30,6 +30,19 @@ class Stamp(db.Model):
       }
 
 
+class Color(db.Model):
+    __tablename__ = "colors"
+    id = db.Column(db.Integer, primary_key=True)
+    hex = db.Column(db.String(7), nullable=False, unique=True)
+    name = db.Column(db.String(50), unique=True)
+    mode = db.Column(db.String(50), default="night")
+    
+    users = db.relationship("User", back_populates="color")
+    programs = db.relationship("Program", back_populates="color")
+    habits = db.relationship("Habit", back_populates="color")
+    rewards = db.relationship("Reward", back_populates="color")
+
+
 class User(db.Model, UserMixin):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
@@ -37,35 +50,34 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50))
     email = db.Column(db.String(50), nullable=False, unique=True)
-    color = db.Column(db.String(7), nullable=False, default=default_color)
+    color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)
     stamp_id = db.Column(db.Integer, db.ForeignKey("stamps.id"), nullable=False, default=default_stamps["user"])
     birthday = db.Column(db.Date)
     hashed_password = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     stamp = db.relationship("Stamp", back_populates="users")
-    created_programs = db.relationship("Program", back_populates="creator")
-    created_habits = db.relationship("Habit", back_populates="creator")
-    created_rewards = db.relationship("Reward", back_populates="creator")
+    color = db.relationship("Color", back_populates="users")
+    # programs = db.relationship("Program", secondary="Member", foreign_keys="[Member.member_id]", back_populates="users")
     memberships = db.relationship("Member", foreign_keys="[Member.member_id]", back_populates="member")
     stampers = db.relationship("Member", foreign_keys="[Member.stamper_id]", back_populates="stamper")
     redeemed = db.relationship("Redeemed", back_populates="user")
     # bonds1 = db.relationship("Bond", foreign_keys="[Bond.user1_id, Bond.user2_id]", back_populates=["bonded_user1", "bonded_user2"])
     bonds = db.relationship("Bond", foreign_keys="[Bond.user2_id]", back_populates="bond")
-
+    created_programs = db.relationship("Program", back_populates="creator")
+    created_habits = db.relationship("Habit", back_populates="creator")
+    created_rewards = db.relationship("Reward", back_populates="creator")
+    
     @property
     def password(self):
       return self.hashed_password
-
 
     @password.setter
     def password(self, password):
       self.hashed_password = generate_password_hash(password)
 
-
     def check_password(self, password):
       return check_password_hash(self.password, password)
-
 
     def to_dict(self):
       return {
@@ -75,25 +87,28 @@ class User(db.Model, UserMixin):
         "first_name": self.first_name,
         "last_name": self.last_name,
         "birthday": self.birthday,
-        "color": self.color,
+        "color_id": self.color_id,
         "stamp_id": self.stamp_id
       }
+
 
 class Program(db.Model):
     __tablename__ = "programs"
     id = db.Column(db.Integer, primary_key=True)
     program = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(250))
-    color = db.Column(db.String(7), nullable=False, default=default_color)
+    color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)
     stamp_id = db.Column(db.Integer, db.ForeignKey("stamps.id"), nullable=False, default=default_stamps["program"])
     creator_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     stamp = db.relationship("Stamp", back_populates="programs")
-    creator = db.relationship("User", back_populates="created_programs")
+    color = db.relationship("Color", back_populates="programs")
+    # users = db.relationship("User", secondary="Member", foreign_keys="[Member.member_id]", back_populates="programs")
     members = db.relationship("Member", back_populates="program")
     habits = db.relationship("Habit", back_populates="program")
     rewards = db.relationship("Reward", back_populates="program")
+    creator = db.relationship("User", back_populates="created_programs")
 
 
 class Member(db.Model):
@@ -118,7 +133,7 @@ class Habit(db.Model):
     habit = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(250))
     frequency = db.Column(db.String(7), nullable=False, default="ttttttt")
-    color = db.Column(db.String(7), nullable=False, default=default_color)
+    color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)
     stamp_id = db.Column(db.Integer, db.ForeignKey("stamps.id"), nullable=False, default=default_stamps["habit"])
     program_id = db.Column(db.Integer, db.ForeignKey("programs.id"))
     creator_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
@@ -126,6 +141,7 @@ class Habit(db.Model):
     # TODO habit+program should be unique
 
     stamp = db.relationship("Stamp", back_populates="habits")
+    color = db.relationship("Color", back_populates="habits")
     program = db.relationship("Program", back_populates="habits")
     creator = db.relationship("User", back_populates="created_habits")
     daily_stamps = db.relationship("DailyStamp", back_populates="habit")
@@ -151,7 +167,7 @@ class Reward(db.Model):
     reward = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(250))
     cost = db.Column(db.Integer, nullable=False, default=7)
-    color = db.Column(db.String(7), nullable=False, default=default_color)
+    color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)
     limit_per_member = db.Column(db.Integer, nullable=False, default=1)
     quantity = db.Column(db.Integer, nullable=False, default=-1)
     stamp_id = db.Column(db.Integer, db.ForeignKey("stamps.id"), nullable=False, default=default_stamps["reward"])
@@ -161,6 +177,7 @@ class Reward(db.Model):
     # TODO program+ reward should be unique
 
     stamp = db.relationship("Stamp", back_populates="rewards")
+    color = db.relationship("Color", back_populates="rewards")
     program = db.relationship("Program", back_populates="rewards")
     creator = db.relationship("User", back_populates="created_rewards")
     redeemed = db.relationship("Redeemed", back_populates="reward")
