@@ -41,7 +41,7 @@ def login():
         login_user(user)
         print(user.id, "---------------------------HEEEEREE--------------------")
         res = make_response(user.to_dict())
-        res.set_cookie('uid_cookie', str(user.id))
+        # res.set_cookie('uid_cookie', str(user.id))
         return res
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
@@ -86,7 +86,7 @@ def sign_up():
 
         # Set cookie
         res = make_response(jsonify(user_schema.dump(user)))
-        res.set_cookie = ("uid_cookie", str(user.id))
+        # res.set_cookie = ("uid_cookie", str(user.id))
 
         return res
     return {'errors': validation_errors_to_error_messages(form.errors)}
