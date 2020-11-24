@@ -1,5 +1,5 @@
 import React from 'react';
-import UserContext from './context/userContext';
+import UserContext from './context/UserContext';
 import App from './App';
 
 class AppWithUserContext extends React.Component {
@@ -26,3 +26,5 @@ class AppWithUserContext extends React.Component {
         )
     }
 }
+
+export default AppWithUserContext;
