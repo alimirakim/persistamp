@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import '../styles/layouts.css';
 import UserContext from '../context/UserContext';
-
+import LogoutIcon from './auth/LogoutButton';
 
 
 const NavBar = ({ authenticated, setAuthenticated }) => {
@@ -38,11 +38,6 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
     <div className="NavBarArea">
       <nav>
         <div className="NavBarContainer">
-          {/* <div>
-            <NavLink to="/" exact={true} className="NavBarItem" activeClassName="active">
-              Persistamp (for now)
-            </NavLink>
-          </div> */}
           <div>
             <a href="/" className="NavBarLogo">
               Persistamp (for now)
@@ -54,7 +49,7 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
             </NavLink>
           </div>
           <div>
-            <LogoutButton setAuthenticated={setAuthenticated} className="NavBarItem" />
+            <LogoutIcon setAuthenticated={setAuthenticated} className="NavBarItem" />
           </div>
         </div>
       </nav>
