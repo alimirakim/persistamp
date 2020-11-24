@@ -1,2 +1,2 @@
 from .db import db
-from .everything import User, Program, Member, Habit, DailyStamp, Reward, Redeemed, Bond, Stamp, Color
+from .everything import User, Program, Member, Reward, Redeemed, Bond, Habit, DailyStamp, Stamp, Color

@@ -8,6 +8,7 @@ import UsersList from "./components/UsersList";
 import User from "./components/User";
 import { authenticate } from "./services/auth";
 import HabitBoard from "./components/HabitBoard";
+import UserProfileCard from "./components/UserProfileCard";
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -47,6 +48,7 @@ function App() {
       </ProtectedRoute>
       <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
         <h1>My Home Page</h1>
+        <UserProfileCard />
         <HabitBoard/>
       </ProtectedRoute>
     </BrowserRouter>
