@@ -2,7 +2,9 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 
+
 const NavBar = ({ setAuthenticated }) => {
+
   return (
     <nav>
       <ul>
@@ -35,3 +37,11 @@ const NavBar = ({ setAuthenticated }) => {
 }
 
 export default NavBar;
+
+// const NavBarContainer = () => {
+//   return (
+//     <UserContext.Consumer>
+//       {(value) => <NavBar value={value} />}
+//     </UserContext.Consumer>
+//   )
+// }
