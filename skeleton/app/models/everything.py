@@ -58,6 +58,7 @@ class User(db.Model, UserMixin):
 
     stamp = db.relationship("Stamp", back_populates="users")
     color = db.relationship("Color", back_populates="users")
+    # programs = db.relationship("Program", secondary="Member", foreign_keys="[Member.member_id]", back_populates="users")
     memberships = db.relationship("Member", foreign_keys="[Member.member_id]", back_populates="member")
     stampers = db.relationship("Member", foreign_keys="[Member.stamper_id]", back_populates="stamper")
     redeemed = db.relationship("Redeemed", back_populates="user")
@@ -71,15 +72,12 @@ class User(db.Model, UserMixin):
     def password(self):
       return self.hashed_password
 
-
     @password.setter
     def password(self, password):
       self.hashed_password = generate_password_hash(password)
 
-
     def check_password(self, password):
       return check_password_hash(self.password, password)
-
 
     def to_dict(self):
       return {
@@ -106,6 +104,7 @@ class Program(db.Model):
 
     stamp = db.relationship("Stamp", back_populates="programs")
     color = db.relationship("Color", back_populates="programs")
+    # users = db.relationship("User", secondary="Member", foreign_keys="[Member.member_id]", back_populates="programs")
     members = db.relationship("Member", back_populates="program")
     habits = db.relationship("Habit", back_populates="program")
     rewards = db.relationship("Reward", back_populates="program")

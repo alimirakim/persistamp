@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request, make_response
-from app.models import User, db
+from app.models import db, User, Program, Member
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -42,7 +42,7 @@ def login():
         login_user(user)
         print(user.id, "---------------------------HEEEEREE--------------------")
         res = make_response(user.to_dict())
-        res.set_cookie('sample_cookie', str(user.id))
+        res.set_cookie('uid_cookie', str(user.id))
         return res
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
@@ -54,7 +54,7 @@ def logout():
     logout_user()
     print("LOGGED OUT")
     return {'message': 'User logged out'}
-
+    
 
 @auth_routes.route('/signup', methods=['POST'])
 def sign_up():
@@ -66,6 +66,8 @@ def sign_up():
 
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
+        
+        # Create user, default program, and default membership records
         user = User(
             username=form.data['username'],
             email=form.data['email'],
@@ -74,11 +76,23 @@ def sign_up():
             last_name=form.data['last_name'],
             birthday=form.data['birthday']
         )
-        # do we need to hash password here? or does the model handle it
+        program = Program(program=f"{form.data['username']}'s Habits",
+                          creator=user,)
+        membership = Member(program=program,
+                            member=user,
+                            stamper=user,)
         db.session.add(user)
+        db.session.add(program)
+        db.session.add(membership)
         db.session.commit()
+        
         login_user(user)
-        return jsonify(user_schema.dump(user))
+        
+        # Set cookie
+        res = make_response(jsonify(user_schema.dump(user)))
+        res.set_cookie = ("uid_cookie", str(user.id))
+        
+        return res
     return {'errors': validation_errors_to_error_messages(form.errors)}
 
 
