@@ -15,17 +15,17 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
       <nav>
         <div className="NavBarContainer">
           <div>
-            <NavLink to="/login" exact={true} activeClassName="active">
+            <a href='/login' className="NavBarLogo">
               Persistamp (for now)
-            </NavLink>
+            </a>
           </div>
           <div>
-            <NavLink to="/login" exact={true} activeClassName="active">
+            <NavLink to="/login" exact={true} className="NavBarItem" activeClassName="active">
               Login
             </NavLink>
           </div>
           <div>
-            <NavLink to="/sign-up" exact={true} activeClassName="active">
+            <NavLink to="/sign-up" exact={true} className="NavBarItem" activeClassName="active">
               Sign Up
             </NavLink>
           </div>
@@ -38,18 +38,23 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
     <div className="NavBarArea">
       <nav>
         <div className="NavBarContainer">
-          <div>
-            <NavLink to="/" exact={true} activeClassName="active">
+          {/* <div>
+            <NavLink to="/" exact={true} className="NavBarItem" activeClassName="active">
               Persistamp (for now)
             </NavLink>
+          </div> */}
+          <div>
+            <a href="/" className="NavBarLogo">
+              Persistamp (for now)
+            </a>
           </div>
           <div>
-            <NavLink to="/users" exact={true} activeClassName="active">
+            <NavLink to="/users" exact={true} className="NavBarItem" activeClassName="active">
               Users
             </NavLink>
           </div>
           <div>
-            <LogoutButton setAuthenticated={setAuthenticated} />
+            <LogoutButton setAuthenticated={setAuthenticated} className="NavBarItem" />
           </div>
         </div>
       </nav>

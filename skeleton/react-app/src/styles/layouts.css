@@ -7,13 +7,18 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
 .NavBarContainer {
     display: flex;
     align-items: flex-start;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .NavBarArea {
     background-color: lavender;
     width: 100%;
     height: 60px;
+}
+
+.NavBarItem {
+    margin: 15px;
+
 }
 
 body {
