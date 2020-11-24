@@ -2,20 +2,34 @@ from flask import Blueprint, render_template, redirect, jsonify, request
 from app.models import db, User, Program, Habit, Member, DailyStamp
 from app.schemas import user_schema, program_schema, habit_schema, member_schema, dailystamp_schema
 from app.utils import dump_data_list
+from datetime import date, timedelta
+import calendar
 
-habits = Blueprint("habits", __name__, url_prefix="/habits")
+habit_routes = Blueprint("habits", __name__, url_prefix="/habits")
 
 
 # TESTED Functions
-@habits.route("/programs/<int:pid>")
+@habit_routes.route("/programs/<int:pid>")
 def program_habits(pid):
     """Get a list of a program's habits."""
     habits = Habit.query.filter(Habit.program_id == pid).all()
     return jsonify(dump_data_list(habits, habit_schema))
+
+@habit_routes.route("<int:hid>/member/<int:mid>/current_week")
+def current_week(hid, mid):
+    """Get the past 7 days"""
+    current_date = date.today()
+    past_week = [(current_date - timedelta(days=i)) for i in range(7)]
+    past_week_days = [day.strftime('%A')[0:3] for day in past_week]
+    past_week_dates = [date.strftime('%Y-%m-%d') for date in past_week]
+    print('past_week_days: ', past_week)
+    print('past_week_dates: ', past_week_dates)
+    stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[6]).all()
+    return jsonify(days=past_week_days, dates=past_week_dates, stamps=[dailystamp_schema.dump(stamp) for stamp in stamps])
   
 
 # TESTED Functions
-@habits.route("/<int:hid>")
+@habit_routes.route("/<int:hid>")
 def habit_details(hid):
     """Get a habit's details, including recent histories for all members."""
     habit = Habit.query.filter(Habit.id == hid).one()
@@ -23,7 +37,7 @@ def habit_details(hid):
 
 
 # TESTED Functions. Should the route just be / and just pass in program id?
-@habits.route("/programs/<int:pid>", methods=["POST"])
+@habit_routes.route("/programs/<int:pid>", methods=["POST"])
 def create_habit(pid):
     """Create a new habit for a program."""
     data = request.json
@@ -44,8 +58,8 @@ def create_habit(pid):
     return jsonify(habit_schema.dump(habit))
 
 
-# 
-@habits.route("/<int:hid>", methods=["PATCH"])
+# TESTED Functions.
+@habit_routes.route("/<int:hid>", methods=["PATCH"])
 def edit_habit(hid):
     """Edit a habit's details by id."""
     data = request.json
@@ -64,7 +78,8 @@ def edit_habit(hid):
     return jsonify(habit_schema.dump(habit))
     
 
-@habits.route("/<int:hid>", methods=["DELETE"])
+# TESTED Functions
+@habit_routes.route("/<int:hid>", methods=["DELETE"])
 def delete_habit(hid):
     """Delete a habit by id."""
     habit = Habit.query.filter(Habit.id == hid).one()
@@ -78,7 +93,7 @@ def delete_habit(hid):
 # If no stamper, just toggle the status.
 # If stamper, check stamper id from params. If it's the member, NOT stamper,
 # change to pending. If it IS the stamper, change to checked or unchecked.
-@habits.route("/dailystamps/<int:sid>/stamper/<int:uid>", methods=["POST"])
+@habit_routes.route("/dailystamps/<int:sid>/stamper/<int:uid>", methods=["POST"])
 def stamp_day(sid, uid):
     """Change the status of a daily_stamp to 'stamped' or 'pending'."""
     day = DailyStamp.query.filter(DailyStamp.id == sid)

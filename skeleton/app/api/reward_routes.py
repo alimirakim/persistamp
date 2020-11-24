@@ -3,10 +3,10 @@ from app.models import Reward, Redeemed
 from app.schemas import reward_schema, redeemed_schema
 from app.utils import dump_data_list
 
-rewards = Blueprint("rewards", __name__, url_prefix="/rewards")
+reward_routes = Blueprint("rewards", __name__, url_prefix="/rewards")
 
 
-@rewards.route("/<string:type>")
+@reward_routes.route("/<string:type>")
 def type_rewards(type):
     """Get a list of all default-universal rewards, by type if specified."""
     if type:
@@ -16,7 +16,7 @@ def type_rewards(type):
     return jsonify(dump_data_list(rewards, reward_schema))
 
 
-@rewards.route("/programs/<int:pid>", methods=["POST"])
+@reward_routes.route("/programs/<int:pid>", methods=["POST"])
 def create_reward(pid):
     # """Create a custom reward for a program."""
     # reward = Reward(reward=,
@@ -34,7 +34,7 @@ def create_reward(pid):
     return jsonify(reward_schema.dump(reward))
 
 
-@rewards.route("/<int:rid>", methods=["PATCH"])
+@reward_routes.route("/<int:rid>", methods=["PATCH"])
 def edit_reward(rid):
     """Edit a reward by id."""
     reward = Reward.query.filter(Reward.id == rid).one()
@@ -52,7 +52,7 @@ def edit_reward(rid):
     return jsonify(reward_schema.dump(reward))
 
 
-@rewards.route("/<int:rid>", methods=["DELETE"])
+@reward_routes.route("/<int:rid>", methods=["DELETE"])
 def delete_reward(rid):
     """Delete a reward by id."""
     reward = Reward.query.filter(Reward.id == rid).one()
@@ -61,7 +61,7 @@ def delete_reward(rid):
     return "The reward has been smited D:"
 
 
-@rewards.route("/<int:rid>/redeem/members/<int:mid>")
+@reward_routes.route("/<int:rid>/redeem/members/<int:mid>")
 def redeem_reward(rid, mid):
     """Redeem a reward for a member."""
     reward = Reward.query.filter(Reward.id == rid).one()

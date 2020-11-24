@@ -1,10 +1,11 @@
 from flask import Blueprint, jsonify
-from app.models import db, User, Stamp
-from app.schemas import user_schema
+from app.models import db, User, Stamp, Program, Member, Habit, Reward, Color
+from app.schemas import user_schema, program_schema, habit_schema, member_schema, stamp_schema, color_schema
 from sqlalchemy.orm import joinedload
 from flask_login import current_user, login_user, logout_user, login_required
+from app.utils import dump_data_list
 
-user_routes = Blueprint('users', __name__)
+user_routes = Blueprint('users', __name__, url_prefix="/users")
 
 
 @user_routes.route('/list')
@@ -25,14 +26,38 @@ def user():
     del user_data["hashed_password"]
     return jsonify(user_data)
 
-# TODO: Prune unnecessary info and eager-load necessary info
-# TODO What info is unneeded?
-# TESTED Functions
-@user_routes.route("/<int:uid>")
-def user_details(uid):
-    """Get a user's information by id."""
-    user = User.query.filter(User.id == uid).one()
-    user_data = user_schema.dump(user)
-    del user_data["hashed_password"]
 
-    return jsonify(user_data)
+# TODO How to filter by whether the program includes the member?
+# TESTED Functions for grabbing 'all' no filter
+@user_routes.route("/<int:uid>/programs")
+def user_programs(uid):
+    """Get a user's subscribed programs."""
+    print("\nLOOKIN FOR PROGRAMS?")
+    user_programs = Program.query \
+        .join(Member.program).filter(Member.member_id == uid) \
+        .options(joinedload(Program.rewards), \
+            joinedload(Program.members), \
+            # joinedload(Stamp.programs), \
+            joinedload(Program.stamp), \
+            joinedload(Program.color), \
+            joinedload(Program.habits).joinedload(Habit.stamp), \
+            joinedload(Program.habits).joinedload(Habit.color) \
+        ).all()
+    programs_data = dump_data_list(user_programs, program_schema)
+    print("\nhmmmm", user_programs[0].habits, programs_data[0]["habits"])
+    for i in range(len(user_programs)):
+        programs_data[i]["habits"] = []
+        for j in range(len(user_programs[i].habits)):
+            # programs_data[i]["habits"].append(habit_schema.dump(user_programs[i].habits[j]))
+            habit = habit_schema.dump(user_programs[i].habits[j])
+            habit["stamp"] = stamp_schema.dump(user_programs[i].habits[j].stamp)
+            habit["color"] = color_schema.dump(user_programs[i].habits[j].color)
+            programs_data[i]["habits"].append(habit)
+            programs_data[i]["habits"][j] = habit
+
+        programs_data[i]["stamp"] = stamp_schema.dump(user_programs[i].stamp)
+        programs_data[i]["color"] = color_schema.dump(user_programs[i].color)
+    from pprint import pprint
+    print("\nPROGRAMS DATA")
+    pprint(programs_data)
+    return jsonify(programs_data)
