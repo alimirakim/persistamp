@@ -54,7 +54,7 @@ def logout():
     logout_user()
     print("LOGGED OUT")
     return {'message': 'User logged out'}
-    
+
 
 @auth_routes.route('/signup', methods=['POST'])
 def sign_up():
@@ -62,11 +62,11 @@ def sign_up():
     # print("REQUEST FORM: ", request.form.get("username"))
     # print("DIR REQUEST:  ", dir(request.form))
     form = SignUpForm()
-    print("DATA:  ", form.data)
+    # print("DATA:  ", form.data)
 
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        
+
         # Create user, default program, and default membership records
         user = User(
             username=form.data['username'],
@@ -85,13 +85,13 @@ def sign_up():
         db.session.add(program)
         db.session.add(membership)
         db.session.commit()
-        
+
         login_user(user)
-        
+
         # Set cookie
         res = make_response(jsonify(user_schema.dump(user)))
         res.set_cookie = ("uid_cookie", str(user.id))
-        
+
         return res
     return {'errors': validation_errors_to_error_messages(form.errors)}
 

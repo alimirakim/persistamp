@@ -38,25 +38,25 @@ def habit_details(hid):
 
 
 # TESTED Functions. Should the route just be / and just pass in program id?
-@habit_routes.route("/programs/<int:pid>", methods=["POST"])
-def create_habit(pid):
-    """Create a new habit for a program."""
-    data = request.json
-    habit = Habit(habit=data["habit"],
-                  program_id=pid,
-                  creator_id=data["creator_id"],)
-    if "description" in data.keys():
-        habit.description = data["description"]
-    if "frequency" in data.keys():
-        habit.frequency = data["frequency"]
-    if "color" in data.keys():
-        habit.color = data["color"]
-    if "stamp_id" in data.keys():
-        habit.stamp_id = data["stamp_id"]
+# @habit_routes.route("/programs/<int:pid>", methods=["POST"])
+# def create_habit(pid):
+#     """Create a new habit for a program."""
+#     data = request.json
+#     habit = Habit(habit=data["habit"],
+#                   program_id=pid,
+#                   creator_id=data["creator_id"],)
+#     if "description" in data.keys():
+#         habit.description = data["description"]
+#     if "frequency" in data.keys():
+#         habit.frequency = data["frequency"]
+#     if "color" in data.keys():
+#         habit.color = data["color"]
+#     if "stamp_id" in data.keys():
+#         habit.stamp_id = data["stamp_id"]
 
-    db.session.add(habit)
-    db.session.commit()
-    return jsonify(habit_schema.dump(habit))
+#     db.session.add(habit)
+#     db.session.commit()
+#     return jsonify(habit_schema.dump(habit))
 
 
 # TESTED Functions.
@@ -111,19 +111,27 @@ def stamp_day(sid, uid):
     return jsonify(dailystamp_schema.dump(day))
 
 
-# @habit_routes.route("/create", methods=["POST"])
-# def create_habit():
-#     form = HabitForm()
-#     print(form)
+@habit_routes.route("/create", methods=["POST"])
+def create_habit():
+    form = HabitForm()
+    # print(request.cookies['csrf_token'])
+    form['csrf_token'].data = request.cookies['csrf_token']
+    # form['submit'].data = True
+    print(form.data)
 
-#     if form.validate_on_submit():
-#         newHabit = Habit(
-#             habit=form.data['habit'],
-#             description=form.data['description'],
-#             frequency=form.data['frequency'],
-#             color=form.data['color'],
-#         )
-#         db.session.add(newHabit)
-#         db.session.commit()
-#         return newHabit.to_dict()
-#     return "Error"
+    # print(newHabit)
+
+    if form.validate_on_submit():
+        print("i made it!!!!!!")
+        newHabit = Habit(
+            habit=form.data['habit'],
+            description=form.data['description'],
+            frequency=form.data['frequency'],
+            color_id=form.data['color'],
+            creator_id=1
+        )
+        db.session.add(newHabit)
+        db.session.commit()
+        print(newHabit.to_dict())
+        return newHabit.to_dict()
+    return "Error"

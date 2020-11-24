@@ -38,10 +38,12 @@ function HabitForm() {
     }
 
     const updateColor = (e) => {
-        setColor(e.target.value)
+        console.log(parseInt(e.target.value))
+        setColor(parseInt(e.target.value))
     }
 
     const onCreate = async (e) => {
+      e.preventDefault()
       const newHabit = await habitCreate(
         habit,
         description,
@@ -79,24 +81,24 @@ function HabitForm() {
           />
           <InputLabel id="frequency">Frequency</InputLabel>
           <Select onChange={updateFrequency} labelId="frequency">
-              <MenuItem value={7}>7 days</MenuItem>
-              <MenuItem value={14}>14 days</MenuItem>
-              <MenuItem value={30}>30 days</MenuItem>
+              <MenuItem value={"7"}>7 days</MenuItem>
+              <MenuItem value={"14"}>14 days</MenuItem>
+              <MenuItem value={"30"}>30 days</MenuItem>
           </Select>
           <InputLabel id="color">Color</InputLabel>
-          <Select onCHange={updateColor} labelId="color">
-              <MenuItem value={"Blue"}>Blue</MenuItem>
-              <MenuItem value={"Green"}>Green</MenuItem>
-              <MenuItem value={"Pink"}>Pink</MenuItem>
+          <Select onChange={updateColor} labelId="color">
+              <MenuItem value={1}>Blue</MenuItem>
+              <MenuItem value={2}>Green</MenuItem>
+              <MenuItem value={3}>Pink</MenuItem>
           </Select>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={()=>{
+          <Button onClick={(e)=>{
               handleClose()
-              onCreate()
+              onCreate(e)
             }} color="primary">
             Create
           </Button>
