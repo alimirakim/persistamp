@@ -10,13 +10,15 @@ import { authenticate } from "./services/auth";
 import HabitBoard from "./components/HabitBoard";
 import UserProfileCard from "./components/UserProfileCard";
 
+
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       const user = await authenticate();
+      console.log("authenticated???")
       if (!user.errors) {
         setAuthenticated(true);
       }
@@ -25,8 +27,10 @@ function App() {
   }, []);
 
   if (!loaded) {
+    console.log("IN HERE???")
     return null;
   }
+  console.log("AFTER HERE???")
 
   return (
     <BrowserRouter>
@@ -41,7 +45,7 @@ function App() {
         <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
       </Route>
       <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
-        <UsersList/>
+        <UsersList />
       </ProtectedRoute>
       <ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
         <User />
@@ -49,7 +53,7 @@ function App() {
       <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
         <h1>My Home Page</h1>
         <UserProfileCard />
-        <HabitBoard/>
+        <HabitBoard />
       </ProtectedRoute>
     </BrowserRouter>
   );

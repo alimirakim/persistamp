@@ -52,7 +52,6 @@ def member_habits(mid):
         habit_color = color_schema.dump(habits[i].color)
         habits_data[i]["stamp"] = habit_stamp
         habits_data[i]["color"] = habit_color
-        
     return jsonify(habits_data)
 
 

@@ -89,7 +89,7 @@ class User(db.Model, UserMixin):
         "first_name": self.first_name,
         "last_name": self.last_name,
         "birthday": self.birthday,
-        "color": self.color,
+        "color_id": self.color_id,
         "stamp_id": self.stamp_id
       }
 

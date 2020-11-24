@@ -4,6 +4,7 @@ from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
 from http import cookies
+from app.schemas import user_schema
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -23,7 +24,7 @@ def validation_errors_to_error_messages(validation_errors):
 def authenticate():
     """Authenticates a user"""
     if current_user.is_authenticated:
-        return current_user.to_dict()
+        return jsonify(user_schema.dump(current_user))
     return {'errors': ['Unauthorized']}, 401
 
 
@@ -77,7 +78,7 @@ def sign_up():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return user.to_dict()
+        return jsonify(user_schema.dump(user))
     return {'errors': validation_errors_to_error_messages(form.errors)}
 
 

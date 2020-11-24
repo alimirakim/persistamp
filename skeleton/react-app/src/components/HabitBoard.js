@@ -32,10 +32,13 @@ function HabitsEntry() {
     <ul>
       {habits.map(habit => (
         <li key={habit.id} style={{ color: habit.color.hex }}>
-          <img 
-            src={`/icons/${habit.stamp.stamp}.svg`} 
-            alt={`${habit.stamp.type}: {habit.stamp.stamp}`} 
-            style={{height: "1rem", width: "1rem"}} />{habit.stamp.stamp} {habit.habit}
+          <div style={{ mask: `url(/icons/${habit.stamp.stamp}.svg)`, 
+          // maskSize: "cover",
+          backgroundColor: `${habit.color.hex}`, width: "1rem", height: "1rem", border: "1px"}}></div>
+          <img
+            src={`/icons/${habit.stamp.stamp}.svg`}
+            alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
+            style={{ height: "1rem", width: "1rem" }} />{habit.stamp.stamp} {habit.habit}
         </li>
       ))}
     </ul>
