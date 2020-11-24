@@ -32,7 +32,6 @@ def authenticate():
 def login():
     """Logs a user in"""
     form = LoginForm()
-    print(request.get_json())
     # Get the csrf_token from the request cookie and put it into the
     # form manually to validate_on_submit can be used
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -42,7 +41,7 @@ def login():
         login_user(user)
         print(user.id, "---------------------------HEEEEREE--------------------")
         res = make_response(user.to_dict())
-        res.set_cookie('uid_cookie', str(user.id))
+        # res.set_cookie('uid_cookie', str(user.id))
         return res
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
@@ -52,7 +51,6 @@ def login():
 def logout():
     """Logs a user out"""
     logout_user()
-    print("LOGGED OUT")
     return {'message': 'User logged out'}
 
 
@@ -62,8 +60,6 @@ def sign_up():
     # print("REQUEST FORM: ", request.form.get("username"))
     # print("DIR REQUEST:  ", dir(request.form))
     form = SignUpForm()
-    # print("DATA:  ", form.data)
-
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
 
@@ -90,7 +86,7 @@ def sign_up():
 
         # Set cookie
         res = make_response(jsonify(user_schema.dump(user)))
-        res.set_cookie = ("uid_cookie", str(user.id))
+        # res.set_cookie = ("uid_cookie", str(user.id))
 
         return res
     return {'errors': validation_errors_to_error_messages(form.errors)}

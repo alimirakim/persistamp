@@ -1,13 +1,17 @@
-import React, { useEffect, useState, useContext } from "react"
+import React, { useEffect, useState, useContext } from "react";
+import UserContext from '../context/UserContext';
 
 import HabitBoardContext from "./context"
 
 
 export default function HabitBoard() {
-  const uid = document.cookie.split("; ").find(cookie => cookie.startsWith("uid_cookie")).split("=")[1]
+  // const uid = document.cookie.split("; ").find(cookie => cookie.startsWith("uid_cookie")).split("=")[1]
 
   const [programs, setPrograms] = useState()
   const [programHabits, setHabits] = useState()
+
+  const user = useContext(UserContext);
+  const uid = user.id
 
   useEffect(() => {
     (async () => {

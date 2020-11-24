@@ -8,11 +8,11 @@ from app.utils import dump_data_list
 user_routes = Blueprint('users', __name__, url_prefix="/users")
 
 
-# @user_routes.route('/')
-# @login_required
-# def users():
-#     users = User.query.all()
-#     return {"users": [user.to_dict() for user in users]}
+@user_routes.route('/list')
+@login_required
+def users():
+    users = User.query.all()
+    return {"users": [user.to_dict() for user in users]}
 
 
 @user_routes.route('/')
@@ -54,7 +54,7 @@ def user_programs(uid):
             habit["color"] = color_schema.dump(user_programs[i].habits[j].color)
             programs_data[i]["habits"].append(habit)
             programs_data[i]["habits"][j] = habit
-            
+
         programs_data[i]["stamp"] = stamp_schema.dump(user_programs[i].stamp)
         programs_data[i]["color"] = color_schema.dump(user_programs[i].color)
     from pprint import pprint

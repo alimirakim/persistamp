@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import UserContext from '../context/UserContext';
 import { NavLink } from "react-router-dom";
 
 function UsersList() {
@@ -6,7 +7,7 @@ function UsersList() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("/api/users/");
+      const response = await fetch("/api/users/list");
       const responseData = await response.json();
       setUsers(responseData.users);
     }
