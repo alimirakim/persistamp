@@ -9,13 +9,17 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
 import {habitCreate} from '../services/auth';
+import UserContext from '../context/UserContext';
+import { useContext } from 'react';
 
 function HabitForm() {
+    const [userId, setUserId] = useState("")
     const [open, setOpen] = React.useState(false);
     const [habit, setHabit] = useState("")
     const [description, setDescription] = useState("")
     const [frequency, setFrequency] = useState("")
     const [color, setColor] = useState("")
+    const user = useContext(UserContext);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -44,12 +48,15 @@ function HabitForm() {
 
     const onCreate = async (e) => {
       e.preventDefault()
+      setUserId(user.id)
       const newHabit = await habitCreate(
         habit,
         description,
         frequency,
         color,
+        userId
         );
+        console.log(newHabit)
     }
 
 

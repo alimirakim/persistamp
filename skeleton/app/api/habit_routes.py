@@ -120,11 +120,14 @@ def stamp_day(sid, uid):
             day.status = 'unstamped'
         return jsonify(dailystamp_schema.dump(day))
 
-        
+
 
 
 @habit_routes.route("/create", methods=["POST"])
 def create_habit():
+
+    userId = request.json['userId']
+    print(userId)
     form = HabitForm()
     # print(request.cookies['csrf_token'])
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -140,7 +143,7 @@ def create_habit():
             description=form.data['description'],
             frequency=form.data['frequency'],
             color_id=form.data['color'],
-            creator_id=1
+            creator_id=userId
         )
         db.session.add(newHabit)
         db.session.commit()
