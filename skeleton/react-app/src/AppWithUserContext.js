@@ -1,20 +1,12 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import UserContext from './context/UserContext';
 import App from './App';
 
-class AppWithUserContext extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            user: null,
-            updateUser: this.updateUser,
+const AppWithUserContext = () => {
+    const [user, setUser] = useState({})
 
-        }
-
-    }
-
-    updateUser = (userId) => {
-        this.setState({ userId})
+    const updateUser = (e) => {
+        return setUser(e.target.value)
     }
 
 
