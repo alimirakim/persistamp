@@ -8,5 +8,5 @@ class HabitForm(FlaskForm):
     habit = StringField("habit", validators=[DataRequired()])
     description = StringField('description', validators=[DataRequired()])
     frequency = SelectField('frequency', validators=[DataRequired()], choices=[("7", "7"), ("14", "14"), ("30", "30")])
-    color = SelectField('frequency', validators=[DataRequired()], choices=[("blue", "Blue"), ("green", "Green"), ("pink", "Pink")])
+    color = SelectField('frequency', validators=[DataRequired()], choices=[(1 , "Blue"), (2, "Green"), (3, "Pink")])
     submit = SubmitField("Create")

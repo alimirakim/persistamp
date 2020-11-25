@@ -9,13 +9,17 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { InputLabel, MenuItem, Select } from '@material-ui/core';
 import {habitCreate} from '../services/auth';
+import UserContext from '../context/UserContext';
+import { useContext } from 'react';
 
 function HabitForm() {
+    const [userId, setUserId] = useState("")
     const [open, setOpen] = React.useState(false);
     const [habit, setHabit] = useState("")
     const [description, setDescription] = useState("")
     const [frequency, setFrequency] = useState("")
     const [color, setColor] = useState("")
+    const user = useContext(UserContext);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -38,16 +42,21 @@ function HabitForm() {
     }
 
     const updateColor = (e) => {
-        setColor(e.target.value)
+        console.log(parseInt(e.target.value))
+        setColor(parseInt(e.target.value))
     }
 
     const onCreate = async (e) => {
+      e.preventDefault()
+      setUserId(user.id)
       const newHabit = await habitCreate(
         habit,
         description,
         frequency,
         color,
+        userId
         );
+        console.log(newHabit)
     }
 
 
@@ -79,24 +88,24 @@ function HabitForm() {
           />
           <InputLabel id="frequency">Frequency</InputLabel>
           <Select onChange={updateFrequency} labelId="frequency">
-              <MenuItem value={7}>7 days</MenuItem>
-              <MenuItem value={14}>14 days</MenuItem>
-              <MenuItem value={30}>30 days</MenuItem>
+              <MenuItem value={"7"}>7 days</MenuItem>
+              <MenuItem value={"14"}>14 days</MenuItem>
+              <MenuItem value={"30"}>30 days</MenuItem>
           </Select>
           <InputLabel id="color">Color</InputLabel>
-          <Select onCHange={updateColor} labelId="color">
-              <MenuItem value={"Blue"}>Blue</MenuItem>
-              <MenuItem value={"Green"}>Green</MenuItem>
-              <MenuItem value={"Pink"}>Pink</MenuItem>
+          <Select onChange={updateColor} labelId="color">
+              <MenuItem value={1}>Blue</MenuItem>
+              <MenuItem value={2}>Green</MenuItem>
+              <MenuItem value={3}>Pink</MenuItem>
           </Select>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={()=>{
+          <Button onClick={(e)=>{
               handleClose()
-              onCreate()
+              onCreate(e)
             }} color="primary">
             Create
           </Button>
