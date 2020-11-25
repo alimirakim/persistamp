@@ -58,12 +58,7 @@ def user_programs(uid):
             joinedload(Program.habits).joinedload(Habit.stamp), \
             joinedload(Program.habits).joinedload(Habit.color)) \
         .all()
-        # .join(DailyStamp) \
     programs_data = dump_data_list(user_programs, program_schema)
-    print("\n\nPROGRAM DATAAAA")
-    print(user_programs)
-    from pprint import pprint
-    pprint(programs_data)
     
     for i in range(len(user_programs)):
         if user_programs[i].members: 
@@ -91,7 +86,24 @@ def user_programs(uid):
         programs_data[i]["stamp"] = stamp_schema.dump(user_programs[i].stamp)
         programs_data[i]["color"] = color_schema.dump(user_programs[i].color)
         
+        
+    habits_data = []
+    for program in programs_data:
+        habits_data.extend(program["habits"])
+        program["habits"] = [habit["id"] for habit in program["habits"]]
+    
+    dailies_data = []
+    for habit in habits_data:
+        dailies_data.extend(habit["daily_stamps"])
+        habit["daily_stamps"] = [daily["id"] for daily in habit["daily_stamps"]]
+        
+        
     from pprint import pprint
     print("\nPROGRAMS DATA")
     pprint(programs_data)
-    return jsonify(programs_data=programs_data, past_week=past_week)
+    print("\nHABITS DATA")
+    pprint(habits_data)
+    print("\nDAILIES DATA")
+    pprint(dailies_data)
+    
+    return jsonify(programs_data=programs_data, habits_data=habits_data, dailies_data=dailies_data, past_week=past_week)
