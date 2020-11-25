@@ -17,7 +17,7 @@ export default function HabitBoard() {
       if (!programs) {
         const res = await fetch(`/api/users/${uid}/programs`)
         const unraveledPrograms = await res.json()
-        console.log("UNRAVELED", uid, unraveledPrograms)
+        // console.log("UNRAVELED", uid, unraveledPrograms)
         setPrograms(unraveledPrograms)
       }
     })()
