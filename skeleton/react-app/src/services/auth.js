@@ -49,7 +49,7 @@ export const signUp = async (first_name, last_name, birthday, username, email, p
   return await response.json();
 }
 
-export const habitCreate = async (habit, description, frequency, color) => {
+export const habitCreate = async (habit, description, frequency, color, userId) => {
   const response = await fetch("/api/habits/create", {
       method: "POST",
       headers: {
@@ -60,6 +60,7 @@ export const habitCreate = async (habit, description, frequency, color) => {
         description,
         frequency,
         color,
+        userId
       }),
     });
     return await response.json();
