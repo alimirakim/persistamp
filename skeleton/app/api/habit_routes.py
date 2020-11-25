@@ -16,18 +16,41 @@ def program_habits(pid):
     habits = Habit.query.filter(Habit.program_id == pid).all()
     return jsonify(dump_data_list(habits, habit_schema))
 
-@habit_routes.route("<int:hid>/member/<int:mid>/current_week")
-def current_week(hid, mid):
+
+@habit_routes.route("/current_week")
+def current_week():
     """Get the past 7 days"""
     current_date = date.today()
     past_week = [(current_date - timedelta(days=i)) for i in range(7)]
-    past_week_days = [day.strftime('%A')[0:3] for day in past_week]
-    past_week_dates = [date.strftime('%Y-%m-%d') for date in past_week]
-    print('past_week_days: ', past_week)
-    print('past_week_dates: ', past_week_dates)
-    stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[6]).all()
-    return jsonify(days=past_week_days, dates=past_week_dates, stamps=[dailystamp_schema.dump(stamp) for stamp in stamps])
+    past_week = [(day.strftime('%A')[0:3], day.strftime('%Y-%m-%d')) for day in past_week]
+    
+    # user_programs = Program.query.join(Member.program).filter(Member.member_id == uid)
+    # user_programs = dump_data_list(user_programs, user_schema)
+    # stamps_by_program = []
+    # for program in user_programs:
+    #   stamps_by_program.append([DailyStamp.query.filter( \
+    #   DailyStamp.member_id == program.member.member_id, \
+    #   DailyStamp.date <= past_week_dates[0], \
+    #   DailyStamp.date >= past_week_dates[6] \
+    #   ).all()) \
+    #   for day in past_week]
+    # past_week_dates = [ for date in past_week]
+    # print('past_week_days: ', past_week)
+    # print('past_week_dates: ', past_week_dates)
+    return jsonify(past_week)
 
+
+# @habit_routes.route("<int:hid>/member/<int:mid>/current_week")
+# def current_week(hid, mid):
+#     """Get the past 7 days"""
+#     current_date = date.today()
+#     past_week = [(current_date - timedelta(days=i)) for i in range(7)]
+#     past_week_days = [day.strftime('%A')[0:3] for day in past_week]
+#     past_week_dates = [date.strftime('%Y-%m-%d') for date in past_week]
+#     print('past_week_days: ', past_week)
+#     print('past_week_dates: ', past_week_dates)
+#     stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[6]).all()
+#     return jsonify(days=past_week_days, dates=past_week_dates, stamps=[dailystamp_schema.dump(stamp) for stamp in stamps])
 
 # TESTED Functions
 @habit_routes.route("/<int:hid>")

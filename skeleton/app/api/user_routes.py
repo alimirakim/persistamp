@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
-from app.models import db, User, Stamp, Program, Member, Habit, Reward, Color
-from app.schemas import user_schema, program_schema, habit_schema, member_schema, stamp_schema, color_schema
+from app.models import db, User, Stamp, Program, Member, Habit, Reward, Color, DailyStamp
+from app.schemas import user_schema, program_schema, habit_schema, member_schema, stamp_schema, color_schema, dailystamp_schema
 from sqlalchemy.orm import joinedload
 from flask_login import current_user, login_user, logout_user, login_required
 from app.utils import dump_data_list
@@ -32,19 +32,20 @@ def user():
 @user_routes.route("/<int:uid>/programs")
 def user_programs(uid):
     """Get a user's subscribed programs."""
-    print("\nLOOKIN FOR PROGRAMS?")
     user_programs = Program.query \
         .join(Member.program).filter(Member.member_id == uid) \
+        .join(DailyStamp) \
         .options(joinedload(Program.rewards), \
             joinedload(Program.members), \
             # joinedload(Stamp.programs), \
             joinedload(Program.stamp), \
             joinedload(Program.color), \
+            joinedload(Program.habits).joinedload(Habit.daily_stamps), \
             joinedload(Program.habits).joinedload(Habit.stamp), \
-            joinedload(Program.habits).joinedload(Habit.color) \
-        ).all()
+            joinedload(Program.habits).joinedload(Habit.color)).all() \
+        # .filter(DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[6]) \
+        # .all()
     programs_data = dump_data_list(user_programs, program_schema)
-    print("\nhmmmm", user_programs[0].habits, programs_data[0]["habits"])
     for i in range(len(user_programs)):
         programs_data[i]["habits"] = []
         for j in range(len(user_programs[i].habits)):
@@ -52,6 +53,9 @@ def user_programs(uid):
             habit = habit_schema.dump(user_programs[i].habits[j])
             habit["stamp"] = stamp_schema.dump(user_programs[i].habits[j].stamp)
             habit["color"] = color_schema.dump(user_programs[i].habits[j].color)
+            habit["daily_stamps"] = []
+            for k in range(len(user_programs[i].habits[j].daily_stamps)):
+                habit["daily_stamps"].append(dailystamp_schema.dump(user_programs[i].habits[j].daily_stamps[k]))
             programs_data[i]["habits"].append(habit)
             programs_data[i]["habits"][j] = habit
 

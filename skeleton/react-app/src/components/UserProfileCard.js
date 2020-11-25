@@ -18,7 +18,7 @@ function UserProfileCard() {
     }
 
     return (
-        <div class="infocardContainer">
+        <div className="infocardContainer">
             <div id="main">
                 <img src={`/icons/${user.stamp.stamp}.svg`}></img>
             </div>
