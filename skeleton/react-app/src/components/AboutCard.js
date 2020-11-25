@@ -4,32 +4,52 @@ function AboutCard(){
   const renderLinks = (links) => {
     console.log("links should be rendering")
     console.log(links)
-    links.map(link => {
-      return <a key={links[1]} href={link[1]}>{link[0]}</a>
+    return links.map(link => {
+      return <a className="about-card_a" key={links[1]} href={link[1]}>{link[0]}</a>
     })
+  }
+  const renderImage = (user) => {
+    if (user.image) {
+      return <img src={user.image} />
+    }else{
+      return <img src="/public/icons/black-profile-pic" />
+    }
   }
   let users = [
     {
-      name: "Brian",
+      name: "Alicia Kim",
+      email: "otheremail@gmail.com",
+      links: [["GitHub", "https://www.github.com/alimirakim"], ["LinkedIn", "https://www.linkedin.com/"]],
+    },
+    {
+      name: "Brian Wang",
       email: "brbwang@gmail.com",
       links: [["GitHub", "https://www.github.com/Awodfkai"], ["LinkedIn", "https://www.linkedin.com/"]],
     },
     {
-      name: "Alicia",
-      email: "otheremail@gmail.com",
-      links: [["GitHub", "https://www.github.com/"], ["LinkedIn", "https://www.linkedin.com/"]],
+      name: "David Lee",
+      email: "email@gmail.com",
+      links: [["GitHub", "https://www.github.com/dyclee"], ["LinkedIn", "https://www.linkedin.com/"]],
     },
-  ]
+    {
+      name: "Eric Lyda",
+      email: "email3@gmail.com",
+      links: [["GitHub", "https://www.github.com/ELyda95"], ["LinkedIn", "https://www.linkedin.com/"]],
+    },
+  ];
   return (
     <>
       {
         users.map(user => {
           return (
             <div key={user.name} className="AboutCardContainer">
-              <h3>{user.name}</h3>
-              <p>{user.email}</p>
-              <div>
+              <div className="AboutCardDetailsContainer">
+                <h3>{user.name}</h3>
+                <p>{user.email}</p>
                 {renderLinks(user.links)}
+              </div>
+              <div>
+                {renderImage(user)}
               </div>
             </div>
           )

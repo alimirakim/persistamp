@@ -39,5 +39,23 @@ body {
 }
 
 .AboutCardContainer {
-  
+  display: flex;
+  flex-direction: row;
+  border: 2px solid black;
+  padding: 10px;
+  margin: 20px;
 }
+.AboutCardDetailsContainer {
+  display: flex;
+  flex-direction: column;
+}
+.AboutCardContainer h3 {
+  margin-top: 0px;
+  margin-bottom: 5px;
+  padding: 0px;
+}
+.AboutCardContainer p {
+  margin: 0px;
+  padding: 0px;
+}
+
