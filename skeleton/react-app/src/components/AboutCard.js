@@ -1,4 +1,5 @@
 import React from "react";
+import blankPic from "../images/blank-profile-pic.png"
 
 function AboutCard(){
   const renderLinks = (links) => {
@@ -10,9 +11,9 @@ function AboutCard(){
   }
   const renderImage = (user) => {
     if (user.image) {
-      return <img src={user.image} />
+      return <img src={user.image} alt="profile picture"/>
     }else{
-      return <img src="/public/icons/black-profile-pic" />
+      return <img src={blankPic} alt="profile picture" />
     }
   }
   let users = [
@@ -38,7 +39,7 @@ function AboutCard(){
     },
   ];
   return (
-    <>
+    <div className="AboutContainer">
       {
         users.map(user => {
           return (
@@ -48,14 +49,14 @@ function AboutCard(){
                 <p>{user.email}</p>
                 {renderLinks(user.links)}
               </div>
-              <div>
+              <div className="AboutCardImageContainer">
                 {renderImage(user)}
               </div>
             </div>
           )
         })
       }
-    </>
+    </div>
   )
 }
 

@@ -38,16 +38,28 @@ body {
     margin: 0px;
 }
 
+.AboutContainer{
+  padding: 10px;
+  justify-content: center;
+}
 .AboutCardContainer {
   display: flex;
   flex-direction: row;
   border: 2px solid black;
-  padding: 10px;
-  margin: 20px;
+  padding: 18px;
+  margin: 15px;
+  justify-content: space-between;
+  max-width: 400px;
 }
 .AboutCardDetailsContainer {
   display: flex;
   flex-direction: column;
+}
+.AboutCardImageContainer {
+  max-height: 85px;
+}
+.AboutCardImageContainer img{
+  height: 85px;
 }
 .AboutCardContainer h3 {
   margin-top: 0px;
