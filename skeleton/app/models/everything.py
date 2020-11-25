@@ -104,7 +104,6 @@ class Program(db.Model):
 
     stamp = db.relationship("Stamp", back_populates="programs")
     color = db.relationship("Color", back_populates="programs")
-    # users = db.relationship("User", secondary="Member", foreign_keys="[Member.member_id]", back_populates="programs")
     members = db.relationship("Member", back_populates="program")
     habits = db.relationship("Habit", back_populates="program")
     rewards = db.relationship("Reward", back_populates="program")

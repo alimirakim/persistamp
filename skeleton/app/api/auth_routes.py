@@ -24,7 +24,12 @@ def validation_errors_to_error_messages(validation_errors):
 def authenticate():
     """Authenticates a user"""
     if current_user.is_authenticated:
-        return jsonify(user_schema.dump(current_user))
+      
+        user = user_schema.dump(current_user)
+        print("\nauthed user")
+        from pprint import pprint
+        pprint(user)
+        return jsonify(user)
     return {'errors': ['Unauthorized']}, 401
 
 
@@ -86,11 +91,7 @@ def sign_up():
 
         # Set cookie
         res = make_response(jsonify(user_schema.dump(user)))
-<<<<<<< HEAD
         res.set_cookie("uid_cookie", str(user.id))
-=======
-        # res.set_cookie = ("uid_cookie", str(user.id))
->>>>>>> 795feb92b6079d1b904ecc64a1cd8b2ed344413e
 
         return res
     return {'errors': validation_errors_to_error_messages(form.errors)}

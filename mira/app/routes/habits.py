@@ -44,7 +44,7 @@ def create_habit(pid):
     return jsonify(habit_schema.dump(habit))
 
 
-# 
+# TESTED Functions.
 @habits.route("/<int:hid>", methods=["PATCH"])
 def edit_habit(hid):
     """Edit a habit's details by id."""
@@ -64,6 +64,7 @@ def edit_habit(hid):
     return jsonify(habit_schema.dump(habit))
     
 
+# TESTED Functions
 @habits.route("/<int:hid>", methods=["DELETE"])
 def delete_habit(hid):
     """Delete a habit by id."""

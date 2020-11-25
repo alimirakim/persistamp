@@ -4,6 +4,8 @@ from app.schemas import user_schema, program_schema, habit_schema, member_schema
 from sqlalchemy.orm import joinedload
 from flask_login import current_user, login_user, logout_user, login_required
 from app.utils import dump_data_list
+from datetime import date, timedelta
+import calendar
 
 user_routes = Blueprint('users', __name__, url_prefix="/users")
 
@@ -18,7 +20,7 @@ def users():
 @user_routes.route('/')
 @login_required
 def user():
-    """Get a user's information by id."""
+    """Get the current user's information."""
     user = User.query.filter(User.id == current_user.id).options(joinedload(User.stamp)).one()
     user_data = user_schema.dump(user)
     user_data["stamp"] = user.stamp.to_dict()
@@ -27,41 +29,64 @@ def user():
     return jsonify(user_data)
 
 
-# TODO How to filter by whether the program includes the member?
-# TESTED Functions for grabbing 'all' no filter
+# TESTED Functions
+@user_routes.route("/<int:uid>")
+def user_details(uid):
+    """Get a user's information by id."""
+    user = User.query.get(uid)
+    user_data = user_schema.dump(user)
+    return jsonify(user_data)
+
+
+
+
 @user_routes.route("/<int:uid>/programs")
 def user_programs(uid):
     """Get a user's subscribed programs."""
+    current_date = date.today()
+    past_week = [(current_date - timedelta(days=i)) for i in range(7)]
+    past_week = [(day.strftime('%A')[0:3], day.strftime('%Y-%m-%d')) for day in past_week]
+    
+    print("\n\nUID", uid)
     user_programs = Program.query \
         .join(Member.program).filter(Member.member_id == uid) \
         .join(DailyStamp) \
         .options(joinedload(Program.rewards), \
             joinedload(Program.members), \
-            # joinedload(Stamp.programs), \
             joinedload(Program.stamp), \
             joinedload(Program.color), \
             joinedload(Program.habits).joinedload(Habit.daily_stamps), \
             joinedload(Program.habits).joinedload(Habit.stamp), \
-            joinedload(Program.habits).joinedload(Habit.color)).all() \
-        # .filter(DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[6]) \
-        # .all()
+            joinedload(Program.habits).joinedload(Habit.color)).all() 
     programs_data = dump_data_list(user_programs, program_schema)
+    
+    print("\n\nPROGRAM DATAAAA")
+    print(user_programs)
+    # print(programs_data)
+    
     for i in range(len(user_programs)):
+        memberships = [m.id for m in current_user.memberships]
+        [mid] = [m.id for m in user_programs[i].members if m.id in memberships]
         programs_data[i]["habits"] = []
+        
         for j in range(len(user_programs[i].habits)):
-            # programs_data[i]["habits"].append(habit_schema.dump(user_programs[i].habits[j]))
+            programs_data[i]["habits"].append(habit_schema.dump(user_programs[i].habits[j]))
             habit = habit_schema.dump(user_programs[i].habits[j])
             habit["stamp"] = stamp_schema.dump(user_programs[i].habits[j].stamp)
             habit["color"] = color_schema.dump(user_programs[i].habits[j].color)
-            habit["daily_stamps"] = []
-            for k in range(len(user_programs[i].habits[j].daily_stamps)):
-                habit["daily_stamps"].append(dailystamp_schema.dump(user_programs[i].habits[j].daily_stamps[k]))
-            programs_data[i]["habits"].append(habit)
+            # Daily stamps for prev week for habit
+            habit["daily_stamps"] = DailyStamp.query.filter( \
+                DailyStamp.habit_id == habit["id"], \
+                DailyStamp.member_id == mid, \
+                DailyStamp.date <= past_week[0][1], \
+                DailyStamp.date >= past_week[6][1]).all()
+            habit["daily_stamps"] = dump_data_list(habit["daily_stamps"], dailystamp_schema)
             programs_data[i]["habits"][j] = habit
 
         programs_data[i]["stamp"] = stamp_schema.dump(user_programs[i].stamp)
         programs_data[i]["color"] = color_schema.dump(user_programs[i].color)
+        
     from pprint import pprint
     print("\nPROGRAMS DATA")
     pprint(programs_data)
-    return jsonify(programs_data)
+    return jsonify(programs_data=programs_data, past_week=past_week)

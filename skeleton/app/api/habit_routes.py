@@ -3,6 +3,7 @@ from app.models import db, User, Program, Habit, Member, DailyStamp
 from app.schemas import user_schema, program_schema, habit_schema, member_schema, dailystamp_schema
 from app.utils import dump_data_list
 from app.forms import HabitForm
+from flask_login import current_user
 from datetime import date, timedelta
 import calendar
 
@@ -17,27 +18,27 @@ def program_habits(pid):
     return jsonify(dump_data_list(habits, habit_schema))
 
 
-@habit_routes.route("/current_week")
-def current_week():
+@habit_routes.route("/programs/<int:pid>/members/<int:mid>/current_week")
+def current_week(pid, mid):
     """Get the past 7 days"""
     current_date = date.today()
     past_week = [(current_date - timedelta(days=i)) for i in range(7)]
     past_week = [(day.strftime('%A')[0:3], day.strftime('%Y-%m-%d')) for day in past_week]
     
-    # user_programs = Program.query.join(Member.program).filter(Member.member_id == uid)
-    # user_programs = dump_data_list(user_programs, user_schema)
-    # stamps_by_program = []
-    # for program in user_programs:
-    #   stamps_by_program.append([DailyStamp.query.filter( \
-    #   DailyStamp.member_id == program.member.member_id, \
-    #   DailyStamp.date <= past_week_dates[0], \
-    #   DailyStamp.date >= past_week_dates[6] \
-    #   ).all()) \
-    #   for day in past_week]
-    # past_week_dates = [ for date in past_week]
-    # print('past_week_days: ', past_week)
-    # print('past_week_dates: ', past_week_dates)
-    return jsonify(past_week)
+    program = Program.query.get(pid)
+    program = program_schema.dump(program)
+    habit_stamps = []
+    # print("\nPROGRAM", program)
+    # print("habit", program["habits"][0])
+    for habit in program["habits"]:
+      habit_stamps.append(DailyStamp.query.filter( \
+        DailyStamp.habit_id == habit, \
+        DailyStamp.member_id == mid, \
+        DailyStamp.date <= past_week[0][1], \
+        DailyStamp.date >= past_week[6][1]).all())
+    habit_stamps = [dump_data_list(h, dailystamp_schema) for h in habit_stamps]
+    # print("HABIT STAMPS", habit_stamps)
+    return jsonify(past_week=past_week, dailies=habit_stamps)
 
 
 # @habit_routes.route("<int:hid>/member/<int:mid>/current_week")

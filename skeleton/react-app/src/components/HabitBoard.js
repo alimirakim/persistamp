@@ -7,6 +7,7 @@ export default function HabitBoard() {
   // const uid = document.cookie.split("; ").find(cookie => cookie.startsWith("uid_cookie")).split("=")[1]
 
   const [programs, setPrograms] = useState()
+  const [week, setWeek] = useState()
 
   const user = useContext(UserContext);
   const uid = user.id
@@ -16,53 +17,72 @@ export default function HabitBoard() {
       console.log("UNRAVELED", uid, programs)
       if (!programs) {
         const res = await fetch(`/api/users/${uid}/programs`)
-        const unraveledPrograms = await res.json()
-        console.log("UNRAVELED", uid, unraveledPrograms)
-        setPrograms(unraveledPrograms)
+        const { past_week, programs_data } = await res.json()
+        setPrograms(programs_data)
+        setWeek(past_week)
       }
     })()
-  }, [programs, uid])
+  }, [programs, week, uid])
 
   console.log("prograaams", programs)
-  if (!programs) return null
+  if (!week) return null
   return (
-    <HabitBoardContext.Provider value={programs}>
+    <HabitBoardContext.Provider value={{ programs, week }}>
       <HabitsEntry />
     </HabitBoardContext.Provider>
   )
 }
 
 
-function HabitsEntry() {
-  const [week, setWeek] = useState()
-  const programs = useContext(HabitBoardContext)
-  const user = useContext(UserContext)
-  console.log("\nEYYYY", week)
 
-  useEffect(() => {
-    (async () => {
-      const res = await fetch(`/api/habits/current_week`)
-      const unraveledWeek = await res.json()
-      setWeek(unraveledWeek)
-    })()
-  }, [week])
+
+
+function HabitsEntry() {
+  const { programs, week } = useContext(HabitBoardContext)
+  // const user = useContext(UserContext)
+  // console.log("\nEYYYY", user)
+  console.log("programs", programs)
+  console.log("week", week)
+
+  // useEffect(() => {
+  //   if (!week) {
+  //     (async () => {
+  //       // fetched = programs.map(async program => {
+  //       for (let program of programs) {
+  //         const [mid] = user.memberships.filter(m => program.members.includes(m))
+  //         // console.log("mid", mid)
+  //         const res = await fetch(`/api/habits/programs/${program.id}/members/${mid}/current_week`)
+  //         const { past_week, dailies } = await res.json()
+  //         const habits = []
+  //         for (const habit of program.habits) {
+  //           if (dailies[0].habit == habit.id) {
+  //             habit.daily_stamps = dailies
+  //             habits.push(habit)
+  //           }
+  //         }
+  //         setDailies({ dailies, ...allDailies })
+  //         if (!week) setWeek(past_week)
+  //       }
+  //     })();
+  //   }
+  // }, [week])
 
   if (!week) return null
   console.log("WEEK", week)
   return (
     <article>
       <h2>Habit Board</h2>
-      <table style={{borderWidth: "1px"}}>
+      <table style={{ borderWidth: "1px" }}>
         <thead>
           <tr>
             <th>Habit</th>
-            <th><time datetime={week[0][1]}>{week[0][0]} <br/>{week[0][1]}</time></th>
-            <th><time datetime={week[1][1]}>{week[1][0]} <br/>{week[1][1]}</time></th>
-            <th><time datetime={week[2][1]}>{week[2][0]} <br/>{week[2][1]}</time></th>
-            <th><time datetime={week[3][1]}>{week[3][0]} <br/>{week[3][1]}</time></th>
-            <th><time datetime={week[4][1]}>{week[4][0]} <br/>{week[4][1]}</time></th>
-            <th><time datetime={week[5][1]}>{week[5][0]} <br/>{week[5][1]}</time></th>
-            <th><time datetime={week[6][1]}>{week[6][0]} <br/>{week[6][1]}</time></th>
+            <th><time dateTime={week[0][1]}>{week[0][0]} <br />{week[0][1]}</time></th>
+            <th><time dateTime={week[1][1]}>{week[1][0]} <br />{week[1][1]}</time></th>
+            <th><time dateTime={week[2][1]}>{week[2][0]} <br />{week[2][1]}</time></th>
+            <th><time dateTime={week[3][1]}>{week[3][0]} <br />{week[3][1]}</time></th>
+            <th><time dateTime={week[4][1]}>{week[4][0]} <br />{week[4][1]}</time></th>
+            <th><time dateTime={week[5][1]}>{week[5][0]} <br />{week[5][1]}</time></th>
+            <th><time dateTime={week[6][1]}>{week[6][0]} <br />{week[6][1]}</time></th>
           </tr>
         </thead>
         <tbody>
@@ -70,7 +90,7 @@ function HabitsEntry() {
             <>
               <tr style={{ color: program.color.hex }}>
                 <td colSpan={8}>
-                  <h3><img src={`/icons/${program.stamp.stamp}.svg`} style={{ height: "1rem", width: "1rem" }} /> {program.program}</h3>
+                  <h3><img src={`/icons/${program.stamp.stamp}.svg`} style={{ height: "1rem", width: "1rem" }} alt="" /> {program.program}</h3>
                 </td>
               </tr>
               {program.habits.map(habit => (
@@ -83,7 +103,9 @@ function HabitsEntry() {
                     />
                     {habit.stamp.stamp} {habit.habit}
                   </td>
-                  {week.map(day => <td>x</td>)}
+                  {week.map(day => (
+                    <StampBox habit={habit} day={day} />
+                  ))}
                 </tr>
               ))}
             </>
@@ -94,24 +116,39 @@ function HabitsEntry() {
   )
 }
 
+function StampBox({habit, day}) {
+  console.log("stampbox daily compare", habit.daily_stamps)
+  console.log(habit.daily_stamps[0].date, day)
+  const foundStamp = habit.daily_stamps.find(stamp => stamp.date == day[1])
+  if (foundStamp) {
+    return (
+      <td><img src={`/icons/${habit.stamp.stamp}.svg`} style={{ height: "1rem", width: "1rem" }} /></td>
+    )
+  } else {
+    return (
+      <td>X</td>
+    )
+  }
+}
 
 
-// function WeeklyRibbon() {
-//   const datesOfWeek = [new Date()]
-//   for (let i = 1; i < 7; i++) {
-//     const currentDay = datesOfWeek[0]
-//     const prevDay = new Date(currentDay.setDate(currentDay.getDate() - i))
-//     datesOfWeek.push(prevDay)
-//   }
-//   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", 'Sat']
-//   return (
-//       <>
-//         <h2>This Week</h2>
-//         <ol>
-//           {datesOfWeek.map((date, i) => (
-//             <li key={i}>{daysOfWeek[date.getDay()]} {date.getDate()}</li>
-//           ))}
-//         </ol>
-//       </>
-//   )
-// }
+{/* function StampBox()
+  // async function stamp(e) {
+  // e.preventDefault()
+  // await fetch(`/programs/${pid}/members/${mid}/habit/${hid}/day/${day}`)
+  // }
+  // if 
+  // return (
+  //   <>
+  //     <form method="POST" action="/stamp" onSubmit={stamp}>
+  //       <button type="submit">
+  //         <img
+  //           src={`/icons/${habit.stamp.stamp}.svg`}
+  //           alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
+  //           style={{ height: "1rem", width: "1rem" }}
+  //         />
+  //       </button>
+  //     </form>
+  //   </>
+  // )
+{/* } */}
