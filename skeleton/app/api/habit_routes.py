@@ -123,9 +123,9 @@ def delete_habit(hid):
 @habit_routes.route("/<int:hid>/programs/<int:pid>/members/<int:mid>/days/<day>", methods=["delete", "post"])
 def stamp_day(pid, mid, hid, day):
     """Change the status of a daily_stamp to 'stamped' or 'pending'."""
-    print("\n\n\n\n\npid mid hid day", pid, mid, hid, day)
+    print("\n\n\n\n\npid mid hid day", pid, mid, hid, day, request.method)
     # day = date
-    if request.method == "post":
+    if request.method == "POST":
         stamp = DailyStamp.query.join(Member.daily_stamps).filter( \
             DailyStamp.habit_id == hid,  \
             DailyStamp.member_id == mid, \
@@ -152,14 +152,15 @@ def stamp_day(pid, mid, hid, day):
         print("\n\nMADE IT to the end!!")
         db.session.commit()
         return jsonify(dailystamp_schema.dump(stamp))
-    elif request.method == "delete":
-        stamp = DailyStamp.query.join(Member.daily_stamps).filter( \
+    elif request.method == "DELETE":
+        print("\n\ndeleting?")
+        stamp = DailyStamp.query.filter( \
             DailyStamp.habit_id == hid,  \
             DailyStamp.member_id == mid, \
             DailyStamp.date == day).one_or_none()
-            db.session.delete(stamp)
-            db.session.commit()
-            return jsonify("Stampy deleted :C ")
+        db.session.delete(stamp)
+        db.session.commit()
+        return jsonify("Stampy deleted :C ")
 
 
 
