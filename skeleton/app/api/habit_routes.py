@@ -214,8 +214,6 @@ def stamp_day(pid, mid, hid, day):
 @habit_routes.route("/create", methods=["POST"])
 def create_habit():
 
-    userId = request.json['userId']
-    print(userId)
     form = HabitForm()
     # print(request.cookies['csrf_token'])
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -231,10 +229,10 @@ def create_habit():
             description=form.data['description'],
             frequency=form.data['frequency'],
             color_id=form.data['color'],
-            creator_id=userId
+            creator_id=request.json('userId')
         )
         db.session.add(newHabit)
         db.session.commit()
-        print(newHabit.to_dict())
+        print("\n\nNEW HABIT DICTIONARY:", newHabit.to_dict())
         return newHabit.to_dict()
     return "Error"
