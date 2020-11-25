@@ -6,7 +6,7 @@ from app.forms import HabitForm
 from datetime import date, timedelta
 import calendar
 
-habit_routes = Blueprint("habits", __name__, url_prefix="/habits")
+habit_routes = Blueprint("habits", __name__)
 
 
 # TESTED Functions
@@ -27,6 +27,23 @@ def current_week(hid, mid):
     print('past_week_dates: ', past_week_dates)
     stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[6]).all()
     return jsonify(days=past_week_days, dates=past_week_dates, stamps=[dailystamp_schema.dump(stamp) for stamp in stamps])
+
+
+#get graph data for habit (weekly) - userId, habit_id
+@habit_routes.route("/data/week")
+def getWeeklyData():
+    print("REQUEST: ", request.json)
+    uid = request.json["userId"]
+    hid = request.json["habit_id"]
+    current_date = date.today()
+    print("CURRENT DATE:  ", current_date)
+    past_fourteen_weeks = [(current_date - timedelta(days=i)) for i in range(98)]
+    print("PAST WEEK:  ", past_fourteen_weeks)
+    past_week_dates = [date.strftime('%Y-%m-%d') for date in past_fourteen_weeks]
+    print('past_week_dates: ', past_week_dates)
+    stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
+    print("STAMPS", stamps)
+    return
 
 
 # TESTED Functions
