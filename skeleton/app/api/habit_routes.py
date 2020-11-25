@@ -229,7 +229,7 @@ def create_habit():
             description=form.data['description'],
             frequency=form.data['frequency'],
             color_id=form.data['color'],
-            creator_id=request.json('userId')
+            creator_id=request.json['userId']
         )
         db.session.add(newHabit)
         db.session.commit()
