@@ -1,12 +1,15 @@
-import React, { useEffect, useState, useContext } from "react"
+import React, { useEffect, useState, useContext } from "react";
 
 import UserContext from '../context/UserContext'
 import HabitBoardContext from "../context/HabitBoardContext"
 
 export default function HabitBoard() {
-  const uid = document.cookie.split("; ").find(cookie => cookie.startsWith("uid_cookie")).split("=")[1]
+  // const uid = document.cookie.split("; ").find(cookie => cookie.startsWith("uid_cookie")).split("=")[1]
 
   const [programs, setPrograms] = useState()
+
+  const user = useContext(UserContext);
+  const uid = user.id
 
   useEffect(() => {
     (async () => {
@@ -102,13 +105,13 @@ function HabitsEntry() {
 //   }
 //   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", 'Sat']
 //   return (
-//     <>
-//       <h2>This Week</h2>
-//       <ol>
-//         {datesOfWeek.map((date, i) => (
-//           <li key={i}>{daysOfWeek[date.getDay()]} {date.getDate()}</li>
-//         ))}
-//       </ol>
-//     </>
+//       <>
+//         <h2>This Week</h2>
+//         <ol>
+//           {datesOfWeek.map((date, i) => (
+//             <li key={i}>{daysOfWeek[date.getDay()]} {date.getDate()}</li>
+//           ))}
+//         </ol>
+//       </>
 //   )
 // }

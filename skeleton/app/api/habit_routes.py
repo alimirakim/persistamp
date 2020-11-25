@@ -120,18 +120,30 @@ def delete_habit(hid):
 @habit_routes.route("/dailystamps/<int:sid>/stamper/<int:uid>", methods=["POST"])
 def stamp_day(sid, uid):
     """Change the status of a daily_stamp to 'stamped' or 'pending'."""
+    # get the user id somehow, is it uid?
+    user_id = uid
+    #replace this maybe
     day = DailyStamp.query.filter(DailyStamp.id == sid)
-    if uid == day.member.stamper_id:
+    if day.stamper_id: #always false for now
+        if user_id == day.stamper_id:
+            if day.status == 'unstamped' or day.status == 'pending':
+                day.status = 'stamped'
+            elif day.status == 'stamped':
+                day.status = 'unstamped'
+        elif user_id == day.member_id:
+            if day.status == 'unstamped':
+                day.status = 'pending'
+            elif day.status == 'pending':
+                day.status = 'unstamped'
+        return jsonify(dailystamp_schema.dump(day))
+    else:
         if day.status == 'unstamped' or day.status == 'pending':
             day.status = 'stamped'
         elif day.status == 'stamped':
             day.status = 'unstamped'
-    elif uid == day.member_id:
-        if day.status == 'unstamped':
-            day.status = 'pending'
-        elif day.status == 'pending':
-            day.status = 'unstamped'
-    return jsonify(dailystamp_schema.dump(day))
+        return jsonify(dailystamp_schema.dump(day))
+
+        
 
 
 # @habit_routes.route("/create", methods=["POST"])
