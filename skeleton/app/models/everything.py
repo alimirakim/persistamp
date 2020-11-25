@@ -36,7 +36,7 @@ class Color(db.Model):
     hex = db.Column(db.String(7), nullable=False, unique=True)
     name = db.Column(db.String(50), unique=True)
     mode = db.Column(db.String(50), default="night")
-    
+
     users = db.relationship("User", back_populates="color")
     programs = db.relationship("Program", back_populates="color")
     habits = db.relationship("Habit", back_populates="color")
@@ -67,7 +67,7 @@ class User(db.Model, UserMixin):
     created_programs = db.relationship("Program", back_populates="creator")
     created_habits = db.relationship("Habit", back_populates="creator")
     created_rewards = db.relationship("Reward", back_populates="creator")
-    
+
     @property
     def password(self):
       return self.hashed_password
@@ -144,6 +144,11 @@ class Habit(db.Model):
     program = db.relationship("Program", back_populates="habits")
     creator = db.relationship("User", back_populates="created_habits")
     daily_stamps = db.relationship("DailyStamp", back_populates="habit")
+
+    def to_dict(self):
+      return {
+        "id": self.id
+      }
 
 
 class DailyStamp(db.Model):

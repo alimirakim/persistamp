@@ -10,7 +10,9 @@ import { authenticate } from "./services/auth";
 import HabitBoard from "./components/HabitBoard";
 import UserProfileCard from "./components/UserProfileCard";
 import UserContext from './context/UserContext';
-import './styles/base.css'
+// import './styles/base.css'
+import AboutCard from './components/AboutCard'
+
 
 import HabitForm from "./components/HabitForm";
 
@@ -54,6 +56,12 @@ function App() {
       </Route>
       <Route path="/sign-up" exact={true}>
         <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
+      </Route>
+      <Route path="/about" exact={true}>
+        <>
+          <h1>About Us</h1>
+          <AboutCard></AboutCard>
+        </>
       </Route>
 
       <UserContext.Provider value={user}>
