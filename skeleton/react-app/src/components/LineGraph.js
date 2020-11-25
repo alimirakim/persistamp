@@ -25,34 +25,32 @@ function LineGraph() {
 
             const resObj = await res.json()
             setDataPoints(resObj)
-            console.log(resObj)
-            console.log(dataPoints)
 
         })()
     }, [])
+    if (!dataPoints.data) return null;
 
     return (
-        <VictoryChart
-  theme={VictoryTheme.material}
->
+        <VictoryChart theme={VictoryTheme.material}>
   <VictoryLine
     height={10}
     width={10}
     domain={{
-        x:[0,10], y:[0, 10]
+        x:[0, dataPoints.data.length - 1], y:[0, 7]
     }}
     style={{
       data: { stroke: "#c43a31" },
       parent: { border: "1px solid #ccc"}
     }}
-    data={[
-      { x: 1, y: 7 },
-      { x: 2, y: 3 },
-      { x: 3, y: 5 },
-      { x: 4, y: 4 },
-      { x: 5, y: 7 },
-      { x: 0, y: 0 }
-    ]}
+    data={dataPoints.data}
+    // data={[
+    //   { x: 1, y: 7 },
+    //   { x: 2, y: 3 },
+    //   { x: 3, y: 5 },
+    //   { x: 4, y: 4 },
+    //   { x: 5, y: 7 },
+    //   { x: 0, y: 0 }
+    // ]}
   />
 </VictoryChart>
     )

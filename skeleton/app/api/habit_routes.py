@@ -92,11 +92,8 @@ def getWeeklyData(hid):
         data.append(obj)
         i += 1
     print("DATA -------------------------------------------------", data)
-    # print("STAMPS", stamps)
-    # print("DAILY STAMP", dailystamp_schema.dump(stamps[0]))
 
-    dailyStamp_data = [dailystamp_schema.dump(stamp) for stamp in stamps]
-    jsonData = jsonify(today=format_date, stamp_data=dailyStamp_data)
+    jsonData = jsonify(data=data)
     return jsonData
 
 
