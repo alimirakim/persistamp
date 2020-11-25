@@ -10,7 +10,7 @@ import { authenticate } from "./services/auth";
 import HabitBoard from "./components/HabitBoard";
 import UserProfileCard from "./components/UserProfileCard";
 import UserContext from './context/UserContext';
-
+import './styles/base.css'
 
 import HabitForm from "./components/HabitForm";
 

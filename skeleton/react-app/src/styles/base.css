@@ -2,5 +2,12 @@
 it probably belongs here. */
 
 body {
-    margin: 0px;
+    padding: 0 10%;
+    background-color:rgb(92, 73, 64);
+    color: seashell;
+}
+table, tr, th, td {
+  padding: 0.2rem;
+  border: 1px solid wheat;
+  text-align: center;
 }

@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect, jsonify, request
+from sqlalchemy.orm import joinedload
 from app.models import db, User, Program, Habit, Member, DailyStamp
 from app.schemas import user_schema, program_schema, habit_schema, member_schema, dailystamp_schema
 from app.utils import dump_data_list
@@ -18,40 +19,41 @@ def program_habits(pid):
     return jsonify(dump_data_list(habits, habit_schema))
 
 
-@habit_routes.route("/programs/<int:pid>/members/<int:mid>/current_week")
-def current_week(pid, mid):
-    """Get the past 7 days"""
-    current_date = date.today()
-    past_week = [(current_date - timedelta(days=i)) for i in range(7)]
-    past_week = [(day.strftime('%A')[0:3], day.strftime('%Y-%m-%d')) for day in past_week]
-    
-    program = Program.query.get(pid)
-    program = program_schema.dump(program)
-    habit_stamps = []
-    # print("\nPROGRAM", program)
-    # print("habit", program["habits"][0])
-    for habit in program["habits"]:
-      habit_stamps.append(DailyStamp.query.filter( \
-        DailyStamp.habit_id == habit, \
-        DailyStamp.member_id == mid, \
-        DailyStamp.date <= past_week[0][1], \
-        DailyStamp.date >= past_week[6][1]).all())
-    habit_stamps = [dump_data_list(h, dailystamp_schema) for h in habit_stamps]
-    # print("HABIT STAMPS", habit_stamps)
-    return jsonify(past_week=past_week, dailies=habit_stamps)
-
-
-# @habit_routes.route("<int:hid>/member/<int:mid>/current_week")
-# def current_week(hid, mid):
+# @habit_routes.route("/programs/<int:pid>/members/<int:mid>/current_week")
+# def current_week(pid, mid):
 #     """Get the past 7 days"""
 #     current_date = date.today()
 #     past_week = [(current_date - timedelta(days=i)) for i in range(7)]
-#     past_week_days = [day.strftime('%A')[0:3] for day in past_week]
-#     past_week_dates = [date.strftime('%Y-%m-%d') for date in past_week]
-#     print('past_week_days: ', past_week)
-#     print('past_week_dates: ', past_week_dates)
-#     stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[6]).all()
-#     return jsonify(days=past_week_days, dates=past_week_dates, stamps=[dailystamp_schema.dump(stamp) for stamp in stamps])
+#     past_week = [(day.strftime('%A')[0:3], day.strftime('%Y-%m-%d')) for day in past_week]
+    
+#     program = Program.query.get(pid)
+#     program = program_schema.dump(program)
+#     habit_stamps = []
+#     # print("\nPROGRAM", program)
+#     # print("habit", program["habits"][0])
+#     for habit in program["habits"]:
+#       habit_stamps.append(DailyStamp.query.filter( \
+#         DailyStamp.habit_id == habit, \
+#         DailyStamp.member_id == mid, \
+#         DailyStamp.date <= past_week[0][1], \
+#         DailyStamp.date >= past_week[6][1]).all())
+#     habit_stamps = [dump_data_list(h, dailystamp_schema) for h in habit_stamps]
+#     # print("HABIT STAMPS", habit_stamps)
+#     return jsonify(past_week=past_week, dailies=habit_stamps)
+
+
+@habit_routes.route("<int:hid>/member/<int:mid>/current_week")
+def current_week(hid, mid):
+    """Get the past 7 days"""
+    current_date = date.today()
+    past_week = [(current_date - timedelta(days=i)) for i in range(7)]
+    past_week_days = [day.strftime('%A')[0:3] for day in past_week]
+    past_week_dates = [date.strftime('%Y-%m-%d') for date in past_week]
+    print('past_week_days: ', past_week)
+    print('past_week_dates: ', past_week_dates)
+    stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[6]).all()
+    return jsonify(days=past_week_days, dates=past_week_dates, stamps=[dailystamp_schema.dump(stamp) for stamp in stamps])
+
 
 # TESTED Functions
 @habit_routes.route("/<int:hid>")
@@ -118,33 +120,39 @@ def delete_habit(hid):
 # If no stamper, just toggle the status.
 # If stamper, check stamper id from params. If it's the member, NOT stamper,
 # change to pending. If it IS the stamper, change to checked or unchecked.
-@habit_routes.route("/dailystamps/<int:sid>/stamper/<int:uid>", methods=["POST"])
-def stamp_day(sid, uid):
+@habit_routes.route("/<int:hid>/programs/<int:pid>/members/<int:mid>/days/<day>", methods=["post"])
+def stamp_day(pid, mid, hid, day):
     """Change the status of a daily_stamp to 'stamped' or 'pending'."""
-    # get the user id somehow, is it uid?
-    user_id = uid
-    #replace this maybe
-    day = DailyStamp.query.filter(DailyStamp.id == sid)
-    if day.stamper_id: #always false for now
-        if user_id == day.stamper_id:
-            if day.status == 'unstamped' or day.status == 'pending':
-                day.status = 'stamped'
-            elif day.status == 'stamped':
-                day.status = 'unstamped'
-        elif user_id == day.member_id:
-            if day.status == 'unstamped':
-                day.status = 'pending'
-            elif day.status == 'pending':
-                day.status = 'unstamped'
-        return jsonify(dailystamp_schema.dump(day))
+    print("\n\n\n\n\npid mid hid day", pid, mid, hid, day)
+    # day = date
+    stamp = DailyStamp.query.join(Member.daily_stamps).filter( \
+        DailyStamp.habit_id == hid,  \
+        DailyStamp.member_id == mid, \
+        DailyStamp.date == day) \
+        .options(joinedload(DailyStamp.member)).one_or_none()
+    member = Member.query.get(mid)
+    print("\nSTAMP", stamp)
+    if not stamp:
+        if member.member_id == member.stamper_id:
+            stamp = DailyStamp( date=day,
+                                status='stamped',
+                                habit_id=hid,
+                                member_id=mid,)
+        else:
+            stamp = DailyStamp( date=day,
+                                status='pending',
+                                habit_id=hid,
+                                member_id=mid,)
+        print("\nnew stampy!", stamp)
+        db.session.add(stamp)
     else:
-        if day.status == 'unstamped' or day.status == 'pending':
-            day.status = 'stamped'
-        elif day.status == 'stamped':
-            day.status = 'unstamped'
-        return jsonify(dailystamp_schema.dump(day))
-
-        
+        if stamp_data.status == 'pending' and current_user.id == stamp.member.stamper_id:
+            stamp.status = 'stamped'
+        else:
+            db.session.delete(stamp)
+    print("\n\nMADE IT to the end!!")
+    db.session.commit()
+    return jsonify(dailystamp_schema.dump(stamp))
 
 
 # @habit_routes.route("/create", methods=["POST"])

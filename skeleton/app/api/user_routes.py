@@ -50,39 +50,44 @@ def user_programs(uid):
     print("\n\nUID", uid)
     user_programs = Program.query \
         .join(Member.program).filter(Member.member_id == uid) \
-        .join(DailyStamp) \
         .options(joinedload(Program.rewards), \
             joinedload(Program.members), \
             joinedload(Program.stamp), \
             joinedload(Program.color), \
             joinedload(Program.habits).joinedload(Habit.daily_stamps), \
             joinedload(Program.habits).joinedload(Habit.stamp), \
-            joinedload(Program.habits).joinedload(Habit.color)).all() 
+            joinedload(Program.habits).joinedload(Habit.color)) \
+        .all()
+        # .join(DailyStamp) \
     programs_data = dump_data_list(user_programs, program_schema)
-    
     print("\n\nPROGRAM DATAAAA")
     print(user_programs)
-    # print(programs_data)
+    from pprint import pprint
+    pprint(programs_data)
     
     for i in range(len(user_programs)):
-        memberships = [m.id for m in current_user.memberships]
-        [mid] = [m.id for m in user_programs[i].members if m.id in memberships]
-        programs_data[i]["habits"] = []
-        
-        for j in range(len(user_programs[i].habits)):
-            programs_data[i]["habits"].append(habit_schema.dump(user_programs[i].habits[j]))
-            habit = habit_schema.dump(user_programs[i].habits[j])
-            habit["stamp"] = stamp_schema.dump(user_programs[i].habits[j].stamp)
-            habit["color"] = color_schema.dump(user_programs[i].habits[j].color)
-            # Daily stamps for prev week for habit
-            habit["daily_stamps"] = DailyStamp.query.filter( \
-                DailyStamp.habit_id == habit["id"], \
-                DailyStamp.member_id == mid, \
-                DailyStamp.date <= past_week[0][1], \
-                DailyStamp.date >= past_week[6][1]).all()
-            habit["daily_stamps"] = dump_data_list(habit["daily_stamps"], dailystamp_schema)
-            programs_data[i]["habits"][j] = habit
-
+        if user_programs[i].members: 
+            memberships = [m.id for m in current_user.memberships]
+            print("\n\nmemberships", memberships)
+            try:
+                [mid] = [m for m in programs_data[i]["members"] if m in memberships]
+                programs_data[i]["habits"] = []
+                
+                for j in range(len(user_programs[i].habits)):
+                    programs_data[i]["habits"].append(habit_schema.dump(user_programs[i].habits[j]))
+                    habit = habit_schema.dump(user_programs[i].habits[j])
+                    habit["stamp"] = stamp_schema.dump(user_programs[i].habits[j].stamp)
+                    habit["color"] = color_schema.dump(user_programs[i].habits[j].color)
+                    # Daily stamps for prev week for habit
+                    habit["daily_stamps"] = DailyStamp.query.filter( \
+                        DailyStamp.habit_id == habit["id"], \
+                        DailyStamp.member_id == mid, \
+                        DailyStamp.date <= past_week[0][1], \
+                        DailyStamp.date >= past_week[6][1]).all()
+                    habit["daily_stamps"] = dump_data_list(habit["daily_stamps"], dailystamp_schema)
+                    programs_data[i]["habits"][j] = habit
+            except:
+                print("\nno mid probs")
         programs_data[i]["stamp"] = stamp_schema.dump(user_programs[i].stamp)
         programs_data[i]["color"] = color_schema.dump(user_programs[i].color)
         
