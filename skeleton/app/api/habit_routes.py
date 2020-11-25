@@ -5,6 +5,8 @@ from app.utils import dump_data_list
 from app.forms import HabitForm
 from datetime import date, timedelta
 import calendar
+from flask_login import current_user
+
 
 habit_routes = Blueprint("habits", __name__)
 
@@ -30,20 +32,24 @@ def current_week(hid, mid):
 
 
 #get graph data for habit (weekly) - userId, habit_id
-@habit_routes.route("/data/week")
-def getWeeklyData():
-    print("REQUEST: ", request.json)
-    uid = request.json["userId"]
-    hid = request.json["habit_id"]
+@habit_routes.route("<int:hid>/data")
+def getWeeklyData(hid):
+    print("HID", hid)
+    uid = 2
+    print("CURRENT USER", current_user.id)
     current_date = date.today()
-    print("CURRENT DATE:  ", current_date)
+    format_date = current_date.strftime('%Y-%m-%d')
     past_fourteen_weeks = [(current_date - timedelta(days=i)) for i in range(98)]
-    print("PAST WEEK:  ", past_fourteen_weeks)
+
     past_week_dates = [date.strftime('%Y-%m-%d') for date in past_fourteen_weeks]
-    print('past_week_dates: ', past_week_dates)
+
     stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
     print("STAMPS", stamps)
-    return
+    print("DAILY STAMP", dailystamp_schema.dump(stamps[0]))
+
+    dailyStamp_data = [dailystamp_schema.dump(stamp) for stamp in stamps]
+    jsonData = jsonify(today=format_date, stamp_data=dailyStamp_data)
+    return jsonData
 
 
 # TESTED Functions

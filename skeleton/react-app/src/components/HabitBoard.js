@@ -19,7 +19,7 @@ export default function HabitBoard() {
 
         const res = await fetch(`/api/users/${uid}/programs`)
         const unraveledPrograms = await res.json()
-        console.log("UNRAVELED", uid, unraveledPrograms)
+        // console.log("UNRAVELED", uid, unraveledPrograms)
         setPrograms(unraveledPrograms)
         // let habits_list = unraveledPrograms.map(program => {
         //   console.log("program", program)
@@ -32,7 +32,7 @@ export default function HabitBoard() {
   }, [programs, uid])
 
   if (!programs) return null
-  console.log("we have...", programs)
+  // console.log("we have...", programs)
   return (
     <HabitBoardContext.Provider value={programs}>
       <HabitsEntry />
