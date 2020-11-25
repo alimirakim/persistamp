@@ -13,7 +13,7 @@ import UserContext from '../context/UserContext';
 import { useContext } from 'react';
 
 function HabitForm() {
-    const [userId, setUserId] = useState("")
+    // const [userId, setUserId] = useState("")
     const [open, setOpen] = React.useState(false);
     const [habit, setHabit] = useState("")
     const [description, setDescription] = useState("")
@@ -48,7 +48,9 @@ function HabitForm() {
 
     const onCreate = async (e) => {
       e.preventDefault()
-      setUserId(user.id)
+      // setUserId(user.id)
+      const userId=user.id
+      console.log("setuserid is...", user.id)
       const newHabit = await habitCreate(
         habit,
         description,
@@ -56,7 +58,7 @@ function HabitForm() {
         color,
         userId
         );
-        console.log(newHabit)
+        console.log("new habit is...", newHabit)
     }
 
 

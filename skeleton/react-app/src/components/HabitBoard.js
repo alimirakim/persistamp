@@ -20,6 +20,7 @@ export default function HabitBoard() {
         const { past_week, programs_data } = await res.json()
         setPrograms(programs_data)
         setWeek(past_week)
+        // console.log("UNRAVELED", uid, unraveledPrograms)
       }
     })()
   }, [programs, week, uid])

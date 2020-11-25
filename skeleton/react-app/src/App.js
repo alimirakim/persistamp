@@ -11,10 +11,12 @@ import HabitBoard from "./components/HabitBoard";
 import UserProfileCard from "./components/UserProfileCard";
 import UserContext from './context/UserContext';
 // import './styles/base.css'
+import BarGraph from './components/BarGraph';
 import AboutCard from './components/AboutCard'
 
 
 import HabitForm from "./components/HabitForm";
+import LineGraph from "./components/LineGraph";
 
 
 function App() {
@@ -73,6 +75,8 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
           <h1>My Home Page</h1>
+          <LineGraph />
+          <BarGraph />
           <UserProfileCard />
           <HabitForm />
           <HabitBoard />
