@@ -77,7 +77,7 @@ function HabitsEntry() {
                       alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
                       style={{ height: "1rem", width: "1rem" }}
                     />
-                    {habit.stamp.stamp} {habit.habit}
+                    {habit.habit}
                   </td>
                   {week.map(day => {
                     const [mid] = program.members.filter(m => user.memberships.includes(m))
@@ -98,29 +98,68 @@ function HabitsEntry() {
 
 function StampBox({ pid, mid, habit, day }) {
   console.log("pid, mid, habit, day", pid, mid, habit, day)
+  const [isStamped, setIsStamped] = useState(habit.daily_stamps.find(stamp => stamp.date == day[1]))
 
-  async function stamp(ev) {
+  // TODO WHY IS NOT DELETING ICON ON CLICK TOO???
+  useEffect(() => {
+    // console.log("habit on effect", habit)
+    console.log("isStamped", isStamped)
+    if (!isStamped) setIsStamped(false);
+    if (habit.daily_stamps.find(stamp => stamp.date == day[1])) setIsStamped(true)
+  }, [isStamped])
+
+  async function onStamp(ev) {
     ev.preventDefault()
-    console.log("oi, fetchin", habit.id)
-    const res = await fetch(`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${String(day.slice(1))}`, {method: "POST"})
-    const stamped = await res.json()
-    console.log("FINISHED fetch!", stamped)
+    const res = await fetch(`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}`, { method: "POST" })
+    const dailyStamp = await res.json()
+    console.log("what is dailyStamp", dailyStamp)
+    if (dailyStamp.status) {
+      if (dailyStamp.status === "stamped") setIsStamped(true)
+    } else {
+      console.log("nothin")
+      setIsStamped(false)
+    }
   }
 
-  return (
-    <td>
-      <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${String(day.slice(1))}`} onSubmit={stamp}>
-        <button type="submit">
-          <StampBoxMark habit={habit} day={day} />
-        </button>
-      </form>
-    </td>
-  )
+
+  if (isStamped) {
+    return (
+      <td>
+        <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${String(day.slice(1))}`} onSubmit={onStamp}>
+          <button type="submit">
+            <img
+              src={`/icons/${habit.stamp.stamp}.svg`}
+              alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
+              style={{ height: "1rem", width: "1rem" }}
+            />
+          </button>
+        </form>
+      </td>
+    )
+
+  } else {
+    return (
+      <td>
+        <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${String(day.slice(1))}`} onSubmit={onStamp}>
+          <button type="submit">
+            <span>X</span>
+          </button>
+        </form>
+      </td>
+    )
+  }
 }
 
 function StampBoxMark({ habit, day }) {
-  const foundStamp = habit.daily_stamps.find(stamp => stamp.date == day[1])
-  if (foundStamp) {
+  const [isStamped, setIsStamped] = useState(false)
+
+  useEffect(() => {
+    const foundStamp = habit.daily_stamps.find(stamp => stamp.date == day[1])
+    if (foundStamp) setIsStamped(true)
+    else setIsStamped(false)
+  }, [isStamped])
+
+  if (isStamped) {
     return (
       <img
         src={`/icons/${habit.stamp.stamp}.svg`}
@@ -134,25 +173,3 @@ function StampBoxMark({ habit, day }) {
     )
   }
 }
-
-
-{/* function StampBox()
-  // async function stamp(e) {
-  // e.preventDefault()
-  // await fetch(`/programs/${pid}/members/${mid}/habit/${hid}/day/${day}`)
-  // }
-  // if 
-  // return (
-  //   <>
-  //     <form method="POST" action="/stamp" onSubmit={stamp}>
-  //       <button type="submit">
-  //         <img
-  //           src={`/icons/${habit.stamp.stamp}.svg`}
-  //           alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
-  //           style={{ height: "1rem", width: "1rem" }}
-  //         />
-  //       </button>
-  //     </form>
-  //   </>
-  // )
-{/* } */}

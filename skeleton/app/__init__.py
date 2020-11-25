@@ -58,9 +58,6 @@ CORS(app)
 
 @app.after_request
 def inject_csrf_token(response):
-    print(response.set_cookie)
-    print(dir(response.set_cookie))
-    print(type(response.set_cookie))
     response.set_cookie('cookies', "sugar pumpkin")
     response.set_cookie('csrf_token',
                         generate_csrf(),

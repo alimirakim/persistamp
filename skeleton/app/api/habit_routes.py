@@ -120,39 +120,47 @@ def delete_habit(hid):
 # If no stamper, just toggle the status.
 # If stamper, check stamper id from params. If it's the member, NOT stamper,
 # change to pending. If it IS the stamper, change to checked or unchecked.
-@habit_routes.route("/<int:hid>/programs/<int:pid>/members/<int:mid>/days/<day>", methods=["post"])
+@habit_routes.route("/<int:hid>/programs/<int:pid>/members/<int:mid>/days/<day>", methods=["delete", "post"])
 def stamp_day(pid, mid, hid, day):
     """Change the status of a daily_stamp to 'stamped' or 'pending'."""
     print("\n\n\n\n\npid mid hid day", pid, mid, hid, day)
     # day = date
-    stamp = DailyStamp.query.join(Member.daily_stamps).filter( \
-        DailyStamp.habit_id == hid,  \
-        DailyStamp.member_id == mid, \
-        DailyStamp.date == day) \
-        .options(joinedload(DailyStamp.member)).one_or_none()
-    member = Member.query.get(mid)
-    print("\nSTAMP", stamp)
-    if not stamp:
-        if member.member_id == member.stamper_id:
-            stamp = DailyStamp( date=day,
-                                status='stamped',
-                                habit_id=hid,
-                                member_id=mid,)
+    if request.method == "post":
+        stamp = DailyStamp.query.join(Member.daily_stamps).filter( \
+            DailyStamp.habit_id == hid,  \
+            DailyStamp.member_id == mid, \
+            DailyStamp.date == day) \
+            .options(joinedload(DailyStamp.member)).one_or_none()
+        member = Member.query.get(mid)
+        print("\nSTAMP", stamp)
+        if not stamp:
+            if member.member_id == member.stamper_id:
+                stamp = DailyStamp( date=day,
+                                    status='stamped',
+                                    habit_id=hid,
+                                    member_id=mid,)
+            else:
+                stamp = DailyStamp( date=day,
+                                    status='pending',
+                                    habit_id=hid,
+                                    member_id=mid,)
+            print("\nnew stampy!", stamp)
+            db.session.add(stamp)
         else:
-            stamp = DailyStamp( date=day,
-                                status='pending',
-                                habit_id=hid,
-                                member_id=mid,)
-        print("\nnew stampy!", stamp)
-        db.session.add(stamp)
-    else:
-        if stamp_data.status == 'pending' and current_user.id == stamp.member.stamper_id:
-            stamp.status = 'stamped'
-        else:
+            if stamp.status == 'pending' and current_user.id == stamp.member.stamper_id:
+                stamp.status = 'stamped'
+        print("\n\nMADE IT to the end!!")
+        db.session.commit()
+        return jsonify(dailystamp_schema.dump(stamp))
+    elif request.method == "delete":
+        stamp = DailyStamp.query.join(Member.daily_stamps).filter( \
+            DailyStamp.habit_id == hid,  \
+            DailyStamp.member_id == mid, \
+            DailyStamp.date == day).one_or_none()
             db.session.delete(stamp)
-    print("\n\nMADE IT to the end!!")
-    db.session.commit()
-    return jsonify(dailystamp_schema.dump(stamp))
+            db.session.commit()
+            return jsonify("Stampy deleted :C ")
+
 
 
 # @habit_routes.route("/create", methods=["POST"])
