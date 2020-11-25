@@ -3,17 +3,19 @@ import { render } from 'react-dom';
 import { VictoryLine, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 import UserContext from '../context/UserContext';
 
-function reducer(state, action) {
-    switch (action.type) {
-        case 'weeklyData':
-            const newData = state.habitDays
-            return newData;
-    }
-}
+// function reducer(state, action) {
+//     switch (action.type) {
+//         case 'set':
+//             return {  }
+//         case 'weeklyData':
+//             const newData = state.habitDays
+//             return newData;
+//     }
+// }
 
 
 function LineGraph() {
-    const [state, dispatch] = useReducer(reducer, {habitDays: null})
+    const [dataPoints, setDataPoints] = useState([])
 
     const user = useContext(UserContext)
     const habit_id = 4
@@ -22,9 +24,10 @@ function LineGraph() {
             const res = await fetch(`/api/habits/${habit_id}/data`)
 
             const resObj = await res.json()
+            setDataPoints(resObj)
             console.log(resObj)
-            // state.habitDays = habitDays
-            // console.log("STATE: ", state)
+            console.log(dataPoints)
+
         })()
     }, [])
 
