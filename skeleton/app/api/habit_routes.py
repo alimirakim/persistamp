@@ -149,6 +149,7 @@ def stamp_day(pid, mid, hid, day):
     print("\n\n\n\n\npid mid hid day", pid, mid, hid, day, request.method)
     # day = date
     if request.method == "POST":
+        print("\n\nPOSTING")
         stamp = DailyStamp.query.join(Member.daily_stamps).filter( \
             DailyStamp.habit_id == hid,  \
             DailyStamp.member_id == mid, \
@@ -176,11 +177,12 @@ def stamp_day(pid, mid, hid, day):
         db.session.commit()
         return jsonify(dailystamp_schema.dump(stamp))
     elif request.method == "DELETE":
-        print("\n\ndeleting?")
+        print("\n\nDELETING?")
         stamp = DailyStamp.query.filter( \
             DailyStamp.habit_id == hid,  \
             DailyStamp.member_id == mid, \
             DailyStamp.date == day).one_or_none()
+        print("stamp", stamp)
         db.session.delete(stamp)
         db.session.commit()
         return jsonify("Stampy deleted :C ")
@@ -207,8 +209,6 @@ def stamp_day(pid, mid, hid, day):
         elif day.status == 'stamped':
             day.status = 'unstamped'
         return jsonify(dailystamp_schema.dump(day))
-
-
 
 
 @habit_routes.route("/create", methods=["POST"])

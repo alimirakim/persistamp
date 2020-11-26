@@ -42,10 +42,9 @@ function App() {
   }, []);
 
   if (!loaded) {
-    console.log("IN HERE???")
+    console.log("???")
     return null;
   }
-  console.log("AFTER HERE???")
 
   return (
     <BrowserRouter>
@@ -62,7 +61,7 @@ function App() {
       <Route path="/about" exact={true}>
         <>
           <h1>About Us</h1>
-          <AboutCard></AboutCard>
+          <AboutCard />
         </>
       </Route>
 
@@ -73,13 +72,15 @@ function App() {
         <ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
           <User />
         </ProtectedRoute>
+        <ProtectedRoute path="/graphs/:habitId" authenticated={authenticated}>
+          <LineGraph />
+          <BarGraph />
+        </ProtectedRoute>
         <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
           <h1>My Home Page</h1>
           <UserProfileCard />
           <HabitForm />
           <HabitBoard />
-          <LineGraph />
-          <BarGraph />
         </ProtectedRoute>
       </UserContext.Provider>
 

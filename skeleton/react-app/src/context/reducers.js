@@ -43,41 +43,36 @@ export const deleteHabit = (habit) => ({ type: DELETE_HABIT, habit })
 
 // THUNK ACTION CREATORS
 // do it directly
-export const createStamp = ({pid, mid, hid, day}) => async (dispatch) => {
-  
-  
-  
-  const res = await fetch(`/habits/${hid}/programs/${pid}/members/${mid}/days/${day}`, {method: "POST"})
-  const stamp = await res.json()
-  dispatch(stampDay(stamp))
-  
-  
-  
-  
-}
 
-export const deleteStamp = ({pid, mid, hid, day}) => async (dispatch) => {
-  const res = await fetch(`/habits/${hid}/programs/${pid}/members/${mid}/days/${day}`, {method: "DELETE"})
-  const stamp = await res.json()
-  dispatch(unstampDay(stamp))
-}
+  
+//   const res = await fetch(`/habits/${hid}/programs/${pid}/members/${mid}/days/${day}`, {method: "POST"})
+//   const stamp = await res.json()
+//   dispatch(stampDay(stamp))
+  
 
+
+// export const deleteStamp = ({pid, mid, hid, day}) => async (dispatch) => {
+//   const res = await fetch(`/habits/${hid}/programs/${pid}/members/${mid}/days/${day}`, {method: "DELETE"})
+//   const stamp = await res.json()
+//   dispatch(unstampDay(stamp))
+// }
 
 
 // REDUCERS
-export function programsReducer(state = [], action) {
+export function programsReducer(state = {}, action) {
+  const newState = {...state}
   switch (action.type) {
     case GET_USER_PROGRAMS:
       return action.programs
     case CREATE_PROGRAM:
-      return [...state, action.program]
+      newState[action.program.id] = action.program
+      return newState
     case DELETE_PROGRAM:
-      return state.filter(program => program.id === action.program.id)
+      delete newState[action.program.id]
+      return newState
     case EDIT_PROGRAM:
-      return state.map(program => {
-        if (program.id === action.program.id) return action.program
-        else return program
-      })
+      newState[action.program.id] = action.program
+      return newState
     default:
       return state
   }
@@ -85,18 +80,19 @@ export function programsReducer(state = [], action) {
 
 
 export function habitsReducer(state = {}, action) {
+  const newState = {...state}
   switch (action.type) {
     case GET_USER_HABITS:
       return action.habits
     case CREATE_HABIT:
-      return [...state, action.habit]
+      newState[action.habit.id] = action.habit
+      return newState
     case DELETE_HABIT:
-      return state.filter(habit => habit.id === action.habit.id)
+      delete newState[action.habit.id]
+      return newState
     case EDIT_HABIT:
-      return state.map(habit => {
-        if (habit.id === action.habit.id) return action.habit
-        else return habit
-      })
+      newState[action.habit.id] = action.habit
+      return newState
     default:
       return state
   }
@@ -104,17 +100,17 @@ export function habitsReducer(state = {}, action) {
 
 
 export function dailiesReducer(state = {}, action) {
+  const newState = {...state}
   switch (action.type) {
     case GET_DAILY_STAMPS:
       return action.dailies
     case STAMP_DAY:
-      return [...state, action.daily]
+      newState[action.daily.id] = action.daily
+      return newState
     case UNSTAMP_DAY:
-      return state.filter(daily => daily.id !== action.daily.id)
+      delete newState[action.daily.id]
+      return newState
     default:
       return state
   }
 }
-
-
-// state = {id: object}

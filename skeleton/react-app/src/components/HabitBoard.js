@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
+import {Link} from 'react-router-dom'
 import useReducer from '../utils'
 import UserContext from '../context/UserContext'
 import HabitBoardContext from "../context/HabitBoardContext"
 import {
   programsReducer, habitsReducer, dailiesReducer,
-  setPrograms, setHabits, setDailies, createStamp, deleteStamp
+  setPrograms, setHabits, setDailies, createStamp, deleteStamp,
+  stampDay, unstampDay,
 } from "../context/reducers"
 
 export default function HabitBoard() {
@@ -34,9 +36,11 @@ export default function HabitBoard() {
     })()
   }, [])
 
-  console.log("all of it", programs, habits, dailies, week)
+  if (!week || !programs || !habits || !dailies) return null
+
   return (
     <HabitBoardContext.Provider value={{ programs, dispatchPrograms, habits, dispatchHabits, dailies, dispatchDailies, week }}>
+      {/* TODO Complaining about 'unique key prop' here */}
       <HabitsEntry />
     </HabitBoardContext.Provider>
   )
@@ -46,18 +50,14 @@ export default function HabitBoard() {
 function HabitsEntry() {
   const { programs, habits, dailies, week } = useContext(HabitBoardContext)
   const user = useContext(UserContext)
-  console.log("programs", programs)
-  console.log("week", week)
 
-  if (!week || !programs || !habits || !dailies) return null
-  console.log("WEEK", week)
   return (
     <article>
       <h2>Habit Board</h2>
-      <table style={{ borderWidth: "1px" }}>
+      <table>
         <thead>
           <tr>
-            <th>Habit</th>
+            <th>Week:</th>
             <th><time dateTime={week[0][1]}>{week[0][0]} <br /><small>{week[0][1].slice(8, 10)}</small></time></th>
             <th><time dateTime={week[1][1]}>{week[1][0]} <br /><small>{week[1][1].slice(8, 10)}</small></time></th>
             <th><time dateTime={week[2][1]}>{week[2][0]} <br /><small>{week[2][1].slice(8, 10)}</small></time></th>
@@ -68,29 +68,30 @@ function HabitsEntry() {
           </tr>
         </thead>
         <tbody>
-          {programs.map(program => (
+          {Object.values(programs).map(program => (
             <>
-              <tr style={{ color: program.color.hex }}>
+              <tr key={program.id} style={{ color: program.color.hex }}>
                 <td colSpan={8}>
                   <h3><img src={`/icons/${program.stamp.stamp}.svg`} style={{ height: "1rem", width: "1rem" }} alt="" /> {program.program}</h3>
                 </td>
               </tr>
-              {habits.filter(habit => habit.program == program.id).map(habit => (
-                <tr style={{ color: habit.color.hex }}>
-                  <td>
-                    <img
-                      src={`/icons/${habit.stamp.stamp}.svg`}
-                      alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
-                      style={{ height: "1rem", width: "1rem" }}
-                    />
-                    {habit.habit}
-                  </td>
-                  {week.map(day => {
-                    const [mid] = program.members.filter(m => user.memberships.includes(m))
-                    return <StampBox pid={program.id} mid={mid} habit={habit} day={day} />
-                  })}
-                </tr>
-              ))}
+              {Object.values(habits).filter(habit => habit.program == program.id)
+                .map(habit => ( <tr key={habit.id} style={{ color: habit.color.hex }}>
+                    <td>
+                    <Link to={`/graphs/${habit.id}`} ><img
+                        src={`/icons/${habit.stamp.stamp}.svg`}
+                        alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
+                        style={{ height: "1rem", width: "1rem" }}
+                      />
+                      {habit.habit}
+                      </Link>
+                    </td>
+                    {week.map(day => {
+                      const [mid] = program.members.filter(m => user.memberships.includes(m))
+                      return <StampBox key={`${program.id}${mid}${habit.id}${day}`} pid={program.id} mid={mid} habit={habit} day={day} />
+                    })}
+                  </tr>
+                ))}
             </>
           ))}
         </tbody>
@@ -99,13 +100,12 @@ function HabitsEntry() {
   )
 }
 
-
+// TODO How to optimize the rerenders here????
 function StampBox({ pid, mid, habit, day }) {
-  console.log("pid, mid, habit, day", pid, mid, habit.id, day[1])
+  // console.log("pid, mid, habit, day", pid, mid, habit.id, day[1])
   const { dailies, dispatchDailies } = useContext(HabitBoardContext)
-  console.log("dailies are", dailies)
-  const [isStamped, setIsStamped] = useState(dailies.find(stamp => stamp.date == day[1]))
-  console.log("checking existence of stamp", isStamped)
+  const [isStamped, setIsStamped] = useState(Object.values(dailies).find(stamp => stamp.date === day[1] && stamp.member === mid && stamp.habit == habit.id))
+  // console.log("checking existence of stamp", isStamped)
 
   const onStamp = (method) => async (ev) => {
     ev.preventDefault()
@@ -114,50 +114,44 @@ function StampBox({ pid, mid, habit, day }) {
     const dailyStamp = await res.json()
     console.log("what is dailyStamp", dailyStamp)
 
-    if (dailyStamp) {
-      if (dailyStamp.status === "stamped") {
-        setIsStamped(true)
-        const res = await fetch(`/habits/${hid}/programs/${pid}/members/${mid}/days/${day}`, {method: "POST"})
-        const stamp = await res.json()
-        dispatch(stampDay(stamp))
-        
-        
-        
-        dispatchDailies(createStamp({ pid, mid, hid: habit.id, day: day[1] }))
-      } else {
-        setIsStamped(false)
-        dispatchDailies(deleteStamp({ pid, mid, hid: habit.id, day: day[1] }))
-      }
-
-      if (isStamped) {
-        return (
-          <td>
-            {/* <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}}`} onSubmit={onStamp("delete")}> */}
-              <button type="submit">
-                <img
-                  src={`/icons/${habit.stamp.stamp}.svg`}
-                  alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
-                  style={{ height: "1rem", width: "1rem" }}
-                />
-              </button>
-            {/* </form> */}
-          </td>
-        )
-
-      } else {
-        return (
-          <td>
-            {/* <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${String(day.slice(1))}`} onSubmit={onStamp("post")}> */}
-              <button type="submit">
-                <span>X</span>
-              </button>
-            {/* </form> */}
-          </td>
-        )
-      }
+    if (dailyStamp && dailyStamp.status === "stamped") {
+      dispatchDailies(stampDay(dailyStamp))
+      setIsStamped(dailyStamp)
+    } else {
+      setIsStamped(null)
+      dispatchDailies(unstampDay(dailyStamp))
     }
   }
+
+  if (isStamped) {
+    return (
+      <td>
+        <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}}`} onSubmit={onStamp("delete")}>
+          <button type="submit">
+            <img
+              src={`/icons/${habit.stamp.stamp}.svg`}
+              alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
+              style={{ height: "1rem", width: "1rem" }}
+            />
+          </button>
+        </form>
+      </td>
+    )
+
+  } else {
+    return (
+      <td>
+        <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}`} onSubmit={onStamp("post")}>
+          <button type="submit">
+            <span>X</span>
+          </button>
+        </form>
+      </td>
+    )
+  }
 }
+
+
 // function StampBoxMark({ habit, day }) {
 //   const [isStamped, setIsStamped] = useState(false)
 
