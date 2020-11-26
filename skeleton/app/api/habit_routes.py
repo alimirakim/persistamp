@@ -58,24 +58,24 @@ def current_week(hid, mid):
 
 
 #get graph data for habit (weekly) - userId, habit_id
-@habit_routes.route("<int:hid>/data")
-def getWeeklyData(hid):
-    print("HID", hid)
-    uid = 2
-    print("CURRENT USER", current_user.id)
-    current_date = date.today()
-    format_date = current_date.strftime('%Y-%m-%d')
-    past_fourteen_weeks = [(current_date - timedelta(days=i)) for i in range(98)]
+# @habit_routes.route("<int:hid>/data")
+# def getWeeklyData(hid):
+#     print("HID", hid)
+#     uid = 2
+#     print("CURRENT USER", current_user.id)
+#     current_date = date.today()
+#     format_date = current_date.strftime('%Y-%m-%d')
+#     past_fourteen_weeks = [(current_date - timedelta(days=i)) for i in range(98)]
 
-    past_week_dates = [date.strftime('%Y-%m-%d') for date in past_fourteen_weeks]
+#     past_week_dates = [date.strftime('%Y-%m-%d') for date in past_fourteen_weeks]
 
-    stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
-    print("STAMPS", stamps)
-    print("DAILY STAMP", dailystamp_schema.dump(stamps[0]))
+#     stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
+#     print("STAMPS", stamps)
+#     print("DAILY STAMP", dailystamp_schema.dump(stamps[0]))
 
-    dailyStamp_data = [dailystamp_schema.dump(stamp) for stamp in stamps]
-    jsonData = jsonify(today=format_date, stamp_data=dailyStamp_data)
-    return jsonData
+#     dailyStamp_data = [dailystamp_schema.dump(stamp) for stamp in stamps]
+#     jsonData = jsonify(today=format_date, stamp_data=dailyStamp_data)
+#     return jsonData
 
 @habit_routes.route("<int:hid>/linegraph")
 def getWeeklyData(hid):
