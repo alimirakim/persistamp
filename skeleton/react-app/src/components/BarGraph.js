@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useContext, useReducer } from 'react';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
+import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel } from 'victory';
 import { useParams } from 'react-router-dom'
 import UserContext from '../context/UserContext';
 
@@ -27,13 +27,25 @@ const BarGraph = () => {
   console.log(dataPoints)
   if (!dataPoints.data) return null;
   return (
-    <VictoryChart theme={VictoryTheme.material} domainPadding={20}>
-      <VictoryAxis tickValues={[1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14]}
-        tickFormat={dataPoints.axisLabels} />
+    <VictoryChart theme={VictoryTheme.material} domainPadding={20} style={ {labels: { fontSize: 5 }
+     } }>
+      <VictoryAxis
+        // tickValues={[1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14]}
+        tickValues={dataPoints.axisLabels}
+        tickFormat={date => date.toLocaleString('en-us', { month: 'short' })}
+        // tickFormat={dataPoints.axisLabels}
+
+        fixLabelOverlap
+        style={{tickLabels: { angle: 90 }}}
+        // tickLabelComponent={<VictoryLabel  />}
+        />
       {/* tickFormat={["carrot", "apple", "lion", "eric"]} /> */}
-      <VictoryAxis dependentAxis={true} tickFormat={(x) => x} />
+      {/* <VictoryAxis dependentAxis={true} tickFormat={(x) => x} /> */}
+      <VictoryAxis dependentAxis={true} tickLabelComponent={<VictoryLabel  />}/>
       <VictoryBar
+
         data={dataPoints.data}
+        domain={ { x: [0,14], y: [0,8] } }
         x="dates"
         y="stamps"
       />

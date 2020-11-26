@@ -29,8 +29,8 @@ with app.app_context():
         "body": ["tooth"],
         "animals": ["turtle", "dog", "cat"],
         "food": ["carrot", "cookie"],
-    }    
-    
+    }
+
     stamps = []
     for type, names in stamp_sets.items():
         [stamps.append(Stamp(type=type, stamp=stamp)) for stamp in names]
@@ -79,7 +79,7 @@ with app.app_context():
         )
         colors.append(color)
         db.session.add(color)
-        
+
     for name, hex in lightmode_colors.items():
         color = Color(name=name,
                       hex=hex,
@@ -94,7 +94,7 @@ with app.app_context():
                   first_name="Mira",
                   last_name="Kim",
                   email="alimirakim@gmail.com",
-                  hashed_password="password",
+                  hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[1],
                   stamp=stamps[0],
                   birthday=datetime(1991, 6, 27)
@@ -103,8 +103,7 @@ with app.app_context():
                   first_name="David",
                   last_name="Lee",
                   email="fakedavid@gmail.com",
-                  hashed_password="password",
-                  color=colors[2],
+                  hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",                  color=colors[2],
                   stamp=stamps[0],
                   birthday=datetime(1994, 8, 18)
     )
@@ -112,7 +111,7 @@ with app.app_context():
                   first_name="Brian",
                   last_name="Wang",
                   email="fakebrian@gmail.com",
-                  hashed_password="password",
+                  hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[3],
                   stamp=stamps[0],
                   birthday=datetime(1992, 7, 17)
@@ -121,7 +120,7 @@ with app.app_context():
                   first_name="Eric",
                   last_name="Lyda",
                   email="fakeeric@gmail.com",
-                  hashed_password="password",
+                  hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[4],
                   stamp=stamps[0],
                   birthday=datetime(1990, 6, 6)
@@ -130,7 +129,7 @@ with app.app_context():
                   first_name="Yegres",
                   last_name="Nidirg",
                   email="yegresnidirg@gmail.com",
-                  hashed_password="password",
+                  hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[5],
                   stamp=stamps[0],
     )
@@ -138,7 +137,7 @@ with app.app_context():
                   first_name="Derek",
                   last_name="Kim",
                   email="fakederek@gmail.com",
-                  hashed_password="password",
+                  hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[6],
                   stamp=stamps[0],
                   birthday=datetime(1993, 4, 4)
@@ -147,7 +146,7 @@ with app.app_context():
                   first_name="Aly",
                   last_name="Cat",
                   email="fakeali@gmail.com",
-                  hashed_password="password",
+                  hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[7],
                   stamp=stamps[0],
                   birthday=datetime(1994, 3, 3)
@@ -156,7 +155,7 @@ with app.app_context():
                   first_name="Sophia",
                   last_name="S.",
                   email="sophie@gmail.com",
-                  hashed_password="password",
+                  hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[8],
                   stamp=stamps[0],
                   birthday=datetime(1995, 2, 2)
@@ -165,7 +164,7 @@ with app.app_context():
                   first_name="Ashe",
                   last_name="Dawn",
                   email="ashendawn@gmail.com",
-                  hashed_password="password",
+                  hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[9],
                   stamp=stamps[0],
     )
@@ -173,7 +172,7 @@ with app.app_context():
                   first_name="demo",
                   last_name="lina",
                   email="demolina@gmail.com",
-                  hashed_password="password",
+                  hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[10],
                   stamp=stamps[0],
     )

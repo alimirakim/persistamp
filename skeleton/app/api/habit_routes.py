@@ -80,7 +80,7 @@ def current_week(hid, mid):
 @habit_routes.route("<int:hid>/linegraph")
 def getWeeklyData(hid):
     # print("HID", hid)
-    uid = 2
+    uid = current_user.id
     # print("CURRENT USER", current_user.id)
     current_date = date.today()
     format_date = current_date.strftime('%Y-%m-%d')
@@ -117,7 +117,7 @@ def getWeeklyData(hid):
 @habit_routes.route("<int:hid>/bargraph")
 def getWeeklyBargraph(hid):
     # print("HID", hid)
-    uid = 2
+    uid = current_user.id
     # print("CURRENT USER", current_user.id)
     current_date = date.today()
     format_date = current_date.strftime('%Y-%m-%d')
