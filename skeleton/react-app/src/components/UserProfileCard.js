@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Avatar } from '@material-ui/core'
 import '../styles/UserProfileCard.css'
+import UserSettings from './UserSettings'
 function UserProfileCard() {
     const [user, setUser] = useState({});
     const userId = 2

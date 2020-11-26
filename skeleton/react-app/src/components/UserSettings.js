@@ -8,6 +8,7 @@ import updateUser from '../services/user';
 function UserSettings(){
   const [open, setOpen] = React.useState(false);
   const [username, setUsername] = useState("")
+  const user = useContext(UserContext)
 
   const handleClickOpen = () => {
     setOpen(true)

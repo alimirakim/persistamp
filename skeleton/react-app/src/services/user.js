@@ -1,4 +1,4 @@
-export const updateUser = async (user) => {
+export default const updateUser = async (user) => {
   const response = await fetch("/api/user/edit", {
     method: "PUT",
     headers: {
