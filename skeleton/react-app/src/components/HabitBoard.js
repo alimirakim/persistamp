@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import useReducer from '../utils'
 import UserContext from '../context/UserContext'
 import HabitBoardContext from "../context/HabitBoardContext"
@@ -8,6 +8,8 @@ import {
   setPrograms, setHabits, setDailies, createStamp, deleteStamp,
   stampDay, unstampDay,
 } from "../context/reducers"
+import HabitForm from './HabitForm'
+
 
 export default function HabitBoard() {
   const user = useContext(UserContext)
@@ -34,7 +36,7 @@ export default function HabitBoard() {
       }
 
     })()
-  }, [])
+  }, [dailies, habits, programs, uid, week])
 
   if (!week || !programs || !habits || !dailies) return null
 
@@ -48,7 +50,7 @@ export default function HabitBoard() {
 
 
 function HabitsEntry() {
-  const { programs, habits, dailies, week } = useContext(HabitBoardContext)
+  const { programs, habits, week, dispatchHabits } = useContext(HabitBoardContext)
   const user = useContext(UserContext)
 
   return (
@@ -57,7 +59,7 @@ function HabitsEntry() {
       <table>
         <thead>
           <tr>
-            <th>Week:</th>
+            <th><button>+Program</button></th>
             <th><time dateTime={week[0][1]}>{week[0][0]} <br /><small>{week[0][1].slice(8, 10)}</small></time></th>
             <th><time dateTime={week[1][1]}>{week[1][0]} <br /><small>{week[1][1].slice(8, 10)}</small></time></th>
             <th><time dateTime={week[2][1]}>{week[2][0]} <br /><small>{week[2][1].slice(8, 10)}</small></time></th>
@@ -71,26 +73,30 @@ function HabitsEntry() {
           {Object.values(programs).map(program => (
             <>
               <tr key={program.id} style={{ color: program.color.hex }}>
-                <td colSpan={8}>
+                <td>
+                  <HabitForm pid={program.id} program={program.program} dispatchHabits={dispatchHabits} />
+                </td>
+                <td colSpan={7}>
                   <h3><img src={`/icons/${program.stamp.stamp}.svg`} style={{ height: "1rem", width: "1rem" }} alt="" /> {program.program}</h3>
+
                 </td>
               </tr>
-              {Object.values(habits).filter(habit => habit.program == program.id)
-                .map(habit => ( <tr key={habit.id} style={{ color: habit.color.hex }}>
-                    <td>
-                    <Link to={`/graphs/${habit.id}`} ><img
-                        src={`/icons/${habit.stamp.stamp}.svg`}
-                        alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
-                        style={{ height: "1rem", width: "1rem" }}
-                      />
+              {Object.values(habits).filter(habit => habit.program === program.id)
+                .map(habit => (<tr key={habit.id} style={{ color: habit.color.hex }}>
+                  <td>
+                    <Link to={`/graphs/${habit.id}`} style={{color: `${habit.color.hex}`, textDecoration: "none"}}><img
+                      src={`/icons/${habit.stamp.stamp}.svg`}
+                      alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
+                      style={{ height: "1rem", width: "1rem" }}
+                    />
                       {habit.habit}
-                      </Link>
-                    </td>
-                    {week.map(day => {
-                      const [mid] = program.members.filter(m => user.memberships.includes(m))
-                      return <StampBox key={`${program.id}${mid}${habit.id}${day}`} pid={program.id} mid={mid} habit={habit} day={day} />
-                    })}
-                  </tr>
+                    </Link>
+                  </td>
+                  {week.map(day => {
+                    const [mid] = program.members.filter(m => user.memberships.includes(m))
+                    return <StampBox key={`${program.id}${mid}${habit.id}${day}`} pid={program.id} mid={mid} habit={habit} day={day} />
+                  })}
+                </tr>
                 ))}
             </>
           ))}
@@ -104,7 +110,7 @@ function HabitsEntry() {
 function StampBox({ pid, mid, habit, day }) {
   // console.log("pid, mid, habit, day", pid, mid, habit.id, day[1])
   const { dailies, dispatchDailies } = useContext(HabitBoardContext)
-  const [isStamped, setIsStamped] = useState(Object.values(dailies).find(stamp => stamp.date === day[1] && stamp.member === mid && stamp.habit == habit.id))
+  const [isStamped, setIsStamped] = useState(Object.values(dailies).find(stamp => stamp.date === day[1] && stamp.member === mid && stamp.habit === habit.id))
   // console.log("checking existence of stamp", isStamped)
 
   const onStamp = (method) => async (ev) => {

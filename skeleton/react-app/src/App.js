@@ -10,12 +10,12 @@ import { authenticate } from "./services/auth";
 import HabitBoard from "./components/HabitBoard";
 import UserProfileCard from "./components/UserProfileCard";
 import UserContext from './context/UserContext';
-// import './styles/base.css'
-import BarGraph from './components/BarGraph';
+import OptionsContext from './context/OptionsContext'
 import AboutCard from './components/AboutCard'
+// import './styles/base.css'
 
-
-import HabitForm from "./components/HabitForm";
+// import HabitForm from "./components/HabitForm";
+import BarGraph from './components/BarGraph';
 import LineGraph from "./components/LineGraph";
 
 
@@ -23,6 +23,8 @@ function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [user, setUser] = useState({})
+  const [colors, setColors] = useState()
+  const [stamps, setStamps] = useState()
 
   const updateUser = (e) => {
     return setUser(e.target.value)
@@ -32,20 +34,25 @@ function App() {
   useEffect(() => {
     (async () => {
       const user = await authenticate();
-      // console.log("USERRRR: ", user)
       if (!user.errors) {
         setAuthenticated(true);
         setUser(user)
       }
-      setLoaded(true);
+      
+      if (!colors) {
+        const res = await fetch(`/api/users/${user.id}/options`)
+        const {colors_data, stamps_data} = await res.json()
+        setColors(colors_data)
+        setStamps(stamps_data)
+      }
+      
+      setLoaded(true)
     })();
   }, []);
 
-  if (!loaded) {
-    console.log("???")
-    return null;
-  }
-
+  if (!loaded || !colors) return null;
+  console.log("context colors/stamps", colors, stamps)
+  
   return (
     <BrowserRouter>
       <NavBar authenticated={authenticated} setAuthenticated={setAuthenticated} />
@@ -66,6 +73,8 @@ function App() {
       </Route>
 
       <UserContext.Provider value={user}>
+      <OptionsContext.Provider value={{colors, stamps}}>
+      
         <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
           <UsersList />
         </ProtectedRoute>
@@ -77,11 +86,13 @@ function App() {
           <BarGraph />
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
+          
           <h1>My Home Page</h1>
           <UserProfileCard />
-          <HabitForm />
           <HabitBoard />
         </ProtectedRoute>
+        
+        </OptionsContext.Provider>
       </UserContext.Provider>
 
     </BrowserRouter>
