@@ -24,9 +24,9 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   const [user, setUser] = useState({})
 
-    const updateUser = (e) => {
-        return setUser(e.target.value)
-    }
+  const updateUser = (e) => {
+    return setUser(e.target.value)
+  }
 
 
   useEffect(() => {
@@ -75,11 +75,11 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
           <h1>My Home Page</h1>
-          <LineGraph />
-          <BarGraph />
           <UserProfileCard />
           <HabitForm />
           <HabitBoard />
+          <LineGraph />
+          <BarGraph />
         </ProtectedRoute>
       </UserContext.Provider>
 

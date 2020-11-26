@@ -42,13 +42,26 @@ export const deleteHabit = (habit) => ({ type: DELETE_HABIT, habit })
 
 
 // THUNK ACTION CREATORS
-// export const getUserBoardData = (uid) => (dispatch) {
-//   const res = await fetch(`/api/users/${uid}/programs`)
-//   const { past_week, programs_data, habits_data, dailies_data } = await res.json()
-//   dispatch(setPrograms(programs_data))
-//   dispatch(setHabits(habits_data))
-//   dispatch(setDailies(dailies_data))
-// }
+// do it directly
+export const createStamp = ({pid, mid, hid, day}) => async (dispatch) => {
+  
+  
+  
+  const res = await fetch(`/habits/${hid}/programs/${pid}/members/${mid}/days/${day}`, {method: "POST"})
+  const stamp = await res.json()
+  dispatch(stampDay(stamp))
+  
+  
+  
+  
+}
+
+export const deleteStamp = ({pid, mid, hid, day}) => async (dispatch) => {
+  const res = await fetch(`/habits/${hid}/programs/${pid}/members/${mid}/days/${day}`, {method: "DELETE"})
+  const stamp = await res.json()
+  dispatch(unstampDay(stamp))
+}
+
 
 
 // REDUCERS
@@ -71,7 +84,7 @@ export function programsReducer(state = [], action) {
 }
 
 
-export function habitsReducer(state = [], action) {
+export function habitsReducer(state = {}, action) {
   switch (action.type) {
     case GET_USER_HABITS:
       return action.habits
@@ -90,7 +103,7 @@ export function habitsReducer(state = [], action) {
 }
 
 
-export function dailiesReducer(state = [], action) {
+export function dailiesReducer(state = {}, action) {
   switch (action.type) {
     case GET_DAILY_STAMPS:
       return action.dailies
@@ -102,3 +115,6 @@ export function dailiesReducer(state = [], action) {
       return state
   }
 }
+
+
+// state = {id: object}

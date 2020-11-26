@@ -1,15 +1,14 @@
-import React, { useEffect, useState, useContext, useReducer } from "react";
-
+import React, { useEffect, useState, useContext } from "react";
+import useReducer from '../utils'
 import UserContext from '../context/UserContext'
 import HabitBoardContext from "../context/HabitBoardContext"
 import {
   programsReducer, habitsReducer, dailiesReducer,
-  setPrograms, setHabits, setDailies,
-
+  setPrograms, setHabits, setDailies, createStamp, deleteStamp
 } from "../context/reducers"
 
 export default function HabitBoard() {
-  const user = useContext(UserContext);
+  const user = useContext(UserContext)
   const [week, setWeek] = useState()
   const uid = user.id
 
@@ -101,23 +100,12 @@ function HabitsEntry() {
 }
 
 
-
 function StampBox({ pid, mid, habit, day }) {
-
   console.log("pid, mid, habit, day", pid, mid, habit.id, day[1])
-  const { dailies } = useContext(HabitBoardContext)
+  const { dailies, dispatchDailies } = useContext(HabitBoardContext)
+  console.log("dailies are", dailies)
   const [isStamped, setIsStamped] = useState(dailies.find(stamp => stamp.date == day[1]))
-
-  // TODO WHY IS NOT DELETING ICON ON CLICK TOO???
-  useEffect(() => {
-    // console.log("habit on effect", habit)
-    console.log("isStamped", isStamped)
-    if (!isStamped) {
-      setIsStamped(false)
-      // dispatchDailies()
-    }
-    if (dailies.find(stamp => stamp.date == day[1])) setIsStamped(true)
-  }, [isStamped])
+  console.log("checking existence of stamp", isStamped)
 
   const onStamp = (method) => async (ev) => {
     ev.preventDefault()
@@ -125,66 +113,71 @@ function StampBox({ pid, mid, habit, day }) {
     const res = await fetch(`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}`, { method })
     const dailyStamp = await res.json()
     console.log("what is dailyStamp", dailyStamp)
-    if (dailyStamp.status) {
-      if (dailyStamp.status === "stamped") setIsStamped(true)
-      // programDoubles.find(program => program.id === pid).habits.find(h => h.id === habit.id).daily_stamps.find(s => s.day === day).status = "stamped"
-      // setPrograms(programDoubles)
-    } else {
-      // programDoubles.find(program => program.id === pid).habits.find(h => h.id === habit.id).daily_stamps.find(s => s.day === day)
-      // setPrograms(programDoubles)
-      console.log("nothin")
-      setIsStamped(false)
+
+    if (dailyStamp) {
+      if (dailyStamp.status === "stamped") {
+        setIsStamped(true)
+        const res = await fetch(`/habits/${hid}/programs/${pid}/members/${mid}/days/${day}`, {method: "POST"})
+        const stamp = await res.json()
+        dispatch(stampDay(stamp))
+        
+        
+        
+        dispatchDailies(createStamp({ pid, mid, hid: habit.id, day: day[1] }))
+      } else {
+        setIsStamped(false)
+        dispatchDailies(deleteStamp({ pid, mid, hid: habit.id, day: day[1] }))
+      }
+
+      if (isStamped) {
+        return (
+          <td>
+            {/* <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}}`} onSubmit={onStamp("delete")}> */}
+              <button type="submit">
+                <img
+                  src={`/icons/${habit.stamp.stamp}.svg`}
+                  alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
+                  style={{ height: "1rem", width: "1rem" }}
+                />
+              </button>
+            {/* </form> */}
+          </td>
+        )
+
+      } else {
+        return (
+          <td>
+            {/* <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${String(day.slice(1))}`} onSubmit={onStamp("post")}> */}
+              <button type="submit">
+                <span>X</span>
+              </button>
+            {/* </form> */}
+          </td>
+        )
+      }
     }
   }
-
-  if (isStamped) {
-    return (
-      <td>
-        <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${String(day.slice(1))}`} onSubmit={onStamp("delete")}>
-          <button type="submit">
-            <img
-              src={`/icons/${habit.stamp.stamp}.svg`}
-              alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
-              style={{ height: "1rem", width: "1rem" }}
-            />
-          </button>
-        </form>
-      </td>
-    )
-
-  } else {
-    return (
-      <td>
-        <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${String(day.slice(1))}`} onSubmit={onStamp("post")}>
-          <button type="submit">
-            <span>X</span>
-          </button>
-        </form>
-      </td>
-    )
-  }
 }
+// function StampBoxMark({ habit, day }) {
+//   const [isStamped, setIsStamped] = useState(false)
 
-function StampBoxMark({ habit, day }) {
-  const [isStamped, setIsStamped] = useState(false)
+//   useEffect(() => {
+//     const foundStamp = habit.daily_stamps.find(stamp => stamp.date == day[1])
+//     if (foundStamp) setIsStamped(true)
+//     else setIsStamped(false)
+//   }, [isStamped])
 
-  useEffect(() => {
-    const foundStamp = habit.daily_stamps.find(stamp => stamp.date == day[1])
-    if (foundStamp) setIsStamped(true)
-    else setIsStamped(false)
-  }, [isStamped])
-
-  if (isStamped) {
-    return (
-      <img
-        src={`/icons/${habit.stamp.stamp}.svg`}
-        alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
-        style={{ height: "1rem", width: "1rem" }}
-      />
-    )
-  } else {
-    return (
-      <span>X</span>
-    )
-  }
-}
+//   if (isStamped) {
+//     return (
+//       <img
+//         src={`/icons/${habit.stamp.stamp}.svg`}
+//         alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
+//         style={{ height: "1rem", width: "1rem" }}
+//       />
+//     )
+//   } else {
+//     return (
+//       <span>X</span>
+//     )
+//   }
+// }
