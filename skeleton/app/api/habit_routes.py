@@ -58,7 +58,7 @@ def current_week(hid, mid):
 
 
 #get graph data for habit (weekly) - userId, habit_id
-@habit_routes.route("<int:hid>/data")
+@habit_routes.route("<int:hid>/linegraph")
 def getWeeklyData(hid):
     # print("HID", hid)
     uid = 2
@@ -79,7 +79,7 @@ def getWeeklyData(hid):
             isStamped.append(True)
             continue
         isStamped.append(False)
-    print("ARRAY FOR STAMPS ------------------------------- ", isStamped)
+    # print("ARRAY FOR STAMPS ------------------------------- ", isStamped)
     data = []
     i = 0
     for week in range(14):
@@ -91,9 +91,59 @@ def getWeeklyData(hid):
         obj = {"x": i, "y": count }
         data.append(obj)
         i += 1
-    print("DATA -------------------------------------------------", data)
+    # print("DATA -------------------------------------------------", data)
 
     jsonData = jsonify(data=data)
+    return jsonData
+
+
+@habit_routes.route("<int:hid>/bargraph")
+def getWeeklyBargraph(hid):
+    # print("HID", hid)
+    uid = 2
+    # print("CURRENT USER", current_user.id)
+    current_date = date.today()
+    format_date = current_date.strftime('%Y-%m-%d')
+    past_fourteen_weeks = [(current_date - timedelta(days=i)) for i in range(98)]
+
+    past_week_dates = [date.strftime('%Y-%m-%d') for date in past_fourteen_weeks]
+    axisLabels = []
+    i = 0
+    for each in range(14):
+        axisLabels.append(past_week_dates[i])
+        i += 7
+    newAxisLabels = list(reversed(axisLabels))
+    # print("OLD LABELS: ------------------------", axisLabels)
+    # print("NEW LABELS: ------------------------", newAxisLabels)
+    daily_stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
+    stamps = [dailystamp_schema.dump(stamp)["date"] for stamp in daily_stamps]
+    # print("STAMPS LETS GO -------------------------", stamps)
+
+    isStamped = []
+    for each in past_week_dates:
+        if each in stamps:
+            isStamped.append(True)
+            continue
+        isStamped.append(False)
+    # print("ARRAY FOR STAMPS ------------------------------- ", isStamped)
+    # zippedArray = list(zip(daily_stamps, isStamped))
+    # print("ZIPPED ARRAY:   =-------------------", zippedArray)
+    data = []
+    i = 13
+    for week in range(14):
+        count = 0
+        for day in range(7):
+            checkDay = isStamped.pop(0)
+            # print("CHECK DAY:   ---------------------------", checkDay)
+            if checkDay == True:
+                count += 1
+        obj = {"dates": i, "stamps": count }
+        data.append(obj)
+        i -= 1
+    print("DATA -------------------------------------------------", data)
+    newData = list(reversed(data))
+    print("NEW DATA -------------------------------------------------", newData)
+    jsonData = jsonify(data=newData, axisLabels=newAxisLabels)
     return jsonData
 
 
