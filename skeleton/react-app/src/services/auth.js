@@ -49,8 +49,9 @@ export const signUp = async (first_name, last_name, birthday, username, email, p
   return await response.json();
 }
 
-export const habitCreate = async (habit, description, frequency, color, userId) => {
-  const response = await fetch("/api/habits/create", {
+export const habitCreate = async (habit, description, frequency, color, stamp, userId, pid) => {
+  console.log("inner pid", pid)
+  const response = await fetch(`/api/habits/programs/${pid}/create`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +61,8 @@ export const habitCreate = async (habit, description, frequency, color, userId) 
         description,
         frequency,
         color,
-        userId
+        stamp,
+        userId,
       }),
     });
     return await response.json();

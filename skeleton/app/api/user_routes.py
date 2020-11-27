@@ -39,6 +39,23 @@ def user_details(uid):
     return jsonify(user_data)
 
 
+@user_routes.route("/<int:uid>/options")
+def user_options(uid):
+    """Get the available color and stamp options for a user."""
+    # redeemed_options = Redeemed.query.filter(Redeemed.type == 'color' or Redeemed.type == 'stamp', Redeemed.user_id == uid).all()
+    # redeemed_colors = [o.reward for o in redeemed_options if o.type == 'color']
+    # redeemed_stamps = [s.reward for s in redeemed_options if s.type == 'stamp']
+    # colors = Color.query.filter(Color.color in redeemed_colors).all()
+    # stamps = Stamp.query.filter(Stamp.stamp in redeemed_stamps).all()
+    print("\nPRE COLOR STAMPS")
+    colors = Color.query.all()
+    stamps = Stamp.query.all()
+    # print("\nCOLORS", colors)
+    colors_data = dump_data_list(colors, color_schema)
+    stamps_data = dump_data_list(stamps, stamp_schema)
+    print("\n\nCOLORS, STAMPS", colors_data, stamps_data)
+    
+    return jsonify(colors_data=colors_data, stamps_data=stamps_data)
 
 
 @user_routes.route("/<int:uid>/programs")
@@ -87,8 +104,6 @@ def user_programs(uid):
         programs_data[i]["stamp"] = stamp_schema.dump(user_programs[i].stamp)
         programs_data[i]["color"] = color_schema.dump(user_programs[i].color)
     
-    print("\n\nIS COLOR NORMAL??")
-    pprint(programs_data[0])
     programs_fin = {}
     habits_fin = {}
     dailies_fin = {}
@@ -103,10 +118,10 @@ def user_programs(uid):
         
         
     print("\nPROGRAMS DATA")
-    pprint(programs_data)
+    # pprint(programs_data)
     print("\nHABITS DATA")
-    pprint(habits_fin)
+    # pprint(habits_fin)
     print("\nDAILIES DATA")
-    pprint(dailies_fin)
+    # pprint(dailies_fin)
     
     return jsonify(programs_data=programs_fin, habits_data=habits_fin, dailies_data=dailies_fin, past_week=past_week)

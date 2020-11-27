@@ -1,13 +1,14 @@
 from flask import Blueprint, render_template, redirect, jsonify, request
 from sqlalchemy.orm import joinedload
 from app.models import db, User, Program, Habit, Member, DailyStamp
-from app.schemas import user_schema, program_schema, habit_schema, member_schema, dailystamp_schema
+from app.schemas import user_schema, program_schema, habit_schema, member_schema, dailystamp_schema, color_schema, stamp_schema
 from app.utils import dump_data_list
 from app.forms import HabitForm
 from flask_login import current_user
 from datetime import date, timedelta
 import calendar
 from flask_login import current_user
+
 
 
 habit_routes = Blueprint("habits", __name__)
@@ -294,28 +295,32 @@ def stamp_day(pid, mid, hid, day):
         return jsonify(dailystamp_schema.dump(day))
 
 
-@habit_routes.route("/create", methods=["POST"])
-def create_habit():
-
+@habit_routes.route("/programs/<int:pid>/create", methods=["POST"])
+def create_habit(pid):
     form = HabitForm()
-    # print(request.cookies['csrf_token'])
     form['csrf_token'].data = request.cookies['csrf_token']
-    # form['submit'].data = True
-    print(form.data)
-
-    # print(newHabit)
+    form['submit'].data = True
+    print("\nFORM DATA", form.data)
 
     if form.validate_on_submit():
         print("i made it!!!!!!")
         newHabit = Habit(
             habit=form.data['habit'],
             description=form.data['description'],
-            frequency=form.data['frequency'],
+            frequency=str(form.data['frequency']),
             color_id=form.data['color'],
-            creator_id=request.json['userId']
+            stamp_id=form.data['stamp'],
+            creator_id=request.json['userId'],
+            program_id=pid,
         )
         db.session.add(newHabit)
+        print(newHabit)
         db.session.commit()
-        print("\n\nNEW HABIT DICTIONARY:", newHabit.to_dict())
-        return newHabit.to_dict()
-    return "Error"
+        newHabit = Habit.query.options(joinedload(Habit.stamp), joinedload(Habit.color)).get(newHabit.id)
+        habit = habit_schema.dump(newHabit)
+        
+        habit["color"] = color_schema.dump(newHabit.color)
+        habit["stamp"] = stamp_schema.dump(newHabit.stamp)
+        print("\n\nNEW HABIT DICTIONARY:", habit)
+        return jsonify(habit)
+    return "Habit failure"
