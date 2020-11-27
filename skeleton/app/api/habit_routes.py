@@ -116,25 +116,21 @@ def getWeeklyData(hid):
 
 @habit_routes.route("<int:hid>/bargraph")
 def getWeeklyBargraph(hid):
-    # print("HID", hid)
     uid = current_user.id
-    # print("CURRENT USER", current_user.id)
-    current_date = date.today()
-    format_date = current_date.strftime('%Y-%m-%d')
-    past_fourteen_weeks = [(current_date - timedelta(days=i)) for i in range(98)]
 
+    current_date = date.today()
+
+    past_fourteen_weeks = [(current_date - timedelta(days=i)) for i in range(98)]
     past_week_dates = [date.strftime('%Y-%m-%d') for date in past_fourteen_weeks]
     axisLabels = []
     i = 0
     for each in range(14):
-        axisLabels.append(past_week_dates[i])
+        axisLabels.append(past_fourteen_weeks[i].strftime("%b %d"))
         i += 7
     newAxisLabels = list(reversed(axisLabels))
-    # print("OLD LABELS: ------------------------", axisLabels)
-    # print("NEW LABELS: ------------------------", newAxisLabels)
+
     daily_stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
     stamps = [dailystamp_schema.dump(stamp)["date"] for stamp in daily_stamps]
-    # print("STAMPS LETS GO -------------------------", stamps)
 
     isStamped = []
     for each in past_week_dates:

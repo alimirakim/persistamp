@@ -32,8 +32,8 @@ const BarGraph = () => {
       <VictoryAxis
         // tickValues={[1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14]}
         tickValues={dataPoints.axisLabels}
-        tickFormat={date => date.toLocaleString('en-us', { month: 'short' })}
-        // tickFormat={dataPoints.axisLabels}
+        label="Week"
+        style={ { axisLabel: { padding:30 }}}
 
         fixLabelOverlap
         style={{tickLabels: { angle: 90 }}}
@@ -45,7 +45,7 @@ const BarGraph = () => {
       <VictoryBar
 
         data={dataPoints.data}
-        domain={ { x: [0,14], y: [0,8] } }
+        domain={ { x: [0,9], y: [0,8] } }
         x="dates"
         y="stamps"
       />
