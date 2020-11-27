@@ -27,26 +27,23 @@ const BarGraph = () => {
   console.log(dataPoints)
   if (!dataPoints.data) return null;
   return (
-    <VictoryChart theme={VictoryTheme.material} domainPadding={20} style={ {labels: { fontSize: 5 }
-     } }>
+    <VictoryChart theme={VictoryTheme.material} domainPadding={20} >
       <VictoryAxis
-        // tickValues={[1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14]}
-        tickValues={dataPoints.axisLabels}
+        tickValues={[1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14]}
+        tickFormat={dataPoints.axisLabels}
         label="Week"
-        style={ { axisLabel: { padding:30 }}}
+        style={ { axisLabel: { padding: 0 }}}
 
         fixLabelOverlap
         style={{tickLabels: { angle: 90 }}}
-        // tickLabelComponent={<VictoryLabel  />}
         />
-      {/* tickFormat={["carrot", "apple", "lion", "eric"]} /> */}
-      {/* <VictoryAxis dependentAxis={true} tickFormat={(x) => x} /> */}
+
       <VictoryAxis dependentAxis={true} tickLabelComponent={<VictoryLabel  />}/>
       <VictoryBar
 
         data={dataPoints.data}
         domain={ { x: [0,9], y: [0,8] } }
-        x="dates"
+        x="weeks"
         y="stamps"
       />
     </VictoryChart>
