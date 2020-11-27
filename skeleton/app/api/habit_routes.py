@@ -5,7 +5,7 @@ from app.schemas import user_schema, program_schema, habit_schema, member_schema
 from app.utils import dump_data_list
 from app.forms import HabitForm
 from flask_login import current_user
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 import calendar
 from flask_login import current_user
 
@@ -81,7 +81,7 @@ def current_week(hid, mid):
 @habit_routes.route("<int:hid>/linegraph")
 def getWeeklyData(hid):
     # print("HID", hid)
-    uid = 2
+    uid = current_user.id
     # print("CURRENT USER", current_user.id)
     current_date = date.today()
     format_date = current_date.strftime('%Y-%m-%d')
@@ -115,27 +115,57 @@ def getWeeklyData(hid):
     return jsonData
 
 
-@habit_routes.route("<int:hid>/bargraph")
-def getWeeklyBargraph(hid):
-    # print("HID", hid)
-    uid = 2
-    # print("CURRENT USER", current_user.id)
+@habit_routes.route("<int:hid>/graph/<string:interval>")
+def getWeeklyGraph(hid, interval):
+    uid = current_user.id
+    habitObj = Habit.query.filter(Habit.id == hid).one()
+    habit = habit_schema.dump(habitObj)
     current_date = date.today()
-    format_date = current_date.strftime('%Y-%m-%d')
-    past_fourteen_weeks = [(current_date - timedelta(days=i)) for i in range(98)]
 
+    if interval == "Monthly":
+        habitHistory = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid).all()
+        stamps = [dailystamp_schema.dump(stamp)["date"] for stamp in habitHistory]
+
+        monthDict = {month: index for index, month in enumerate(calendar.month_abbr) if month}
+
+        monthAxisLabels = {}
+        for month in monthDict.keys():
+            monthAxisLabels[month] = 0
+
+        for stamp in stamps:
+            dateSplit = stamp.split('-')
+            stampMonthNum = int(dateSplit[1])
+            for month, monthNum in monthDict.items():
+                if stampMonthNum == monthNum:
+                    monthAxisLabels[month] += 1
+                continue
+        print("MONTH AXIS LABELS", monthAxisLabels)
+        data = []
+        for month, stampCount in monthAxisLabels.items():
+            data.append({ "dates": month, "stamps": stampCount })
+            continue
+        print("MONTH DATA ------------", data)
+        jsonData = jsonify(data=data, habit=habit)
+        return jsonData
+
+    past_fourteen_weeks = [(current_date - timedelta(days=i)) for i in range(98)]
     past_week_dates = [date.strftime('%Y-%m-%d') for date in past_fourteen_weeks]
     axisLabels = []
     i = 0
     for each in range(14):
-        axisLabels.append(past_week_dates[i])
+        xdate = past_fourteen_weeks[i].strftime("%b %d")
+        xday = int(xdate.split(' ')[-1])
+        xmonth = xdate.split(' ')[0]
+        if xday < 8:
+            axisLabels.append(xmonth)
+            i += 7
+            continue
+        axisLabels.append(xday)
         i += 7
     newAxisLabels = list(reversed(axisLabels))
-    # print("OLD LABELS: ------------------------", axisLabels)
-    # print("NEW LABELS: ------------------------", newAxisLabels)
+
     daily_stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
     stamps = [dailystamp_schema.dump(stamp)["date"] for stamp in daily_stamps]
-    # print("STAMPS LETS GO -------------------------", stamps)
 
     isStamped = []
     for each in past_week_dates:
@@ -143,9 +173,7 @@ def getWeeklyBargraph(hid):
             isStamped.append(True)
             continue
         isStamped.append(False)
-    # print("ARRAY FOR STAMPS ------------------------------- ", isStamped)
-    # zippedArray = list(zip(daily_stamps, isStamped))
-    # print("ZIPPED ARRAY:   =-------------------", zippedArray)
+
     data = []
     i = 13
     for week in range(14):
@@ -155,13 +183,12 @@ def getWeeklyBargraph(hid):
             # print("CHECK DAY:   ---------------------------", checkDay)
             if checkDay == True:
                 count += 1
-        obj = {"dates": i, "stamps": count }
+        obj = {"dates": newAxisLabels.pop(-1), "stamps": count }
         data.append(obj)
         i -= 1
-    print("DATA -------------------------------------------------", data)
+
     newData = list(reversed(data))
-    print("NEW DATA -------------------------------------------------", newData)
-    jsonData = jsonify(data=newData, axisLabels=newAxisLabels)
+    jsonData = jsonify(data=newData, habit=habit)
     return jsonData
 
 
@@ -322,7 +349,7 @@ def create_habit(pid):
         db.session.commit()
         newHabit = Habit.query.options(joinedload(Habit.stamp), joinedload(Habit.color)).get(newHabit.id)
         habit = habit_schema.dump(newHabit)
-        
+
         habit["color"] = color_schema.dump(newHabit.color)
         habit["stamp"] = stamp_schema.dump(newHabit.stamp)
         print("\n\nNEW HABIT DICTIONARY:", habit)

@@ -15,7 +15,7 @@ import AboutCard from './components/AboutCard'
 // import './styles/base.css'
 
 // import HabitForm from "./components/HabitForm";
-import BarGraph from './components/BarGraph';
+// import BarGraph from './components/BarGraph';
 import LineGraph from "./components/LineGraph";
 
 
@@ -38,21 +38,21 @@ function App() {
         setAuthenticated(true);
         setUser(user)
       }
-      
+
       if (!colors) {
         const res = await fetch(`/api/users/${user.id}/options`)
         const {colors_data, stamps_data} = await res.json()
         setColors(colors_data)
         setStamps(stamps_data)
       }
-      
+
       setLoaded(true)
     })();
   }, []);
 
   if (!loaded || !colors) return null;
   console.log("context colors/stamps", colors, stamps)
-  
+
   return (
     <BrowserRouter>
       <NavBar authenticated={authenticated} setAuthenticated={setAuthenticated} />
@@ -74,7 +74,7 @@ function App() {
 
       <UserContext.Provider value={user}>
       <OptionsContext.Provider value={{colors, stamps}}>
-      
+
         <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
           <UsersList />
         </ProtectedRoute>
@@ -83,15 +83,15 @@ function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/graphs/:habitId" authenticated={authenticated}>
           <LineGraph />
-          <BarGraph />
+          {/* <BarGraph /> */}
         </ProtectedRoute>
         <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
-          
+
           <h1>My Home Page</h1>
           <UserProfileCard />
           <HabitBoard />
         </ProtectedRoute>
-        
+
         </OptionsContext.Provider>
       </UserContext.Provider>
 
