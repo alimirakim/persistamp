@@ -139,11 +139,19 @@ def getWeeklyGraph(hid, interval):
                 if stampMonthNum == monthNum:
                     monthAxisLabels[month] += 1
                 continue
-        print("MONTH AXIS LABELS", monthAxisLabels)
+        # print("MONTH AXIS LABELS", monthAxisLabels)
         data = []
         for month, stampCount in monthAxisLabels.items():
             data.append({ "dates": month, "stamps": stampCount })
             continue
+        for i in range(12):
+            lastMonth = data.pop(-1)
+            if lastMonth["dates"] != current_date.strftime('%b'):
+                data.insert(0, lastMonth)
+                continue
+            data.append(lastMonth)
+            break
+
         print("MONTH DATA ------------", data)
         jsonData = jsonify(data=data, habit=habit)
         return jsonData
