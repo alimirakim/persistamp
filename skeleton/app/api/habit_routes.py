@@ -126,7 +126,14 @@ def getWeeklyBargraph(hid):
     axisLabels = []
     i = 0
     for each in range(14):
-        axisLabels.append(past_fourteen_weeks[i].strftime("%b %d"))
+        xdate = past_fourteen_weeks[i].strftime("%b %d")
+        xday = int(xdate.split(' ')[-1])
+        xmonth = xdate.split(' ')[0]
+        if xday < 8:
+            axisLabels.append(xmonth)
+            i += 7
+            continue
+        axisLabels.append(xday)
         i += 7
     newAxisLabels = list(reversed(axisLabels))
 
