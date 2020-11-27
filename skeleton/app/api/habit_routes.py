@@ -115,7 +115,7 @@ def getWeeklyData(hid):
     return jsonData
 
 
-@habit_routes.route("<int:hid>/bargraph")
+@habit_routes.route("<int:hid>/graph")
 def getWeeklyBargraph(hid):
     uid = current_user.id
 
@@ -151,12 +151,12 @@ def getWeeklyBargraph(hid):
             # print("CHECK DAY:   ---------------------------", checkDay)
             if checkDay == True:
                 count += 1
-        obj = {"dates": i, "stamps": count }
+        obj = {"dates": newAxisLabels.pop(-1), "stamps": count }
         data.append(obj)
         i -= 1
-    print("DATA -------------------------------------------------", data)
+
     newData = list(reversed(data))
-    print("NEW DATA -------------------------------------------------", newData)
+
     jsonData = jsonify(data=newData, axisLabels=newAxisLabels)
     return jsonData
 
@@ -318,7 +318,7 @@ def create_habit(pid):
         db.session.commit()
         newHabit = Habit.query.options(joinedload(Habit.stamp), joinedload(Habit.color)).get(newHabit.id)
         habit = habit_schema.dump(newHabit)
-        
+
         habit["color"] = color_schema.dump(newHabit.color)
         habit["stamp"] = stamp_schema.dump(newHabit.stamp)
         print("\n\nNEW HABIT DICTIONARY:", habit)
