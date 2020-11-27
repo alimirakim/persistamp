@@ -317,6 +317,20 @@ with app.app_context():
                 status='stamped', habit=habit_draw, member=member_sophie2,
             )
             db.session.add(daily)
+    for d in range(1, 30):
+        if d in (1, 3, 4, 14, 17, 20, 22, 28, 26):
+            daily = DailyStamp(
+                date=datetime(2020, 10, d),
+                status='stamped', habit=habit_draw, member=member_sophie2,
+            )
+            db.session.add(daily)
+    for d in range(1, 30):
+        if d in (1, 4, 7):
+            daily = DailyStamp(
+                date=datetime(2020, 8, d),
+                status='stamped', habit=habit_draw, member=member_sophie2,
+            )
+            db.session.add(daily)
 
     for d in range(1, 30):
         if d not in (1, 7, 8, 14, 15, 21, 22, 23, 24, 25, 29):

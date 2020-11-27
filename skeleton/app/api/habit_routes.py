@@ -5,7 +5,7 @@ from app.schemas import user_schema, program_schema, habit_schema, member_schema
 from app.utils import dump_data_list
 from app.forms import HabitForm
 from flask_login import current_user
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 import calendar
 from flask_login import current_user
 
@@ -118,19 +118,36 @@ def getWeeklyData(hid):
 @habit_routes.route("<int:hid>/graph/<string:interval>")
 def getWeeklyGraph(hid, interval):
     uid = current_user.id
-
+    habitObj = Habit.query.filter(Habit.id == hid).one()
+    habit = habit_schema.dump(habitObj)
     current_date = date.today()
 
     if interval == "Monthly":
         habitHistory = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid).all()
-        # print("HABIT HISTORY -----------------------------", habitHistory)
         stamps = [dailystamp_schema.dump(stamp)["date"] for stamp in habitHistory]
-        month = current_date.month
 
-        monthAxisLabels = []
-        for i in range(9):
-            xmonth = current_date.strftime("%b")
-            print(xmonth)
+        monthDict = {month: index for index, month in enumerate(calendar.month_abbr) if month}
+
+        monthAxisLabels = {}
+        for month in monthDict.keys():
+            monthAxisLabels[month] = 0
+
+        for stamp in stamps:
+            dateSplit = stamp.split('-')
+            stampMonthNum = int(dateSplit[1])
+            for month, monthNum in monthDict.items():
+                if stampMonthNum == monthNum:
+                    monthAxisLabels[month] += 1
+                continue
+        print("MONTH AXIS LABELS", monthAxisLabels)
+        data = []
+        for month, stampCount in monthAxisLabels.items():
+            data.append({ "dates": month, "stamps": stampCount })
+            continue
+        print("MONTH DATA ------------", data)
+        jsonData = jsonify(data=data, habit=habit)
+        return jsonData
+
     past_fourteen_weeks = [(current_date - timedelta(days=i)) for i in range(98)]
     past_week_dates = [date.strftime('%Y-%m-%d') for date in past_fourteen_weeks]
     axisLabels = []
@@ -171,9 +188,6 @@ def getWeeklyGraph(hid, interval):
         i -= 1
 
     newData = list(reversed(data))
-
-    habitObj = Habit.query.filter(Habit.id == hid).one()
-    habit = habit_schema.dump(habitObj)
     jsonData = jsonify(data=newData, habit=habit)
     return jsonData
 
