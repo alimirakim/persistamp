@@ -6,7 +6,8 @@ import { LineChart, Line, CartesianGrid, XAxis, YAxis, Label } from 'recharts';
 
 function LineGraph() {
     const [dataPoints, setDataPoints] = useState([])
-    const [toggleTime, setToggleTime] = useState("Monthly")
+    const [toggleTime, setToggleTime] = useState("Weekly")
+    const [xAxis, setXAxis] = useState("Week")
     const {habitId} = useParams()
     // const user = useContext(UserContext)
 
@@ -16,13 +17,26 @@ function LineGraph() {
             // console.log(typeof(toggleTime))
             const res = await fetch(`/api/habits/${habitId}/graph/${toggleTime}`)
             const resObj = await res.json()
-
             setDataPoints(resObj)
+            setToggleTime("Monthly")
         })()
     }, [])
 
-    const handleClick = (e) => {
-
+    const handleClick = async (e) => {
+        if (toggleTime === "Monthly") {
+            const updateRes = await fetch(`/api/habits/${habitId}/graph/${toggleTime}`)
+            const newObj = await updateRes.json();
+            setDataPoints(newObj)
+            setToggleTime("Weekly")
+            setXAxis("Month")
+            return
+        }
+        const updateRes = await fetch(`/api/habits/${habitId}/graph/${toggleTime}`)
+        const newObj = await updateRes.json();
+        setDataPoints(newObj)
+        setToggleTime("Monthly")
+        setXAxis("Week")
+        return
     }
 
     if (!dataPoints.data) return null;
@@ -41,7 +55,7 @@ function LineGraph() {
                 <Line type="monotone" dataKey="stamps" stroke="#8884d8" />
                 <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
                 <XAxis dataKey="dates">
-                    <Label value="Week" offset={0} position="bottom" />
+                    <Label value={xAxis} offset={0} position="bottom" />
                 </XAxis>
                 <YAxis label={{ value:'Stamp Count', angle: -90, position:"left" }}/>
             </LineChart>
