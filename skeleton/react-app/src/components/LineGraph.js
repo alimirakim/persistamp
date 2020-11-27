@@ -57,7 +57,7 @@ function LineGraph() {
                 <XAxis dataKey="dates">
                     <Label value={xAxis} offset={0} position="bottom" />
                 </XAxis>
-                <YAxis label={{ value:'Stamp Count', angle: -90, position:"left" }}/>
+                <YAxis label={{ value:'Stamp Count', angle: -90, position:"left" }} tickSize={1}/>
             </LineChart>
         </>
         // <VictoryChart theme={VictoryTheme.material}>
