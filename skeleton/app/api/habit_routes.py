@@ -115,12 +115,22 @@ def getWeeklyData(hid):
     return jsonData
 
 
-@habit_routes.route("<int:hid>/graph")
-def getWeeklyBargraph(hid):
+@habit_routes.route("<int:hid>/graph/<string:interval>")
+def getWeeklyGraph(hid, interval):
     uid = current_user.id
 
     current_date = date.today()
 
+    if interval == "Monthly":
+        habitHistory = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid).all()
+        # print("HABIT HISTORY -----------------------------", habitHistory)
+        stamps = [dailystamp_schema.dump(stamp)["date"] for stamp in habitHistory]
+        month = current_date.month
+
+        monthAxisLabels = []
+        for i in range(9):
+            xmonth = current_date.strftime("%b")
+            print(xmonth)
     past_fourteen_weeks = [(current_date - timedelta(days=i)) for i in range(98)]
     past_week_dates = [date.strftime('%Y-%m-%d') for date in past_fourteen_weeks]
     axisLabels = []
@@ -146,9 +156,7 @@ def getWeeklyBargraph(hid):
             isStamped.append(True)
             continue
         isStamped.append(False)
-    # print("ARRAY FOR STAMPS ------------------------------- ", isStamped)
-    # zippedArray = list(zip(daily_stamps, isStamped))
-    # print("ZIPPED ARRAY:   =-------------------", zippedArray)
+
     data = []
     i = 13
     for week in range(14):
@@ -164,7 +172,9 @@ def getWeeklyBargraph(hid):
 
     newData = list(reversed(data))
 
-    jsonData = jsonify(data=newData, axisLabels=newAxisLabels)
+    habitObj = Habit.query.filter(Habit.id == hid).one()
+    habit = habit_schema.dump(habitObj)
+    jsonData = jsonify(data=newData, habit=habit)
     return jsonData
 
 
