@@ -31,7 +31,7 @@ function HabitForm({ pid, program, dispatchHabits }) {
     setHabit(e.target.value);
   }
 
-  const updateDesciption = (e) => {
+  const updateDescription = (e) => {
     setDescription(e.target.value)
   }
 
@@ -101,7 +101,7 @@ function HabitForm({ pid, program, dispatchHabits }) {
             label="Description"
             type="text"
             fullWidth
-            onChange={updateDesciption}
+            onChange={updateDescription}
           />
 
           <InputLabel id="frequency">Frequency</InputLabel>
