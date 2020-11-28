@@ -121,9 +121,17 @@ def getWeeklyGraph(hid, interval):
     habitObj = Habit.query.filter(Habit.id == hid).one()
     habit = habit_schema.dump(habitObj)
     current_date = date.today()
+    # print("CURRENT_DATE =-----------------------------------------------", current_date)
 
     if interval == "Monthly":
-        habitHistory = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid).all()
+        currentStrDate = current_date.strftime("%Y-%m-%d")
+        splitDate = currentStrDate.split("-")
+        lastYear = int(splitDate[0]) - 1
+        lastDate = date(lastYear, int(splitDate[1]), int(splitDate[2]))
+        # print("LAST YEAR ---------------------------------", lastYear)
+        # print("LAST DATE ---------------------------------", lastDate)
+    # daily_stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
+        habitHistory = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date >= lastDate).all()
         stamps = [dailystamp_schema.dump(stamp)["date"] for stamp in habitHistory]
 
         monthDict = {month: index for index, month in enumerate(calendar.month_abbr) if month}
@@ -152,7 +160,7 @@ def getWeeklyGraph(hid, interval):
             data.append(lastMonth)
             break
 
-        print("MONTH DATA ------------", data)
+        # print("MONTH DATA ------------", data)
         jsonData = jsonify(data=data, habit=habit)
         return jsonData
 
