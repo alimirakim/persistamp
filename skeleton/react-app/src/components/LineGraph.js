@@ -2,7 +2,7 @@ import React, {useEffect, useState, useContext} from 'react';
 import { useParams } from 'react-router-dom'
 // import { VictoryLine, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 import UserContext from '../context/UserContext';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Label } from 'recharts';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Label, Tooltip } from 'recharts';
 
 function LineGraph() {
     const [dataPoints, setDataPoints] = useState([])
@@ -52,12 +52,17 @@ function LineGraph() {
             </div>
             <button onClick={handleClick}>{toggleTime}</button>
             <LineChart width={700} height={400} data={dataPoints.data} margin={{ bottom: 15, left:25}}>
-                <Line type="monotone" dataKey="stamps" stroke="#8884d8" />
+                <Line strokeWidth={3}type="monotone" dataKey="stamps" dot={{ strokeWidth: 2}}stroke="#8884d8" />
                 <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
-                <XAxis dataKey="dates">
+
+                <XAxis dataKey="dates" stroke="#2F4F4F">
                     <Label value={xAxis} offset={0} position="bottom" />
                 </XAxis>
-                <YAxis label={{ value:'Stamp Count', angle: -90, position:"left" }} tickSize={1}/>
+                <YAxis label={{ value:'Stamp Count', angle: -90, position:"left" }}
+                        domain={dataPoints.yDomain}
+                        ticks={dataPoints.ticks}
+                        stroke="#2F4F4F"/>
+                <Tooltip />
             </LineChart>
         </>
         // <VictoryChart theme={VictoryTheme.material}>
