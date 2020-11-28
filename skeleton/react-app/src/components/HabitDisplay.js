@@ -5,6 +5,7 @@ import HabitEditForm from './HabitEditForm'
 import HabitDeleteForm from './HabitDeleteForm'
 import LineGraph from './LineGraph'
 import BarGraph from './BarGraph'
+import CalenderGraph from './CalenderGraph'
 
 export default function HabitDisplay() {
   const { hid, mid } = useParams()
@@ -46,6 +47,7 @@ export default function HabitDisplay() {
         </dl>
 
         <LineGraph  mid={mid}/>
+        <CalenderGraph />
         <BarGraph />
 
       </article>
