@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
-
-export default function HabitEditForm({habit}) {
-
+export default function HabitEditForm({ habit }) {
+  const { hid } = useParams()
+  
   const showForm = (ev) => {
 
   }
@@ -17,7 +18,7 @@ export default function HabitEditForm({habit}) {
       body: JSON.stringify({
 
       })
-  })
+    })
   }
 
   return (
