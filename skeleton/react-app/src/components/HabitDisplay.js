@@ -20,7 +20,7 @@ export default function HabitDisplay() {
     }
   }, [habit])
   if (!habit) return null
-  
+
   return (
     <HabitContext.Provider value={habit}>
       <article style={{ color: habit.color.hex }}>
@@ -45,7 +45,7 @@ export default function HabitDisplay() {
           <dd>{habit.description}</dd>
         </dl>
 
-        <LineGraph />
+        <LineGraph  />
         <BarGraph />
 
       </article>
