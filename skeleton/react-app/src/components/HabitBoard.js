@@ -9,7 +9,7 @@ import {
   stampDay, unstampDay,
 } from "../context/reducers"
 import HabitForm from './HabitForm'
-
+import {ProgramForm, ProgramEditForm, ProgramDeleteForm} from './ProgramForm'
 
 export default function HabitBoard() {
   const user = useContext(UserContext)
@@ -32,7 +32,7 @@ export default function HabitBoard() {
         if (!habits) dispatchHabits(setHabits(habits_data))
         if (!dailies) dispatchDailies(setDailies(dailies_data))
       } else {
-        console.log("ALL OF IT!", programs, habits, dailies, week)
+        // console.log("ALL OF IT!", programs, habits, dailies, week)
       }
 
     })()
@@ -56,51 +56,61 @@ function HabitsEntry() {
   return (
     <article>
       <h2>Habit Board</h2>
+      <ProgramForm />
       <table>
-        <thead>
-          <tr>
-            <th><button>+Program</button></th>
-            <th><time dateTime={week[0][1]}>{week[0][0]} <br /><small>{week[0][1].slice(8, 10)}</small></time></th>
-            <th><time dateTime={week[1][1]}>{week[1][0]} <br /><small>{week[1][1].slice(8, 10)}</small></time></th>
-            <th><time dateTime={week[2][1]}>{week[2][0]} <br /><small>{week[2][1].slice(8, 10)}</small></time></th>
-            <th><time dateTime={week[3][1]}>{week[3][0]} <br /><small>{week[3][1].slice(8, 10)}</small></time></th>
-            <th><time dateTime={week[4][1]}>{week[4][0]} <br /><small>{week[4][1].slice(8, 10)}</small></time></th>
-            <th><time dateTime={week[5][1]}>{week[5][0]} <br /><small>{week[5][1].slice(8, 10)}</small></time></th>
-            <th><time dateTime={week[6][1]}>{week[6][0]} <br /><small>{week[6][1].slice(8, 10)}</small></time></th>
-          </tr>
-        </thead>
-        <tbody>
-          {Object.values(programs).map(program => (
-            <>
-              <tr key={program.id} style={{ color: program.color.hex }}>
-                <td>
-                  <HabitForm pid={program.id} program={program.program} dispatchHabits={dispatchHabits} />
-                </td>
-                <td colSpan={7}>
-                  <h3><img src={`/icons/${program.stamp.stamp}.svg`} style={{ height: "1rem", width: "1rem" }} alt="" /> {program.program}</h3>
 
-                </td>
-              </tr>
-              {Object.values(habits).filter(habit => habit.program === program.id)
-                .map(habit => (<tr key={habit.id} style={{ color: habit.color.hex }}>
+        {Object.values(programs).map(program => {
+          const [mid] = program.members.filter(m => user.memberships.includes(m))
+          return (
+            <>
+              <thead>
+                <tr key={program.id} style={{ color: program.color.hex }}>
                   <td>
-                    <Link to={`/graphs/${habit.id}`} style={{color: `${habit.color.hex}`, textDecoration: "none"}}><img
-                      src={`/icons/${habit.stamp.stamp}.svg`}
-                      alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
-                      style={{ height: "1rem", width: "1rem" }}
-                    />
-                      {habit.habit}
-                    </Link>
+                    <ProgramEditForm program={program} />
+                    <ProgramDeleteForm program={program} />
                   </td>
-                  {week.map(day => {
-                    const [mid] = program.members.filter(m => user.memberships.includes(m))
-                    return <StampBox key={`${program.id}${mid}${habit.id}${day}`} pid={program.id} mid={mid} habit={habit} day={day} />
-                  })}
+                  <td colSpan={7}>
+                    <h3><img src={`/icons/${program.stamp.stamp}.svg`} style={{ height: "1rem", width: "1rem" }} alt="" /> {program.program}</h3>
+
+                  </td>
                 </tr>
-                ))}
-            </>
-          ))}
-        </tbody>
+                <tr>
+                  <th>
+                    <HabitForm pid={program.id} program={program.program} dispatchHabits={dispatchHabits} />
+                  </th>
+                  <th><time dateTime={week[0][1]}>{week[0][0]} <br /><small>{week[0][1].slice(8, 10)}</small></time></th>
+                  <th><time dateTime={week[1][1]}>{week[1][0]} <br /><small>{week[1][1].slice(8, 10)}</small></time></th>
+                  <th><time dateTime={week[2][1]}>{week[2][0]} <br /><small>{week[2][1].slice(8, 10)}</small></time></th>
+                  <th><time dateTime={week[3][1]}>{week[3][0]} <br /><small>{week[3][1].slice(8, 10)}</small></time></th>
+                  <th><time dateTime={week[4][1]}>{week[4][0]} <br /><small>{week[4][1].slice(8, 10)}</small></time></th>
+                  <th><time dateTime={week[5][1]}>{week[5][0]} <br /><small>{week[5][1].slice(8, 10)}</small></time></th>
+                  <th><time dateTime={week[6][1]}>{week[6][0]} <br /><small>{week[6][1].slice(8, 10)}</small></time></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {Object.values(habits)
+                  .filter(habit => habit.program === program.id)
+                  .map(habit => (<tr key={habit.id} style={{ color: habit.color.hex }}>
+                    <td>
+                      <Link to={`/graphs/${habit.id}/members/${mid}`} style={{ color: `${habit.color.hex}`, textDecoration: "none" }}><img
+                        src={`/icons/${habit.stamp.stamp}.svg`}
+                        alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
+                        style={{ height: "1rem", width: "1rem" }}
+                      />
+                        {habit.habit}
+                      </Link>
+                    </td>
+                    {week.map(day => (
+                      <StampBox key={`${program.id}${mid}${habit.id}${day}`} pid={program.id} mid={mid} habit={habit} day={day} />
+                    ))}
+                  </tr>
+                  ))
+                }
+                </tbody>
+              </>
+            )
+          })}
       </table>
     </article>
   )

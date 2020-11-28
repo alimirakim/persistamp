@@ -13,11 +13,11 @@ const data = [
 
 const BarGraph = () => {
   const [dataPoints, setDataPoints] = useState([])
-  const { habitId } = useParams()
+  const { hid } = useParams()
   const user = useContext(UserContext)
   useEffect(() => {
     (async () => {
-      const res = await fetch(`/api/habits/${habitId}/graph`)
+      const res = await fetch(`/api/habits/${hid}/graph`)
 
       const resObj = await res.json()
       setDataPoints(resObj)

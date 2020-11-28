@@ -12,11 +12,12 @@ import UserProfileCard from "./components/UserProfileCard";
 import UserContext from './context/UserContext';
 import OptionsContext from './context/OptionsContext'
 import AboutCard from './components/AboutCard'
-// import './styles/base.css'
+import HabitDisplay from './components/HabitDisplay'
+import './styles/base.css'
 
 // import HabitForm from "./components/HabitForm";
 // import BarGraph from './components/BarGraph';
-import LineGraph from "./components/LineGraph";
+// import LineGraph from "./components/LineGraph";
 
 
 function App() {
@@ -41,7 +42,7 @@ function App() {
 
       if (!colors) {
         const res = await fetch(`/api/users/${user.id}/options`)
-        const {colors_data, stamps_data} = await res.json()
+        const { colors_data, stamps_data } = await res.json()
         setColors(colors_data)
         setStamps(stamps_data)
       }
@@ -51,7 +52,6 @@ function App() {
   }, []);
 
   if (!loaded || !colors) return null;
-  console.log("context colors/stamps", colors, stamps)
 
   return (
     <BrowserRouter>
@@ -73,24 +73,25 @@ function App() {
       </Route>
 
       <UserContext.Provider value={user}>
-      <OptionsContext.Provider value={{colors, stamps}}>
+        <OptionsContext.Provider value={{ colors, stamps }}>
 
-        <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
-          <UsersList />
-        </ProtectedRoute>
-        <ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
-          <User />
-        </ProtectedRoute>
-        <ProtectedRoute path="/graphs/:habitId" authenticated={authenticated}>
-          <LineGraph />
-          {/* <BarGraph /> */}
-        </ProtectedRoute>
-        <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
+          <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
+            <UsersList />
+          </ProtectedRoute>
+          <ProtectedRoute path="/users/:uid" exact={true} authenticated={authenticated}>
+            <User />
+          </ProtectedRoute>
 
-          <h1>My Home Page</h1>
-          <UserProfileCard />
-          <HabitBoard />
-        </ProtectedRoute>
+          <ProtectedRoute path="/graphs/:hid/members/:mid" authenticated={authenticated}>
+            <HabitDisplay />
+          </ProtectedRoute>
+
+          <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
+
+            <h1>My Home Page</h1>
+            <UserProfileCard />
+            <HabitBoard />
+          </ProtectedRoute>
 
         </OptionsContext.Provider>
       </UserContext.Provider>

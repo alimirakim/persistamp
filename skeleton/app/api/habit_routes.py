@@ -123,6 +123,7 @@ def getWeeklyGraph(hid, interval):
     current_date = date.today()
 
     if interval == "Monthly":
+        # TODO Member id and user id are two separate things.
         habitHistory = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid).all()
         stamps = [dailystamp_schema.dump(stamp)["date"] for stamp in habitHistory]
 
@@ -202,11 +203,25 @@ def getWeeklyGraph(hid, interval):
 
 
 # TESTED Functions
-@habit_routes.route("/<int:hid>")
-def habit_details(hid):
-    """Get a habit's details, including recent histories for all members."""
-    habit = Habit.query.filter(Habit.id == hid).one()
-    return jsonify(habit_schema.dump(habit))
+@habit_routes.route("/<int:hid>/members/<int:mid>")
+def habit_details(hid, mid):
+    """Get a habit's details, including recent history."""
+    # TODO Ask TA how to filter joinedload to only return dailystamps of 'member id blah', and filter attributes for each joinedload.
+    habit = Habit.query.filter(Habit.id == hid).options( \
+      joinedload(Habit.color), \
+      joinedload(Habit.stamp), \
+      joinedload(Habit.program), \
+      joinedload(Habit.creator), \
+      joinedload(Habit.daily_stamps)) \
+      .one()
+    habit_data = habit_schema.dump(habit)
+    habit_data["color"] = color_schema.dump(habit.color)
+    habit_data["stamp"] = stamp_schema.dump(habit.stamp)
+    habit_data["program"] = program_schema.dump(habit.program)
+    habit_data["creator"] = user_schema.dump(habit.creator)
+    habit_data["daily_stamps"] = dailystamp_schema.dump([stamp for stamp in habit.daily_stamps if stamp.member_id == mid])
+    print("\nSINGLE HABIT DATA", habit_data)
+    return jsonify(habit_data)
 
 
 # TESTED Functions. Should the route just be / and just pass in program id?
