@@ -54,10 +54,15 @@ function LineGraph() {
             <LineChart width={700} height={400} data={dataPoints.data} margin={{ bottom: 15, left:25}}>
                 <Line type="monotone" dataKey="stamps" stroke="#8884d8" />
                 <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
+                {/* {if ToggleTime === "Monthly" {
+
+                }} */}
                 <XAxis dataKey="dates">
                     <Label value={xAxis} offset={0} position="bottom" />
                 </XAxis>
-                <YAxis label={{ value:'Stamp Count', angle: -90, position:"left" }} tickSize={1}/>
+                <YAxis label={{ value:'Stamp Count', angle: -90, position:"left" }}
+                        domain={dataPoints.yDomain}
+                        ticks={dataPoints.ticks}/>
             </LineChart>
         </>
         // <VictoryChart theme={VictoryTheme.material}>

@@ -161,7 +161,9 @@ def getWeeklyGraph(hid, interval):
             break
 
         # print("MONTH DATA ------------", data)
-        jsonData = jsonify(data=data, habit=habit)
+        ticks = [0,5,10,15,20,25,30,35]
+        yDomain = [0,35]
+        jsonData = jsonify(data=data, habit=habit, ticks=ticks, yDomain=yDomain)
         return jsonData
 
     past_fourteen_weeks = [(current_date - timedelta(days=i)) for i in range(98)]
@@ -202,9 +204,10 @@ def getWeeklyGraph(hid, interval):
         obj = {"dates": newAxisLabels.pop(-1), "stamps": count }
         data.append(obj)
         i -= 1
-
+    ticks = [0,1,2,3,4,5,6,7]
+    yDomain = [0, 7]
     newData = list(reversed(data))
-    jsonData = jsonify(data=newData, habit=habit)
+    jsonData = jsonify(data=newData, habit=habit, ticks=ticks, yDomain=yDomain)
     return jsonData
 
 
