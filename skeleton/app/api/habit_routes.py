@@ -121,10 +121,18 @@ def getWeeklyGraph(hid, interval):
     habitObj = Habit.query.filter(Habit.id == hid).one()
     habit = habit_schema.dump(habitObj)
     current_date = date.today()
+    # print("CURRENT_DATE =-----------------------------------------------", current_date)
 
     if interval == "Monthly":
+        currentStrDate = current_date.strftime("%Y-%m-%d")
+        splitDate = currentStrDate.split("-")
+        lastYear = int(splitDate[0]) - 1
+        lastDate = date(lastYear, int(splitDate[1]), int(splitDate[2]))
+        # print("LAST YEAR ---------------------------------", lastYear)
+        # print("LAST DATE ---------------------------------", lastDate)
+    # daily_stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
         # TODO Member id and user id are two separate things.
-        habitHistory = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid).all()
+        habitHistory = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date >= lastDate).all()
         stamps = [dailystamp_schema.dump(stamp)["date"] for stamp in habitHistory]
 
         monthDict = {month: index for index, month in enumerate(calendar.month_abbr) if month}
@@ -153,8 +161,10 @@ def getWeeklyGraph(hid, interval):
             data.append(lastMonth)
             break
 
-        print("MONTH DATA ------------", data)
-        jsonData = jsonify(data=data, habit=habit)
+        # print("MONTH DATA ------------", data)
+        ticks = [0,5,10,15,20,25,30,35]
+        yDomain = [0,35]
+        jsonData = jsonify(data=data, habit=habit, ticks=ticks, yDomain=yDomain)
         return jsonData
 
     past_fourteen_weeks = [(current_date - timedelta(days=i)) for i in range(98)]
@@ -195,9 +205,10 @@ def getWeeklyGraph(hid, interval):
         obj = {"dates": newAxisLabels.pop(-1), "stamps": count }
         data.append(obj)
         i -= 1
-
+    ticks = [0,1,2,3,4,5,6,7]
+    yDomain = [0, 7]
     newData = list(reversed(data))
-    jsonData = jsonify(data=newData, habit=habit)
+    jsonData = jsonify(data=newData, habit=habit, ticks=ticks, yDomain=yDomain)
     return jsonData
 
 
