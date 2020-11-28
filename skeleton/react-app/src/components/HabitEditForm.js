@@ -15,7 +15,7 @@ export default function HabitEditForm({habit}) {
     const res = await fetch(`/habits/${hid}`, {
       method: "PATCH",
       body: JSON.stringify({
-        
+
       })
   })
   }
