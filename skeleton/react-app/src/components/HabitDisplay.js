@@ -48,7 +48,7 @@ export default function HabitDisplay() {
           <dd>{habit.description}</dd>
         </dl>
 
-        <LineGraph />
+        <LineGraph  mid={mid}/>
         <BarGraph />
 
       </article>

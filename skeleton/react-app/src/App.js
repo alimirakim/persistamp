@@ -32,23 +32,25 @@ function App() {
   useEffect(() => {
     (async () => {
       const user = await authenticate();
+      console.log("USER", user)
       if (!user.errors) {
+        console.log("WHAT THE HELL")
         setAuthenticated(true);
         setUser(user)
+        if (!colors) {
+          const res = await fetch(`/api/users/${user.id}/options`)
+          const { colors_data, stamps_data } = await res.json()
+          setColors(colors_data)
+          setStamps(stamps_data)
+        }
       }
 
-      if (!colors) {
-        const res = await fetch(`/api/users/${user.id}/options`)
-        const { colors_data, stamps_data } = await res.json()
-        setColors(colors_data)
-        setStamps(stamps_data)
-      }
 
       setLoaded(true)
     })();
   }, []);
 
-  if (!loaded || !colors) return null;
+  // if (!loaded || !colors) return null;
 
   return (
     <BrowserRouter>
