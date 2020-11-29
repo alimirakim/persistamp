@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from 'react-router-dom'
-import useReducer from '../utils'
 import UserContext from '../context/UserContext'
 import HabitBoardContext from "../context/HabitBoardContext"
 import {
@@ -15,52 +14,13 @@ import { ProgramForm, ProgramEditForm, ProgramDeleteForm } from './ProgramForm'
 
 export default function HabitBoard() {
   const { user } = useContext(UserContext)
-  const [week, setWeek] = useState()
-  const uid = user.id
-
-  const [programs, dispatchPrograms] = useReducer(programsReducer)
-  const [habits, dispatchHabits] = useReducer(habitsReducer)
-  const [dailies, dispatchDailies] = useReducer(dailiesReducer)
-
-  useEffect(() => {
-    (async () => {
-      if (!programs) {
-        console.log("not all")
-        const res = await fetch(`/api/users/${uid}/programs`)
-        const { past_week, programs_data, habits_data, dailies_data } = await res.json()
-        console.log("all of it...", programs_data, habits_data, dailies_data, past_week)
-        setWeek(past_week)
-        if (!programs) dispatchPrograms(setPrograms(programs_data))
-        if (!habits) dispatchHabits(setHabits(habits_data))
-        if (!dailies) dispatchDailies(setDailies(dailies_data))
-      } else {
-        // console.log("ALL OF IT!", programs, habits, dailies, week)
-      }
-
-    })()
-  }, [dailies, habits, programs, uid, week])
-
-  if (!week || !programs || !habits || !dailies) return null
-
-  return (
-    <HabitBoardContext.Provider value={{ programs, dispatchPrograms, habits, dispatchHabits, dailies, dispatchDailies, week }}>
-      {/* TODO Complaining about 'unique key prop' here */}
-      <HabitsEntry />
-    </HabitBoardContext.Provider>
-  )
-}
-
-
-function HabitsEntry() {
   const { programs, habits, week, dispatchHabits } = useContext(HabitBoardContext)
-  const { user } = useContext(UserContext)
 
   return (
     <article>
       <h2>Habit Board</h2>
       <ProgramForm />
       <table>
-
         {Object.values(programs).map(program => {
           const [mid] = program.members.filter(m => user.memberships.includes(m))
           return (
@@ -71,7 +31,7 @@ function HabitsEntry() {
                     <ProgramEditForm program={program} />
                     <ProgramDeleteForm program={program} />
                     <h3><img src={`/icons/${program.stamp.stamp}.svg`} style={{ height: "1rem", width: "1rem" }} alt="" /> {program.program}</h3>
-                    <blockquote>"{program.description}"</blockquote>
+                    <blockquote>{program.description}</blockquote>
 
                   </td>
                 </tr>
