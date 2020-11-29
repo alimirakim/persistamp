@@ -103,8 +103,8 @@ export function ProgramEditForm({ program }) {
   if (!colors || !stamps) return null
 
   return (<>
-    <button onClick={handleOpen}>
-      <img src={`/icons/pencil.svg`} alt="Edit Program" style={{ height: "1em", width: "1em" }} />
+    <button onClick={handleOpen} style={{color: "gray", backgroundColor: "rgba(0,0,0,0)", borderWidth: "0"}}>
+      <i className={`fas fa-pencil-alt`}></i>
     </button>
 
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -144,12 +144,8 @@ export function ProgramDeleteForm({ program }) {
 
   return (
     <>
-      <button onClick={handleOpen}>
-        <img
-          src={`/icons/trash.svg`}
-          alt="Delete program"
-          style={{ height: "1em", width: "1em" }}
-        />
+      <button onClick={handleOpen} style={{color: "gray", backgroundColor: "rgba(0,0,0,0)", borderWidth: "0"}}>
+        <i className={`fas fa-trash`}></i>
       </button>
 
       <Dialog open={open} onClose={handleClose}>

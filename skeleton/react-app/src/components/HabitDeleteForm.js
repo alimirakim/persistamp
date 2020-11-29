@@ -22,12 +22,8 @@ export default function HabitDeleteForm({habit }) {
   
   return (
     <>
-      <button onClick={handleClickOpen}>
-        <img
-          src={`/icons/trash.svg`}
-          alt="Delete habit"
-          style={{ height: "1em", width: "1em" }}
-        />
+      <button onClick={handleClickOpen} style={{color: "gray", backgroundColor: "rgba(0,0,0,0)", borderWidth: "0"}}>
+        <i className={`fas fa-trash`}></i>
       </button>
 
 

@@ -52,12 +52,8 @@ if (!colors || !stamps || !stamp) return null
 
   return (
     <div>
-      <button onClick={handleClickOpen}>
-        <img
-          src={`/icons/pencil.svg`}
-          alt="Edit habit"
-          style={{ height: "1em", width: "1em" }}
-        />
+      <button onClick={handleClickOpen} style={{color: "gray", backgroundColor: "rgba(0,0,0,0)", borderWidth: "0"}}>
+      <i className={`fas fa-pencil-alt`}></i>
       </button>
 
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
