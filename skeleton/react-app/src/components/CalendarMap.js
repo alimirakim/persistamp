@@ -1,6 +1,7 @@
 import React, {useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import CalendarHeatmap from 'react-calendar-heatmap';
+import ReactTooltip from 'react-tooltip';
 import 'react-calendar-heatmap/dist/styles.css';
 import '../styles/layouts.css'
 
@@ -24,8 +25,16 @@ export default function CalendarMap () {
             startDate={new Date(calendarData.startDate)}
             endDate={new Date(calendarData.endDate)}
             values={calendarData.values}
-            />
+            showWeekdayLabels={true}
 
+            tooltipDataAttrs={value => {
+                if (value.date) {
+                    return { 'data-tip': `${value.date}`}
+                }
+                return ""
+            }}
+            />
+            <ReactTooltip />
         </div>
     )
 }

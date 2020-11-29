@@ -13,7 +13,7 @@ import UserContext from './context/UserContext';
 import OptionsContext from './context/OptionsContext'
 import AboutCard from './components/AboutCard'
 import HabitDisplay from './components/HabitDisplay'
-import './styles/base.css'
+// import './styles/base.css'
 
 
 // import HabitForm from "./components/HabitForm";

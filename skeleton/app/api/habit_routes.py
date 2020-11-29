@@ -160,7 +160,7 @@ def calendarData(hid, mid):
     firstDayStr = f'{splitDate[0]}-{splitDate[1]}-01'
     firstDayOfMonth = date(int(splitDate[0]), int(splitDate[1]), 1)
 
-    startDate = (firstDayOfMonth - timedelta(days=120)).strftime("%Y-%m-%d")
+    startDate = (firstDayOfMonth - timedelta(days=119)).strftime("%Y-%m-%d")
     print("END DATE", endDate)
     print("START DATE", startDate)
 
