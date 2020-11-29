@@ -14,12 +14,13 @@ import HabitBoardContext from "./context/HabitBoardContext"
 import OptionsContext from './context/OptionsContext'
 import AboutCard from './components/AboutCard'
 import HabitDisplay from './components/HabitDisplay'
-import './styles/base.css'
 import {
   programsReducer, habitsReducer, dailiesReducer,
-  setPrograms, setHabits, setDailies, 
+  setPrograms, setHabits, setDailies,
 } from "./context/reducers"
 
+import './styles/base.css'
+import './styles/all.css'
 
 // import HabitForm from "./components/HabitForm";
 // import BarGraph from './components/BarGraph';
@@ -55,26 +56,21 @@ function App() {
           setColors(colors_data)
           setStamps(stamps_data)
         }
+        if (!programs) {
+          console.log("not all")
+          const res = await fetch(`/api/users/${user.id}/programs`)
+          const { past_week, programs_data, habits_data, dailies_data } = await res.json()
+          console.log("all of it...", programs_data, habits_data, dailies_data, past_week)
+          setWeek(past_week)
+          if (!programs) dispatchPrograms(setPrograms(programs_data))
+          if (!habits) dispatchHabits(setHabits(habits_data))
+          if (!dailies) dispatchDailies(setDailies(dailies_data))
+        }
       }
 
       setLoaded(true)
     })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      if (user && !programs) {
-        console.log("not all")
-        const res = await fetch(`/api/users/${user.id}/programs`)
-        const { past_week, programs_data, habits_data, dailies_data } = await res.json()
-        console.log("all of it...", programs_data, habits_data, dailies_data, past_week)
-        setWeek(past_week)
-        if (!programs) dispatchPrograms(setPrograms(programs_data))
-        if (!habits) dispatchHabits(setHabits(habits_data))
-        if (!dailies) dispatchDailies(setDailies(dailies_data))
-      }
-    })()
-  }, [dailies, habits, programs, week])
+  }, [dailies, habits, programs, week]);
 
   if (!loaded || !dailies) return null
 

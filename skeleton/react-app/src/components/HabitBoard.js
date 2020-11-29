@@ -2,11 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link } from 'react-router-dom'
 import UserContext from '../context/UserContext'
 import HabitBoardContext from "../context/HabitBoardContext"
-import {
-  programsReducer, habitsReducer, dailiesReducer,
-  setPrograms, setHabits, setDailies, 
-  stampDay, unstampDay,
-} from "../context/reducers"
+import { stampDay, unstampDay,} from "../context/reducers"
 import HabitForm from './HabitForm'
 import HabitEditForm from './HabitEditForm'
 import HabitDeleteForm from './HabitDeleteForm'
@@ -30,7 +26,8 @@ export default function HabitBoard() {
                   <td colSpan={8}>
                     <ProgramEditForm program={program} />
                     <ProgramDeleteForm program={program} />
-                    <h3><img src={`/icons/${program.stamp.stamp}.svg`} style={{ height: "1rem", width: "1rem" }} alt="" /> {program.program}</h3>
+                    <h3>
+                    <i className={`fas fa-${program.stamp.stamp}`}></i> {program.program}</h3>
                     <blockquote>{program.description}</blockquote>
 
                   </td>
@@ -57,12 +54,8 @@ export default function HabitBoard() {
                       <HabitEditForm habit={habit} />
                       <HabitDeleteForm habit={habit} />
 
-                      <Link to={`/graphs/${habit.id}/members/${mid}`} style={{ color: `${habit.color.hex}`, textDecoration: "none" }}><img
-                        src={`/icons/${habit.stamp.stamp}.svg`}
-                        alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
-                        style={{ height: "1rem", width: "1rem" }}
-                      />
-                        {habit.habit}
+                      <Link to={`/graphs/${habit.id}/members/${mid}`} style={{ color: `${habit.color.hex}`, textDecoration: "none" }}>
+                      <i className={`fas fa-${habit.stamp.stamp}`}></i> {habit.habit}
                       </Link>
                     </td>
                     {week.map(day => (
@@ -102,17 +95,13 @@ function StampBox({ pid, mid, habit, day }) {
       dispatchDailies(unstampDay(dailyStamp))
     }
   }
-
+// console.log("COLOR HEX?", habit.color.hex)
   if (isStamped) {
     return (
-      <td>
+      <td style={{color: habit.color.hex}}>
         <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}}`} onSubmit={onStamp("delete")}>
-          <button type="submit">
-            <img
-              src={`/icons/${habit.stamp.stamp}.svg`}
-              alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
-              style={{ height: "1rem", width: "1rem" }}
-            />
+          <button type="submit" style={{backgroundColor: "rgba(0,0,0,0)", borderWidth: "0"}}>
+            <i className={`fas fa-${habit.stamp.stamp}`} style={{color: habit.color.hex}} ></i>
           </button>
         </form>
       </td>
@@ -120,38 +109,13 @@ function StampBox({ pid, mid, habit, day }) {
 
   } else {
     return (
-      <td>
+      <td style={{color: habit.color.hex}}>
         <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}`} onSubmit={onStamp("post")}>
-          <button type="submit">
-            <span>X</span>
+          <button type="submit" style={{backgroundColor: "rgba(0,0,0,0)", borderWidth: "0"}}>
+          <i className={`fas fa-times`} style={{color: "rgb(100,100,100,0.5)"}} ></i>
           </button>
         </form>
       </td>
     )
   }
 }
-
-
-// function StampBoxMark({ habit, day }) {
-//   const [isStamped, setIsStamped] = useState(false)
-
-//   useEffect(() => {
-//     const foundStamp = habit.daily_stamps.find(stamp => stamp.date == day[1])
-//     if (foundStamp) setIsStamped(true)
-//     else setIsStamped(false)
-//   }, [isStamped])
-
-//   if (isStamped) {
-//     return (
-//       <img
-//         src={`/icons/${habit.stamp.stamp}.svg`}
-//         alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
-//         style={{ height: "1rem", width: "1rem" }}
-//       />
-//     )
-//   } else {
-//     return (
-//       <span>X</span>
-//     )
-//   }
-// }
