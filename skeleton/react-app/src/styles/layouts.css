@@ -34,6 +34,11 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
     color: black;
 }
 
+.calendarContainer {
+    width: 650px;
+    height: 400px;
+}
+
 body {
     margin: 0px;
 }
@@ -70,4 +75,3 @@ body {
   margin: 0px;
   padding: 0px;
 }
-
