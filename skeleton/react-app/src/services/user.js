@@ -1,4 +1,4 @@
-export default const updateUser = async (user) => {
+export const updateUser = async (user) => {
   const response = await fetch("/api/user/edit", {
     method: "PUT",
     headers: {
@@ -10,3 +10,5 @@ export default const updateUser = async (user) => {
   });
   return await response.json();
 }
+
+export default updateUser;
