@@ -5,14 +5,16 @@ import UserContext from '../context/UserContext'
 import HabitBoardContext from "../context/HabitBoardContext"
 import {
   programsReducer, habitsReducer, dailiesReducer,
-  setPrograms, setHabits, setDailies, createStamp, deleteStamp,
+  setPrograms, setHabits, setDailies, 
   stampDay, unstampDay,
 } from "../context/reducers"
 import HabitForm from './HabitForm'
-import {ProgramForm, ProgramEditForm, ProgramDeleteForm} from './ProgramForm'
+import HabitEditForm from './HabitEditForm'
+import HabitDeleteForm from './HabitDeleteForm'
+import { ProgramForm, ProgramEditForm, ProgramDeleteForm } from './ProgramForm'
 
 export default function HabitBoard() {
-  const user = useContext(UserContext)
+  const { user } = useContext(UserContext)
   const [week, setWeek] = useState()
   const uid = user.id
 
@@ -51,7 +53,7 @@ export default function HabitBoard() {
 
 function HabitsEntry() {
   const { programs, habits, week, dispatchHabits } = useContext(HabitBoardContext)
-  const user = useContext(UserContext)
+  const { user } = useContext(UserContext)
 
   return (
     <article>
@@ -65,12 +67,11 @@ function HabitsEntry() {
             <>
               <thead>
                 <tr key={program.id} style={{ color: program.color.hex }}>
-                  <td>
+                  <td colSpan={8}>
                     <ProgramEditForm program={program} />
                     <ProgramDeleteForm program={program} />
-                  </td>
-                  <td colSpan={7}>
                     <h3><img src={`/icons/${program.stamp.stamp}.svg`} style={{ height: "1rem", width: "1rem" }} alt="" /> {program.program}</h3>
+                    <blockquote>"{program.description}"</blockquote>
 
                   </td>
                 </tr>
@@ -92,7 +93,10 @@ function HabitsEntry() {
                 {Object.values(habits)
                   .filter(habit => habit.program === program.id)
                   .map(habit => (<tr key={habit.id} style={{ color: habit.color.hex }}>
-                    <td>
+                    <td style={{display: "flex"}}>
+                      <HabitEditForm habit={habit} />
+                      <HabitDeleteForm habit={habit} />
+
                       <Link to={`/graphs/${habit.id}/members/${mid}`} style={{ color: `${habit.color.hex}`, textDecoration: "none" }}><img
                         src={`/icons/${habit.stamp.stamp}.svg`}
                         alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
@@ -107,10 +111,10 @@ function HabitsEntry() {
                   </tr>
                   ))
                 }
-                </tbody>
-              </>
-            )
-          })}
+              </tbody>
+            </>
+          )
+        })}
       </table>
     </article>
   )

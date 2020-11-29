@@ -28,10 +28,7 @@ function App() {
   const [colors, setColors] = useState()
   const [stamps, setStamps] = useState()
 
-  const updateUser = (e) => {
-    return setUser(e.target.value)
-  }
-
+  const updateUser = (e) => setUser(e.target.value)
 
   useEffect(() => {
     (async () => {
@@ -74,7 +71,7 @@ function App() {
         </>
       </Route>
 
-      <UserContext.Provider value={user}>
+      <UserContext.Provider value={{user, setUser}}>
         <OptionsContext.Provider value={{ colors, stamps }}>
 
           <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>

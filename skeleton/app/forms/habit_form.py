@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField
-from wtforms.validators import DataRequired, ValidationError
-from app.models import Habit
+from wtforms.validators import DataRequired
 
 
 
