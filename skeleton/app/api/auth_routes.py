@@ -1,10 +1,10 @@
 from flask import Blueprint, jsonify, session, request, make_response
-from app.models import db, User, Program, Member
-from app.forms import LoginForm
-from app.forms import SignUpForm
+from sqlalchemy.orm import joinedload
 from flask_login import current_user, login_user, logout_user, login_required
 from http import cookies
-from app.schemas import user_schema
+from app.models import db, User, Program, Member
+from app.forms import LoginForm, SignUpForm
+from app.schemas import user_schema, color_schema, stamp_schema
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -20,19 +20,19 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 
-
-
-
 @auth_routes.route('/')
 def authenticate():
     """Authenticates a user"""
-    if current_user.is_authenticated:
-      
-        user = user_schema.dump(current_user)
+    user = User.query.options(joinedload(User.color), joinedload(User.stamp)).get(current_user.id)
+    if user.is_authenticated:
+        
+        user_data = user_schema.dump(current_user)
+        user_data["color"] = color_schema.dump(user.color)
+        user_data["stamp"] = stamp_schema.dump(user.stamp)
         print("\nauthed user")
         from pprint import pprint
-        pprint(user)
-        return jsonify(user)
+        pprint(user_data)
+        return jsonify(user_data)
     return {'errors': ['Unauthorized']}, 401
 
 

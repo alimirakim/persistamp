@@ -82,7 +82,7 @@ export function ProgramEditForm({ program }) {
   const handleOpen = (e) => setOpen(true)
   const handleClose = (e) => setOpen(false)
 
-  const onCreate = async (e) => {
+  const onEdit = async (e) => {
     e.preventDefault()
     setOpen(false)
     const res = await fetch(`/api/programs/edit/${program.id}`, {
@@ -115,7 +115,7 @@ export function ProgramEditForm({ program }) {
         <AddDescription description={description} setDescription={setDescription} />
         <ChooseColor colors={colors} color={color} setColor={setColor} />
         <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} />
-        <ActionOrCancelButtons handleClose={handleClose} onAction={onCreate} action={"Save"} />
+        <ActionOrCancelButtons handleClose={handleClose} onAction={onEdit} action={"Save"} />
 
       </DialogContent>
     </Dialog>

@@ -66,11 +66,12 @@ function HabitsEntry() {
           return (
             <>
               <thead>
-                <tr key={program.id} colSpan={7} style={{ color: program.color.hex }}>
-                  <td>
+                <tr key={program.id} style={{ color: program.color.hex }}>
+                  <td colSpan={8}>
                     <ProgramEditForm program={program} />
                     <ProgramDeleteForm program={program} />
                     <h3><img src={`/icons/${program.stamp.stamp}.svg`} style={{ height: "1rem", width: "1rem" }} alt="" /> {program.program}</h3>
+                    <blockquote>"{program.description}"</blockquote>
 
                   </td>
                 </tr>
@@ -92,7 +93,7 @@ function HabitsEntry() {
                 {Object.values(habits)
                   .filter(habit => habit.program === program.id)
                   .map(habit => (<tr key={habit.id} style={{ color: habit.color.hex }}>
-                    <td>
+                    <td style={{display: "flex"}}>
                       <HabitEditForm habit={habit} />
                       <HabitDeleteForm habit={habit} />
 
