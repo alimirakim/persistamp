@@ -157,20 +157,24 @@ def calendarData(hid, mid):
     endDate = current_date.strftime("%Y-%m-%d")
 
     splitDate = endDate.split("-")
-    firstDayStr = f'{splitDate[0]}-{splitDate[1]}-01'
+    # firstDayStr = f'{splitDate[0]}-{splitDate[1]}-01'
     firstDayOfMonth = date(int(splitDate[0]), int(splitDate[1]), 1)
 
-    startDate = (firstDayOfMonth - timedelta(days=119)).strftime("%Y-%m-%d")
-    print("END DATE", endDate)
-    print("START DATE", startDate)
+    startDate = None
+    for i in range(6):
+        start = firstDayOfMonth - timedelta(days=128-i)
+        if start.isoweekday() == 7:
+            startDate = start.strftime("%Y-%m-%d")
+            break
+    # print("GETTING SUNDAY============================", startDate)
 
     values = []
     dailystamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date >= startDate, DailyStamp.date <= endDate).all()
-    print("DAILY STAMPS FOR CALENDAR ____________________________", dailystamps)
+    # print("DAILY STAMPS FOR CALENDAR ____________________________", dailystamps)
     for each in dailystamps:
         stampdata = dailystamp_schema.dump(each)
         values.append({ "date": stampdata["date"]})
-    print("VALUES ------------------------", values)
+    # print("VALUES ------------------------", values)
 
     jsonData = jsonify(values=values, startDate=startDate, endDate=endDate)
     return jsonData

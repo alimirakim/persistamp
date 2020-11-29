@@ -5,7 +5,7 @@ import UserContext from '../context/UserContext'
 import HabitBoardContext from "../context/HabitBoardContext"
 import {
   programsReducer, habitsReducer, dailiesReducer,
-  setPrograms, setHabits, setDailies, 
+  setPrograms, setHabits, setDailies,
   stampDay, unstampDay,
 } from "../context/reducers"
 import HabitForm from './HabitForm'

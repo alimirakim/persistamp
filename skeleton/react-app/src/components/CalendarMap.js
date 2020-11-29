@@ -6,7 +6,7 @@ import 'react-calendar-heatmap/dist/styles.css';
 import '../styles/layouts.css'
 
 export default function CalendarMap () {
-    const [calendarData, setCalendarData] = useState({})
+    const [calendarData, setCalendarData] = useState([])
     const { hid, mid } = useParams()
     useEffect(() => {
         (async () => {
@@ -26,6 +26,10 @@ export default function CalendarMap () {
             endDate={new Date(calendarData.endDate)}
             values={calendarData.values}
             showWeekdayLabels={true}
+            // showOutOfRangeDays={true}
+            // titleForValue={value => {
+            //     return value
+            // }}
 
             tooltipDataAttrs={value => {
                 if (value.date) {
