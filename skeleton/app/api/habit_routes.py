@@ -78,6 +78,7 @@ def current_week(hid, mid):
 #     jsonData = jsonify(today=format_date, stamp_data=dailyStamp_data)
 #     return jsonData
 
+
 @habit_routes.route("<int:hid>/linegraph")
 def getWeeklyData(hid):
     # print("HID", hid)
@@ -235,63 +236,43 @@ def habit_details(hid, mid):
     return jsonify(habit_data)
 
 
-# TESTED Functions. Should the route just be / and just pass in program id?
-# @habit_routes.route("/programs/<int:pid>", methods=["POST"])
-# def create_habit(pid):
-#     """Create a new habit for a program."""
-#     data = request.json
-#     habit = Habit(habit=data["habit"],
-#                   program_id=pid,
-#                   creator_id=data["creator_id"],)
-#     if "description" in data.keys():
-#         habit.description = data["description"]
-#     if "frequency" in data.keys():
-#         habit.frequency = data["frequency"]
-#     if "color" in data.keys():
-#         habit.color = data["color"]
-#     if "stamp_id" in data.keys():
-#         habit.stamp_id = data["stamp_id"]
-
-#     db.session.add(habit)
-#     db.session.commit()
-#     return jsonify(habit_schema.dump(habit))
-
-
 # TESTED Functions.
-@habit_routes.route("/<int:hid>", methods=["PATCH"])
+@habit_routes.route("/edit/<int:hid>", methods=["PATCH"])
 def edit_habit(hid):
     """Edit a habit's details by id."""
-    data = request.json
-    habit = Habit.query.filter(Habit.id == hid).one()
-    if "habit" in data.keys():
-        habit.habit = data["habit"]
-    if "description" in data.keys():
-        habit.description = data["description"]
-    if "frequency" in data.keys():
-        habit.frequency = data["frequency"]
-    if "color" in data.keys():
-        habit.color = data["color"]
-    if "stamp_id" in data.keys():
-        habit.stamp_id = data["stamp_id"]
-    db.session.commit()
-    return jsonify(habit_schema.dump(habit))
+    form = HabitForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    form['submit'].data = True
+    
+    if form.validate_on_submit():
+        habit = Habit.query.get(hid)
+        habit.habit = form.data['habit']
+        habit.description = form.data['description']
+        habit.frequency = form.data['frequency']
+        habit.color_id = form.data['color']
+        habit.stamp_id = form.data['stamp']
+        db.session.commit()
+        print("\nEDITED", habit)
+        
+        habit_data = habit_schema.dump(habit)
+        habit_data["color"] = color_schema.dump(habit.color)
+        habit_data["stamp"] = stamp_schema.dump(habit.stamp)
+        print("\nEDITTED HABIT DUMP", habit_data)
+        return jsonify(habit_data)
+    return "Habit-edit fail :["
 
 
 # TESTED Functions
-@habit_routes.route("/<int:hid>", methods=["DELETE"])
+@habit_routes.route("/delete/<int:hid>", methods=["DELETE"])
 def delete_habit(hid):
     """Delete a habit by id."""
-    habit = Habit.query.filter(Habit.id == hid).one()
+    
+    habit = Habit.query.get(hid)
     db.session.delete(habit)
     db.session.commit()
     return "Habit is donezo~!"
 
 
-# How to get the date/daily stamp through params?
-# Get the stamper for the daily stamp's member
-# If no stamper, just toggle the status.
-# If stamper, check stamper id from params. If it's the member, NOT stamper,
-# change to pending. If it IS the stamper, change to checked or unchecked.
 @habit_routes.route("/<int:hid>/programs/<int:pid>/members/<int:mid>/days/<day>", methods=["delete", "post"])
 def stamp_day(pid, mid, hid, day):
     """Change the status of a daily_stamp to 'stamped' or 'pending'."""

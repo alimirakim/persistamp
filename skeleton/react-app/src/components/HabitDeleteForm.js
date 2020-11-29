@@ -1,37 +1,45 @@
-import React, { useEffect, useContext, useState } from 'react'
-import { useParams, Redirect } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Dialog, DialogContent, DialogTitle } from '@material-ui/core'
+import HabitBoardContext from '../context/HabitBoardContext'
+import { deleteHabit } from '../context/reducers'
+import { ActionOrCancelButtons } from './FormInputs'
 
+export default function HabitDeleteForm({habit }) {
+  const {dispatchHabits} = useContext(HabitBoardContext)
+  const [open, setOpen] = React.useState(false);
 
-export default function HabitDeleteForm({ habit }) {
-  const { hid, mid } = useParams()
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false)
 
-  const showForm = (ev) => {
-
+  const onDelete = async (e) => {
+    e.preventDefault()
+    setOpen(false)
+    dispatchHabits(deleteHabit(habit))
+    const res = await fetch(`/api/habits/delete/${habit.id}`, { method: "DELETE"})
+    const deletedHabit = await res.json()
+    console.log("deleted habit is...", deletedHabit)
   }
-
-  const hideForm = (ev) => {
-
-  }
-
-  const deleteHabit = async (ev) => {
-    const res = await fetch(`/habits/${hid}`, { method: "DELETE" })
-    if (res.ok) {
-      // return <Redirect to="/">
-    }
-  }
-
+  
   return (
     <>
-      <button onClick={showForm}>
-        <img src={`/icons/trash.svg`} alt="Edit habit" style={{ height: "1em", width: "1em" }} />
+      <button onClick={handleClickOpen}>
+        <img
+          src={`/icons/trash.svg`}
+          alt="Delete habit"
+          style={{ height: "1em", width: "1em" }}
+        />
       </button>
 
-      <h2>Delete {habit.habit}</h2>
-      <form method="POST">
-        <p>Are you sure you want to PERMANENTLY delete this habit?</p>
-        <button onClick={deleteHabit}>DELETE</button>
-        <button onClick={hideForm}>Cancel</button>
-      </form>
+
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Delete Habit: "{habit.habit}"</DialogTitle>
+
+        <DialogContent>
+        <strong>Are you SURE you want to delete this habit from {habit.program.program}?</strong>
+          <ActionOrCancelButtons handleClose={handleClose} onAction={onDelete} action={"Delete"} />
+        </DialogContent>
+
+      </Dialog>
     </>
   )
 }

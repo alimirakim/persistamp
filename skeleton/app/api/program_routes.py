@@ -1,6 +1,9 @@
 from flask import Blueprint, render_template, redirect, jsonify, request
+from sqlalchemy.orm import joinedload
 from app.models import db, Program, User, Member
-from app.schemas import program_schema, user_schema, member_schema
+from app.schemas import program_schema, user_schema, color_schema, stamp_schema
+from app.forms import ProgramForm
+from flask_login import current_user
 
 program_routes = Blueprint("programs", __name__, url_prefix="/programs")
 
@@ -14,53 +17,76 @@ def program_details(pid):
     
     
 # TESTED Functions, creates new program.
-@program_routes.route("/", methods=["POST"])
+@program_routes.route("/create", methods=["POST"])
 def create_program():
     """Create a new program."""
-    data = request.json
-    program = Program(program=data["program"], creator_id=data["creator_id"])
-    
-    if "description" in data.keys():
-        program.description = data["description"]
-    if "color" in data.keys():
-        program.color = data["color"]
-    if "stamp_id" in data.keys():
-        program.stamp_id = data["stamp_id"]
+    form = ProgramForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    form['submit'].data = True
+    print("\n\nform", form, form.data)
+    if form.validate_on_submit():
+        program = Program(
+            program=form.data['program'],
+            description=form.data['description'],
+            color_id=form.data['color'],
+            stamp_id=form.data['stamp'],
+            creator_id=request.json['userId'],
+        )
+        db.session.add(program)
+        db.session.commit()
         
-    db.session.add(program)
-    db.session.commit()
-    return jsonify(program_schema.dump(program))
+        member = Member(program_id=program.id,
+                        member_id=request.json['userId'],
+                        stamper_id=request.json['userId'],)
+        db.session.add(member)
+        db.session.commit()
+
+        program_data = program_schema.dump(program)
+        program_data["color"] = color_schema.dump(program.color)
+        program_data["stamp"] = stamp_schema.dump(program.stamp)
+        program_data["creator"] = user_schema.dump(program.creator)
+        ("\n\nPROGRAM DUMP", program_data)
+        
+        updated_user = user_schema.dump(current_user)
+        
+        return jsonify(program=program_data, updated_user=updated_user)
+    return "D: No program made"
 
 
 # TESTED Functions
-@program_routes.route("/<int:pid>", methods=["PATCH"])
+@program_routes.route("/edit/<int:pid>", methods=["PATCH"])
 def edit_program(pid):
     """Edit a program's details."""
-    data = request.json
-    program = Program.query.filter(Program.id == pid).one()
+    form = ProgramForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    form['submit'].data = True
     
-    if "program" in data.keys():
-        program.program = data["program"]
-    if "description" in data.keys():
-        program.description = data["description"]
-    if "color" in data.keys():
-        program.color = data["color"]
-    if "stamp_id" in data.keys():
-        program.stamp_id = data["stamp_id"]
+    if form.validate_on_submit():
+        program = Program.query.options(joinedload(Program.color), joinedload(Program.stamp), joinedload(Program.creator)).get(pid)
+        program.program = form.data['program']
+        program.description = form.data['description']
+        program.color_id = form.data['color']
+        program.stamp_id = form.data['stamp']
         
-    db.session.commit()
-    return jsonify(program_schema.dump(program))
+        db.session.commit()
+        program_data = program_schema.dump(program)
+        program_data["color"] = color_schema.dump(program.color)
+        program_data["stamp"] = stamp_schema.dump(program.stamp)
+        program_data["creator"] = user_schema.dump(program.creator)
+
+        print("\nEDITED PROGRAM", program_data)
+        return jsonify(program_data)
+    return "Failure D: Edit program not!"
 
 
-# TODO Does this need cascade delete?
-# TESTED Functions
 @program_routes.route("/<int:pid>", methods=["DELETE"])
 def delete_program(pid):
     """Delete a program by id."""
-    program = Program.query.filter(Program.id == pid).one()
+    program = Program.query.get(pid)
     db.session.delete(program)
     db.session.commit()
-    return "Program successfully deleted!"
+    updated_user = user_schema.dump(current_user)
+    return updated_user
 
 
 # TODO How do I filter this?

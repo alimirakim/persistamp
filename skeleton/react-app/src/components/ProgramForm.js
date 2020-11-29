@@ -1,96 +1,167 @@
-import React, {useEffect, useState} from 'react'
+import React, { useState, useContext } from 'react'
+import { Dialog, DialogTitle, DialogContent } from '@material-ui/core'
+import UserContext from '../context/UserContext'
+import HabitBoardContext from '../context/HabitBoardContext'
+import OptionsContext from '../context/OptionsContext'
+import { createProgram, editProgram, deleteProgram } from '../context/reducers'
+import { ActionOrCancelButtons, AddName, AddDescription, ChooseColor, ChooseStamp } from './FormInputs'
 
 
 export function ProgramForm() {
-  
-  const showForm = (ev) => {
+  const {user, setUser} = useContext(UserContext)
+  const { colors, stamps } = useContext(OptionsContext)
+  const { dispatchPrograms } = useContext(HabitBoardContext)
 
-  }
-  const hideForm = (ev) => {
+  const [open, setOpen] = useState(false)
+  const [name, setName] = useState()
+  const [description, setDescription] = useState()
+  const [color, setColor] = useState(1)
+  const [stamp, setStamp] = useState(2)
 
+  const handleOpen = (e) => setOpen(true)
+  const handleClose = (e) => setOpen(false)
+
+  const onCreate = async (e) => {
+    e.preventDefault()
+    setOpen(false)
+    const res = await fetch(`/api/programs/create`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        program: name,
+        description,
+        color,
+        stamp,
+        userId: user.id
+      })
+    })
+    // User is updated to include new membership
+    const {program, updated_user} = await res.json()
+    console.log("we made a program!", program, "user!", updated_user)
+    dispatchPrograms(createProgram(program))
+    setUser(updated_user)
+
+    setName()
+    setDescription()
+    setColor(1)
+    setStamp(2)
   }
-  
-  const createProgram = (ev) => {
-    
-  }
-  
-  return (
-    <>
-      <button onClick={showForm}>+Program</button>
-      
-      <form onSubmit={createProgram}>
-        <h2>Create Program</h2>
-        
-        {/* TODO Add input fields for name, description, color, stamp */}
-        
-        <button type="submit">Create Program</button>
-        <button>Cancel</button>
-      </form>
-    </>
+
+  if (!colors || !stamps) return null
+
+  return (<>
+    <button onClick={handleOpen}>+Program</button>
+
+    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <DialogTitle id="form-dialog-title">Create a new Program!</DialogTitle>
+
+      <DialogContent>
+        <AddName name={name} setName={setName} />
+        <AddDescription description={description} setDescription={setDescription} />
+        <ChooseColor colors={colors} color={color} setColor={setColor} />
+        <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} />
+        <ActionOrCancelButtons handleClose={handleClose} onAction={onCreate} action={"Create"} />
+
+      </DialogContent>
+    </Dialog>
+  </>
   )
 }
 
 
-export function ProgramEditForm({program}) {
-  
-  const showForm = (ev) => {
+export function ProgramEditForm({ program }) {
+  const { colors, stamps } = useContext(OptionsContext)
+  const { dispatchPrograms } = useContext(HabitBoardContext)
 
+  const [open, setOpen] = useState(false)
+  const [name, setName] = useState(program.program)
+  const [description, setDescription] = useState(program.description)
+  const [color, setColor] = useState(program.color.id)
+  const [stamp, setStamp] = useState(program.stamp.id)
+
+  const handleOpen = (e) => setOpen(true)
+  const handleClose = (e) => setOpen(false)
+
+  const onCreate = async (e) => {
+    e.preventDefault()
+    setOpen(false)
+    const res = await fetch(`/api/programs/edit/${program.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        program: name,
+        description,
+        color,
+        stamp,
+      })
+    })
+    const editedProgram = await res.json()
+    dispatchPrograms(editProgram(editedProgram))
+    console.log("we made a program!", editedProgram)
   }
 
-  const hideForm = (ev) => {
+  if (!colors || !stamps) return null
 
-  }
+  return (<>
+    <button onClick={handleOpen}>
+      <img src={`/icons/pencil.svg`} alt="Edit Program" style={{ height: "1em", width: "1em" }} />
+    </button>
 
-  const editProgram = (ev) => {
+    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <DialogTitle id="form-dialog-title">Edit {program.program} program details</DialogTitle>
 
-  }
+      <DialogContent>
+        <AddName name={name} setName={setName} />
+        <AddDescription description={description} setDescription={setDescription} />
+        <ChooseColor colors={colors} color={color} setColor={setColor} />
+        <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} />
+        <ActionOrCancelButtons handleClose={handleClose} onAction={onCreate} action={"Save"} />
 
-  return (
-    <>
-      <button onClick={editProgram}>
-        <img src={`/icons/pencil.svg`} alt="Edit Program" style={{ height: "1em", width: "1em" }} />
-      </button>
-
-      <h2>Edit {program.program}</h2>
-      <form>
-
-      </form>
-    </>
+      </DialogContent>
+    </Dialog>
+  </>
   )
-  
 }
 
 
-export function ProgramDeleteForm({program}) {
-  
-  const showForm = (ev) => {
+export function ProgramDeleteForm({ program }) {
+  const {dispatchPrograms} = useContext(HabitBoardContext)
+  const {setUser} = useContext(UserContext)
+  const [open, setOpen] = useState(false)
 
-  }
+  const handleOpen = (e) => setOpen(true)
+  const handleClose = (e) => setOpen(false)
 
-  const hideForm = (ev) => {
-
-  }
-
-  const deleteProgram = async (ev) => {
-    const res = await fetch(`/programs/${program.id}`, { method: "DELETE" })
-    if (res.ok) {
-      // return <Redirect to="/">
-    }
+  const onDelete = async (e) => {
+    e.preventDefault()
+    setOpen(false)
+    dispatchPrograms(deleteProgram(program))
+    const res = await fetch(`/api/programs/${program.id}`, { method: "DELETE" })
+    const updated_user = await res.json()
+    console.log("deleted :0, user now:", updated_user)
+    setUser(updated_user)
   }
 
   return (
     <>
-      <button onClick={showForm}>
-        <img src={`/icons/trash.svg`} alt="Edit program" style={{ height: "1em", width: "1em" }} />
+      <button onClick={handleOpen}>
+        <img
+          src={`/icons/trash.svg`}
+          alt="Delete program"
+          style={{ height: "1em", width: "1em" }}
+        />
       </button>
 
-      <h2>Delete {program.program}</h2>
-      <form method="POST">
-        <p>Are you sure you want to PERMANENTLY delete this and all its habits?</p>
-        <button onClick={deleteProgram}>DELETE</button>
-        <button onClick={hideForm}>Cancel</button>
-      </form>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Delete "{program.program}"?</DialogTitle>
+
+        <DialogContent>
+          <strong>Are you sure you want to PERMANENTLY delete this and all its habits?</strong>
+          <ActionOrCancelButtons onAction={onDelete} action={"Delete"} />
+        </DialogContent>
+        
+      </Dialog>
     </>
   )
-  
+
 }
