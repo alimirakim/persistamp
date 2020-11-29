@@ -49,8 +49,8 @@ export default function HabitDisplay() {
           <dd>{habit.description}</dd>
         </dl>
 
-        <LineGraph  mid={mid}/>
-        <CalendarMap />
+        <LineGraph  mid={mid} habit={habit} />
+        <CalendarMap habit={habit} />
 
       </article>
     </HabitContext.Provider>
