@@ -7,7 +7,7 @@ import LogoutIcon from './auth/LogoutButton';
 
 
 const NavBar = ({ authenticated, setAuthenticated }) => {
-  const user = useContext(UserContext);
+  const {user} = useContext(UserContext);
 
   if (!authenticated) {
     return (

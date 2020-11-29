@@ -1,117 +1,84 @@
-import React, { useEffect, useState, useContext } from "react";
-
+import React, { useState, useContext } from "react";
+import { Link } from 'react-router-dom'
 import UserContext from '../context/UserContext'
 import HabitBoardContext from "../context/HabitBoardContext"
+import { stampDay, unstampDay,} from "../context/reducers"
+import HabitForm from './HabitForm'
+import HabitEditForm from './HabitEditForm'
+import HabitDeleteForm from './HabitDeleteForm'
+import { ProgramForm, ProgramEditForm, ProgramDeleteForm } from './ProgramForm'
 
 export default function HabitBoard() {
-  // const uid = document.cookie.split("; ").find(cookie => cookie.startsWith("uid_cookie")).split("=")[1]
+  const { user } = useContext(UserContext)
+  const { programs, habits, week, dispatchHabits } = useContext(HabitBoardContext)
 
-  const [programs, setPrograms] = useState()
-  const [week, setWeek] = useState()
-
-  const user = useContext(UserContext);
-  const uid = user.id
-
-  useEffect(() => {
-    (async () => {
-      console.log("UNRAVELED", uid, programs)
-      if (!programs) {
-        const res = await fetch(`/api/users/${uid}/programs`)
-        const { past_week, programs_data } = await res.json()
-        setPrograms(programs_data)
-        setWeek(past_week)
-        // console.log("UNRAVELED", uid, unraveledPrograms)
-      }
-    })()
-  }, [programs, week, uid])
-
-  console.log("prograaams", programs)
-  if (!week) return null
-  return (
-    <HabitBoardContext.Provider value={{ programs, setPrograms, week }}>
-      <HabitsEntry />
-    </HabitBoardContext.Provider>
-  )
-}
-
-
-
-
-
-function HabitsEntry() {
-  const { programs, setProgram, week } = useContext(HabitBoardContext)
-  const user = useContext(UserContext)
-  console.log("programs", programs)
-  console.log("week", week)
-
-  if (!week) return null
-  console.log("WEEK", week)
   return (
     <article>
       <h2>Habit Board</h2>
-      <table style={{ borderWidth: "1px" }}>
-        <thead>
-          <tr>
-            <th>Habit</th>
-            <th><time dateTime={week[0][1]}>{week[0][0]} <br /><small>{week[0][1].slice(8, 10)}</small></time></th>
-            <th><time dateTime={week[1][1]}>{week[1][0]} <br /><small>{week[1][1].slice(8, 10)}</small></time></th>
-            <th><time dateTime={week[2][1]}>{week[2][0]} <br /><small>{week[2][1].slice(8, 10)}</small></time></th>
-            <th><time dateTime={week[3][1]}>{week[3][0]} <br /><small>{week[3][1].slice(8, 10)}</small></time></th>
-            <th><time dateTime={week[4][1]}>{week[4][0]} <br /><small>{week[4][1].slice(8, 10)}</small></time></th>
-            <th><time dateTime={week[5][1]}>{week[5][0]} <br /><small>{week[5][1].slice(8, 10)}</small></time></th>
-            <th><time dateTime={week[6][1]}>{week[6][0]} <br /><small>{week[6][1].slice(8, 10)}</small></time></th>
-          </tr>
-        </thead>
-        <tbody>
-          {programs.map(program => (
+      <ProgramForm />
+      <table>
+        {Object.values(programs).map(program => {
+          const [mid] = program.members.filter(m => user.memberships.includes(m))
+          return (
             <>
-              <tr style={{ color: program.color.hex }}>
-                <td colSpan={8}>
-                  <h3><img src={`/icons/${program.stamp.stamp}.svg`} style={{ height: "1rem", width: "1rem" }} alt="" /> {program.program}</h3>
-                </td>
-              </tr>
-              {program.habits.map(habit => (
-                <tr style={{ color: habit.color.hex }}>
-                  <td>
-                    <img
-                      src={`/icons/${habit.stamp.stamp}.svg`}
-                      alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
-                      style={{ height: "1rem", width: "1rem" }}
-                    />
-                    {habit.habit}
+              <thead>
+                <tr key={program.id} style={{ color: program.color.hex }}>
+                  <td colSpan={8}>
+                    <ProgramEditForm program={program} />
+                    <ProgramDeleteForm program={program} />
+                    <h3>
+                    <i className={`fas fa-${program.stamp.stamp}`}></i> {program.program}</h3>
+                    <blockquote>{program.description}</blockquote>
+
                   </td>
-                  {week.map(day => {
-                    const [mid] = program.members.filter(m => user.memberships.includes(m))
-                    console.log("mid", mid)
-                    return (
-                      <StampBox pid={program.id} mid={mid} habit={habit} day={day} setProgram={setProgram} />
-                    )
-                  })}
                 </tr>
-              ))}
+                <tr>
+                  <th>
+                    <HabitForm pid={program.id} program={program.program} dispatchHabits={dispatchHabits} />
+                  </th>
+                  <th><time dateTime={week[0][1]}>{week[0][0]} <br /><small>{week[0][1].slice(8, 10)}</small></time></th>
+                  <th><time dateTime={week[1][1]}>{week[1][0]} <br /><small>{week[1][1].slice(8, 10)}</small></time></th>
+                  <th><time dateTime={week[2][1]}>{week[2][0]} <br /><small>{week[2][1].slice(8, 10)}</small></time></th>
+                  <th><time dateTime={week[3][1]}>{week[3][0]} <br /><small>{week[3][1].slice(8, 10)}</small></time></th>
+                  <th><time dateTime={week[4][1]}>{week[4][0]} <br /><small>{week[4][1].slice(8, 10)}</small></time></th>
+                  <th><time dateTime={week[5][1]}>{week[5][0]} <br /><small>{week[5][1].slice(8, 10)}</small></time></th>
+                  <th><time dateTime={week[6][1]}>{week[6][0]} <br /><small>{week[6][1].slice(8, 10)}</small></time></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {Object.values(habits)
+                  .filter(habit => habit.program === program.id)
+                  .map(habit => (<tr key={habit.id} style={{ color: habit.color.hex }}>
+                    <td style={{display: "flex"}}>
+                      <HabitEditForm habit={habit} />
+                      <HabitDeleteForm habit={habit} />
+
+                      <Link to={`/graphs/${habit.id}/members/${mid}`} style={{ color: `${habit.color.hex}`, textDecoration: "none" }}>
+                      <i className={`fas fa-${habit.stamp.stamp}`}></i> {habit.habit}
+                      </Link>
+                    </td>
+                    {week.map(day => (
+                      <StampBox key={`${program.id}${mid}${habit.id}${day}`} pid={program.id} mid={mid} habit={habit} day={day} />
+                    ))}
+                  </tr>
+                  ))
+                }
+              </tbody>
             </>
-          ))}
-        </tbody>
+          )
+        })}
       </table>
     </article>
   )
 }
 
-
-
+// TODO How to optimize the rerenders here????
 function StampBox({ pid, mid, habit, day }) {
-  const { programs, setPrograms } = useContext(HabitBoardContext)
-
-  console.log("pid, mid, habit, day", pid, mid, habit.id, day[1])
-  const [isStamped, setIsStamped] = useState(habit.daily_stamps.find(stamp => stamp.date == day[1]))
-
-  // TODO WHY IS NOT DELETING ICON ON CLICK TOO???
-  useEffect(() => {
-    // console.log("habit on effect", habit)
-    console.log("isStamped", isStamped)
-    if (!isStamped) setIsStamped(false);
-    if (habit.daily_stamps.find(stamp => stamp.date == day[1])) setIsStamped(true)
-  }, [isStamped])
+  // console.log("pid, mid, habit, day", pid, mid, habit.id, day[1])
+  const { dailies, dispatchDailies } = useContext(HabitBoardContext)
+  const [isStamped, setIsStamped] = useState(Object.values(dailies).find(stamp => stamp.date === day[1] && stamp.member === mid && stamp.habit === habit.id))
+  // console.log("checking existence of stamp", isStamped)
 
   const onStamp = (method) => async (ev) => {
     ev.preventDefault()
@@ -119,31 +86,22 @@ function StampBox({ pid, mid, habit, day }) {
     const res = await fetch(`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}`, { method })
     const dailyStamp = await res.json()
     console.log("what is dailyStamp", dailyStamp)
-    const programDoubles = [...programs]
-    if (dailyStamp.status) {
-      if (dailyStamp.status === "stamped") setIsStamped(true)
-      // programDoubles.find(program => program.id === pid).habits.find(h => h.id === habit.id).daily_stamps.find(s => s.day === day).status = "stamped"
-      // setPrograms(programDoubles)
+
+    if (dailyStamp && dailyStamp.status === "stamped") {
+      dispatchDailies(stampDay(dailyStamp))
+      setIsStamped(dailyStamp)
     } else {
-      // programDoubles.find(program => program.id === pid).habits.find(h => h.id === habit.id).daily_stamps.find(s => s.day === day)
-      // setPrograms(programDoubles)
-      console.log("nothin")
-      setIsStamped(false)
+      setIsStamped(null)
+      dispatchDailies(unstampDay(dailyStamp))
     }
-    console.log("program double!!", programDoubles)
   }
-
-
+// console.log("COLOR HEX?", habit.color.hex)
   if (isStamped) {
     return (
-      <td>
-        <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${String(day.slice(1))}`} onSubmit={onStamp("delete")}>
-          <button type="submit">
-            <img
-              src={`/icons/${habit.stamp.stamp}.svg`}
-              alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
-              style={{ height: "1rem", width: "1rem" }}
-            />
+      <td style={{color: habit.color.hex}}>
+        <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}}`} onSubmit={onStamp("delete")}>
+          <button type="submit" style={{backgroundColor: "rgba(0,0,0,0)", borderWidth: "0"}}>
+            <i className={`fas fa-${habit.stamp.stamp}`} style={{color: habit.color.hex}} ></i>
           </button>
         </form>
       </td>
@@ -151,37 +109,13 @@ function StampBox({ pid, mid, habit, day }) {
 
   } else {
     return (
-      <td>
-        <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${String(day.slice(1))}`} onSubmit={onStamp("post")}>
-          <button type="submit">
-            <span>X</span>
+      <td style={{color: habit.color.hex}}>
+        <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}`} onSubmit={onStamp("post")}>
+          <button type="submit" style={{backgroundColor: "rgba(0,0,0,0)", borderWidth: "0"}}>
+          <i className={`fas fa-times`} style={{color: "rgb(100,100,100,0.5)"}} ></i>
           </button>
         </form>
       </td>
-    )
-  }
-}
-
-function StampBoxMark({ habit, day }) {
-  const [isStamped, setIsStamped] = useState(false)
-
-  useEffect(() => {
-    const foundStamp = habit.daily_stamps.find(stamp => stamp.date == day[1])
-    if (foundStamp) setIsStamped(true)
-    else setIsStamped(false)
-  }, [isStamped])
-
-  if (isStamped) {
-    return (
-      <img
-        src={`/icons/${habit.stamp.stamp}.svg`}
-        alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
-        style={{ height: "1rem", width: "1rem" }}
-      />
-    )
-  } else {
-    return (
-      <span>X</span>
     )
   }
 }

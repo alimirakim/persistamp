@@ -6,6 +6,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from app.utils import dump_data_list
 from datetime import date, timedelta
 import calendar
+from pprint import pprint
 
 user_routes = Blueprint('users', __name__, url_prefix="/users")
 
@@ -38,6 +39,23 @@ def user_details(uid):
     return jsonify(user_data)
 
 
+@user_routes.route("/<int:uid>/options")
+def user_options(uid):
+    """Get the available color and stamp options for a user."""
+    # redeemed_options = Redeemed.query.filter(Redeemed.type == 'color' or Redeemed.type == 'stamp', Redeemed.user_id == uid).all()
+    # redeemed_colors = [o.reward for o in redeemed_options if o.type == 'color']
+    # redeemed_stamps = [s.reward for s in redeemed_options if s.type == 'stamp']
+    # colors = Color.query.filter(Color.color in redeemed_colors).all()
+    # stamps = Stamp.query.filter(Stamp.stamp in redeemed_stamps).all()
+    print("\nPRE COLOR STAMPS")
+    colors = Color.query.all()
+    stamps = Stamp.query.all()
+    # print("\nCOLORS", colors)
+    colors_data = dump_data_list(colors, color_schema)
+    stamps_data = dump_data_list(stamps, stamp_schema)
+    print("\n\nCOLORS, STAMPS", colors_data, stamps_data)
+    
+    return jsonify(colors_data=colors_data, stamps_data=stamps_data)
 
 
 @user_routes.route("/<int:uid>/programs")
@@ -58,13 +76,8 @@ def user_programs(uid):
             joinedload(Program.habits).joinedload(Habit.stamp), \
             joinedload(Program.habits).joinedload(Habit.color)) \
         .all()
-        # .join(DailyStamp) \
     programs_data = dump_data_list(user_programs, program_schema)
-    print("\n\nPROGRAM DATAAAA")
-    print(user_programs)
-    from pprint import pprint
-    pprint(programs_data)
-    
+
     for i in range(len(user_programs)):
         if user_programs[i].members: 
             memberships = [m.id for m in current_user.memberships]
@@ -90,8 +103,25 @@ def user_programs(uid):
                 print("\nno mid probs")
         programs_data[i]["stamp"] = stamp_schema.dump(user_programs[i].stamp)
         programs_data[i]["color"] = color_schema.dump(user_programs[i].color)
+    
+    programs_fin = {}
+    habits_fin = {}
+    dailies_fin = {}
+    for program in programs_data:
+        habits_fin.update({habit["id"]:habit for habit in program["habits"]})
+        program["habits"] = [habit["id"] for habit in program["habits"]]
+        programs_fin.update({program["id"]: program})
+    
+    for habit in habits_fin.values():
+        dailies_fin.update({stamp["id"]:stamp for stamp in habit["daily_stamps"]})
+        habit["daily_stamps"] = [daily["id"] for daily in habit["daily_stamps"]]
         
-    from pprint import pprint
+        
     print("\nPROGRAMS DATA")
-    pprint(programs_data)
-    return jsonify(programs_data=programs_data, past_week=past_week)
+    # pprint(programs_data)
+    print("\nHABITS DATA")
+    # pprint(habits_fin)
+    print("\nDAILIES DATA")
+    # pprint(dailies_fin)
+    
+    return jsonify(programs_data=programs_fin, habits_data=habits_fin, dailies_data=dailies_fin, past_week=past_week)
