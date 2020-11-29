@@ -152,8 +152,30 @@ def getWeeklyGraph(hid, interval, mid):
     jsonData = jsonify(data=newData, habit=habit, ticks=ticks, yDomain=yDomain)
     return jsonData
 
+@habit_routes.route("<int:hid>/calendar/<int:mid>")
+def calendarData(hid, mid):
+# startDate={new Date('2015-11-01')}
+# endDate={new Date('2016-04-01')}
+# values={[
+# { date: '2016-01-01' },
+# { date: '2016-01-22' },
+# { date: '2016-01-30' },
+# // ...and so on
+# ]}
+    current_date = date.today()
+    fiveMonthsAgo = current_date - timedelta(days=150)
+    print("FIVEMONTHSAGO ------------------------------------", fiveMonthsAgo)
+    endDate = current_date.strftime("%Y-%m-%d")
 
+    splitDate = endDate.split("-")
 
+    past_week = [(current_date - timedelta(days=i)) for i in range(7)]
+    past_week_days = [day.strftime('%A')[0:3] for day in past_week]
+    past_week_dates = [date.strftime('%Y-%m-%d') for date in past_week]
+    print('past_week: ', past_week)
+    print('past_week_days: ', past_week_days)
+    print('past_week_dates: ', past_week_dates)
+    return {}
 # TESTED Functions
 @habit_routes.route("/<int:hid>/members/<int:mid>")
 def habit_details(hid, mid):
