@@ -5,14 +5,14 @@ import ReactTooltip from 'react-tooltip';
 import 'react-calendar-heatmap/dist/styles.css';
 import '../styles/layouts.css'
 
-export default function CalendarMap () {
+export default function CalendarMap ({habit}) {
     const [calendarData, setCalendarData] = useState([])
     const { hid, mid } = useParams()
     useEffect(() => {
         (async () => {
             let dataFetch = await fetch(`/api/habits/${hid}/calendar/${mid}`)
             const resObj = await dataFetch.json()
-            console.log("CALENDER RESPONSE", resObj)
+            // console.log("CALENDER RESPONSE", resObj)
             setCalendarData(resObj)
         })()
     }, [])
@@ -26,10 +26,14 @@ export default function CalendarMap () {
             endDate={new Date(calendarData.endDate)}
             values={calendarData.values}
             showWeekdayLabels={true}
-            // showOutOfRangeDays={true}
-            // titleForValue={value => {
-            //     return value
-            // }}
+
+            // classForValue={(value) => {
+            //     if (!value) {
+            //       return 'color-empty';
+            //     }
+            //     return `color-scale-stamped`;
+            //   }}
+            // />
 
             tooltipDataAttrs={value => {
                 if (value.date) {

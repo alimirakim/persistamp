@@ -39,6 +39,10 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
     height: 400px;
 }
 
+.color-scale-stamped {
+    fill: "black"
+}
+
 body {
     margin: 0px;
 }
