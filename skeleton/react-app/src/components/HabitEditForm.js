@@ -64,7 +64,7 @@ if (!colors || !stamps || !stamp) return null
           <AddDescription description={description} setDescription={setDescription} />
           <ChooseFrequency frequency={frequency} setFrequency={setFrequency} />
           <ChooseColor colors={colors} color={color} setColor={setColor} />
-          <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} />
+          <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} color={color} />
           <ActionOrCancelButtons handleClose={handleClose} onAction={onEdit} action={"Save"} />
         </DialogContent>
 

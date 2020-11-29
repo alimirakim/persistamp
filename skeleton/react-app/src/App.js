@@ -14,6 +14,7 @@ import HabitBoardContext from "./context/HabitBoardContext"
 import OptionsContext from './context/OptionsContext'
 import AboutCard from './components/AboutCard'
 import HabitDisplay from './components/HabitDisplay'
+import RewardShop from './components/RewardShop'
 import {
   programsReducer, habitsReducer, dailiesReducer,
   setPrograms, setHabits, setDailies,
@@ -110,12 +111,14 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
-
-              <h1>My Home Page</h1>
               <UserProfileCard />
               <HabitBoard />
             </ProtectedRoute>
-
+            
+            <ProtectedRoute path="/programs/:pid/rewards" exact={true} authenticated={authenticated}>
+              <RewardShop />
+            </ProtectedRoute>
+            
           </OptionsContext.Provider>
         </UserContext.Provider>
       </HabitBoardContext.Provider>
