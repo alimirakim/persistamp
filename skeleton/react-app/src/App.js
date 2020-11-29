@@ -45,9 +45,8 @@ function App() {
   useEffect(() => {
     (async () => {
       const user = await authenticate();
-      console.log("USER", user)
+
       if (!user.errors) {
-        console.log("WHAT THE HELL")
         setAuthenticated(true);
         setUser(user)
         if (!colors) {

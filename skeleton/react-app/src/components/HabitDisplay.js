@@ -4,7 +4,8 @@ import HabitContext from '../context/HabitContext'
 import HabitEditForm from './HabitEditForm'
 import HabitDeleteForm from './HabitDeleteForm'
 import LineGraph from './LineGraph'
-import BarGraph from './BarGraph'
+import CalendarMap from './CalendarMap';
+
 
 export default function HabitDisplay() {
   const { hid, mid } = useParams()
@@ -48,8 +49,8 @@ export default function HabitDisplay() {
           <dd>{habit.description}</dd>
         </dl>
 
-        <LineGraph  mid={mid} />
-        <BarGraph mid={mid} />
+        <LineGraph  mid={mid} habit={habit} />
+        <CalendarMap habit={habit} />
 
       </article>
     </HabitContext.Provider>

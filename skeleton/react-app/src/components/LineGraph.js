@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import UserContext from '../context/UserContext';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Label, Tooltip } from 'recharts';
 
-function LineGraph() {
+function LineGraph({habit}) {
     const [dataPoints, setDataPoints] = useState([])
     const [toggleTime, setToggleTime] = useState("Weekly")
     const [xAxis, setXAxis] = useState("Week")
@@ -17,6 +17,7 @@ function LineGraph() {
             // console.log(typeof(toggleTime))
             const res = await fetch(`/api/habits/${hid}/members/${mid}/graph/${toggleTime}`)
             const resObj = await res.json()
+
             setDataPoints(resObj)
             setToggleTime("Monthly")
         })()
@@ -52,39 +53,19 @@ function LineGraph() {
             </div>
             <button onClick={handleClick}>{toggleTime}</button>
             <LineChart width={700} height={400} data={dataPoints.data} margin={{ bottom: 15, left:25}}>
-                <Line strokeWidth={3}type="monotone" dataKey="stamps" dot={{ strokeWidth: 2}}stroke="#8884d8" />
+                <Line strokeWidth={3}type="monotone" dataKey="stamps" dot={{ strokeWidth: 2}}stroke={habit.color.hex} />
                 <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
 
-                <XAxis dataKey="dates" stroke="#2F4F4F">
-                    <Label value={xAxis} offset={0} position="bottom" />
+                <XAxis dataKey="dates" stroke={habit.color.hex}>
+                    <Label stroke="#ccc" value={xAxis.split("").join(" ")} offset={0} position="bottom" />
                 </XAxis>
-                <YAxis label={{ value:'Stamp Count', angle: -90, position:"left" }}
+                <YAxis label={{ stroke: "#ccc", value:'S t a m p   C o u n t', angle: -90, position:"left" }}
                         domain={dataPoints.yDomain}
                         ticks={dataPoints.ticks}
-                        stroke="#2F4F4F"/>
+                        stroke={habit.color.hex}/>
                 <Tooltip />
             </LineChart>
         </>
-        // <VictoryChart theme={VictoryTheme.material}>
-        //     <VictoryLine
-        //         domain={{
-        //             x:[0, dataPoints.data.length - 1], y:[0, 8]
-        //         }}
-        //         style={{
-        //         data: { stroke: "#c43a31" },
-        //         parent: { border: "1px solid #ccc"}
-        //         }}
-        //         data={dataPoints.data}
-        //     />
-        //     <VictoryAxis
-        //         label="Week"
-        //         style={ { axisLabel: { padding:30 }}}
-        //     />
-        //     <VictoryAxis dependentAxis
-        //         label="Number of Stamps"
-        //         style={ { axisLabel: { padding:30 }}}
-        //     />
-        // </VictoryChart>
     )
 }
 
