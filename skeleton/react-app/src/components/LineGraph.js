@@ -8,14 +8,14 @@ function LineGraph() {
     const [dataPoints, setDataPoints] = useState([])
     const [toggleTime, setToggleTime] = useState("Weekly")
     const [xAxis, setXAxis] = useState("Week")
-    const { hid } = useParams()
+    const { hid, mid } = useParams()
     // const {user} = useContext(UserContext)
 
     useEffect(() => {
         (async () => {
             // console.log("TOGGLE TIME:   ", toggleTime)
             // console.log(typeof(toggleTime))
-            const res = await fetch(`/api/habits/${hid}/graph/${toggleTime}`)
+            const res = await fetch(`/api/habits/${hid}/members/${mid}/graph/${toggleTime}`)
             const resObj = await res.json()
             setDataPoints(resObj)
             setToggleTime("Monthly")
@@ -24,14 +24,14 @@ function LineGraph() {
 
     const handleClick = async (e) => {
         if (toggleTime === "Monthly") {
-            const updateRes = await fetch(`/api/habits/${hid}/graph/${toggleTime}`)
+            const updateRes = await fetch(`/api/habits/${hid}/members/${mid}/graph/${toggleTime}`)
             const newObj = await updateRes.json();
             setDataPoints(newObj)
             setToggleTime("Weekly")
             setXAxis("Month")
             return
         }
-        const updateRes = await fetch(`/api/habits/${hid}/graph/${toggleTime}`)
+        const updateRes = await fetch(`/api/habits/${hid}/members/${mid}/graph/${toggleTime}`)
         const newObj = await updateRes.json();
         setDataPoints(newObj)
         setToggleTime("Monthly")

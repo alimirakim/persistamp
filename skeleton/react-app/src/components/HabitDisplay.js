@@ -48,8 +48,8 @@ export default function HabitDisplay() {
           <dd>{habit.description}</dd>
         </dl>
 
-        <LineGraph  mid={mid}/>
-        <BarGraph />
+        <LineGraph  mid={mid} />
+        <BarGraph mid={mid} />
 
       </article>
     </HabitContext.Provider>

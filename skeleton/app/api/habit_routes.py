@@ -116,9 +116,8 @@ def getWeeklyData(hid):
     return jsonData
 
 
-@habit_routes.route("<int:hid>/graph/<string:interval>")
-def getWeeklyGraph(hid, interval):
-    uid = current_user.id
+@habit_routes.route("<int:hid>/members/<int:mid>/graph/<string:interval>")
+def getWeeklyGraph(hid, mid, interval):
     habitObj = Habit.query.filter(Habit.id == hid).one()
     habit = habit_schema.dump(habitObj)
     current_date = date.today()
@@ -133,7 +132,7 @@ def getWeeklyGraph(hid, interval):
         # print("LAST DATE ---------------------------------", lastDate)
     # daily_stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
         # TODO Member id and user id are two separate things.
-        habitHistory = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date >= lastDate).all()
+        habitHistory = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date >= lastDate).all()
         stamps = [dailystamp_schema.dump(stamp)["date"] for stamp in habitHistory]
 
         monthDict = {month: index for index, month in enumerate(calendar.month_abbr) if month}
@@ -184,7 +183,7 @@ def getWeeklyGraph(hid, interval):
         i += 7
     newAxisLabels = list(reversed(axisLabels))
 
-    daily_stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
+    daily_stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
     stamps = [dailystamp_schema.dump(stamp)["date"] for stamp in daily_stamps]
 
     isStamped = []
