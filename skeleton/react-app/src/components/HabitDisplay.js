@@ -46,7 +46,7 @@ export default function HabitDisplay() {
         </dl>
 
         <LineGraph  mid={mid}/>
-        <BarGraph />
+        {/* <BarGraph /> */}
 
       </article>
     </HabitContext.Provider>

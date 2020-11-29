@@ -4,19 +4,19 @@ import { useParams } from 'react-router-dom'
 import UserContext from '../context/UserContext';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Label, Tooltip } from 'recharts';
 
-function LineGraph() {
+function LineGraph({}) {
     const [dataPoints, setDataPoints] = useState([])
     const [toggleTime, setToggleTime] = useState("Weekly")
     const [xAxis, setXAxis] = useState("Week")
-    const { hid } = useParams()
-    // const user = useContext(UserContext)
+    const { hid, mid } = useParams()
+
 
     useEffect(() => {
         (async () => {
-            // console.log("TOGGLE TIME:   ", toggleTime)
-            // console.log(typeof(toggleTime))
-            const res = await fetch(`/api/habits/${hid}/graph/${toggleTime}`)
+
+            const res = await fetch(`/api/habits/${hid}/graph/${toggleTime}/${mid}`)
             const resObj = await res.json()
+
             setDataPoints(resObj)
             setToggleTime("Monthly")
         })()
@@ -24,14 +24,14 @@ function LineGraph() {
 
     const handleClick = async (e) => {
         if (toggleTime === "Monthly") {
-            const updateRes = await fetch(`/api/habits/${hid}/graph/${toggleTime}`)
+            const updateRes = await fetch(`/api/habits/${hid}/graph/${toggleTime}/${mid}`)
             const newObj = await updateRes.json();
             setDataPoints(newObj)
             setToggleTime("Weekly")
             setXAxis("Month")
             return
         }
-        const updateRes = await fetch(`/api/habits/${hid}/graph/${toggleTime}`)
+        const updateRes = await fetch(`/api/habits/${hid}/graph/${toggleTime}/${mid}`)
         const newObj = await updateRes.json();
         setDataPoints(newObj)
         setToggleTime("Monthly")
@@ -65,26 +65,6 @@ function LineGraph() {
                 <Tooltip />
             </LineChart>
         </>
-        // <VictoryChart theme={VictoryTheme.material}>
-        //     <VictoryLine
-        //         domain={{
-        //             x:[0, dataPoints.data.length - 1], y:[0, 8]
-        //         }}
-        //         style={{
-        //         data: { stroke: "#c43a31" },
-        //         parent: { border: "1px solid #ccc"}
-        //         }}
-        //         data={dataPoints.data}
-        //     />
-        //     <VictoryAxis
-        //         label="Week"
-        //         style={ { axisLabel: { padding:30 }}}
-        //     />
-        //     <VictoryAxis dependentAxis
-        //         label="Number of Stamps"
-        //         style={ { axisLabel: { padding:30 }}}
-        //     />
-        // </VictoryChart>
     )
 }
 
