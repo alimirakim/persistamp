@@ -11,3 +11,15 @@ table, tr, th, td {
   padding: 0.2rem;
   text-align: center;
 }
+
+
+
+
+/* a. Fix item editing - infinity bugs */
+/* b. Feedback for wrong form inputs/disable redeem button if unallowed */
+/* c. Wireframes, logo, favicon */
+/* d. heroku launch */
+
+/* 1. Layouts - grid, flex, display, position, margin/padding, borders */
+/* 2. Theming - colors, fonts, logo/favicon/stamp-texture-effects */
+/* 3. States, hovers, transitions, effects, pop */

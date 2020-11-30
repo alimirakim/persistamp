@@ -5,7 +5,7 @@ import OptionsContext from '../context/OptionsContext'
 import UserContext from '../context/UserContext'
 import HabitBoardContext from '../context/HabitBoardContext'
 import { AddName, AddDescription, ChooseColor, ChooseStamp, ChooseLimit, ChooseQuantity, ChooseCost, ActionOrCancelButtons } from './FormInputs'
-import { setProgramRewards, createReward, deleteReward, setRedeemed, redeemReward, rewardsReducer, redeemedReducer } from '../context/reducers'
+import { setProgramRewards, createReward, editReward, deleteReward, setRedeemed, redeemReward, rewardsReducer, redeemedReducer } from '../context/reducers'
 
 
 export default function RewardShop() {
@@ -26,7 +26,7 @@ export default function RewardShop() {
         dispatchRewards(setProgramRewards(await res.json()))
       })()
     }
-  }, [])
+  }, [rewards])
 
   useEffect(() => {
     if (!redeemed) {
@@ -51,6 +51,7 @@ export default function RewardShop() {
         <ul style={{display: "flex", flexDirection: "column-reverse"}}>
           {Object.values(rewards).map(reward => (
             <li key={reward.id} style={{ color: reward.color.hex }}>
+              <RewardEditForm program={program} reward={reward} dispatchRewards={dispatchRewards} />
               <RewardDeleteForm reward={reward} dispatchRewards={dispatchRewards} />
               <RedeemForm redeemed={redeemed} reward={reward} mid={mid} setPoints={setPoints} dispatchRedeemed={dispatchRedeemed} />
             </li>))}
@@ -101,6 +102,7 @@ function RedeemForm({ redeemed, reward, mid, setPoints, dispatchRedeemed }) {
   return (<>
     <button onClick={handleOpen} style={{ color: reward.color.hex, backgroundColor: "rgba(250,250,250,0.1)", borderRadius: "1rem", borderWidth: 0, width: "100%" }}>
       <h3>{reward.reward}</h3>
+      <blockquote>{reward.description}</blockquote>
       <dl>
         <dt>Limit:</dt>
         <dd>{reward.limit_per_member}</dd>
@@ -166,8 +168,8 @@ export function RewardForm({ program, dispatchRewards, rewards, }) {
       body: JSON.stringify({
         reward: name,
         description,
-        color: parseInt(color),
-        stamp: parseInt(stamp),
+        color,
+        stamp,
         cost,
         limit,
         quantity,
@@ -211,6 +213,73 @@ export function RewardForm({ program, dispatchRewards, rewards, }) {
 }
 
 
+export function RewardEditForm({program, reward, dispatchRewards}) {
+  const { colors, stamps } = useContext(OptionsContext)
+  const [open, setOpen] = useState(false)
+  const [name, setName] = useState(reward.reward)
+  const [description, setDescription] = useState(reward.description)
+  const [color, setColor] = useState(reward.color.id)
+  const [stamp, setStamp] = useState(reward.stamp.id)
+  const [cost, setCost] = useState(reward.cost)
+  const [limit, setLimit] = useState(reward.limit_per_member ? typeof reward.limit_per_member !== "number" : -1)
+  const [quantity, setQuantity] = useState(reward.quantity ? typeof reward.quantity !== "number" : -1)
+  console.log("reward to edit!", name, description, color, stamp, cost, limit, quantity)
+  // console.log("reward to edit!", reward)
+  
+  // if (reward.quantity == "∞") setQuantity(-1) 
+  // if (reward.limit_per_member == "∞") setLimit(-1)
+
+  const handleOpen = (e) => setOpen(true)
+  const handleClose = (e) => setOpen(false)
+
+  const onEdit = async (e) => {
+    e.preventDefault()
+    setOpen(false)
+    if (typeof limit !== "number") setLimit(-1)
+    if (typeof quantity !== "number") setQuantity(-1)
+    const res = await fetch(`/api/rewards/${reward.id}/edit`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        reward: name,
+        description,
+        color,
+        stamp,
+        cost,
+        limit,
+        quantity,
+      })
+    })
+    console.log("REWARD MADE?", res)
+    const reward_data = await res.json()
+    dispatchRewards(editReward(reward_data))
+    console.log("new reward!", reward_data)
+  }
+
+  return (
+    <article>
+      <button onClick={handleOpen} style={{ borderWidth: 0, backgroundColor: "rgba(0,0,0,0", color: "gray" }}><i className={`fas fa-pencil-alt`}></i></button>
+      
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Edit reward "{reward.reward}" for "{program.program}"!</DialogTitle>
+        <DialogContent>
+
+          <AddName name={name} setName={setName} />
+          <AddDescription description={description} setDescription={setDescription} />
+          <ChooseColor colors={colors} color={color} setColor={setColor} />
+          <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} color={color} />
+          <ChooseCost cost={cost} setCost={setCost} />
+          <ChooseLimit limit={limit} setLimit={setLimit} />
+          <ChooseQuantity quantity={quantity} setQuantity={setQuantity} />
+          <ActionOrCancelButtons handleClose={handleClose} onAction={onEdit} action={"Save"} />
+        </DialogContent>
+      </Dialog>
+
+    </article>
+  )
+}
+
+
 export function RewardDeleteForm({ reward, dispatchRewards }) {
   const [open, setOpen] = useState(false)
   const handleOpen = (e) => setOpen(true)
@@ -222,13 +291,13 @@ export function RewardDeleteForm({ reward, dispatchRewards }) {
     const res = await fetch(`/api/rewards/${reward.id}/delete`, {
       method: "DELETE",
     })
-    const result = await res.json()
-    console.log("deleted reward!", result)
   }
 
   return (
     <article>
+    
       <button onClick={handleOpen} style={{ borderWidth: 0, backgroundColor: "rgba(0,0,0,0", color: "gray" }}><i className={`fas fa-trash`}></i></button>
+      
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Delete reward "{reward.reward}" for "{reward.program}"?</DialogTitle>
         <DialogContent>

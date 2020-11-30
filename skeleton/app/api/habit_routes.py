@@ -178,7 +178,8 @@ def calendarData(hid, mid):
 
     jsonData = jsonify(values=values, startDate=startDate, endDate=endDate)
     return jsonData
-# TESTED Functions
+    
+    
 @habit_routes.route("/<int:hid>/members/<int:mid>")
 def habit_details(hid, mid):
     """Get a habit's details, including recent history."""
@@ -205,9 +206,8 @@ def edit_habit(hid):
     """Edit a habit's details by id."""
     form = HabitForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    form['submit'].data = True
 
-    if form.validate_on_submit():
+    if form.validate():
         habit = Habit.query.get(hid)
         habit.habit = form.data['habit']
         habit.description = form.data['description']
@@ -238,15 +238,16 @@ def delete_habit(hid):
 def stamp_day(pid, mid, hid, day):
     """Change the status of a daily_stamp to 'stamped' or 'pending'."""
     print("\n\n\n\n\npid mid hid day", pid, mid, hid, day, request.method)
+    member = Member.query.get(mid)
     # day = date
     if request.method == "POST":
         print("\n\nPOSTING")
+        member = Member.query.get(mid)
         stamp = DailyStamp.query.join(Member.daily_stamps).filter( \
             DailyStamp.habit_id == hid,  \
             DailyStamp.member_id == mid, \
             DailyStamp.date == day) \
             .options(joinedload(DailyStamp.member)).one_or_none()
-        member = Member.query.get(mid)
         print("\nSTAMP", stamp)
         if not stamp:
             if member.member_id == member.stamper_id:
@@ -265,6 +266,8 @@ def stamp_day(pid, mid, hid, day):
             if stamp.status == 'pending' and current_user.id == stamp.member.stamper_id:
                 stamp.status = 'stamped'
         print("\n\nMADE IT to the end!!")
+        if stamp.status == 'stamped':
+            member.points += 1
         db.session.commit()
         return jsonify(dailystamp_schema.dump(stamp))
     elif request.method == "DELETE":
@@ -275,41 +278,18 @@ def stamp_day(pid, mid, hid, day):
             DailyStamp.date == day).one_or_none()
         print("stamp", stamp)
         db.session.delete(stamp)
+        member.points -= 1
         db.session.commit()
+        
         return jsonify("Stampy deleted :C ")
-
-    # get the user id somehow, is it uid?
-    user_id = uid
-    #replace this maybe
-    day = DailyStamp.query.filter(DailyStamp.id == sid)
-    if day.stamper_id: #always false for now
-        if user_id == day.stamper_id:
-            if day.status == 'unstamped' or day.status == 'pending':
-                day.status = 'stamped'
-            elif day.status == 'stamped':
-                day.status = 'unstamped'
-        elif user_id == day.member_id:
-            if day.status == 'unstamped':
-                day.status = 'pending'
-            elif day.status == 'pending':
-                day.status = 'unstamped'
-        return jsonify(dailystamp_schema.dump(day))
-    else:
-        if day.status == 'unstamped' or day.status == 'pending':
-            day.status = 'stamped'
-        elif day.status == 'stamped':
-            day.status = 'unstamped'
-        return jsonify(dailystamp_schema.dump(day))
 
 
 @habit_routes.route("/programs/<int:pid>/create", methods=["POST"])
 def create_habit(pid):
     form = HabitForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    form['submit'].data = True
-    print("\nFORM DATA", form.data)
 
-    if form.validate_on_submit():
+    if form.validate():
         newHabit = Habit(
             habit=form.data['habit'],
             description=form.data['description'],
