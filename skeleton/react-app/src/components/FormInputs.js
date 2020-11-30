@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import {
   Button, TextField, DialogActions, InputLabel, MenuItem, Select
 } from '@material-ui/core'
+import updateUser from '../services/user'
 
 export function ActionOrCancelButtons({ handleClose, onAction, action }) {
   return (
@@ -106,5 +107,21 @@ export function ChooseFrequency({ frequency, setFrequency }) {
       <MenuItem value={6}>6 days</MenuItem>
       <MenuItem value={7}>7 days</MenuItem>
     </Select>
+  </>)
+}
+
+export function SetUsername({ username, setUsername }) {
+  const updateUsername = (e) => setUsername(e.target.value)
+  return (<>
+    <TextField
+      autoFocus
+      defaultValue={username}
+      margin="dense"
+      id="username"
+      label="Username"
+      type="text"
+      fullWidth
+      onChange={updateUsername}
+    />
   </>)
 }

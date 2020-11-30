@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import updateUser from '../services/user';
+import UserContext from '../context/UserContext'
+import OptionsContext from '../context/OptionsContext'
+import { ActionOrCancelButtons, SetUsername, ChooseFrequency, ChooseColor, ChooseStamp } from './FormInputs'
 
-function UserSettings(){
+export default function UserSettings(){
   const [open, setOpen] = React.useState(false);
+  const [color, setColor] = useState(1)
+  const [stamp, setStamp] = useState(3)
   const [username, setUsername] = useState("")
   const user = useContext(UserContext)
+  const { colors, stamps } = useContext(OptionsContext)
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -18,45 +24,25 @@ function UserSettings(){
     setOpen(false);
   }
 
-  const updateUsername = (e) => {
-    setUsername(e.target.value);
-  }
-
   const onUpdate = async (e) => {
     e.preventDefault()
     const updatedUser = updateUser(username)
     console.log(updatedUser)
   }
 
+
+
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Settings
-      </Button>
+      <button onClick={handleClickOpen}>Settings</button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Please fill out the following fields to start your new Habit!</DialogTitle>
+        <DialogTitle id="form-dialog-title">Edit User Settings</DialogTitle>
         <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Username"
-            type="text"
-            fullWidth
-            onChange={updateUsername}
-          />
+          <SetUsername username={username} setUsername={setUsername} />
+          <ChooseColor colors={colors} color={color} setColor={setColor} />
+          <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} />
+          <ActionOrCancelButtons handleClose={handleClose} onAction={onUpdate} action={"Update"} />
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={(e)=>{
-            handleClose()
-            onUpdate(e)
-          }} color="primary">
-            Update
-          </Button>
-        </DialogActions>
       </Dialog>
     </div>
   )
