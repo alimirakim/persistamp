@@ -161,22 +161,62 @@ def calendarData(hid, mid):
     firstDayOfMonth = date(int(splitDate[0]), int(splitDate[1]), 1)
 
     startDate = None
+    startObj = None
     for i in range(6):
         start = firstDayOfMonth - timedelta(days=128-i)
         if start.isoweekday() == 7:
             startDate = start.strftime("%Y-%m-%d")
+            startObj = start
             break
     # print("GETTING SUNDAY============================", startDate)
-
+    stampDates = []
     values = []
     dailystamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date >= startDate, DailyStamp.date <= endDate).all()
     # print("DAILY STAMPS FOR CALENDAR ____________________________", dailystamps)
     for each in dailystamps:
         stampdata = dailystamp_schema.dump(each)
         values.append({ "date": stampdata["date"]})
+        stampDates.append(stampdata["date"])
     # print("VALUES ------------------------", values)
 
-    jsonData = jsonify(values=values, startDate=startDate, endDate=endDate)
+    # print("STAMPDATES---------------------------------------------", stampDates)
+    yLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    xLabels = []
+    yArr = [[] for i in range(len(yLabels))]
+    dateVals = [[] for i in range(len(yLabels))]
+    # print("YARR -------------------------", yArr)
+    yArrIndex = 0
+
+    while startObj <= current_date:
+        if startObj.strftime("%Y-%m-%d") in stampDates:
+            yArr[yArrIndex].append(100)
+            dateVals[yArrIndex].append(startObj.strftime("%d").lstrip("0").replace(" 0", " "))
+        else:
+            yArr[yArrIndex].append(0)
+            dateVals[yArrIndex].append(startObj.strftime("%d").lstrip("0").replace(" 0", " "))
+
+        if yArrIndex == 6:
+            yArrIndex = 0
+            month = startObj.strftime("%b")
+            if month not in xLabels:
+                xLabels.append(month)
+            else:
+                xLabels.append(None)
+            print(startObj.strftime("%b"))
+        else:
+            yArrIndex += 1
+        startObj += timedelta(days=1)
+
+    if startObj.strftime("%b") not in xLabels:
+        xLabels.append(startObj.strftime("%b"))
+
+    # print("DATA ARRAYSSSS----------------------", dateVals)
+
+    jsonData = jsonify(values=values, startDate=startDate, endDate=endDate,
+            xLabels=xLabels,
+            yLabels=yLabels,
+            data=yArr,
+            dateVals=dateVals)
     return jsonData
 # TESTED Functions
 @habit_routes.route("/<int:hid>/members/<int:mid>")
