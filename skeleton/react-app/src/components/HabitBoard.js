@@ -1,76 +1,42 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from 'react-router-dom'
-import useReducer from '../utils'
 import UserContext from '../context/UserContext'
 import HabitBoardContext from "../context/HabitBoardContext"
-import {
-  programsReducer, habitsReducer, dailiesReducer,
-  setPrograms, setHabits, setDailies, createStamp, deleteStamp,
-  stampDay, unstampDay,
-} from "../context/reducers"
+import { stampDay, unstampDay, } from "../context/reducers"
 import HabitForm from './HabitForm'
-import {ProgramForm, ProgramEditForm, ProgramDeleteForm} from './ProgramForm'
+import HabitEditForm from './HabitEditForm'
+import HabitDeleteForm from './HabitDeleteForm'
+import { ProgramForm, ProgramEditForm, ProgramDeleteForm } from './ProgramForm'
 
 export default function HabitBoard() {
-  const user = useContext(UserContext)
-  const [week, setWeek] = useState()
-  const uid = user.id
-
-  const [programs, dispatchPrograms] = useReducer(programsReducer)
-  const [habits, dispatchHabits] = useReducer(habitsReducer)
-  const [dailies, dispatchDailies] = useReducer(dailiesReducer)
-
-  useEffect(() => {
-    (async () => {
-      if (!programs) {
-        console.log("not all")
-        const res = await fetch(`/api/users/${uid}/programs`)
-        const { past_week, programs_data, habits_data, dailies_data } = await res.json()
-        console.log("all of it...", programs_data, habits_data, dailies_data, past_week)
-        setWeek(past_week)
-        if (!programs) dispatchPrograms(setPrograms(programs_data))
-        if (!habits) dispatchHabits(setHabits(habits_data))
-        if (!dailies) dispatchDailies(setDailies(dailies_data))
-      } else {
-        // console.log("ALL OF IT!", programs, habits, dailies, week)
-      }
-
-    })()
-  }, [dailies, habits, programs, uid, week])
-
-  if (!week || !programs || !habits || !dailies) return null
-
-  return (
-    <HabitBoardContext.Provider value={{ programs, dispatchPrograms, habits, dispatchHabits, dailies, dispatchDailies, week }}>
-      {/* TODO Complaining about 'unique key prop' here */}
-      <HabitsEntry />
-    </HabitBoardContext.Provider>
-  )
-}
-
-
-function HabitsEntry() {
+  const { user } = useContext(UserContext)
   const { programs, habits, week, dispatchHabits } = useContext(HabitBoardContext)
-  const user = useContext(UserContext)
+  console.log("user inside habitboard", user)
 
   return (
     <article>
       <h2>Habit Board</h2>
       <ProgramForm />
       <table>
-
         {Object.values(programs).map(program => {
-          const [mid] = program.members.filter(m => user.memberships.includes(m))
+          const [mid] = program.members.filter(m => Object.keys(user.memberships).includes(String(m)))
           return (
             <>
               <thead>
                 <tr key={program.id} style={{ color: program.color.hex }}>
-                  <td>
+                  <td colSpan={8}>
+
                     <ProgramEditForm program={program} />
                     <ProgramDeleteForm program={program} />
-                  </td>
-                  <td colSpan={7}>
-                    <h3><img src={`/icons/${program.stamp.stamp}.svg`} style={{ height: "1rem", width: "1rem" }} alt="" /> {program.program}</h3>
+
+                    <h3>
+                      <i className={`fas fa-${program.stamp.stamp}`}></i> {program.program}
+                    </h3>
+                    <Link to={`/programs/${program.id}/members/${mid}/rewards`}>
+                      <i className={`fas fa-store`} style={{ color: program.color.hex }}></i>
+                    </Link>
+                    <span> Points: {user.memberships[mid].points} <i className={`fas fa-${program.stamp.stamp}`}></i></span>
+                    <blockquote>{program.description}</blockquote>
 
                   </td>
                 </tr>
@@ -89,28 +55,27 @@ function HabitsEntry() {
               </thead>
 
               <tbody>
+               {/* style={{display: "flex", flexDirection: "column-reverse"}}> */}
                 {Object.values(habits)
                   .filter(habit => habit.program === program.id)
                   .map(habit => (<tr key={habit.id} style={{ color: habit.color.hex }}>
-                    <td>
-                      <Link to={`/graphs/${habit.id}/members/${mid}`} style={{ color: `${habit.color.hex}`, textDecoration: "none" }}><img
-                        src={`/icons/${habit.stamp.stamp}.svg`}
-                        alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
-                        style={{ height: "1rem", width: "1rem" }}
-                      />
-                        {habit.habit}
+                    <td style={{ display: "flex" }}>
+                      <HabitEditForm habit={habit} />
+                      <HabitDeleteForm habit={habit} />
+
+                      <Link to={`/graphs/${habit.id}/members/${mid}`} style={{ color: `${habit.color.hex}`, textDecoration: "none" }}>
+                        <i className={`fas fa-${habit.stamp.stamp}`}></i> {habit.habit}
                       </Link>
                     </td>
                     {week.map(day => (
                       <StampBox key={`${program.id}${mid}${habit.id}${day}`} pid={program.id} mid={mid} habit={habit} day={day} />
                     ))}
-                  </tr>
-                  ))
+                  </tr>))
                 }
-                </tbody>
-              </>
-            )
-          })}
+              </tbody>
+            </>
+          )
+        })}
       </table>
     </article>
   )
@@ -138,17 +103,13 @@ function StampBox({ pid, mid, habit, day }) {
       dispatchDailies(unstampDay(dailyStamp))
     }
   }
-
+  // console.log("COLOR HEX?", habit.color.hex)
   if (isStamped) {
     return (
-      <td>
+      <td style={{ color: habit.color.hex }}>
         <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}}`} onSubmit={onStamp("delete")}>
-          <button type="submit">
-            <img
-              src={`/icons/${habit.stamp.stamp}.svg`}
-              alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
-              style={{ height: "1rem", width: "1rem" }}
-            />
+          <button type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
+            <i className={`fas fa-${habit.stamp.stamp}`} style={{ color: habit.color.hex }} ></i>
           </button>
         </form>
       </td>
@@ -156,38 +117,13 @@ function StampBox({ pid, mid, habit, day }) {
 
   } else {
     return (
-      <td>
+      <td style={{ color: habit.color.hex }}>
         <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}`} onSubmit={onStamp("post")}>
-          <button type="submit">
-            <span>X</span>
+          <button type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
+            <i className={`fas fa-times`} style={{ color: "rgb(100,100,100,0.5)" }} ></i>
           </button>
         </form>
       </td>
     )
   }
 }
-
-
-// function StampBoxMark({ habit, day }) {
-//   const [isStamped, setIsStamped] = useState(false)
-
-//   useEffect(() => {
-//     const foundStamp = habit.daily_stamps.find(stamp => stamp.date == day[1])
-//     if (foundStamp) setIsStamped(true)
-//     else setIsStamped(false)
-//   }, [isStamped])
-
-//   if (isStamped) {
-//     return (
-//       <img
-//         src={`/icons/${habit.stamp.stamp}.svg`}
-//         alt={`${habit.stamp.type}: {habit.stamp.stamp}`}
-//         style={{ height: "1rem", width: "1rem" }}
-//       />
-//     )
-//   } else {
-//     return (
-//       <span>X</span>
-//     )
-//   }
-// }

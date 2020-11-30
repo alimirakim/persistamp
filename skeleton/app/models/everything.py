@@ -24,10 +24,10 @@ class Stamp(db.Model):
     habits = db.relationship("Habit", back_populates="stamp")
     rewards = db.relationship("Reward", back_populates="stamp")
 
-    def to_dict(self):
-      return {
-        "stamp": self.stamp
-      }
+    # def to_dict(self):
+    #   return {
+    #     "stamp": self.stamp
+    #   }
 
 
 class Color(db.Model):
@@ -104,9 +104,9 @@ class Program(db.Model):
 
     stamp = db.relationship("Stamp", back_populates="programs")
     color = db.relationship("Color", back_populates="programs")
-    members = db.relationship("Member", back_populates="program")
-    habits = db.relationship("Habit", back_populates="program")
-    rewards = db.relationship("Reward", back_populates="program")
+    members = db.relationship("Member", back_populates="program", cascade="all, delete-orphan")
+    habits = db.relationship("Habit", back_populates="program", cascade="all, delete-orphan")
+    rewards = db.relationship("Reward", back_populates="program")#, cascade="all, delete-orphan")
     creator = db.relationship("User", back_populates="created_programs")
 
 
@@ -143,7 +143,7 @@ class Habit(db.Model):
     color = db.relationship("Color", back_populates="habits")
     program = db.relationship("Program", back_populates="habits")
     creator = db.relationship("User", back_populates="created_habits")
-    daily_stamps = db.relationship("DailyStamp", back_populates="habit")
+    daily_stamps = db.relationship("DailyStamp", back_populates="habit", cascade="all, delete-orphan")
 
     def to_dict(self):
       return {

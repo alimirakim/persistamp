@@ -23,6 +23,10 @@ export const CREATE_REWARD = 'CREATE REWARD'
 export const EDIT_REWARD = 'EDIT_REWARD'
 export const DELETE_REWARD = 'DELETE REWARD'
 
+export const GET_REDEEMED_REWARDS = 'GET REDEEMED REWARDS'
+export const REDEEM_REWARD = 'REDEEM REWARD'
+export const DELETE_REDEEMED = 'DELETE REDEEMED'
+
 
 // ACTION CREATORS
 export const setDailies = (dailies) => ({ type: GET_DAILY_STAMPS, dailies })
@@ -40,22 +44,14 @@ export const createHabit = (habit) => ({ type: CREATE_HABIT, habit })
 export const editHabit = (habit) => ({ type: EDIT_HABIT, habit })
 export const deleteHabit = (habit) => ({ type: DELETE_HABIT, habit })
 
+export const setProgramRewards = (rewards) => ({type: GET_PROGRAM_REWARDS, rewards})
+export const createReward = (reward) => ({type: CREATE_REWARD, reward})
+export const editReward = (reward) => ({type: EDIT_REWARD, reward})
+export const deleteReward = (reward) => ({type: DELETE_REWARD, reward})
 
-// THUNK ACTION CREATORS
-// do it directly
-
-  
-//   const res = await fetch(`/habits/${hid}/programs/${pid}/members/${mid}/days/${day}`, {method: "POST"})
-//   const stamp = await res.json()
-//   dispatch(stampDay(stamp))
-  
-
-
-// export const deleteStamp = ({pid, mid, hid, day}) => async (dispatch) => {
-//   const res = await fetch(`/habits/${hid}/programs/${pid}/members/${mid}/days/${day}`, {method: "DELETE"})
-//   const stamp = await res.json()
-//   dispatch(unstampDay(stamp))
-// }
+export const setRedeemed = (redeemed) => ({type: GET_REDEEMED_REWARDS, redeemed})
+export const redeemReward = (redeemed) => ({type: REDEEM_REWARD, redeemed})
+export const deleteRedeemed = (redeemed) => ({type: DELETE_REWARD, redeemed})
 
 
 // REDUCERS
@@ -114,3 +110,49 @@ export function dailiesReducer(state = {}, action) {
       return state
   }
 }
+
+
+export function rewardsReducer(state={}, action) {
+  const newState = {...state}
+  switch (action.type) {
+    case GET_PROGRAM_REWARDS:
+      return action.rewards
+    case CREATE_REWARD:
+      newState[action.reward.id] = action.reward
+      return newState
+    case EDIT_REWARD:
+      newState[action.reward.id] = action.reward
+      return newState
+    case DELETE_REWARD:
+      delete newState[action.reward.id]
+      return newState
+    default:
+      return state
+  }
+}
+
+
+export function redeemedReducer(state=[], action) {
+  switch (action.type) {
+    case GET_REDEEMED_REWARDS:
+      return action.redeemed
+    case REDEEM_REWARD:
+      return [...state, action.redeemed]
+    case DELETE_REDEEMED:
+      return state.filter(reward => reward.id == action.redeemed.id)
+    default:
+      return state
+  }
+}
+
+
+// export function membershipsReducers(state={}, action) {
+//   const newState = {...state}
+//   switch (action.type) {
+//     case GET_MEMBERSHIPS:
+//       return action.memberships
+//     case CREATE_MEMBERSHIP:
+//       newState[action.membership.id] = action.membership
+//     case 
+//   }
+// }

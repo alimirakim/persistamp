@@ -17,8 +17,8 @@ html body {
     border-radius: 100px;
     background: rgb(0,159,255);
     background: linear-gradient(121deg, rgba(255,255,255,0) 13%, rgba(0,159,255,1) 100%);
-    transition: all 500ms ease-in;
-    transition-delay: 500ms;
+    /* transition: all 50ms ease-in; */
+    /* transition-delay: 50ms; */
     /* margin: auto;
     margin-top: 100px; */
   }
@@ -38,16 +38,16 @@ html body {
     text-overflow: hidden;
     color: white;
     white-space: nowrap;
-    width: 0;
+    /* width: 0; */
     height: auto;
-    transition: all 450ms ease-in;
-    transition-delay: 1s;
+    /* transition: all 450ms ease-in; */
+    /* transition-delay: 1s; */
   }
   .infocardContainer:hover div *{
     display: flex;
     visibility: visible;
-    transition: all 1s ease-out;
-    transition-delay: 500ms;
+    /* transition: all 1s ease-out; */
+    /* transition-delay: 500ms; */
     width: 100%;
     height: auto;
   }

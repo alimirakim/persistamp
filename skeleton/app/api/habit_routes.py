@@ -57,67 +57,11 @@ def current_week(hid, mid):
     stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[6]).all()
     return jsonify(days=past_week_days, dates=past_week_dates, stamps=[dailystamp_schema.dump(stamp) for stamp in stamps])
 
+# fetch(`/api/habits/${hid}/members/${mid}/graph/${toggleTime}`
 
-#get graph data for habit (weekly) - userId, habit_id
-# @habit_routes.route("<int:hid>/data")
-# def getWeeklyData(hid):
-#     print("HID", hid)
-#     uid = 2
-#     print("CURRENT USER", current_user.id)
-#     current_date = date.today()
-#     format_date = current_date.strftime('%Y-%m-%d')
-#     past_fourteen_weeks = [(current_date - timedelta(days=i)) for i in range(98)]
-
-#     past_week_dates = [date.strftime('%Y-%m-%d') for date in past_fourteen_weeks]
-
-#     stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
-#     print("STAMPS", stamps)
-#     print("DAILY STAMP", dailystamp_schema.dump(stamps[0]))
-
-#     dailyStamp_data = [dailystamp_schema.dump(stamp) for stamp in stamps]
-#     jsonData = jsonify(today=format_date, stamp_data=dailyStamp_data)
-#     return jsonData
-
-@habit_routes.route("<int:hid>/linegraph")
-def getWeeklyData(hid):
-    # print("HID", hid)
-    uid = current_user.id
-    # print("CURRENT USER", current_user.id)
-    current_date = date.today()
-    format_date = current_date.strftime('%Y-%m-%d')
-    past_fourteen_weeks = [(current_date - timedelta(days=i)) for i in range(98)]
-    past_week_dates = [date.strftime('%Y-%m-%d') for date in past_fourteen_weeks]
-    # print("DATES", past_week_dates[0])
-    daily_stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
-    stamps = [dailystamp_schema.dump(stamp)["date"] for stamp in daily_stamps]
-    # print("STAMPS LETS GO -------------------------", stamps)
-    isStamped = []
-    for each in past_week_dates:
-        if each in stamps:
-            isStamped.append(True)
-            continue
-        isStamped.append(False)
-    # print("ARRAY FOR STAMPS ------------------------------- ", isStamped)
-    data = []
-    i = 0
-    for week in range(14):
-        count = 0
-        for day in range(7):
-            checkDay = isStamped.pop(-1)
-            if checkDay == True:
-                count += 1
-        obj = {"x": i, "y": count }
-        data.append(obj)
-        i += 1
-    # print("DATA -------------------------------------------------", data)
-
-    jsonData = jsonify(data=data)
-    return jsonData
-
-
-@habit_routes.route("<int:hid>/graph/<string:interval>")
-def getWeeklyGraph(hid, interval):
-    uid = current_user.id
+@habit_routes.route("<int:hid>/members/<int:mid>/graph/<string:interval>")
+def getWeeklyGraph(hid, interval, mid):
+    # uid = current_user.id
     habitObj = Habit.query.filter(Habit.id == hid).one()
     habit = habit_schema.dump(habitObj)
     current_date = date.today()
@@ -128,11 +72,7 @@ def getWeeklyGraph(hid, interval):
         splitDate = currentStrDate.split("-")
         lastYear = int(splitDate[0]) - 1
         lastDate = date(lastYear, int(splitDate[1]), int(splitDate[2]))
-        # print("LAST YEAR ---------------------------------", lastYear)
-        # print("LAST DATE ---------------------------------", lastDate)
-    # daily_stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
-        # TODO Member id and user id are two separate things.
-        habitHistory = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date >= lastDate).all()
+        habitHistory = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date >= lastDate).all()
         stamps = [dailystamp_schema.dump(stamp)["date"] for stamp in habitHistory]
 
         monthDict = {month: index for index, month in enumerate(calendar.month_abbr) if month}
@@ -183,7 +123,7 @@ def getWeeklyGraph(hid, interval):
         i += 7
     newAxisLabels = list(reversed(axisLabels))
 
-    daily_stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == uid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
+    daily_stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
     stamps = [dailystamp_schema.dump(stamp)["date"] for stamp in daily_stamps]
 
     isStamped = []
@@ -211,7 +151,120 @@ def getWeeklyGraph(hid, interval):
     jsonData = jsonify(data=newData, habit=habit, ticks=ticks, yDomain=yDomain)
     return jsonData
 
+@habit_routes.route("<int:hid>/calendar/<int:mid>")
+def calendarData(hid, mid):
+    current_date = date.today()
+    endDate = current_date.strftime("%Y-%m-%d")
 
+    splitDate = endDate.split("-")
+    # firstDayStr = f'{splitDate[0]}-{splitDate[1]}-01'
+    firstDayOfMonth = date(int(splitDate[0]), int(splitDate[1]), 1)
+
+    startDate = None
+    startObj = None
+    for i in range(6):
+        start = firstDayOfMonth - timedelta(days=128-i)
+        if start.isoweekday() == 7:
+            startDate = start.strftime("%Y-%m-%d")
+            startObj = start
+            break
+    # print("GETTING SUNDAY============================", startDate)
+    stampDates = []
+    values = []
+    dailystamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date >= startDate, DailyStamp.date <= endDate).all()
+    # print("DAILY STAMPS FOR CALENDAR ____________________________", dailystamps)
+    for each in dailystamps:
+        stampdata = dailystamp_schema.dump(each)
+        values.append({ "date": stampdata["date"]})
+        stampDates.append(stampdata["date"])
+    # print("VALUES ------------------------", values)
+
+    # print("STAMPDATES---------------------------------------------", stampDates)
+    yLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    xLabels = [None]
+    yArr = [[] for i in range(len(yLabels))]
+    dateVals = [[] for i in range(len(yLabels))]
+    # print("YARR -------------------------", yArr)
+    yArrIndex = 0
+
+    while startObj <= current_date:
+        if startObj.strftime("%Y-%m-%d") in stampDates:
+            yArr[yArrIndex].append(100)
+            dateVals[yArrIndex].append(startObj.strftime("%d").lstrip("0").replace(" 0", " "))
+        else:
+            yArr[yArrIndex].append(0)
+            dateVals[yArrIndex].append(startObj.strftime("%d").lstrip("0").replace(" 0", " "))
+
+        if yArrIndex == 6:
+            yArrIndex = 0
+            month = startObj.strftime("%b")
+            if month not in xLabels:
+                xLabels.append(month)
+            else:
+                xLabels.append(None)
+        else:
+            yArrIndex += 1
+        startObj += timedelta(days=1)
+
+    for array in yArr:
+        if len(yArr[0]) > len(array):
+            array.append(99)
+
+    # print("YARR =--------------------", yArr)
+
+    if xLabels[-1] == None:
+        xLabels.pop(-1)
+        if int(date.today().strftime("%d").lstrip("0").replace(" 0", " ")) < 8:
+            xLabels.append(date.today().strftime("%b"))
+            return
+        xLabels.append(date.today().strftime("%d").lstrip("0").replace(" 0", " "))
+
+    # print("XLABELS SWITCH", xLabels)
+    jsonData = jsonify(values=values, startDate=startDate, endDate=endDate,
+            xLabels=xLabels,
+            yLabels=yLabels,
+            data=yArr,
+            dateVals=dateVals)
+    return jsonData
+
+@habit_routes.route("/<int:hid>/stats/<int:mid>")
+def getHabitStats(hid, mid):
+    habit = habit_schema.dump(Habit.query.filter(Habit.id == hid).one())
+    habitFrequency = habit["frequency"]
+
+    startList = habit["created_at"][0:10].split("-")
+    startDate = date(int(startList[0]), int(startList[1]), int(startList[2]))
+    oneMonthAgo = date.today() - timedelta(days=31)
+    twoMonthsAgo = oneMonthAgo - timedelta(days=31)
+
+    daysOfHabit = (date.today() - startDate).days
+
+    attempts = (int(daysOfHabit) // 7) * int(habitFrequency)
+
+    allStamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid)
+    lastMonthStamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date >= oneMonthAgo.strftime("%Y-%m-%d"))
+    twoMonthsAgoStamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date < oneMonthAgo.strftime("%Y-%m-%d"), DailyStamp.date >= twoMonthsAgo.strftime("%Y-%m-%d"))
+
+    def dumpStamps(stamp):
+        return dailystamp_schema.dump(stamp)
+    stampObjs = list(map(dumpStamps, allStamps))
+    lastMonthObjs = list(map(dumpStamps, lastMonthStamps))
+    twoMonthObjs = list(map(dumpStamps, twoMonthsAgoStamps))
+    total = len(stampObjs)
+    # print("LENGTH---------------", len(lastMonthObjs))
+    # print("TWO LENGTH---------------", len(twoMonthObjs))
+    scoreFraction = f'{total} / {attempts}'
+    score = '{:.1%}'.format(total / attempts)
+    monthTrend = None
+    if len(lastMonthObjs) / len(twoMonthObjs) >= 1:
+        monthTrend = 'increase'
+    else:
+        monthTrend = 'decrease'
+    monthPercentage = '{:.1%}'.format(len(lastMonthObjs) / len(twoMonthObjs))
+
+    # print("MONTH PERCENTAGE", monthPercentage, monthTrend)
+    jsonData = jsonify(total=total, score=score, scoreFraction=scoreFraction, monthPercentage=monthPercentage, monthTrend=monthTrend)
+    return jsonData
 
 # TESTED Functions
 @habit_routes.route("/<int:hid>/members/<int:mid>")
@@ -235,63 +288,40 @@ def habit_details(hid, mid):
     return jsonify(habit_data)
 
 
-# TESTED Functions. Should the route just be / and just pass in program id?
-# @habit_routes.route("/programs/<int:pid>", methods=["POST"])
-# def create_habit(pid):
-#     """Create a new habit for a program."""
-#     data = request.json
-#     habit = Habit(habit=data["habit"],
-#                   program_id=pid,
-#                   creator_id=data["creator_id"],)
-#     if "description" in data.keys():
-#         habit.description = data["description"]
-#     if "frequency" in data.keys():
-#         habit.frequency = data["frequency"]
-#     if "color" in data.keys():
-#         habit.color = data["color"]
-#     if "stamp_id" in data.keys():
-#         habit.stamp_id = data["stamp_id"]
-
-#     db.session.add(habit)
-#     db.session.commit()
-#     return jsonify(habit_schema.dump(habit))
-
-
-# TESTED Functions.
-@habit_routes.route("/<int:hid>", methods=["PATCH"])
+@habit_routes.route("/edit/<int:hid>", methods=["PATCH"])
 def edit_habit(hid):
     """Edit a habit's details by id."""
-    data = request.json
-    habit = Habit.query.filter(Habit.id == hid).one()
-    if "habit" in data.keys():
-        habit.habit = data["habit"]
-    if "description" in data.keys():
-        habit.description = data["description"]
-    if "frequency" in data.keys():
-        habit.frequency = data["frequency"]
-    if "color" in data.keys():
-        habit.color = data["color"]
-    if "stamp_id" in data.keys():
-        habit.stamp_id = data["stamp_id"]
-    db.session.commit()
-    return jsonify(habit_schema.dump(habit))
+    form = HabitForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    form['submit'].data = True
+
+    if form.validate_on_submit():
+        habit = Habit.query.get(hid)
+        habit.habit = form.data['habit']
+        habit.description = form.data['description']
+        habit.frequency = form.data['frequency']
+        habit.color_id = form.data['color']
+        habit.stamp_id = form.data['stamp']
+        db.session.commit()
+        print("\nEDITED", habit)
+
+        habit_data = habit_schema.dump(habit)
+        habit_data["color"] = color_schema.dump(habit.color)
+        habit_data["stamp"] = stamp_schema.dump(habit.stamp)
+        print("\nEDITTED HABIT DUMP", habit_data)
+        return jsonify(habit_data)
+    return "Habit-edit fail :["
 
 
-# TESTED Functions
-@habit_routes.route("/<int:hid>", methods=["DELETE"])
+@habit_routes.route("/delete/<int:hid>", methods=["DELETE"])
 def delete_habit(hid):
     """Delete a habit by id."""
-    habit = Habit.query.filter(Habit.id == hid).one()
+    habit = Habit.query.get(hid)
     db.session.delete(habit)
     db.session.commit()
     return "Habit is donezo~!"
 
 
-# How to get the date/daily stamp through params?
-# Get the stamper for the daily stamp's member
-# If no stamper, just toggle the status.
-# If stamper, check stamper id from params. If it's the member, NOT stamper,
-# change to pending. If it IS the stamper, change to checked or unchecked.
 @habit_routes.route("/<int:hid>/programs/<int:pid>/members/<int:mid>/days/<day>", methods=["delete", "post"])
 def stamp_day(pid, mid, hid, day):
     """Change the status of a daily_stamp to 'stamped' or 'pending'."""
@@ -368,7 +398,6 @@ def create_habit(pid):
     print("\nFORM DATA", form.data)
 
     if form.validate_on_submit():
-        print("i made it!!!!!!")
         newHabit = Habit(
             habit=form.data['habit'],
             description=form.data['description'],

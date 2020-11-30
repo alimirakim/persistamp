@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import '../styles/layouts.css';
@@ -7,7 +7,7 @@ import LogoutIcon from './auth/LogoutButton';
 
 
 const NavBar = ({ authenticated, setAuthenticated }) => {
-  const user = useContext(UserContext);
+  const {user} = useContext(UserContext);
 
   if (!authenticated) {
     return (
@@ -15,9 +15,9 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
       <nav>
         <div className="NavBarContainer">
           <div>
-            <a href='/login' className="NavBarLogo">
+            <NavLink to='/login' className="NavBarLogo">
               Persistamp (for now)
-            </a>
+            </NavLink>
           </div>
           <div>
             <NavLink to="/login" exact={true} className="NavBarItem" activeClassName="active">
@@ -44,9 +44,9 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
       <nav>
         <div className="NavBarContainer">
           <div>
-            <a href="/" className="NavBarLogo">
-              Persistamp (for now)
-            </a>
+            <NavLink to="/" className="NavBarLogo">
+              Persistamp (4evah)
+            </NavLink>
           </div>
           <div>
             <NavLink to="/users" exact={true} className="NavBarItem" activeClassName="active">
