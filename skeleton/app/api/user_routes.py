@@ -125,3 +125,9 @@ def user_programs(uid):
     # pprint(dailies_fin)
     
     return jsonify(programs_data=programs_fin, habits_data=habits_fin, dailies_data=dailies_fin, past_week=past_week)
+
+# @user_routesroute("/settings", methods=['PUT'])
+# @login_required
+# def update_user:
+#     user = User.query.filter(User.id == current_user.id).one()
+

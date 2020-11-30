@@ -60,7 +60,7 @@ function HabitForm({ pid, program }) {
           <AddDescription description={description} setDescription={setDescription} />
           <ChooseFrequency frequency={frequency} setFrequency={setFrequency} />
           <ChooseColor colors={colors} color={color} setColor={setColor} />
-          <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} />
+          <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} color={color} />
           <ActionOrCancelButtons handleClose={handleClose} onAction={onCreate} action={"Create"} />
         </DialogContent>
 

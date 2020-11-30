@@ -14,6 +14,7 @@ import HabitBoardContext from "./context/HabitBoardContext"
 import OptionsContext from './context/OptionsContext'
 import AboutCard from './components/AboutCard'
 import HabitDisplay from './components/HabitDisplay'
+import RewardShop from './components/RewardShop'
 import {
   programsReducer, habitsReducer, dailiesReducer,
   setPrograms, setHabits, setDailies,
@@ -59,7 +60,7 @@ function App() {
           console.log("not all")
           const res = await fetch(`/api/users/${user.id}/programs`)
           const { past_week, programs_data, habits_data, dailies_data } = await res.json()
-          console.log("all of it...", programs_data, habits_data, dailies_data, past_week)
+          // console.log("all of it...", programs_data, habits_data, dailies_data, past_week)
           setWeek(past_week)
           if (!programs) dispatchPrograms(setPrograms(programs_data))
           if (!habits) dispatchHabits(setHabits(habits_data))
@@ -75,27 +76,28 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar authenticated={authenticated} setAuthenticated={setAuthenticated} />
-      <Route path="/login" exact={true}>
-        <LoginForm
-          authenticated={authenticated}
-          setAuthenticated={setAuthenticated}
-        />
-      </Route>
-      <Route path="/sign-up" exact={true}>
-        <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
-      </Route>
       <HabitBoardContext.Provider value={{ programs, dispatchPrograms, habits, dispatchHabits, dailies, dispatchDailies, week }}>
-
-        <Route path="/about" exact={true}>
-          <>
-            <h1>About Us</h1>
-            <AboutCard />
-          </>
-        </Route>
-
         <UserContext.Provider value={{ user, setUser }}>
           <OptionsContext.Provider value={{ colors, stamps }}>
+          
+            <NavBar authenticated={authenticated} setAuthenticated={setAuthenticated} />
+            <Route path="/login" exact={true}>
+              <LoginForm
+                authenticated={authenticated}
+                setAuthenticated={setAuthenticated}
+              />
+            </Route>
+            <Route path="/sign-up" exact={true}>
+              <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
+            </Route>
+
+            <Route path="/about" exact={true}>
+              <>
+                <h1>About Us</h1>
+                <AboutCard />
+              </>
+            </Route>
+
 
             <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
               <UsersList />
@@ -109,16 +111,18 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
-
-              <h1>My Home Page</h1>
               <UserProfileCard />
               <HabitBoard />
+            </ProtectedRoute>
+
+            <ProtectedRoute path="/programs/:pid/members/:mid/rewards" exact={true} authenticated={authenticated}>
+              <RewardShop />
             </ProtectedRoute>
 
           </OptionsContext.Provider>
         </UserContext.Provider>
       </HabitBoardContext.Provider>
-
+      
     </BrowserRouter>
   );
 }
