@@ -27,14 +27,11 @@ export default function HabitDisplay() {
     <HabitContext.Provider value={habit}>
       <article style={{ color: habit.color.hex }}>
         <Link to={`/`}>
-          <img
-            src={`/icons/chevron-circle-left.svg`}
-            style={{ height: "1rem", width: "1rem" }}
-            alt={"Return to Habits"}
-          />
+        <i className={`fas fa-chevron-circle-left`} style={{color: habit.color.hex}}></i>
         </Link>
+        <br/>
 
-        <h1><img src={`/icons/${habit.stamp.stamp}.svg`} alt={`${habit.stamp.stamp}`} style={{ height: "1em", width: "1em" }} /> {habit.habit}</h1>
+        <h1 className={`fas fa-${habit.stamp.stamp}`}> {habit.habit}</h1>
 
         <h2>Details</h2>
         <dl>

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Dialog, DialogTitle, DialogContent } from '@material-ui/core'
+import { Dialog, DialogTitle, DialogContent, InputLabel } from '@material-ui/core'
 import UserContext from '../context/UserContext'
 import HabitBoardContext from '../context/HabitBoardContext'
 import OptionsContext from '../context/OptionsContext'
@@ -59,7 +59,7 @@ export function ProgramForm() {
         <AddName name={name} setName={setName} />
         <AddDescription description={description} setDescription={setDescription} />
         <ChooseColor colors={colors} color={color} setColor={setColor} />
-        <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} />
+        <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} color={color} />
         <ActionOrCancelButtons handleClose={handleClose} onAction={onCreate} action={"Create"} />
 
       </DialogContent>
@@ -114,7 +114,7 @@ export function ProgramEditForm({ program }) {
         <AddName name={name} setName={setName} />
         <AddDescription description={description} setDescription={setDescription} />
         <ChooseColor colors={colors} color={color} setColor={setColor} />
-        <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} />
+        <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} color={color} />
         <ActionOrCancelButtons handleClose={handleClose} onAction={onEdit} action={"Save"} />
 
       </DialogContent>

@@ -288,7 +288,6 @@ def habit_details(hid, mid):
     return jsonify(habit_data)
 
 
-# TESTED Functions.
 @habit_routes.route("/edit/<int:hid>", methods=["PATCH"])
 def edit_habit(hid):
     """Edit a habit's details by id."""
@@ -314,11 +313,9 @@ def edit_habit(hid):
     return "Habit-edit fail :["
 
 
-# TESTED Functions
 @habit_routes.route("/delete/<int:hid>", methods=["DELETE"])
 def delete_habit(hid):
     """Delete a habit by id."""
-
     habit = Habit.query.get(hid)
     db.session.delete(habit)
     db.session.commit()
@@ -401,7 +398,6 @@ def create_habit(pid):
     print("\nFORM DATA", form.data)
 
     if form.validate_on_submit():
-        print("i made it!!!!!!")
         newHabit = Habit(
             habit=form.data['habit'],
             description=form.data['description'],

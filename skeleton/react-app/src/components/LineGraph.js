@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom'
 // import { VictoryLine, VictoryChart, VictoryAxis, VictoryTheme } from 'victory';
 import UserContext from '../context/UserContext';
@@ -24,24 +24,24 @@ function LineGraph({habit}) {
         })()
     }, [])
 
-    const handleClick = async (e) => {
-        if (toggleTime === "Monthly") {
-            const updateRes = await fetch(`/api/habits/${hid}/members/${mid}/graph/${toggleTime}`)
-            const newObj = await updateRes.json();
-            setDataPoints(newObj)
-            setToggleTime("Weekly")
-            setXAxis("Month")
-            return
-        }
-        const updateRes = await fetch(`/api/habits/${hid}/members/${mid}/graph/${toggleTime}`)
-        const newObj = await updateRes.json();
-        setDataPoints(newObj)
-        setToggleTime("Monthly")
-        setXAxis("Week")
-        return
+  const handleClick = async (e) => {
+    if (toggleTime === "Monthly") {
+      const updateRes = await fetch(`/api/habits/${hid}/members/${mid}/graph/${toggleTime}`)
+      const newObj = await updateRes.json();
+      setDataPoints(newObj)
+      setToggleTime("Weekly")
+      setXAxis("Month")
+      return
     }
+    const updateRes = await fetch(`/api/habits/${hid}/members/${mid}/graph/${toggleTime}`)
+    const newObj = await updateRes.json();
+    setDataPoints(newObj)
+    setToggleTime("Monthly")
+    setXAxis("Week")
+    return
+  }
 
-    if (!dataPoints.data) return null;
+  if (!dataPoints.data) return null;
 
     return (
         <>
