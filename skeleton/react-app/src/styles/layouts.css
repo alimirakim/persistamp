@@ -54,6 +54,11 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
     color: "#ccc"
 }
 
+.statGroup {
+    width: 650px;
+    margin: 25px;
+}
+
 .color-scale-stamped {
     fill: "black"
 }

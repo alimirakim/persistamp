@@ -45,13 +45,13 @@ function LineGraph({habit}) {
 
     return (
         <>
-            <div className="habitDetail">
+            {/* <div className="habitDetail">
                 <ul>
                     <li>Habit: {dataPoints.habit.habit}</li>
                     <li>Description: {dataPoints.habit.description}</li>
                     <li>Created: {dataPoints.habit.created_at}</li>
                 </ul>
-            </div>
+            </div> */}
             <div className="lineGraphContainer">
                 <h3 style={{color:"#ccc", fontFamily:"Arial"}}>Line Graph</h3>
                 <button onClick={handleClick}>{toggleTime}</button>

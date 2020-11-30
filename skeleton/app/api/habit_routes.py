@@ -206,14 +206,11 @@ def calendarData(hid, mid):
             yArrIndex += 1
         startObj += timedelta(days=1)
 
-    # if startObj.strftime("%b") not in xLabels:
-    #     xLabels.append(startObj.strftime("%b"))
-
     for array in yArr:
         if len(yArr[0]) > len(array):
             array.append(99)
 
-    print("YARR =--------------------", yArr)
+    # print("YARR =--------------------", yArr)
 
     if xLabels[-1] == None:
         xLabels.pop(-1)
@@ -222,13 +219,53 @@ def calendarData(hid, mid):
             return
         xLabels.append(date.today().strftime("%d").lstrip("0").replace(" 0", " "))
 
-    print("XLABELS SWITCH", xLabels)
+    # print("XLABELS SWITCH", xLabels)
     jsonData = jsonify(values=values, startDate=startDate, endDate=endDate,
             xLabels=xLabels,
             yLabels=yLabels,
             data=yArr,
             dateVals=dateVals)
     return jsonData
+
+@habit_routes.route("/<int:hid>/stats/<int:mid>")
+def getHabitStats(hid, mid):
+    habit = habit_schema.dump(Habit.query.filter(Habit.id == hid).one())
+    habitFrequency = habit["frequency"]
+
+    startList = habit["created_at"][0:10].split("-")
+    startDate = date(int(startList[0]), int(startList[1]), int(startList[2]))
+    oneMonthAgo = date.today() - timedelta(days=31)
+    twoMonthsAgo = oneMonthAgo - timedelta(days=31)
+
+    daysOfHabit = (date.today() - startDate).days
+
+    attempts = (int(daysOfHabit) // 7) * int(habitFrequency)
+
+    allStamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid)
+    lastMonthStamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date >= oneMonthAgo.strftime("%Y-%m-%d"))
+    twoMonthsAgoStamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date < oneMonthAgo.strftime("%Y-%m-%d"), DailyStamp.date >= twoMonthsAgo.strftime("%Y-%m-%d"))
+
+    def dumpStamps(stamp):
+        return dailystamp_schema.dump(stamp)
+    stampObjs = list(map(dumpStamps, allStamps))
+    lastMonthObjs = list(map(dumpStamps, lastMonthStamps))
+    twoMonthObjs = list(map(dumpStamps, twoMonthsAgoStamps))
+    total = len(stampObjs)
+    # print("LENGTH---------------", len(lastMonthObjs))
+    # print("TWO LENGTH---------------", len(twoMonthObjs))
+    scoreFraction = f'{total} / {attempts}'
+    score = '{:.1%}'.format(total / attempts)
+    monthTrend = None
+    if len(lastMonthObjs) / len(twoMonthObjs) >= 1:
+        monthTrend = 'increase'
+    else:
+        monthTrend = 'decrease'
+    monthPercentage = '{:.1%}'.format(len(lastMonthObjs) / len(twoMonthObjs))
+
+    # print("MONTH PERCENTAGE", monthPercentage, monthTrend)
+    jsonData = jsonify(total=total, score=score, scoreFraction=scoreFraction, monthPercentage=monthPercentage, monthTrend=monthTrend)
+    return jsonData
+
 # TESTED Functions
 @habit_routes.route("/<int:hid>/members/<int:mid>")
 def habit_details(hid, mid):
