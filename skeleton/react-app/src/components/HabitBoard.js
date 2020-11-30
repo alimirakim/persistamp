@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link } from 'react-router-dom'
 import UserContext from '../context/UserContext'
 import HabitBoardContext from "../context/HabitBoardContext"
-import { stampDay, unstampDay, } from "../context/reducers"
+import { stampDay, unstampDay, setDailies } from "../context/reducers"
 import HabitForm from './HabitForm'
 import HabitEditForm from './HabitEditForm'
 import HabitDeleteForm from './HabitDeleteForm'
@@ -106,7 +106,7 @@ function StampBox({ pid, mid, habit, day }) {
   const checkCompleted = () => {
     const frequency = habit.frequency
     const stamps = Object.values(dailies).filter(stamp => stamp.member === mid && stamp.habit === habit.id)
-    console.log("stamps: ", stamps)
+    console.log("Stamps: ", stamps)
     console.log("frequency: ", frequency)
     if(stamps.length >= frequency){
       return true
