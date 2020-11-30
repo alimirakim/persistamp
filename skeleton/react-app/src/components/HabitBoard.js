@@ -85,6 +85,7 @@ export default function HabitBoard() {
 function StampBox({ pid, mid, habit, day }) {
   const { dailies, dispatchDailies } = useContext(HabitBoardContext)
   const [isStamped, setIsStamped] = useState(Object.values(dailies).find(stamp => stamp.date === day[1] && stamp.member === mid && stamp.habit === habit.id))
+  
 
   const onStamp = (method) => async (ev) => {
     ev.preventDefault()
@@ -102,6 +103,17 @@ function StampBox({ pid, mid, habit, day }) {
     }
   }
 
+  const checkCompleted = () => {
+    const frequency = habit.frequency
+    const stamps = Object.values(dailies).filter(stamp => stamp.member === mid && stamp.habit === habit.id)
+    console.log("stamps: ", stamps)
+    console.log("frequency: ", frequency)
+    if(stamps.length >= frequency){
+      return true
+    }
+    return false;
+  }
+
   if (isStamped) {
     return (
       <td style={{ color: habit.color.hex }}>
@@ -114,14 +126,26 @@ function StampBox({ pid, mid, habit, day }) {
     )
 
   } else {
-    return (
-      <td style={{ color: habit.color.hex }}>
-        <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}`} onSubmit={onStamp("post")}>
-          <button type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
-            <i className={`fas fa-times`} style={{ color: "rgb(100,100,100,0.5)" }} ></i>
-          </button>
-        </form>
-      </td>
-    )
+    if(checkCompleted()){
+      return (
+        <td style={{ color: habit.color.hex }}>
+          <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}`} onSubmit={onStamp("post")}>
+            <button type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
+              <i className={`fas fa-${habit.stamp.stamp}`} style={{ color: "rgb(100,100,100,0.5)" }} ></i>
+            </button>
+          </form>
+        </td>
+      )
+    }else{
+      return (
+        <td style={{ color: habit.color.hex }}>
+          <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}`} onSubmit={onStamp("post")}>
+            <button type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
+              <i className={`fas fa-times`} style={{ color: "rgb(100,100,100,0.5)" }} ></i>
+            </button>
+          </form>
+        </td>
+      )
+    }
   }
 }
