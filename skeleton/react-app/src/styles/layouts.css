@@ -33,6 +33,14 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
     font-family: Arial, Helvetica, sans-serif;
     color: black;
 }
+
+.lineGraphLabels {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.lineGraphContainer {
+    margin: 25px;
+}
 .heatMapContainer {
     margin: 30px;
 }
