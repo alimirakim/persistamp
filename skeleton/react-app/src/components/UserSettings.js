@@ -27,7 +27,7 @@ export default function UserSettings(){
 
   const onUpdate = async (e) => {
     e.preventDefault()
-    const updatedUser = updateUser(username, color, stamp)
+    const updatedUser = updateUser(username, firstname, lastname, color, stamp)
     console.log(updatedUser)
   }
 

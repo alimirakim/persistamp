@@ -1,4 +1,4 @@
-export const updateUser = async (username, color, stamp) => {
+export const updateUser = async (username, firstname, lastname, color, stamp) => {
   const response = await fetch("/api/users/settings", {
     method: "PUT",
     headers: {
@@ -6,6 +6,8 @@ export const updateUser = async (username, color, stamp) => {
     },
     body: JSON.stringify({
       username: username,
+      firstname: firstname,
+      lastname: lastname,
       color: color,
       stamp: stamp,
     }),
