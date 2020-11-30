@@ -239,7 +239,7 @@ def getHabitStats(hid, mid):
 
     daysOfHabit = (date.today() - startDate).days
 
-    attempts = (int(daysOfHabit) // 7) * int(habitFrequency)
+    attempts = (int(daysOfHabit) // 7) * int(habitFrequency) + int(habitFrequency)
 
     allStamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid)
     lastMonthStamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date >= oneMonthAgo.strftime("%Y-%m-%d"))
@@ -254,13 +254,23 @@ def getHabitStats(hid, mid):
     # print("LENGTH---------------", len(lastMonthObjs))
     # print("TWO LENGTH---------------", len(twoMonthObjs))
     scoreFraction = f'{total} / {attempts}'
+
     score = '{:.1%}'.format(total / attempts)
+
     monthTrend = None
-    if len(lastMonthObjs) / len(twoMonthObjs) >= 1:
+    monthPercentage = None
+    print("DAYS OF HABIT:    ", daysOfHabit)
+    if daysOfHabit <= 31:
+        monthTrend = "increase"
+        monthPercentage = "n/a"
+    elif len(lastMonthObjs) / len(twoMonthObjs) >= 1:
         monthTrend = 'increase'
+        monthPercentage = '{:.1%}'.format(len(lastMonthObjs) / len(twoMonthObjs))
     else:
         monthTrend = 'decrease'
-    monthPercentage = '{:.1%}'.format(len(lastMonthObjs) / len(twoMonthObjs))
+        monthPercentage = '{:.1%}'.format(len(lastMonthObjs) / len(twoMonthObjs))
+
+
 
     # print("MONTH PERCENTAGE", monthPercentage, monthTrend)
     jsonData = jsonify(total=total, score=score, scoreFraction=scoreFraction, monthPercentage=monthPercentage, monthTrend=monthTrend)
@@ -367,7 +377,7 @@ def stamp_day(pid, mid, hid, day):
         db.session.delete(stamp)
         member.points -= 1
         db.session.commit()
-        
+
         return jsonify("Stampy deleted :C ")
 
 
