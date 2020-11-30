@@ -1,8 +1,9 @@
-import React, { useState, useContext } from 'react'
+import React from 'react'
 import {
   Button, TextField, DialogActions, InputLabel, MenuItem, Select
 } from '@material-ui/core'
 import updateUser from '../services/user'
+
 
 export function ActionOrCancelButtons({ handleClose, onAction, action }) {
   return (
@@ -57,7 +58,7 @@ export function ChooseColor({ colors, color, setColor }) {
   const updateColor = (e) => setColor(parseInt(e.target.value))
   console.log("EDIT COLOR DEFAULT?", color)
   return (<>
-    <InputLabel id="color">Color</InputLabel>
+    <InputLabel>Color</InputLabel>
     <Select
       onChange={updateColor}
       labelId="color"
@@ -76,7 +77,7 @@ export function ChooseStamp({ stamps, stamp, setStamp, color }) {
   console.log("TODO set color of options to match chosen color", color)
   const updateStamp = (e) => setStamp(Number(e.target.value))
   return (<>
-    <InputLabel id="stamp">Stamp</InputLabel>
+    <InputLabel>Stamp</InputLabel>
     <Select onChange={updateStamp} labelId="stamp" defaultValue={stamp}>
       {stamps.map((stamp) => (
         <MenuItem key={stamp.id} value={stamp.id} style={{color: color}}>
@@ -94,8 +95,7 @@ export function ChooseFrequency({ frequency, setFrequency }) {
   const updateFrequency = (e) => setFrequency(e.target.value)
 
   return (<>
-    <InputLabel id="frequency" > Frequency</InputLabel>
-    <Select onChange={updateFrequency} labelId="frequency" defaultValue={frequency}>
+    <Select onChange={updateFrequency} label="frequency" defaultValue={frequency}>
       <MenuItem value={1}>1 days</MenuItem>
       <MenuItem value={2}>2 days</MenuItem>
       <MenuItem value={3}>3 days</MenuItem>
@@ -128,7 +128,7 @@ export function ChooseLimit({ limit, setLimit }) {
 
   return (<>
     {/* <InputLabel id="limit">Limit per Member</InputLabel> */}
-    <TextField label="Limit per member" type="number" defaultValue={-1} onChange={updateLimit} />
+    <TextField label="Limit per member" type="number" defaultValue={limit} onChange={updateLimit} />
   </>)
 }
 
@@ -137,8 +137,7 @@ export function ChooseQuantity({quantity, setQuantity}) {
   const updateQuantity = (e) => setQuantity(e.target.value)
 
   return (<>
-    <InputLabel id="quantity">Total Quantity</InputLabel>
-    <TextField label="Total quantity" type="number" defaultValue={-1} onChange={updateQuantity} />
+    <TextField label="Total quantity" type="number" defaultValue={quantity} onChange={updateQuantity} />
   </>)
 }
 
@@ -147,7 +146,6 @@ export function ChooseCost({cost, setCost}) {
   const updateCost = (e) => setCost(e.target.value)
   
   return (<>
-  <InputLabel id="cost">Cost</InputLabel>
-  <TextField label="Cost" type="number" defaultValue={7} onChange={updateCost} />
+  <TextField label="Cost" type="number" defaultValue={cost} onChange={updateCost} />
   </>)
 }

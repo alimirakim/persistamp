@@ -83,10 +83,8 @@ export default function HabitBoard() {
 
 // TODO How to optimize the rerenders here????
 function StampBox({ pid, mid, habit, day }) {
-  // console.log("pid, mid, habit, day", pid, mid, habit.id, day[1])
   const { dailies, dispatchDailies } = useContext(HabitBoardContext)
   const [isStamped, setIsStamped] = useState(Object.values(dailies).find(stamp => stamp.date === day[1] && stamp.member === mid && stamp.habit === habit.id))
-  // console.log("checking existence of stamp", isStamped)
 
   const onStamp = (method) => async (ev) => {
     ev.preventDefault()
@@ -103,7 +101,7 @@ function StampBox({ pid, mid, habit, day }) {
       dispatchDailies(unstampDay(dailyStamp))
     }
   }
-  // console.log("COLOR HEX?", habit.color.hex)
+
   if (isStamped) {
     return (
       <td style={{ color: habit.color.hex }}>

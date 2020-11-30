@@ -131,7 +131,7 @@ class Habit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     habit = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(250))
-    frequency = db.Column(db.String(7), nullable=False, default="ttttttt")
+    frequency = db.Column(db.String(7), nullable=False, default="7")
     color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)
     stamp_id = db.Column(db.Integer, db.ForeignKey("stamps.id"), nullable=False, default=default_stamps["habit"])
     program_id = db.Column(db.Integer, db.ForeignKey("programs.id"))

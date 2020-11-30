@@ -22,9 +22,8 @@ def create_program():
     """Create a new program."""
     form = ProgramForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    form['submit'].data = True
-    print("\n\nform", form, form.data)
-    if form.validate_on_submit():
+
+    if form.validate():
         program = Program(
             program=form.data['program'],
             description=form.data['description'],
@@ -59,9 +58,8 @@ def edit_program(pid):
     """Edit a program's details."""
     form = ProgramForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    form['submit'].data = True
     
-    if form.validate_on_submit():
+    if form.validate():
         program = Program.query.options(joinedload(Program.color), joinedload(Program.stamp), joinedload(Program.creator)).get(pid)
         program.program = form.data['program']
         program.description = form.data['description']

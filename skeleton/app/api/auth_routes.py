@@ -4,7 +4,9 @@ from flask_login import current_user, login_user, logout_user, login_required
 from http import cookies
 from app.models import db, User, Program, Member
 from app.forms import LoginForm, SignUpForm
-from app.schemas import user_schema, color_schema, stamp_schema
+from app.schemas import user_schema, color_schema, stamp_schema, member_schema
+from app.utils import dump_data_list
+from pprint import pprint
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -23,15 +25,20 @@ def validation_errors_to_error_messages(validation_errors):
 @auth_routes.route('/')
 def authenticate():
     """Authenticates a user"""
-    user = User.query.options(joinedload(User.color), joinedload(User.stamp)).get(current_user.id)
+    user = User.query.options( \
+      joinedload(User.color), \
+      joinedload(User.stamp), \
+      joinedload(User.memberships), \
+      ).get(current_user.id)
     if user.is_authenticated:
         
         user_data = user_schema.dump(current_user)
         user_data["color"] = color_schema.dump(user.color)
         user_data["stamp"] = stamp_schema.dump(user.stamp)
         print("\nauthed user")
-        from pprint import pprint
-        pprint(user_data)
+        user_data["memberships"] = {m["id"]:m for m in dump_data_list(user.memberships, member_schema)}
+        print("\nUSER WITH MEMBERS")
+        # pprint(user_data)
         return jsonify(user_data)
     return {'errors': ['Unauthorized']}, 401
 
