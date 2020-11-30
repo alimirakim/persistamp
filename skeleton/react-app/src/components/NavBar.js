@@ -53,6 +53,9 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
               Users
             </NavLink>
           </div>
+          <NavLink to="/about" exact={true} className="NavBarItem" activeClassName="active">
+            About
+          </NavLink>
           <div>
             <LogoutIcon setAuthenticated={setAuthenticated} className="NavBarItem" />
           </div>

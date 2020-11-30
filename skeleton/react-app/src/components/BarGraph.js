@@ -1,6 +1,6 @@
 
 // import React, { useEffect, useState, useContext, useReducer } from 'react';
-// // import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel } from 'victory';
+// import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryLabel } from 'victory';
 // import { useParams } from 'react-router-dom'
 // import UserContext from '../context/UserContext';
 
