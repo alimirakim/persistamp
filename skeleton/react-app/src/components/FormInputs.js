@@ -18,7 +18,7 @@ export function ActionOrCancelButtons({ handleClose, onAction, action }) {
 
 
 export function AddName({ name, setName }) {
-  const updateHabit = (e) => setName(e.target.value)
+  const updateName = (e) => setName(e.target.value)
   return (
     <TextField
       autoFocus
@@ -28,7 +28,7 @@ export function AddName({ name, setName }) {
       label="Name"
       type="text"
       fullWidth
-      onChange={updateHabit}
+      onChange={updateName}
       required
     />
   )
@@ -73,7 +73,7 @@ export function ChooseColor({ colors, color, setColor }) {
 
 export function ChooseStamp({ stamps, stamp, setStamp, color }) {
   console.log("TODO set color of options to match chosen color", color)
-  const updateStamp = (e) => setStamp(e.target.value)
+  const updateStamp = (e) => setStamp(Number(e.target.value))
   return (<>
     <InputLabel id="stamp">Stamp</InputLabel>
     <Select onChange={updateStamp} labelId="stamp" defaultValue={stamp}>
@@ -111,8 +111,8 @@ export function ChooseLimit({ limit, setLimit }) {
   const updateLimit = (e) => setLimit(e.target.value)
 
   return (<>
-    <InputLabel id="limit">Limit per Member</InputLabel>
-
+    {/* <InputLabel id="limit">Limit per Member</InputLabel> */}
+    <TextField label="Limit per member" type="number" defaultValue={-1} onChange={updateLimit} />
   </>)
 }
 
@@ -122,7 +122,7 @@ export function ChooseQuantity({quantity, setQuantity}) {
 
   return (<>
     <InputLabel id="quantity">Total Quantity</InputLabel>
-
+    <TextField label="Total quantity" type="number" defaultValue={-1} onChange={updateQuantity} />
   </>)
 }
 
@@ -132,6 +132,6 @@ export function ChooseCost({cost, setCost}) {
   
   return (<>
   <InputLabel id="cost">Cost</InputLabel>
-  
+  <TextField label="Cost" type="number" defaultValue={7} onChange={updateCost} />
   </>)
 }

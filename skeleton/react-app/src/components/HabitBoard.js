@@ -11,6 +11,7 @@ import { ProgramForm, ProgramEditForm, ProgramDeleteForm } from './ProgramForm'
 export default function HabitBoard() {
   const { user } = useContext(UserContext)
   const { programs, habits, week, dispatchHabits } = useContext(HabitBoardContext)
+  console.log("user inside habitboard", user)
 
   return (
     <article>
@@ -18,21 +19,23 @@ export default function HabitBoard() {
       <ProgramForm />
       <table>
         {Object.values(programs).map(program => {
-          const [mid] = program.members.filter(m => user.memberships.includes(m))
+          const [mid] = program.members.filter(m => Object.keys(user.memberships).includes(String(m)))
           return (
             <>
               <thead>
                 <tr key={program.id} style={{ color: program.color.hex }}>
                   <td colSpan={8}>
+
                     <ProgramEditForm program={program} />
                     <ProgramDeleteForm program={program} />
 
                     <h3>
                       <i className={`fas fa-${program.stamp.stamp}`}></i> {program.program}
                     </h3>
-                    <Link to={`/programs/:pid/rewards`}>
+                    <Link to={`/programs/${program.id}/members/${mid}/rewards`}>
                       <i className={`fas fa-store`} style={{ color: program.color.hex }}></i>
                     </Link>
+                    <span> Points: {user.memberships[mid].points} <i className={`fas fa-${program.stamp.stamp}`}></i></span>
                     <blockquote>{program.description}</blockquote>
 
                   </td>
@@ -52,6 +55,7 @@ export default function HabitBoard() {
               </thead>
 
               <tbody>
+               {/* style={{display: "flex", flexDirection: "column-reverse"}}> */}
                 {Object.values(habits)
                   .filter(habit => habit.program === program.id)
                   .map(habit => (<tr key={habit.id} style={{ color: habit.color.hex }}>
@@ -66,8 +70,7 @@ export default function HabitBoard() {
                     {week.map(day => (
                       <StampBox key={`${program.id}${mid}${habit.id}${day}`} pid={program.id} mid={mid} habit={habit} day={day} />
                     ))}
-                  </tr>
-                  ))
+                  </tr>))
                 }
               </tbody>
             </>
