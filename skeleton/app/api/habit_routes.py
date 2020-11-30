@@ -206,21 +206,23 @@ def calendarData(hid, mid):
             yArrIndex += 1
         startObj += timedelta(days=1)
 
-    if startObj.strftime("%b") not in xLabels:
-        xLabels.append(startObj.strftime("%b"))
+    # if startObj.strftime("%b") not in xLabels:
+    #     xLabels.append(startObj.strftime("%b"))
 
     for array in yArr:
         if len(yArr[0]) > len(array):
             array.append(99)
 
-    # print("YARR =--------------------", yArr)
-    # print("XLABELS, ", xLabels)
-    # print("YLABELS, ", len(yLabels))
+    print("YARR =--------------------", yArr)
+
     if xLabels[-1] == None:
         xLabels.pop(-1)
+        if int(date.today().strftime("%d").lstrip("0").replace(" 0", " ")) < 8:
+            xLabels.append(date.today().strftime("%b"))
+            return
         xLabels.append(date.today().strftime("%d").lstrip("0").replace(" 0", " "))
 
-    # print("XLABELS SWITCH", xLabels)
+    print("XLABELS SWITCH", xLabels)
     jsonData = jsonify(values=values, startDate=startDate, endDate=endDate,
             xLabels=xLabels,
             yLabels=yLabels,
