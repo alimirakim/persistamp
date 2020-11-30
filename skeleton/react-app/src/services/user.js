@@ -1,11 +1,13 @@
-export const updateUser = async (user) => {
+export const updateUser = async (username, color, stamp) => {
   const response = await fetch("/api/users/settings", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      username: user.username
+      username: username,
+      color: color,
+      stamp: stamp,
     }),
   });
   return await response.json();

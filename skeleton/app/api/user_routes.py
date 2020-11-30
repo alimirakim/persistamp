@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from app.models import db, User, Stamp, Program, Member, Habit, Reward, Color, DailyStamp
 from app.schemas import user_schema, program_schema, habit_schema, member_schema, stamp_schema, color_schema, dailystamp_schema
 from sqlalchemy.orm import joinedload
@@ -7,6 +7,7 @@ from app.utils import dump_data_list
 from datetime import date, timedelta
 import calendar
 from pprint import pprint
+from app.forms import UserForm
 
 user_routes = Blueprint('users', __name__, url_prefix="/users")
 
@@ -126,8 +127,19 @@ def user_programs(uid):
     
     return jsonify(programs_data=programs_fin, habits_data=habits_fin, dailies_data=dailies_fin, past_week=past_week)
 
-# @user_routesroute("/settings", methods=['PUT'])
-# @login_required
-# def update_user:
-#     user = User.query.filter(User.id == current_user.id).one()
+@user_routes.route("/settings", methods=['PUT'])
+@login_required
+def update_user():
+    form = UserForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
+    if form.validate():
+        user = User.query.filter(User.id == current_user.id).one()
+        user.username = form.data['username']
+        user.color_id = form.data['color']
+        user.stamp_id = form.data['stamp']
+        db.session.commit()
+
+        newUser = user_schema.dump(user)
+        return jsonify(newUser)
+    return 'User Settings Error'
