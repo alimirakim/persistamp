@@ -4,7 +4,10 @@ import HabitContext from '../context/HabitContext'
 import HabitEditForm from './HabitEditForm'
 import HabitDeleteForm from './HabitDeleteForm'
 import LineGraph from './LineGraph'
+import BarGraph from './BarGraph'
+import CalenderGraph from './CalenderGraph'
 import CalendarMap from './CalendarMap';
+import HabitStatOverview from './HabitStatOverview';
 
 
 export default function HabitDisplay() {
@@ -45,7 +48,7 @@ export default function HabitDisplay() {
           <dt>Description</dt>
           <dd>{habit.description}</dd>
         </dl>
-
+        <HabitStatOverview habit={habit}/>
         <LineGraph  mid={mid} habit={habit} />
         <CalendarMap habit={habit} />
 
