@@ -37,7 +37,7 @@ export default function HabitStatOverview ({ habit }) {
         <>
             <ChakraProvider theme={customTheme}>
                 <div className="statContainer">
-                    <h3 className="statOverview" style={{color:"#ccc", fontFamily:"Arial"}}>Overview</h3>
+                    <h3 className="statOverview" style={{color:"#ccc", fontFamily:"Arial"}}>Statistics</h3>
                         <StatGroup className="statGroup">
                             <Stat>
                                 <StatLabel>Score</StatLabel>
@@ -59,7 +59,7 @@ export default function HabitStatOverview ({ habit }) {
                                 <StatLabel>Streak</StatLabel>
                                 <StatNumber>{statData.currentStreak}</StatNumber>
                                 <StatHelpText>
-                                    Record: {statData.longestStreak}
+                                    Longest: {statData.longestStreak}
                                 </StatHelpText>
                             </Stat>
                         </StatGroup>
