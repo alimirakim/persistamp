@@ -30,7 +30,8 @@ export default function UserSettings(){
     console.log(updatedUser)
   }
 
-
+  useEffect(() => {
+  })
 
   return (
     <div>
