@@ -13,4 +13,8 @@ export const updateUser = async (username, color, stamp) => {
   return await response.json();
 }
 
+export const getUser = async (id) => {
+  return
+}
+
 export default updateUser

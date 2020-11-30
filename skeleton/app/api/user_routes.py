@@ -136,6 +136,8 @@ def update_user():
     if form.validate():
         user = User.query.filter(User.id == current_user.id).one()
         user.username = form.data['username']
+        user.first_name = form.data['firstname']
+        user.last_name = form.data['lastname']
         user.color_id = form.data['color']
         user.stamp_id = form.data['stamp']
         db.session.commit()

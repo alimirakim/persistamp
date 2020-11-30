@@ -149,3 +149,19 @@ export function ChooseCost({cost, setCost}) {
   <TextField label="Cost" type="number" defaultValue={cost} onChange={updateCost} />
   </>)
 }
+
+export function UpdateFirstname({firstname, setFirstname }) {
+  const updateName = (e) => setFirstname(e.target.value)
+
+  return (<>
+    <TextField label="First Name" type="text" fullWidth onChange={updateName} defaultValue={firstname}/>
+  </>)
+}
+
+export function UpdateLastname({ lastname, setLastname }) {
+  const updateName = (e) => setLastname(e.target.value)
+
+  return (<>
+    <TextField label="Last Name" type="text" fullWidth onChange={updateName} defaultValue={lastname}/>
+  </>)
+}
