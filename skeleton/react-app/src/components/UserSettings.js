@@ -1,12 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import updateUser from '../services/user';
 import UserContext from '../context/UserContext'
 import OptionsContext from '../context/OptionsContext'
-import { ActionOrCancelButtons, SetUsername, ChooseFrequency, ChooseColor, ChooseStamp } from './FormInputs'
+import { ActionOrCancelButtons, SetUsername, ChooseColor, ChooseStamp } from './FormInputs'
 
 export default function UserSettings(){
   const [open, setOpen] = React.useState(false);
