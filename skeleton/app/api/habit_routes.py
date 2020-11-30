@@ -250,16 +250,30 @@ def getHabitStats(hid, mid):
     stampObjs = list(map(dumpStamps, allStamps))
     lastMonthObjs = list(map(dumpStamps, lastMonthStamps))
     twoMonthObjs = list(map(dumpStamps, twoMonthsAgoStamps))
-    total = len(stampObjs)
-    # print("LENGTH---------------", len(lastMonthObjs))
-    # print("TWO LENGTH---------------", len(twoMonthObjs))
-    scoreFraction = f'{total} / {attempts}'
+    stampedDates = list(map(lambda x: x["date"], stampObjs))
 
+    streakArr = [0]
+    checkDate = startDate
+    totalDays = (date.today() - startDate).days + 1
+
+    while totalDays > 0:
+        if checkDate.strftime("%Y-%m-%d") in stampedDates:
+            streakArr.append(streakArr[-1] + 1)
+        else:
+            streakArr.append(0)
+        totalDays -= 1
+        checkDate += timedelta(days=1)
+    longestStreak = max(streakArr)
+    currentStreak = streakArr[-1]
+    # print("LONGEST STREAK _____________", longestStreak)
+    total = len(stampObjs)
+
+    scoreFraction = f'{total} / {attempts}'
     score = '{:.1%}'.format(total / attempts)
 
     monthTrend = None
     monthPercentage = None
-    print("DAYS OF HABIT:    ", daysOfHabit)
+
     if daysOfHabit <= 31:
         monthTrend = "increase"
         monthPercentage = "n/a"
@@ -270,10 +284,14 @@ def getHabitStats(hid, mid):
         monthTrend = 'decrease'
         monthPercentage = '{:.1%}'.format(len(lastMonthObjs) / len(twoMonthObjs))
 
-
-
     # print("MONTH PERCENTAGE", monthPercentage, monthTrend)
-    jsonData = jsonify(total=total, score=score, scoreFraction=scoreFraction, monthPercentage=monthPercentage, monthTrend=monthTrend)
+    jsonData = jsonify(total=total,
+                    score=score,
+                    scoreFraction=scoreFraction,
+                    monthPercentage=monthPercentage,
+                    monthTrend=monthTrend,
+                    longestStreak=longestStreak,
+                    currentStreak=currentStreak)
     return jsonData
 
 # TESTED Functions

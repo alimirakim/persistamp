@@ -55,6 +55,13 @@ export default function HabitStatOverview ({ habit }) {
                                 <StatLabel>Total</StatLabel>
                                 <StatNumber>{statData.total} stamps</StatNumber>
                             </Stat>
+                            <Stat>
+                                <StatLabel>Streak</StatLabel>
+                                <StatNumber>{statData.currentStreak}</StatNumber>
+                                <StatHelpText>
+                                    Record: {statData.longestStreak}
+                                </StatHelpText>
+                            </Stat>
                         </StatGroup>
                 </div>
             </ChakraProvider>
