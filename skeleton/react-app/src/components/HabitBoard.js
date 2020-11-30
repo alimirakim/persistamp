@@ -107,8 +107,6 @@ function StampBox({ pid, mid, habit, day }) {
   const checkCompleted = () => {
     const frequency = habit.frequency
     const stamps = Object.values(dailies).filter(stamp => stamp.member === mid && stamp.habit === habit.id)
-    console.log("Stamps: ", stamps)
-    console.log("frequency: ", frequency)
     if(stamps.length >= frequency){
       return true
     }

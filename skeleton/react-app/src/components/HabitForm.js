@@ -24,18 +24,25 @@ function HabitForm({ pid, program }) {
 
   const onCreate = async (e) => {
     e.preventDefault()
-    setOpen(false)
     const userId = user.id
-    const newHabit = await habitCreate(
-      name,
-      description,
-      frequency,
-      color,
-      stamp,
-      userId,
-      pid,
-    )
-    dispatchHabits(createHabit(newHabit))
+    try{
+      const newHabit = await habitCreate(
+        name,
+        description,
+        frequency,
+        color,
+        stamp,
+        userId,
+        pid,
+        )
+      dispatchHabits(createHabit(newHabit))
+      console.log("new habit is...", newHabit)
+      setOpen(false)
+    }catch(err){
+      console.error(err)
+      window.alert("Missing required fields")
+    }
+    
     // Resetting form defaults
     setName()
     setDescription()
@@ -43,7 +50,7 @@ function HabitForm({ pid, program }) {
     setColor(1)
     setStamp(3)
 
-    console.log("new habit is...", newHabit)
+    
   }
 
   if (!colors || !stamps) return null
