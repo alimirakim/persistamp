@@ -2,6 +2,7 @@ import React from 'react'
 import {
   Button, TextField, DialogActions, InputLabel, MenuItem, Select
 } from '@material-ui/core'
+import updateUser from '../services/user'
 
 
 export function ActionOrCancelButtons({ handleClose, onAction, action }) {
@@ -106,6 +107,21 @@ export function ChooseFrequency({ frequency, setFrequency }) {
   </>)
 }
 
+export function SetUsername({ username, setUsername }) {
+  const updateUsername = (e) => setUsername(e.target.value)
+  return (<>
+    <TextField
+      autoFocus
+      defaultValue={username}
+      margin="dense"
+      id="username"
+      label="Username"
+      type="text"
+      fullWidth
+      onChange={updateUsername}
+    />
+  </>)
+}
 
 export function ChooseLimit({ limit, setLimit }) {
   const updateLimit = (e) => setLimit(e.target.value)
@@ -131,5 +147,21 @@ export function ChooseCost({cost, setCost}) {
   
   return (<>
   <TextField label="Cost" type="number" defaultValue={cost} onChange={updateCost} />
+  </>)
+}
+
+export function UpdateFirstname({firstname, setFirstname }) {
+  const updateName = (e) => setFirstname(e.target.value)
+
+  return (<>
+    <TextField label="First Name" type="text" fullWidth onChange={updateName} defaultValue={firstname}/>
+  </>)
+}
+
+export function UpdateLastname({ lastname, setLastname }) {
+  const updateName = (e) => setLastname(e.target.value)
+
+  return (<>
+    <TextField label="Last Name" type="text" fullWidth onChange={updateName} defaultValue={lastname}/>
   </>)
 }
