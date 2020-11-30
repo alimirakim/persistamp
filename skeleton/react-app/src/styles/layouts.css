@@ -39,7 +39,55 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
 }
 
 .lineGraphContainer {
-    margin: 25px;
+    /* position: relative;
+    width: 650px;
+    left: 95px; */
+    margin: 15px;
+}
+.lineGraphHeader {
+    position: relative;
+    text-align: center;
+    right: 390px;
+}
+.lineGraphToggle {
+    position: relative;
+    left: 640px;
+    outline: 1px solid #ccc;
+    /* box-sizing: border-box; */
+}
+
+.habitDetailContainer {
+    position: relative;
+    margin: 20px;
+    /* display: flex;
+    flex-direction: column; */
+    width:100%;
+    /* left:20px; */
+}
+.habitDetail__title {
+    font-size: 30px;
+    position: relative;
+    left: 40px;
+    margin: 20px;
+}
+.habitDetail__items {
+    margin: 10px;
+}
+.habitDetail__name {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.habitDetail__description {
+    position: relative;
+
+}
+.habitDetail__table {
+    table-layout: fixed;
+    width: 700px;
+}
+.habitDetail__cell {
+    width: 25%;
 }
 .heatMapContainer {
     margin: 30px;
@@ -54,9 +102,21 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
     color: "#ccc"
 }
 
-.statGroup {
+.statContainer {
+    position: relative;
     width: 650px;
-    margin: 25px;
+    left: 95px;
+    /* margin: 25px; */
+}
+/* .statGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+} */
+.statOverview {
+    position: relative;
+    text-align: center;
+    right: 50px;
 }
 
 .color-scale-stamped {

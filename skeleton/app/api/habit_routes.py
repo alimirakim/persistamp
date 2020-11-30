@@ -253,8 +253,8 @@ def getHabitStats(hid, mid):
     stampedDates = list(map(lambda x: x["date"], stampObjs))
 
     streakArr = [0]
-    checkDate = startDate
-    totalDays = (date.today() - startDate).days + 1
+    checkDate = startDate - timedelta(days=7)
+    totalDays = (date.today() - startDate).days + 8
 
     while totalDays > 0:
         if checkDate.strftime("%Y-%m-%d") in stampedDates:
