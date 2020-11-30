@@ -180,51 +180,49 @@ def calendarData(hid, mid):
     # print("VALUES ------------------------", values)
 
     # print("STAMPDATES---------------------------------------------", stampDates)
-    yLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-    xLabels = [None]
-    yArr = [[] for i in range(len(yLabels))]
-    dateVals = [[] for i in range(len(yLabels))]
+    xLabels = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
+    yLabels = [None]
+    yArr = [[] for i in range(23)]
+    # dateVals = [[] for i in range(len(yLabels))]
     # print("YARR -------------------------", yArr)
     yArrIndex = 0
 
     while startObj <= current_date:
         if startObj.strftime("%Y-%m-%d") in stampDates:
             yArr[yArrIndex].append(100)
-            dateVals[yArrIndex].append(startObj.strftime("%d").lstrip("0").replace(" 0", " "))
+            # dateVals[yArrIndex].append(startObj.strftime("%d").lstrip("0").replace(" 0", " "))
         else:
             yArr[yArrIndex].append(0)
-            dateVals[yArrIndex].append(startObj.strftime("%d").lstrip("0").replace(" 0", " "))
+            # dateVals[yArrIndex].append(startObj.strftime("%d").lstrip("0").replace(" 0", " "))
 
-        if yArrIndex == 6:
-            yArrIndex = 0
-            month = startObj.strftime("%b")
-            if month not in xLabels:
-                xLabels.append(month)
-            else:
-                xLabels.append(None)
-        else:
+        if len(yArr[yArrIndex]) == 7:
             yArrIndex += 1
+            month = startObj.strftime("%b")
+            if month not in yLabels:
+                yLabels.append(month)
+            else:
+                yLabels.append(None)
         startObj += timedelta(days=1)
 
-    for array in yArr:
-        if len(yArr[0]) > len(array):
-            array.append(99)
+    while len(yArr[-1]) < 7:
+        yArr[-1].append(99)
 
-    # print("YARR =--------------------", yArr)
+    print("YARR =--------------------", yArr)
 
-    if xLabels[-1] == None:
-        xLabels.pop(-1)
+    if yLabels[-1] == None:
+        yLabels.pop(-1)
         if int(date.today().strftime("%d").lstrip("0").replace(" 0", " ")) < 8:
-            xLabels.append(date.today().strftime("%b"))
+            yLabels.append(date.today().strftime("%b"))
             return
-        xLabels.append(date.today().strftime("%d").lstrip("0").replace(" 0", " "))
+        yLabels.append(date.today().strftime("%d").lstrip("0").replace(" 0", " "))
 
-    # print("XLABELS SWITCH", xLabels)
+    print("XLABELS SWITCH", xLabels)
+    print("YLABELS SWITCH", yLabels)
+    print("Data--------------------------", yArr)
     jsonData = jsonify(values=values, startDate=startDate, endDate=endDate,
             xLabels=xLabels,
             yLabels=yLabels,
-            data=yArr,
-            dateVals=dateVals)
+            data=yArr)
     return jsonData
 
 @habit_routes.route("/<int:hid>/stats/<int:mid>")
