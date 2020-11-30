@@ -33,10 +33,17 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
     font-family: Arial, Helvetica, sans-serif;
     color: black;
 }
+.heatMapContainer {
+    margin: 30px;
+}
 
 .calendarContainer {
     width: 650px;
     height: 400px;
+}
+
+.calendarLabel {
+    color: "#ccc"
 }
 
 .color-scale-stamped {
