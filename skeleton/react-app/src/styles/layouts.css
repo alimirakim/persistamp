@@ -34,9 +34,29 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
     color: black;
 }
 
+.lineGraphLabels {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.lineGraphContainer {
+    margin: 25px;
+}
+.heatMapContainer {
+    margin: 30px;
+}
+
 .calendarContainer {
     width: 650px;
     height: 400px;
+}
+
+.calendarLabel {
+    color: "#ccc"
+}
+
+.statGroup {
+    width: 650px;
+    margin: 25px;
 }
 
 .color-scale-stamped {
