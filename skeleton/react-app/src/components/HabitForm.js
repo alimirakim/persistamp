@@ -62,7 +62,7 @@ function HabitForm({ pid, program }) {
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add a habit to {program}!</DialogTitle>
 
-        <DialogContent>
+        <DialogContent className='user-settings'>
           <AddName name={name} setName={setName} />
           <AddDescription description={description} setDescription={setDescription} />
           <ChooseFrequency frequency={frequency} setFrequency={setFrequency} />

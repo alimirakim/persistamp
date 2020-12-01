@@ -27,8 +27,13 @@ export default function UserSettings(){
 
   const onUpdate = async (e) => {
     e.preventDefault()
-    const updatedUser = updateUser(username, firstname, lastname, color, stamp)
-    console.log(updatedUser)
+    try{
+      const updatedUser = updateUser(username, firstname, lastname, color, stamp)
+      console.log(updatedUser)
+      setOpen(false)
+    }catch(err){
+      console.error(err)
+    }
   }
 
   useEffect(() => {
