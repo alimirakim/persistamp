@@ -45,7 +45,7 @@ const renderErrors = (errors) => {
     // console.log("trying to render user setting errors")
     return errors.map(error => {
       // console.log(error)
-      return <div className='material-error'>{error}</div>
+      return <div className='material-error errorHeader'>{error}</div>
     })
   }
 }

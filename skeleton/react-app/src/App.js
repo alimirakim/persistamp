@@ -96,15 +96,13 @@ function App() {
 
             <NavBar authenticated={authenticated} setAuthenticated={setAuthenticated} user={user} />
             <Route path="/login" exact={true}>
+              <div className="splashPageBackground overlay">
               <LoginForm
                 authenticated={authenticated}
                 setAuthenticated={setAuthenticated} setUser={updateUser}
               />
-              {/* <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} setUser={updateUser} /> */}
+              </div>
             </Route>
-            {/* <Route path="/login" exact={true}>
-            </Route> */}
-
             <Route path="/about" exact={true}>
               <>
                 <h1>About Us</h1>
