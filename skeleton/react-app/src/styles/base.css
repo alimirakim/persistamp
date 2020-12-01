@@ -4,6 +4,7 @@ it probably belongs here. */
 body {
     background-color:rgb(20, 30, 50);
     color: seashell;
+    /* background-image: url("https://www.freevector.com/uploads/vector/preview/1469/FreeVector-Splash-Swoosh-Background-Image.jpg") */
 }
 table, tr, th, td {
   border-radius: 0.3rem;
@@ -11,7 +12,20 @@ table, tr, th, td {
   padding: 0.2rem;
   text-align: center;
 }
-
+.overlay{
+  opacity:0.8;
+  background-color:#ccc;
+  position:fixed;
+  width:100%;
+  height:100%;
+  top:0px;
+  left:0px;
+  z-index:1000;
+}
+.splashPageBackground {
+  height: 100%;
+  background-image: url("https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pixelstalk.net%2Fwp-content%2Fuploads%2F2016%2F07%2FArtsy-HD-Wallpaper-1.jpg&f=1&nofb=1")
+}
 
 
 
