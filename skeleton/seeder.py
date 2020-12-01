@@ -311,7 +311,7 @@ with app.app_context():
                     stamp_id=16,
                     program=program_three,
                     creator=demo,
-                    created_at=datetime(2020, 12, 31),
+                    created_at=datetime(2019, 12, 31),
                     )
     habit_veggies = Habit(habit="Eat Veggies",
                     description="",

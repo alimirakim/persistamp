@@ -63,8 +63,8 @@ def user_options(uid):
     # print("\nCOLORS", colors)
     colors_data = dump_data_list(colors, color_schema)
     stamps_data = dump_data_list(stamps, stamp_schema)
-    print("\n\nCOLORS, STAMPS", colors_data, stamps_data)
-    
+    # print("\n\nCOLORS, STAMPS", colors_data, stamps_data)
+
     return jsonify(colors_data=colors_data, stamps_data=stamps_data)
 
 
@@ -74,7 +74,7 @@ def user_programs(uid):
     current_date = date.today()
     past_week = [(current_date - timedelta(days=i)) for i in range(7)]
     past_week = [(day.strftime('%A')[0:3], day.strftime('%Y-%m-%d')) for day in past_week]
-    
+
     print("\n\nUID", uid)
     user_programs = Program.query \
         .join(Member.program).filter(Member.member_id == uid) \
@@ -89,13 +89,13 @@ def user_programs(uid):
     programs_data = dump_data_list(user_programs, program_schema)
 
     for i in range(len(user_programs)):
-        if user_programs[i].members: 
+        if user_programs[i].members:
             memberships = [m.id for m in current_user.memberships]
             print("\n\nmemberships", memberships)
             try:
                 [mid] = [m for m in programs_data[i]["members"] if m in memberships]
                 programs_data[i]["habits"] = []
-                
+
                 for j in range(len(user_programs[i].habits)):
                     programs_data[i]["habits"].append(habit_schema.dump(user_programs[i].habits[j]))
                     habit = habit_schema.dump(user_programs[i].habits[j])
@@ -113,7 +113,7 @@ def user_programs(uid):
                 print("\nno mid probs")
         programs_data[i]["stamp"] = stamp_schema.dump(user_programs[i].stamp)
         programs_data[i]["color"] = color_schema.dump(user_programs[i].color)
-    
+
     programs_fin = {}
     habits_fin = {}
     dailies_fin = {}
@@ -121,19 +121,19 @@ def user_programs(uid):
         habits_fin.update({habit["id"]:habit for habit in program["habits"]})
         program["habits"] = [habit["id"] for habit in program["habits"]]
         programs_fin.update({program["id"]: program})
-    
+
     for habit in habits_fin.values():
         dailies_fin.update({stamp["id"]:stamp for stamp in habit["daily_stamps"]})
         habit["daily_stamps"] = [daily["id"] for daily in habit["daily_stamps"]]
-        
-        
+
+
     print("\nPROGRAMS DATA")
     # pprint(programs_data)
     print("\nHABITS DATA")
     # pprint(habits_fin)
     print("\nDAILIES DATA")
     # pprint(dailies_fin)
-    
+
     return jsonify(programs_data=programs_fin, habits_data=habits_fin, dailies_data=dailies_fin, past_week=past_week)
 
 @user_routes.route("/settings", methods=['PUT'])
@@ -153,6 +153,6 @@ def update_user():
 
         newUser = queryUserFullData(user.id)
 
-        
+
         return jsonify(newUser)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
