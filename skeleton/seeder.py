@@ -453,68 +453,68 @@ with app.app_context():
                     date=datetime(year, month, d),
                     status='stamped',
                     habit=habit,
-                    member=member
+                    member_id=member
                 )
                 db.session.add(daily)
         db.session.commit()
 
-    createDailyStamps(habit_workone, member_demo1, 12, 2019, 4)
-    createDailyStamps(habit_workone, member_demo1, 1, 2020, 1)
-    createDailyStamps(habit_workone, member_demo1, 2, 2020, 3)
-    createDailyStamps(habit_workone, member_demo1, 3, 2020, 0)
-    createDailyStamps(habit_workone, member_demo1, 4, 2020, 2)
-    createDailyStamps(habit_workone, member_demo1, 5, 2020, 4)
-    createDailyStamps(habit_workone, member_demo1, 6, 2020, 6)
-    createDailyStamps(habit_workone, member_demo1, 7, 2020, 8)
-    createDailyStamps(habit_workone, member_demo1, 8, 2020, 7)
-    createDailyStamps(habit_workone, member_demo1, 9, 2020, 4)
-    createDailyStamps(habit_workone, member_demo1, 10, 2020, 3)
-    createDailyStamps(habit_workone, member_demo1, 11, 2020, 1)
+    createDailyStamps(habit_workone, 1, 12, 2019, 4)
+    createDailyStamps(habit_workone, 1, 1, 2020, 1)
+    createDailyStamps(habit_workone, 1, 2, 2020, 3)
+    createDailyStamps(habit_workone, 1, 3, 2020, 0)
+    createDailyStamps(habit_workone, 1, 4, 2020, 2)
+    createDailyStamps(habit_workone, 1, 5, 2020, 4)
+    createDailyStamps(habit_workone, 1, 6, 2020, 6)
+    createDailyStamps(habit_workone, 1, 7, 2020, 8)
+    createDailyStamps(habit_workone, 1, 8, 2020, 7)
+    createDailyStamps(habit_workone, 1, 9, 2020, 4)
+    createDailyStamps(habit_workone, 1, 10, 2020, 3)
+    createDailyStamps(habit_workone, 1, 11, 2020, 1)
 
-    createDailyStamps(habit_worktwo, member_demo1, 1, 2020, 12)
-    createDailyStamps(habit_worktwo, member_demo1, 2, 2020, 10)
-    createDailyStamps(habit_worktwo, member_demo1, 3, 2020, 8)
-    createDailyStamps(habit_worktwo, member_demo1, 4, 2020, 9)
-    createDailyStamps(habit_worktwo, member_demo1, 5, 2020, 11)
-    createDailyStamps(habit_worktwo, member_demo1, 6, 2020, 18)
-    createDailyStamps(habit_worktwo, member_demo1, 7, 2020, 20)
-    createDailyStamps(habit_worktwo, member_demo1, 8, 2020, 17)
-    createDailyStamps(habit_worktwo, member_demo1, 9, 2020, 15)
-    createDailyStamps(habit_worktwo, member_demo1, 10, 2020, 15)
-    createDailyStamps(habit_worktwo, member_demo1, 11, 2020, 17)
+    createDailyStamps(habit_worktwo, 1, 1, 2020, 12)
+    createDailyStamps(habit_worktwo, 1, 2, 2020, 10)
+    createDailyStamps(habit_worktwo, 1, 3, 2020, 8)
+    createDailyStamps(habit_worktwo, 1, 4, 2020, 9)
+    createDailyStamps(habit_worktwo, 1, 5, 2020, 11)
+    createDailyStamps(habit_worktwo, 1, 6, 2020, 18)
+    createDailyStamps(habit_worktwo, 1, 7, 2020, 20)
+    createDailyStamps(habit_worktwo, 1, 8, 2020, 17)
+    createDailyStamps(habit_worktwo, 1, 9, 2020, 15)
+    createDailyStamps(habit_worktwo, 1, 10, 2020, 15)
+    createDailyStamps(habit_worktwo, 1, 11, 2020, 17)
 
-    createDailyStamps(habit_socialone, member_demo1, 6, 2020, 13)
-    createDailyStamps(habit_socialone, member_demo1, 7, 2020, 14)
-    createDailyStamps(habit_socialone, member_demo1, 8, 2020, 18)
-    createDailyStamps(habit_socialone, member_demo1, 9, 2020, 15)
-    createDailyStamps(habit_socialone, member_demo1, 10, 2020, 25)
-    createDailyStamps(habit_socialone, member_demo1, 11, 2020, 24)
+    createDailyStamps(habit_socialone, 2, 6, 2020, 13)
+    createDailyStamps(habit_socialone, 2, 7, 2020, 14)
+    createDailyStamps(habit_socialone, 2, 8, 2020, 18)
+    createDailyStamps(habit_socialone, 2, 9, 2020, 15)
+    createDailyStamps(habit_socialone, 2, 10, 2020, 25)
+    createDailyStamps(habit_socialone, 2, 11, 2020, 24)
 
-    createDailyStamps(habit_socialtwo, member_demo1, 2, 2020, 26)
-    createDailyStamps(habit_socialtwo, member_demo1, 3, 2020, 25)
-    createDailyStamps(habit_socialtwo, member_demo1, 4, 2020, 26)
-    createDailyStamps(habit_socialtwo, member_demo1, 5, 2020, 25)
-    createDailyStamps(habit_socialtwo, member_demo1, 6, 2020, 25)
-    createDailyStamps(habit_socialtwo, member_demo1, 7, 2020, 25)
-    createDailyStamps(habit_socialtwo, member_demo1, 8, 2020, 24)
-    createDailyStamps(habit_socialtwo, member_demo1, 9, 2020, 24)
-    createDailyStamps(habit_socialtwo, member_demo1, 10, 2020, 25)
-    createDailyStamps(habit_socialtwo, member_demo1, 11, 2020, 26)
+    createDailyStamps(habit_socialtwo, 2, 2, 2020, 26)
+    createDailyStamps(habit_socialtwo, 2, 3, 2020, 25)
+    createDailyStamps(habit_socialtwo, 2, 4, 2020, 26)
+    createDailyStamps(habit_socialtwo, 2, 5, 2020, 25)
+    createDailyStamps(habit_socialtwo, 2, 6, 2020, 25)
+    createDailyStamps(habit_socialtwo, 2, 7, 2020, 25)
+    createDailyStamps(habit_socialtwo, 2, 8, 2020, 24)
+    createDailyStamps(habit_socialtwo, 2, 9, 2020, 24)
+    createDailyStamps(habit_socialtwo, 2, 10, 2020, 25)
+    createDailyStamps(habit_socialtwo, 2, 11, 2020, 26)
 
     gamedays = [8, 15, 20, 22, 29]
     for day in gamedays:
         daily = DailyStamp(
             date=datetime(2020, 11, day),
-            status='stamped', habit=habit_socialthree, member=member_demo1,
+            status='stamped', habit=habit_socialthree, member_id=2,
         )
         db.session.add(daily)
         db.session.commit()
 
 
-    createDailyStamps(habit_choresone, member_demo1, 8, 2020, 10)
-    createDailyStamps(habit_choresone, member_demo1, 9, 2020, 6)
-    createDailyStamps(habit_choresone, member_demo1, 10, 2020, 3)
-    createDailyStamps(habit_choresone, member_demo1, 11, 2020, 0)
+    createDailyStamps(habit_choresone, 3, 8, 2020, 10)
+    createDailyStamps(habit_choresone, 3, 9, 2020, 6)
+    createDailyStamps(habit_choresone, 3, 10, 2020, 3)
+    createDailyStamps(habit_choresone, 3, 11, 2020, 0)
 
     # July 5/2020
     startHabitDate = date(2020, 7, 5)
@@ -525,23 +525,23 @@ with app.app_context():
                 date=startHabitDate.strftime("%Y-%m-%d"),
                 status='stamped',
                 habit=habit_chorestwo,
-                member=member_demo1,
+                member_id=3,
             )
             db.session.add(newStamp)
             db.session.commit()
         startHabitDate += timedelta(days=1)
 
-    createDailyStamps(habit_choresthree, member_demo1, 1, 2020, 5)
-    createDailyStamps(habit_choresthree, member_demo1, 2, 2020, 13)
-    createDailyStamps(habit_choresthree, member_demo1, 3, 2020, 14)
-    createDailyStamps(habit_choresthree, member_demo1, 4, 2020, 19)
-    createDailyStamps(habit_choresthree, member_demo1, 5, 2020, 20)
-    createDailyStamps(habit_choresthree, member_demo1, 6, 2020, 17)
-    createDailyStamps(habit_choresthree, member_demo1, 7, 2020, 14)
-    createDailyStamps(habit_choresthree, member_demo1, 8, 2020, 10)
-    createDailyStamps(habit_choresthree, member_demo1, 9, 2020, 12)
-    createDailyStamps(habit_choresthree, member_demo1, 10, 2020, 13)
-    createDailyStamps(habit_choresthree, member_demo1, 11, 2020, 10)
+    createDailyStamps(habit_choresthree, 3, 1, 2020, 5)
+    createDailyStamps(habit_choresthree, 3, 2, 2020, 13)
+    createDailyStamps(habit_choresthree, 3, 3, 2020, 14)
+    createDailyStamps(habit_choresthree, 3, 4, 2020, 19)
+    createDailyStamps(habit_choresthree, 3, 5, 2020, 20)
+    createDailyStamps(habit_choresthree, 3, 6, 2020, 17)
+    createDailyStamps(habit_choresthree, 3, 7, 2020, 14)
+    createDailyStamps(habit_choresthree, 3, 8, 2020, 10)
+    createDailyStamps(habit_choresthree, 3, 9, 2020, 12)
+    createDailyStamps(habit_choresthree, 3, 10, 2020, 13)
+    createDailyStamps(habit_choresthree, 3, 11, 2020, 10)
 
     for d in range(1, 30):
         if d in (1, 7, 8, 14, 15, 21, 22, 26, 28, 29):
