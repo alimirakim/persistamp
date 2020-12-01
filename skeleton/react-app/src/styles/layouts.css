@@ -56,11 +56,16 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
     /* box-sizing: border-box; */
 }
 
+.habitFormat {
+    display: flex;
+    flex-direction: row;
+}
+
 .habitDetailContainer {
     position: relative;
     margin: 20px;
     /* display: flex;
-    flex-direction: column; */
+    flex-direction: row; */
     width:100%;
     /* left:20px; */
 }
@@ -90,7 +95,9 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
     width: 25%;
 }
 .heatMapContainer {
-    margin: 30px;
+    position: relative;
+    top: 30px;
+    right: 200px;
 }
 
 .calendarContainer {

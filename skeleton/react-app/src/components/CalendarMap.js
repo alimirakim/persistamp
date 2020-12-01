@@ -67,31 +67,6 @@ export default function CalendarMap ({habit}) {
                 />
 
             </div>
-            {/* <div className='calendarContainer'>
-                <CalendarHeatmap
-                startDate={new Date(calendarData.startDate)}
-                endDate={new Date(calendarData.endDate)}
-                values={calendarData.values}
-                showWeekdayLabels={true}
-
-                titleForValue={(value) => `${value}`}
-                // classForValue={(value) => {
-                //     if (!value) {
-                //       return 'color-empty';
-                //     }
-                //     return `color-scale-stamped`;
-                //   }}
-                // />
-
-                tooltipDataAttrs={value => {
-                    if (value.date) {
-                        return { 'data-tip': `${value.date}`}
-                    }
-                    return ""
-                }}
-                />
-                <ReactTooltip />
-            </div> */}
 
         </>
     )

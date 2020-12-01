@@ -162,8 +162,8 @@ def calendarData(hid, mid):
 
     startDate = None
     startObj = None
-    for i in range(6):
-        start = firstDayOfMonth - timedelta(days=128-i)
+    for i in range(7):
+        start = firstDayOfMonth - timedelta(days=90-i)
         if start.isoweekday() == 7:
             startDate = start.strftime("%Y-%m-%d")
             startObj = start
@@ -182,7 +182,7 @@ def calendarData(hid, mid):
     # print("STAMPDATES---------------------------------------------", stampDates)
     xLabels = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
     yLabels = [None]
-    yArr = [[] for i in range(23)]
+    yArr = [[]]
     # dateVals = [[] for i in range(len(yLabels))]
     # print("YARR -------------------------", yArr)
     yArrIndex = 0
@@ -196,6 +196,7 @@ def calendarData(hid, mid):
             # dateVals[yArrIndex].append(startObj.strftime("%d").lstrip("0").replace(" 0", " "))
 
         if len(yArr[yArrIndex]) == 7:
+            yArr.append([])
             yArrIndex += 1
             month = startObj.strftime("%b")
             if month not in yLabels:
@@ -207,7 +208,7 @@ def calendarData(hid, mid):
     while len(yArr[-1]) < 7:
         yArr[-1].append(99)
 
-    print("YARR =--------------------", yArr)
+    # print("YARR =--------------------", yArr)
 
     if yLabels[-1] == None:
         yLabels.pop(-1)
@@ -216,9 +217,9 @@ def calendarData(hid, mid):
             return
         yLabels.append(date.today().strftime("%d").lstrip("0").replace(" 0", " "))
 
-    print("XLABELS SWITCH", xLabels)
-    print("YLABELS SWITCH", yLabels)
-    print("Data--------------------------", yArr)
+    # print("XLABELS SWITCH", xLabels)
+    # print("YLABELS SWITCH", yLabels)
+    # print("Data--------------------------", yArr)
     jsonData = jsonify(values=values, startDate=startDate, endDate=endDate,
             xLabels=xLabels,
             yLabels=yLabels,
