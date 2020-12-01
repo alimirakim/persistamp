@@ -47,7 +47,7 @@ export default function HabitBoard() {
                             <Link to={`/programs/${program.id}/members/${mid}/rewards`}>
                               <i className={`fas fa-store`} style={{ color: program.color.hex, fontSize: "2rem", margin: "0.5rem" }}></i>
                             </Link>
-                            
+
                             <div> <b style={{marginRight: "0.5rem"}}>POINTS:</b>  <span className="points">{user.memberships[mid].points} <i className={`fas fa-${program.stamp.stamp}`}></i></span></div>
                         </div>
                       </div>
