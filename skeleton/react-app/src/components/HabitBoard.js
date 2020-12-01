@@ -15,6 +15,8 @@ export default function HabitBoard() {
   // console.log("user inside habitboard", user)
 
   if (!programs || !habits || !dailies) return null
+  if (!Object.keys(programs).length || !Object.keys(habits).length || !Object.keys(dailies).length) return null
+  console.log("programs, habits, dailies", programs, habits, dailies)
 
   return (
     <article className="lo-main-center habit-board">
