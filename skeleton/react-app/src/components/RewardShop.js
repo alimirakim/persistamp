@@ -221,7 +221,7 @@ export function RewardForm({ program, dispatchRewards, rewards, }) {
   return (
     <article>
 
-      <button className=" make-btn make-btn-big" onClick={handleOpen} style={{ backgroundColor: "crimson" }}><i className="fas fa-plus-circle"></i> Reward</button>
+      <button className=" make-btn" onClick={handleOpen} style={{ backgroundColor: "crimson", width: "100%", fontSize: "2rem" }}><i className="fas fa-plus-circle"></i> Reward</button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Create a reward for "{program.program}"!</DialogTitle>
         <div>

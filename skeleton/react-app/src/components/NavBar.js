@@ -25,14 +25,10 @@ export default function NavBar({ authenticated, setAuthenticated, user }) {
         <NavLink to='/' className="sticker sticker_logo-link" activeClassName="active">
           <img className="sticker_logo" src={turtle} alt="Persistamp Logo: a red turtle stamp" />
         </NavLink>
-        <Link to="/" className="sticker sticker_home">
-        <i className="fas fa-home"></i>
-        <span>Home</span>
-      </Link>
-        {/* <NavLink to="/messages" className="sticker sticker_messages" activeClassName="active">
+        <NavLink to="/messages" className="sticker sticker_messages" activeClassName="active">
           <i className="fas fa-envelope"></i>
           <span>Messages</span>
-        </NavLink> */}
+        </NavLink>
         <button onClick={handleSettingsOpen} className="sticker sticker_settings" activeClassName="active">
           <i className="fas fa-id-card"></i>
           <span>Settings</span>
