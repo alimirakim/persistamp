@@ -27,7 +27,7 @@ export default function HabitStatOverview ({ habit }) {
         (async () => {
             let res = await fetch(`/api/habits/${hid}/stats/${mid}`)
             let obj = await res.json()
-            // console.log("OBJ:", obj)
+            console.log("OBJ:", obj)
             setStatData(obj)
         })()
     }, [])
