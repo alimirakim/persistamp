@@ -16,7 +16,7 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
         <div className="NavBarContainer">
           <div>
             <NavLink to='/login' className="NavBarLogo">
-              Persistamp (for now)
+              <img src="/icons/turtle.svg" alt="Persistamp Logo: a red turtle stamp" />
             </NavLink>
           </div>
           <div>
@@ -45,7 +45,8 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
         <div className="NavBarContainer">
           <div>
             <NavLink to="/" className="NavBarLogo">
-              Persistamp (4evah)
+            <img src="/icons/turtle.svg" alt="Persistamp Logo: a red turtle stamp" style={{width: "5rem", height: "5rem", rotate: "90%"}} />
+
             </NavLink>
           </div>
           <div>

@@ -23,9 +23,11 @@ const SignUpForm = ({authenticated, setAuthenticated, setUser}) => {
         password,
         );
       if (!user.errors) {
-        setAuthenticated(true)
         setUser(user)
+        setAuthenticated(true)
       }
+    } else {
+      console.log("no password matchey")
     }
   };
 

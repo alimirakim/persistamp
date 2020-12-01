@@ -18,6 +18,7 @@ import RewardShop from './components/RewardShop'
 import {
   programsReducer, habitsReducer, dailiesReducer,
   setPrograms, setHabits, setDailies,
+  resetPrograms, resetHabits, resetDailies,
 } from "./context/reducers"
 
 import './styles/base.css'
@@ -31,7 +32,7 @@ import './styles/all.css'
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState()
   const [colors, setColors] = useState()
   const [stamps, setStamps] = useState()
   const [week, setWeek] = useState()
@@ -40,55 +41,69 @@ function App() {
   const [habits, dispatchHabits] = useReducer(habitsReducer)
   const [dailies, dispatchDailies] = useReducer(dailiesReducer)
 
+  // Fancy wrapper function that can be passed down for fancy extra effects :3
+  const updateUser = (user) => {
+    dispatchPrograms(resetPrograms())
+    dispatchHabits(resetHabits())
+    dispatchDailies(resetDailies())
+    setUser(user)
+  }
 
-  const updateUser = (e) => setUser(e.target.value)
 
+  // When the page loads, load the user. Do only once!!
   useEffect(() => {
     (async () => {
       const user = await authenticate();
-
+      console.log("after auth user", user)
       if (!user.errors) {
-        setAuthenticated(true);
         setUser(user)
-        if (!colors) {
-          const res = await fetch(`/api/users/${user.id}/options`)
-          const { colors_data, stamps_data } = await res.json()
-          console.log("STAMPS DATA", stamps_data)
-          setColors(colors_data)
-          setStamps(stamps_data)
-        }
-        if (!programs) {
-          console.log("not all")
-          const res = await fetch(`/api/users/${user.id}/programs`)
-          const { past_week, programs_data, habits_data, dailies_data } = await res.json()
-          // console.log("all of it...", programs_data, habits_data, dailies_data, past_week)
-          setWeek(past_week)
-          if (!programs) dispatchPrograms(setPrograms(programs_data))
-          if (!habits) dispatchHabits(setHabits(habits_data))
-          if (!dailies) dispatchDailies(setDailies(dailies_data))
-        }
+        setAuthenticated(true);
       }
       setLoaded(true)
-    })();
-  }, [dailies, habits, programs, week]);
+    })()
+  }, [])
+
+
+  // When the user changes, reload programs, habits, and dailies
+  useEffect(() => {
+    if (!user) return;
+    console.log("second effect user!!", user);
+    (async () => {
+      const { colors_data, stamps_data } = await fetch(`/api/users/${user.id}/options`).then(res => res.json())
+      setColors(colors_data)
+      setStamps(stamps_data)
+
+      const { past_week, programs_data, habits_data, dailies_data } = await fetch(`/api/users/${user.id}/programs`).then(res => res.json())
+      setWeek(past_week)
+      dispatchPrograms(setPrograms(programs_data))
+      dispatchHabits(setHabits(habits_data))
+      dispatchDailies(setDailies(dailies_data))
+      console.log("printing fetch:", past_week, programs_data, habits_data, dailies_data )
+    })()
+  }, [user])
+
+  useEffect(() => {
+    console.log("user", user, "programs", programs, "habits", habits, "dailies", dailies)
+  }, [user, programs, habits, dailies])
+
 
   if (!loaded) return null
 
   return (
     <BrowserRouter>
       <HabitBoardContext.Provider value={{ programs, dispatchPrograms, habits, dispatchHabits, dailies, dispatchDailies, week }}>
-        <UserContext.Provider value={{ user, setUser }}>
+        <UserContext.Provider value={{ user, setUser: updateUser }}>
           <OptionsContext.Provider value={{ colors, stamps }}>
 
             <NavBar authenticated={authenticated} setAuthenticated={setAuthenticated} />
             <Route path="/login" exact={true}>
               <LoginForm
                 authenticated={authenticated}
-                setAuthenticated={setAuthenticated} setUser={setUser}
+                setAuthenticated={setAuthenticated} setUser={updateUser}
               />
             </Route>
             <Route path="/sign-up" exact={true}>
-              <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} setUser={setUser} />
+              <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} setUser={updateUser} />
             </Route>
 
             <Route path="/about" exact={true}>

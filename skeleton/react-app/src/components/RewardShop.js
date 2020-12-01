@@ -10,34 +10,51 @@ import { setProgramRewards, createReward, editReward, deleteReward, setRedeemed,
 
 export default function RewardShop() {
   const { pid, mid } = useParams()
-  const { programs } = useContext(HabitBoardContext)
   const { user } = useContext(UserContext)
   const membership = user.memberships[mid]
-  const program = programs[pid]
+  const [program, setProgram] = useState()
   const [rewards, dispatchRewards] = useReducer(rewardsReducer)
   const [redeemed, dispatchRedeemed] = useReducer(redeemedReducer)
   const [points, setPoints] = useState(membership.points)
-  console.log("rewards and redeemed...")
 
+  useEffect(() => {
+    (async () => {
+      const res = await fetch(`/api/rewards/programs/${pid}/users/${user.id}`)
+      console.log("after reward fetch", res)
+      const stuff = await res.json()
+      console.log("fetched program/rewards/redeemed data", stuff)
+      
+      const {program_data, rewards_data, redeemed_data} = await fetch(`/api/rewards/programs/${pid}/users/${user.id}`).then(res => res.json())
+      setProgram(program_data)
+      dispatchRewards(setProgramRewards(rewards_data))
+      dispatchRedeemed(setRedeemed(redeemed_data))
+    })()
+  }, [])
+  
+  useEffect(() => {
+    console.log("reward shop: program", program, "rewards", rewards, "redeemed", redeemed)
+  }, [program, rewards, redeemed])
+  
   useEffect(() => {
     if (!rewards) {
       (async () => {
-        const res = await fetch(`/api/rewards/programs/${pid}`)
+        const res = await fetch(`/api/rewards/programs/${pid}/rewards`)
         dispatchRewards(setProgramRewards(await res.json()))
       })()
     }
   }, [rewards])
 
-  useEffect(() => {
-    if (!redeemed) {
-      (async () => {
-        const res = await fetch(`/api/rewards/programs/${pid}/users/${user.id}/redeemed`)
-        dispatchRedeemed(setRedeemed(await res.json()))
-      })()
-    }
-  }, [redeemed])
-  console.log("got rewards and redeemed", rewards, redeemed)
-  if (!rewards || !redeemed) return null
+  // useEffect(() => {
+  //   if (!redeemed) {
+  //     (async () => {
+  //       const res = await fetch(`/api/rewards/programs/${pid}/users/${user.id}/redeemed`)
+  //       dispatchRedeemed(setRedeemed(await res.json()))
+  //     })()
+  //   }
+  // }, [redeemed])
+  
+  // console.log("got rewards and redeemed", rewards, redeemed)
+  if (!program || !rewards || !redeemed) return null
 
   return (<article style={{ color: program.color.hex }}>
     <h1><i className={`fas fa-${program.stamp.stamp}`}></i> {program.program} Reward Shop</h1>
@@ -229,8 +246,8 @@ export function RewardEditForm({program, reward, dispatchRewards}) {
   const [color, setColor] = useState(reward.color.id)
   const [stamp, setStamp] = useState(reward.stamp.id)
   const [cost, setCost] = useState(reward.cost)
-  const [limit, setLimit] = useState(reward.limit_per_member ? typeof reward.limit_per_member !== "number" : -1)
-  const [quantity, setQuantity] = useState(reward.quantity ? typeof reward.quantity !== "number" : -1)
+  const [limit, setLimit] = useState(reward.limit_per_member)
+  const [quantity, setQuantity] = useState(reward.quantity)
   console.log("reward to edit!", name, description, color, stamp, cost, limit, quantity)
   // console.log("reward to edit!", reward)
   
@@ -268,7 +285,7 @@ export function RewardEditForm({program, reward, dispatchRewards}) {
     <article>
       <button onClick={handleOpen} style={{ borderWidth: 0, backgroundColor: "rgba(0,0,0,0", color: "gray" }}>
       
-      <i className={`fas fa-question`}></i>
+      <i className={`fas fa-pencil-alt`}></i>
       
       
       </button>
@@ -309,7 +326,7 @@ export function RewardDeleteForm({ reward, dispatchRewards }) {
   return (
     <article>
     
-      <button onClick={handleOpen} style={{ borderWidth: 0, backgroundColor: "rgba(0,0,0,0", color: "gray" }}><i className={`fas fa-trash`}></i></button>
+      <button onClick={handleOpen} style={{ borderWidth: 0, backgroundColor: "rgba(0,0,0,0", color: "gray" }}><i className={`fas fa-eraser`}></i></button>
       
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Delete reward "{reward.reward}" for "{reward.program}"?</DialogTitle>

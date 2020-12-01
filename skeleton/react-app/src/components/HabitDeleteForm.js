@@ -23,7 +23,7 @@ export default function HabitDeleteForm({habit }) {
   return (
     <>
       <button onClick={handleClickOpen} style={{color: "gray", backgroundColor: "rgba(0,0,0,0)", borderWidth: "0"}}>
-        <i className={`fas fa-trash`}></i>
+        <i className={`fas fa-eraser`}></i>
       </button>
 
 

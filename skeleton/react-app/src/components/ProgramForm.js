@@ -171,7 +171,7 @@ export function ProgramDeleteForm({ program }) {
   return (
     <>
       <button onClick={handleOpen} style={{color: "gray", backgroundColor: "rgba(0,0,0,0)", borderWidth: "0"}}>
-        <i className={`fas fa-trash`}></i>
+        <i className={`fas fa-eraser`}></i>
       </button>
 
       <Dialog open={open} onClose={handleClose}>
