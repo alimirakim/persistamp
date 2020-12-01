@@ -125,9 +125,11 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
+            <div style={{display: "flex", flexDirection: "column", alignContent: "center", alignItems: "center", justifyContent: "center"}}>
               <h1 style={{ fontSize: "3rem", marginTop: "1rem", marginBottom: 0, fontFamily: "Cambria", fontStyle: "italic" }}>Persistamp</h1>
               <UserProfileCard />
               <h2 className="cam" style={{ marginBottom: "2rem", marginTop: "5rem", fontSize: "2rem" }}>Habit Board Programs</h2>
+              </div>
               <ProgramForm />
               <HabitBoard />
             </ProtectedRoute>

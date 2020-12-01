@@ -62,6 +62,7 @@ export default function RewardShop() {
       <i className={`fas fa-chevron-circle-left`} style={{ color: program.color.hex }}></i>
     </Link>
 
+    <div style={{display: "flex", flexDirection: "column", alignContent: "center", alignItems: "center"}}>
     <h1 className="cam" style={{ fontSize: "3rem", margin: "2rem" }}><i className={`fas fa-${program.stamp.stamp}`}></i> {program.program} Reward Shop</h1>
     <h2>Your Points: <span style={{ fontSize: "3rem" }}>{points} <i className={`fas fa-${program.stamp.stamp}`}></i></span></h2>
 
@@ -99,7 +100,7 @@ export default function RewardShop() {
           ))}
         </ul>
       </article>
-
+</div>
     </div>
 
   </article>)

@@ -70,7 +70,7 @@ export default function HabitBoard() {
                   {habits && Object.values(habits)
                     .filter(habit => habit.program === program.id)
                     .map(habit => (<tr key={habit.id} style={{ color: habit.color.hex }}>
-                      <td style={{ display: "flex" }}>
+                      <td style={{ display: "flex", width: "max-content" }}>
                         <HabitEditForm habit={habit} />
                         <HabitDeleteForm habit={habit} />
 
