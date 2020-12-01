@@ -15,69 +15,71 @@ export default function HabitBoard() {
 
   return (
     <article>
-      <h2>Habit Board</h2>
       <ProgramForm />
-      <table>
+      <h2>Habit Board Programs</h2>
+      <ul style={{display: "flex", flexDirection: "column-reverse"}}>
         {Object.values(programs).map(program => {
           const [mid] = program.members.filter(m => Object.keys(user.memberships).includes(String(m)))
           console.log("mid, program m, user m,", mid, program.members, user.memberships)
           return (
-            <>
-              <thead>
-                <tr key={program.id} style={{ color: program.color.hex }}>
-                  <td colSpan={8}>
+            <li key={program.id}>
+              <table>
+                <thead>
+                  <tr key={program.id} style={{ color: program.color.hex }}>
+                    <td colSpan={8}>
 
-                    <ProgramEditForm program={program} />
-                    <ProgramDeleteForm program={program} />
+                      <ProgramEditForm program={program} />
+                      <ProgramDeleteForm program={program} />
 
-                    <h3>
-                      <i className={`fas fa-${program.stamp.stamp}`}></i> {program.program}
-                    </h3>
-                    <Link to={`/programs/${program.id}/members/${mid}/rewards`}>
-                      <i className={`fas fa-store`} style={{ color: program.color.hex }}></i>
-                    </Link>
-                    <span> Points: {user.memberships[mid].points} <i className={`fas fa-${program.stamp.stamp}`}></i></span>
-                    <blockquote>{program.description}</blockquote>
-
-                  </td>
-                </tr>
-                <tr>
-                  <th>
-                    <HabitForm pid={program.id} program={program.program} dispatchHabits={dispatchHabits} />
-                  </th>
-                  <th><time dateTime={week[0][1]}>{week[0][0]} <br /><small>{week[0][1].slice(8, 10)}</small></time></th>
-                  <th><time dateTime={week[1][1]}>{week[1][0]} <br /><small>{week[1][1].slice(8, 10)}</small></time></th>
-                  <th><time dateTime={week[2][1]}>{week[2][0]} <br /><small>{week[2][1].slice(8, 10)}</small></time></th>
-                  <th><time dateTime={week[3][1]}>{week[3][0]} <br /><small>{week[3][1].slice(8, 10)}</small></time></th>
-                  <th><time dateTime={week[4][1]}>{week[4][0]} <br /><small>{week[4][1].slice(8, 10)}</small></time></th>
-                  <th><time dateTime={week[5][1]}>{week[5][0]} <br /><small>{week[5][1].slice(8, 10)}</small></time></th>
-                  <th><time dateTime={week[6][1]}>{week[6][0]} <br /><small>{week[6][1].slice(8, 10)}</small></time></th>
-                </tr>
-              </thead>
-
-              <tbody>
-               {/* style={{display: "flex", flexDirection: "column-reverse"}}> */}
-                {Object.values(habits)
-                  .filter(habit => habit.program === program.id)
-                  .map(habit => (<tr key={habit.id} style={{ color: habit.color.hex }}>
-                    <td style={{ display: "flex" }}>
-                      <HabitEditForm habit={habit} />
-                      <HabitDeleteForm habit={habit} />
-
-                      <Link to={`/graphs/${habit.id}/members/${mid}`} style={{ color: `${habit.color.hex}`, textDecoration: "none" }}>
-                        <i className={`fas fa-${habit.stamp.stamp}`}></i> {habit.habit}
+                      <h3>
+                        <i className={`fas fa-${program.stamp.stamp}`}></i> {program.program}
+                      </h3>
+                      <Link to={`/programs/${program.id}/members/${mid}/rewards`}>
+                        <i className={`fas fa-store`} style={{ color: program.color.hex }}></i>
                       </Link>
+                      <span> Points: {user.memberships[mid].points} <i className={`fas fa-${program.stamp.stamp}`}></i></span>
+                      <blockquote>{program.description}</blockquote>
+
                     </td>
-                    {week.map(day => (
-                      <StampBox key={`${program.id}${mid}${habit.id}${day}`} pid={program.id} mid={mid} habit={habit} day={day} />
-                    ))}
-                  </tr>))
-                }
-              </tbody>
-            </>
+                  </tr>
+                  <tr>
+                    <th>
+                      <HabitForm pid={program.id} program={program.program} dispatchHabits={dispatchHabits} />
+                    </th>
+                    <th><time dateTime={week[0][1]}>{week[0][0]} <br /><small>{week[0][1].slice(8, 10)}</small></time></th>
+                    <th><time dateTime={week[1][1]}>{week[1][0]} <br /><small>{week[1][1].slice(8, 10)}</small></time></th>
+                    <th><time dateTime={week[2][1]}>{week[2][0]} <br /><small>{week[2][1].slice(8, 10)}</small></time></th>
+                    <th><time dateTime={week[3][1]}>{week[3][0]} <br /><small>{week[3][1].slice(8, 10)}</small></time></th>
+                    <th><time dateTime={week[4][1]}>{week[4][0]} <br /><small>{week[4][1].slice(8, 10)}</small></time></th>
+                    <th><time dateTime={week[5][1]}>{week[5][0]} <br /><small>{week[5][1].slice(8, 10)}</small></time></th>
+                    <th><time dateTime={week[6][1]}>{week[6][0]} <br /><small>{week[6][1].slice(8, 10)}</small></time></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  {/* style={{display: "flex", flexDirection: "column-reverse"}}> */}
+                  {Object.values(habits)
+                    .filter(habit => habit.program === program.id)
+                    .map(habit => (<tr key={habit.id} style={{ color: habit.color.hex }}>
+                      <td style={{ display: "flex" }}>
+                        <HabitEditForm habit={habit} />
+                        <HabitDeleteForm habit={habit} />
+
+                        <Link to={`/graphs/${habit.id}/members/${mid}`} style={{ color: `${habit.color.hex}`, textDecoration: "none" }}>
+                          <i className={`fas fa-${habit.stamp.stamp}`}></i> {habit.habit}
+                        </Link>
+                      </td>
+                      {week.map(day => (
+                        <StampBox key={`${program.id}${mid}${habit.id}${day}`} pid={program.id} mid={mid} habit={habit} day={day} />
+                      ))}
+                    </tr>))
+                  }
+                </tbody>
+              </table>
+            </li>
           )
         })}
-      </table>
+      </ul>
     </article>
   )
 }
@@ -86,7 +88,7 @@ export default function HabitBoard() {
 function StampBox({ pid, mid, habit, day }) {
   const { dailies, dispatchDailies } = useContext(HabitBoardContext)
   const [isStamped, setIsStamped] = useState(Object.values(dailies).find(stamp => stamp.date === day[1] && stamp.member === mid && stamp.habit === habit.id))
-  
+
 
   const onStamp = (method) => async (ev) => {
     ev.preventDefault()
@@ -107,7 +109,7 @@ function StampBox({ pid, mid, habit, day }) {
   const checkCompleted = () => {
     const frequency = habit.frequency
     const stamps = Object.values(dailies).filter(stamp => stamp.member === mid && stamp.habit === habit.id)
-    if(stamps.length >= frequency){
+    if (stamps.length >= frequency) {
       return true
     }
     return false;
@@ -125,7 +127,7 @@ function StampBox({ pid, mid, habit, day }) {
     )
 
   } else {
-    if(checkCompleted()){
+    if (checkCompleted()) {
       return (
         <td style={{ color: habit.color.hex }}>
           <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}`} onSubmit={onStamp("post")}>
@@ -135,7 +137,7 @@ function StampBox({ pid, mid, habit, day }) {
           </form>
         </td>
       )
-    }else{
+    } else {
       return (
         <td style={{ color: habit.color.hex }}>
           <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}`} onSubmit={onStamp("post")}>
