@@ -19,6 +19,7 @@ export default function HabitDisplay() {
       (async () => {
         const res = await fetch(`/api/habits/${hid}/members/${mid}`)
         const habit = await res.json()
+        // console.log("HABIT", habit)
         setHabit(habit)
       })()
     }
@@ -28,30 +29,42 @@ export default function HabitDisplay() {
   return (
     <HabitContext.Provider value={habit}>
       <article style={{ color: habit.color.hex }}>
-        <Link to={`/`}>
-        <i className={`fas fa-chevron-circle-left`} style={{color: habit.color.hex}}></i>
-        </Link>
-        <br/>
-
-        <h1 className={`fas fa-${habit.stamp.stamp}`}> {habit.habit}</h1>
-
-        <h2>Details</h2>
-        <dl>
-          <dt>Program</dt>
-          <dd>{habit.program.program}</dd>
-          {/* <dt>Stamper</dt> */}
-          {/* <dd>{habit.stamper}</dd> */}
-          <dt>Frequency</dt>
-          <dd>{habit.frequency.split("").filter(c => c === "t").length} Days</dd>
-          <dt>Started on</dt>
-          <dd>{new Date(habit.created_at).toLocaleString()}</dd>
-          <dt>Description</dt>
-          <dd>{habit.description}</dd>
-        </dl>
-        <HabitStatOverview habit={habit}/>
-        <LineGraph  mid={mid} habit={habit} />
-        <CalendarMap habit={habit} />
-
+        <div className="displayPage">
+          <div className="displayFormat">
+            <div className="habitFormat">
+              <div className="habitDetailContainer">
+                <Link to={`/`}>
+                <i className={`fas fa-chevron-circle-left`} style={{color: habit.color.hex}}></i>
+                </Link>
+                {/* <br/> */}
+                <h1 className={`fas fa-${habit.stamp.stamp} habitDetail__title`}> {habit.habit}</h1>
+                  <table className="habitDetail__table">
+                    <thead>
+                      <tr>
+                        <th>Description</th>
+                        <th>Program</th>
+                        <th>Stamp</th>
+                        <th>Frequency</th>
+                        <th>Started on</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td className="habitDetail__cell">{habit.description}</td>
+                        <td className="habitDetail__cell">{habit.program.program}</td>
+                        <td className="habitDetail__cell">{habit.stamp.stamp}</td>
+                        <td className="habitDetail__cell">{habit.frequency} Days</td>
+                        <td className="habitDetail__cell">{new Date(habit.created_at).toLocaleString()}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+              </div>
+              <HabitStatOverview habit={habit}/>
+              <LineGraph  mid={mid} habit={habit} />
+            </div>
+            <CalendarMap habit={habit} />
+          </div>
+        </div>
       </article>
     </HabitContext.Provider>
 
