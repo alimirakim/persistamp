@@ -15,15 +15,11 @@ export default function HabitBoard() {
   // console.log("user inside habitboard", user)
 
   if (!programs || !habits || !dailies) return null
-  if (!Object.keys(programs).length || !Object.keys(habits).length || !Object.keys(dailies).length) return null
+  if (!Object.keys(programs).length) return null
   console.log("programs, habits, dailies", programs, habits, dailies)
 
   return (
     <article className="lo-main-center habit-board">
-      <h1 style={{ fontSize: "3rem", marginTop: "1rem", marginBottom: 0, fontFamily: "Cambria", fontStyle: "italic" }}>Persistamp</h1>
-      <UserProfileCard />
-      <h2 className="cam" style={{marginBottom: "2rem", marginTop: "5rem", fontSize: "2rem"}}>Habit Board Programs</h2>
-      <ProgramForm />
       <ul style={{ display: "flex", flexDirection: "column-reverse" }}>
         {programs && Object.values(programs).map(program => {
           const [mid] = program.members.filter(m => Object.keys(user.memberships).includes(String(m)))
