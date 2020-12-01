@@ -22,6 +22,9 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
     font-style: normal;
 }
 
+.errorHeader {
+    color:red;
+}
 .NavBarContainer {
     display: flex;
     align-items: flex-start;

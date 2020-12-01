@@ -101,11 +101,7 @@ function App() {
                 authenticated={authenticated}
                 setAuthenticated={setAuthenticated} setUser={updateUser}
               />
-              {/* <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} setUser={updateUser} /> */}
             </Route>
-            {/* <Route path="/sign-up" exact={true}>
-            </Route> */}
-
             <Route path="/about" exact={true}>
               <>
                 <h1>About Us</h1>

@@ -37,7 +37,7 @@ const LoginForm = ({ authenticated, setAuthenticated, setUser }) => {
      <div>
       <div>
         {errors.map((error) => (
-          <div className="loginHeader">{error}</div>
+          <div className="loginHeader errorHeader">{error}</div>
         ))}
       </div>
       <h2 className="loginHeader">Persistamp</h2>
