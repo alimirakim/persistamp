@@ -25,14 +25,15 @@ def validation_errors_to_error_messages(validation_errors):
 @auth_routes.route('/')
 def authenticate():
     """Authenticates a user"""
-    user = User.query.options( \
-      joinedload(User.color), \
-      joinedload(User.stamp), \
-      joinedload(User.memberships), \
-      ).get(current_user.id)
-    if user.is_authenticated:
-        
-        user_data = user_schema.dump(current_user)
+    print("\n\n\nAUTHING??", dir(current_user), current_user.is_authenticated)
+    if current_user.is_authenticated:
+        user = User.query.options( \
+            joinedload(User.color), \
+            joinedload(User.stamp), \
+            joinedload(User.memberships), \
+            ).get(current_user.id)
+
+        user_data = user_schema.dump(user)
         user_data["color"] = color_schema.dump(user.color)
         user_data["stamp"] = stamp_schema.dump(user.stamp)
         print("\nauthed user")
