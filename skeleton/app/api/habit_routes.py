@@ -13,6 +13,15 @@ from flask_login import current_user
 
 habit_routes = Blueprint("habits", __name__)
 
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f"{field} : {error}")
+    return errorMessages
 
 # TESTED Functions
 @habit_routes.route("/programs/<int:pid>")
@@ -336,7 +345,7 @@ def edit_habit(hid):
         habit_data["stamp"] = stamp_schema.dump(habit.stamp)
         print("\nEDITTED HABIT DUMP", habit_data)
         return jsonify(habit_data)
-    return "Habit-edit fail :["
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
 @habit_routes.route("/delete/<int:hid>", methods=["DELETE"])
@@ -423,4 +432,4 @@ def create_habit(pid):
         habit["stamp"] = stamp_schema.dump(newHabit.stamp)
         print("\n\nNEW HABIT DICTIONARY:", habit)
         return jsonify(habit)
-    return "Habit failure"
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400

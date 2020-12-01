@@ -8,6 +8,15 @@ from app.utils import queryUserFullData
 
 program_routes = Blueprint("programs", __name__, url_prefix="/programs")
 
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f"{field} : {error}")
+    return errorMessages
 
 # TESTED Returns a program json
 @program_routes.route("/<int:pid>")
@@ -50,7 +59,7 @@ def create_program():
         updated_user = queryUserFullData(current_user.id)
         
         return jsonify(program=program_data, updated_user=updated_user)
-    return "D: No program made"
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
 # TESTED Functions
@@ -75,7 +84,7 @@ def edit_program(pid):
 
         print("\nEDITED PROGRAM", program_data)
         return jsonify(program_data)
-    return "Failure D: Edit program not!"
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
 @program_routes.route("/<int:pid>", methods=["DELETE"])

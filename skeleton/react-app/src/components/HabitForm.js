@@ -8,10 +8,11 @@ import { createHabit } from '../context/reducers'
 import { ActionOrCancelButtons, AddName, AddDescription, ChooseFrequency, ChooseColor, ChooseStamp } from './FormInputs'
 
 function HabitForm({ pid, program }) {
-  const {user} = useContext(UserContext)
+  const { user } = useContext(UserContext)
   const { colors, stamps } = useContext(OptionsContext)
   const {dispatchHabits} = useContext(HabitBoardContext)
   
+  const [errors, setErrors] = useState([])
   const [open, setOpen] = React.useState(false);
   const [name, setName] = useState()
   const [description, setDescription] = useState()
@@ -25,32 +26,36 @@ function HabitForm({ pid, program }) {
   const onCreate = async (e) => {
     e.preventDefault()
     const userId = user.id
-    try{
-      const newHabit = await habitCreate(
-        name,
-        description,
-        frequency,
-        color,
-        stamp,
-        userId,
-        pid,
-        )
+    const newHabit = await habitCreate(
+      name,
+      description,
+      frequency,
+      color,
+      stamp,
+      userId,
+      pid,
+      )
+    if(!newHabit.errors){
       dispatchHabits(createHabit(newHabit))
-      console.log("new habit is...", newHabit)
       setOpen(false)
-    }catch(err){
-      console.error(err)
-      window.alert("Missing required fields")
+      setName()
+      setDescription()
+      setFrequency(7)
+      setColor(1)
+      setStamp(3)
+    }else{
+      setErrors(newHabit.errors)
     }
-    
-    // Resetting form defaults
-    setName()
-    setDescription()
-    setFrequency(7)
-    setColor(1)
-    setStamp(3)
+  }
 
-    
+  const renderErrors = (errors) => {
+    if (errors) {
+      console.log("trying to render user setting errors")
+      return errors.map(error => {
+        console.log(error)
+        return <div className='material-error'>{error}</div>
+      })
+    }
   }
 
   if (!colors || !stamps) return null
@@ -61,8 +66,10 @@ function HabitForm({ pid, program }) {
 
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add a habit to {program}!</DialogTitle>
-
-        <DialogContent>
+        <div>
+          {renderErrors(errors)}
+        </div>
+        <DialogContent className='user-settings'>
           <AddName name={name} setName={setName} />
           <AddDescription description={description} setDescription={setDescription} />
           <ChooseFrequency frequency={frequency} setFrequency={setFrequency} />
