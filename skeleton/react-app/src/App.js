@@ -41,6 +41,7 @@ function App() {
   const [habits, dispatchHabits] = useReducer(habitsReducer)
   const [dailies, dispatchDailies] = useReducer(dailiesReducer)
 
+  // Fancy wrapper function that can be passed down for fancy extra effects :3
   const updateUser = (user) => {
     dispatchPrograms(resetPrograms())
     dispatchHabits(resetHabits())
@@ -48,6 +49,7 @@ function App() {
     setUser(user)
   }
 
+  
   // When the page loads, load the user. Do only once!!
   useEffect(() => {
     (async () => {
@@ -64,9 +66,6 @@ function App() {
 
   // When the user changes, reload programs, habits, and dailies
   useEffect(() => {
-    // dispatchPrograms(resetPrograms())
-    // dispatchHabits(resetHabits())
-    // dispatchDailies(resetDailies())
     if (!user) return;
     console.log("second effect user!!", user);
     (async () => {
@@ -75,11 +74,11 @@ function App() {
       setStamps(stamps_data)
 
       const { past_week, programs_data, habits_data, dailies_data } = await fetch(`/api/users/${user.id}/programs`).then(res => res.json())
-      // console.log("all of it...", programs_data, habits_data, dailies_data, past_week)
       setWeek(past_week)
       dispatchPrograms(setPrograms(programs_data))
       dispatchHabits(setHabits(habits_data))
       dispatchDailies(setDailies(dailies_data))
+      console.log("printing fetch:", past_week, programs_data, habits_data, dailies_data )
     })()
   }, [user])
   

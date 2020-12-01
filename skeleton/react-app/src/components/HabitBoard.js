@@ -13,6 +13,7 @@ export default function HabitBoard() {
   const { programs, habits, week, dispatchHabits } = useContext(HabitBoardContext)
   // console.log("user inside habitboard", user)
 
+  if (!programs) return null
   
   return (
     <article>

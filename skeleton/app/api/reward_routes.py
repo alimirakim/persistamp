@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, redirect, jsonify, request
 from sqlalchemy.orm import joinedload
-from app.models import db, Reward, Redeemed, Member
-from app.schemas import reward_schema, redeemed_schema, color_schema, stamp_schema, user_schema, program_schema, member_schema
-from app.utils import dump_data_list
-from app.forms import RewardForm
 from flask_login import current_user
+from app.models import db, Reward, Redeemed, Member, Program
+from app.schemas import reward_schema, redeemed_schema, color_schema, stamp_schema, user_schema, program_schema, member_schema
+from app.utils import dump_data_list, dumpProgramFullData, dumpRewardFullData, dumpRedeemedData
+from app.forms import RewardForm
 from pprint import pprint
 
 reward_routes = Blueprint("rewards", __name__, url_prefix="/rewards")
@@ -19,6 +19,7 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f"{field} : {error}")
     return errorMessages
 
+
 @reward_routes.route("/<string:type>")
 def type_rewards(type):
     """Get a list of all default-universal rewards, by type if specified."""
@@ -29,7 +30,43 @@ def type_rewards(type):
     return jsonify(dump_data_list(rewards, reward_schema))
 
 
-@reward_routes.route("/programs/<int:pid>")
+@reward_routes.route("/programs/<int:pid>/users/<int:uid>")
+def program_and_rewards_and_redeemed(pid, uid):
+    """Get a list of a program's custom rewards."""
+    print("\n\nGETTING ALL PROGRAM REWARDS")
+    program = Program.query.get(pid)
+    program_data = dumpProgramFullData(program)
+    
+    rewards = Reward.query.filter(Reward.program_id == pid).options(joinedload(Reward.stamp), joinedload(Reward.color), joinedload(Reward.creator)).all()
+    
+    rewards_obj = {}
+    rewards_data = dump_data_list(rewards, reward_schema)
+    rewards_data = [reward for reward in rewards_data]
+    for reward in rewards:
+        rewards_obj[reward.id] = dumpRewardFullData(reward)
+    
+    redeemed = Redeemed.query.join(Redeemed.reward) \
+        .filter(Redeemed.user_id == uid, Reward.program_id == pid) \
+        .options( \
+        joinedload(Redeemed.reward), \
+        joinedload(Redeemed.user), \
+        joinedload(Redeemed.reward).joinedload(Reward.color), \
+        joinedload(Redeemed.reward).joinedload(Reward.stamp) \
+        ).order_by(Redeemed.redeemed_at).all()
+    
+    redeemed_data = dump_data_list(redeemed, redeemed_schema)
+    i = 0
+    for redeemed_one in redeemed:
+        dumpRedeemedData(redeemed_data[i], redeemed_one.reward)
+        i += 1
+    print("\n\n\nPROGRAM, REDEEMED, REWARDS")
+    pprint(program_data)
+    pprint(redeemed_data)
+    pprint(rewards_data)
+    return jsonify(program_data=program_data, rewards_data=rewards_obj, redeemed_data=redeemed_data)
+
+
+@reward_routes.route("/programs/<int:pid>/rewards")
 def program_rewards(pid):
     """Get a list of a program's custom rewards."""
     rewards = Reward.query.filter(Reward.program_id == pid).options(joinedload(Reward.stamp), joinedload(Reward.color), joinedload(Reward.creator)).all()
@@ -37,18 +74,8 @@ def program_rewards(pid):
     rewards_obj = {}
     rewards_data = dump_data_list(rewards, reward_schema)
     rewards_data = [reward for reward in rewards_data]
-    i = 0
     for reward in rewards:
-        rewards_data[i]["color"] = color_schema.dump(reward.color)
-        rewards_data[i]["stamp"] = stamp_schema.dump(reward.stamp)
-        rewards_data[i]["creator"] = user_schema.dump(reward.creator)
-        rewards_obj[rewards_data[i]["id"]] = rewards_data[i]
-        if rewards_data[i]["quantity"] == -1:
-            rewards_data[i]["quantity"] = "∞"
-        if rewards_data[i]["limit_per_member"] <= 0:
-            rewards_data[i]["limit_per_member"] = "∞"
-        i += 1
-    print("\n\nPROGRAM REWARDS", rewards_obj)
+        rewards_obj[reward.id] = dumpRewardFullData(reward)
     return jsonify(rewards_obj)
 
 
@@ -74,21 +101,11 @@ def create_reward(pid):
         db.session.add(reward)
         db.session.commit()
             
-        reward_data = reward_schema.dump(reward)
-        reward_data["color"] = color_schema.dump(reward.color) 
-        reward_data["stamp"] = stamp_schema.dump(reward.stamp)
-        reward_data["creator"] = user_schema.dump(reward.creator)
-        reward_data["program"] = program_schema.dump(reward.program)
-        
-        if form['quantity'].data == -1:
-            reward_data["quantity"] = "∞"
-        if form['limit'].data == -1:
-            reward_data["limit_per_member"] = "∞"
-        
+        reward_data = dumpRewardFullData(reward)
         print("\nCREATED REWARD")
         pprint(reward_data)
         return jsonify(reward_data)
-    return {'errors': ['Unauthorized']}, 400
+    return {'errors': ['Failed to create reward']}, 400
 
 
 @reward_routes.route("/<int:rid>/edit", methods=["PATCH"])
@@ -110,19 +127,12 @@ def edit_reward(rid):
         reward.stamp_id = form["stamp"].data
         
         db.session.commit()
-        reward_data = reward_schema.dump(reward)
-        reward_data["color"] = color_schema.dump(reward.color)
-        reward_data["stamp"] = stamp_schema.dump(reward.stamp)
+        reward_data = dumpRewardFullData(reward)
         
-        if form['quantity'].data == -1:
-            reward_data["quantity"] = "∞"
-        if form['limit'].data == -1:
-            reward_data["limit_per_member"] = "∞"
-            
         print("\n\nEDITED REWARD")
         pprint(reward_data)
         return jsonify(reward_data)
-    return {'errors': ['Unauthorized']}, 400
+    return {'errors': ['Editing reward failed']}, 400
 
 
 @reward_routes.route("/<int:rid>/delete", methods=["DELETE"])
@@ -143,13 +153,13 @@ def redeem_reward(rid, mid):
     if reward.limit_per_member > 0:
         redeemed_count = Redeemed.query.filter(Redeemed.reward_id == reward.id, Redeemed.user_id == member.member.id).count()
         if redeemed_count >= reward.limit_per_member:
-            return f"You have too many, sorry T_T . Only {str(reward.limit_per_member)} per customer!"
+            return {'errors': [f"You have too many, sorry T_T . Only {str(reward.limit_per_member)} per customer!"]}, 400
 
     if reward.quantity == 0:
-        return "There aren't any left, sorry T_T"
+        return {'errors': ["There aren't any left, sorry T_T"]}, 400
     
     if member.points < reward.cost:
-        return "You need more points please TT_TT"
+        return {'errors': ["You need more points please TT_TT"]}, 400
     
     if reward.quantity > 0:
         reward.quantity -= 1
@@ -160,10 +170,7 @@ def redeem_reward(rid, mid):
     db.session.add(redeemed)
     db.session.commit()
     redeemed_data = redeemed_schema.dump(redeemed)
-    redeemed_data["reward"] = reward_schema.dump(redeemed.reward)
-    redeemed_data["reward"]["color"] = color_schema.dump(redeemed.reward.color)
-    redeemed_data["reward"]["stamp"] = stamp_schema.dump(redeemed.reward.stamp)
-    redeemed_data["user"] = user_schema.dump(redeemed.user) 
+    dumpRedeemedData(redeemed_data, reward)
 
     print("\n\nREDEEMED REWARD", redeemed_data)
     print("\n\nMEMBER NOW", member)
@@ -185,13 +192,7 @@ def redeemed_rewards(pid, uid):
     redeemed_data = dump_data_list(redeemed, redeemed_schema)
     i = 0
     for reward in redeemed:
-        redeemed_data[i]["reward"] = reward_schema.dump(reward.reward)
-        redeemed_data[i]["reward"]["color"] = color_schema.dump(reward.reward.color)
-        redeemed_data[i]["reward"]["stamp"] = stamp_schema.dump(reward.reward.stamp)
-        if redeemed_data[i]["reward"]["limit_per_member"] < 1:
-            redeemed_data[i]["reward"]["limit_per_member"] = "∞"
-        if redeemed_data[i]["reward"]["quantity"] < 0:
-            redeemed_data[i]["reward"]["quantity"] = "∞"
+        dumpRedeemedData(redeemed_data, reward)
         i += 1
     print("\n\nREDEEMED REWARDS LIST")
     pprint(redeemed_data)
