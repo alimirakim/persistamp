@@ -1,7 +1,10 @@
 from dotenv import load_dotenv
 load_dotenv()
 
-from datetime import datetime
+from datetime import date, timedelta, datetime
+from random import *
+from calendar import monthrange
+
 from app import app, db
 from app.models.everything import User, Program, Habit, Stamp, DailyStamp, Member, Reward, Color
 
@@ -22,13 +25,13 @@ with app.app_context():
 
     users = [""]
     stamp_sets = {
-        "defaults": ["user-circle", "calendar-alt", "check-circle", "award"],
+        "defaults": ["user-circle", "calendar-alt", "check-circle", "award", "cogs", "clipboard-check", "medal"],
         "symbols": ["heart", "star"],
-        "things": ["palette"],
+        "things": ["palette", "dice", "car-alt", "chess-queen", "basketball-ball", "bowling-ball", "dumbbell", "guitar", "key", "laptop", "pencil-alt", "pen-alt"],
         "people": [],
-        "body": ["tooth"],
-        "animals": ["turtle", "dog", "cat"],
-        "food": ["carrot", "cookie"],
+        "body": ["tooth", "biking"],
+        "animals": ["dog", "cat"],
+        "food": ["carrot", "cookie", "bacon", "ice-cream"],
     }
 
     stamps = []
@@ -53,6 +56,7 @@ with app.app_context():
         "blizzard-blue":      "#b8f3ff",
         "wisteria":           "#b49fcc",
         "african-violet":     "#b07bac", # 14
+        "white":              "#ffffff",
     }
     lightmode_colors = {
         "vivid-burgundy":     "#a5243d",
@@ -70,6 +74,8 @@ with app.app_context():
         "sapphire-blue":      "#2c699a",
         "dark-slate-blue":    "#54478c",
         "red-violet-crayola": "#af4d98", # 29
+        "grey":               "#808080",
+        "black":              "#000000",
     }
     colors = []
     for name, hex in darkmode_colors.items():
@@ -175,13 +181,43 @@ with app.app_context():
                   hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[10],
                   stamp=stamps[0],
+                  birthday=datetime(1989, 11, 19),
     )
-    users = [myki, dyclee, awod, eric, yn, inho, aly, sophie, ashe, mom]
+    demo = User(username="TheDemoUser1",
+                  first_name="Demo",
+                  last_name="User",
+                  email="demo@gmail.com",
+                  hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
+                  color=colors[10],
+                  stamp=stamps[0],
+    )
+    users = [myki, dyclee, awod, eric, yn, inho, aly, sophie, ashe, mom, demo]
     for user in users:
         db.session.add(user)
     db.session.commit()
 
     # Programs
+    program_one = Program(program="Work",
+                        description="bring home the bacon",
+                        color=colors[0],
+                        creator_id=11,
+                        stamp_id=28,
+                        created_at=datetime(2019, 12, 1),
+    )
+    program_two = Program(program="Social",
+                        description="family and friends",
+                        color=colors[22],
+                        creator_id=11,
+                        stamp_id=8,
+                        created_at=datetime(2019, 12, 15),
+    )
+    program_three = Program(program="Chores and errands",
+                        description="just do it",
+                        color=colors[11],
+                        creator_id=11,
+                        stamp_id=6,
+                        created_at=datetime(2019, 12, 31),
+    )
     program_mom = Program(program="Sophia and Mom",
                         description="",
                         color=colors[11],
@@ -197,7 +233,7 @@ with app.app_context():
                         color=colors[13],
                         creator_id=2,
     )
-    programs = [program_mom, program_me, program_ashe]
+    programs = [program_one, program_two, program_three, program_mom, program_me, program_ashe]
 
     for program in programs:
         db.session.add(program)
@@ -205,6 +241,78 @@ with app.app_context():
     db.session.commit()
 
     # Habits
+    habit_workone = Habit(habit="Code",
+                    description="code once a day keeps the doctor away.. ",
+                    frequency=7,
+                    color=colors[1],
+                    stamp_id=19,
+                    program=program_one,
+                    creator=demo,
+                    created_at=datetime(2019, 12, 1),
+                    )
+    habit_worktwo = Habit(habit="Team Meetings",
+                    description="meet with team to discuss project",
+                    frequency=5,
+                    color=colors[5],
+                    stamp_id=1,
+                    program=program_one,
+                    creator=demo,
+                    created_at=datetime(2020, 1, 4),
+                    )
+    habit_socialone = Habit(habit="Spot",
+                    description="take spot to the park",
+                    frequency=4,
+                    color=colors[2],
+                    stamp_id=24,
+                    program=program_two,
+                    creator=demo,
+                    created_at=datetime(2020, 5, 29),
+                    )
+    habit_socialtwo = Habit(habit="Date Night",
+                    description="love is in the air",
+                    frequency=1,
+                    color=colors[15],
+                    stamp_id=13,
+                    program=program_two,
+                    creator=demo,
+                    created_at=datetime(2020, 2, 18),
+                    )
+    habit_socialthree = Habit(habit="Gameday!",
+                    description="we're winning it this year",
+                    frequency=1,
+                    color=colors[16],
+                    stamp_id=14,
+                    program=program_two,
+                    creator=demo,
+                    created_at=datetime(2020, 11, 11),
+                    )
+    habit_choresone = Habit(habit="Dishes",
+                    description="you promised",
+                    frequency=7,
+                    color=colors[21],
+                    stamp_id=3,
+                    program=program_three,
+                    creator=demo,
+                    created_at=datetime(2020, 8, 17),
+                    )
+    habit_chorestwo = Habit(habit="Drive Sara to practice",
+                    description="5:30 at Palmer Field",
+                    frequency=3,
+                    color=colors[17],
+                    stamp_id=12,
+                    program=program_three,
+                    creator=demo,
+                    created_at=datetime(2020, 7, 5),
+                    )
+    habit_choresthree = Habit(habit="Exercise/Gym",
+                    description="don't forget leg day",
+                    frequency=3,
+                    color=colors[4],
+                    stamp_id=16,
+                    program=program_three,
+                    creator=demo,
+                    created_at=datetime(2020, 12, 31),
+                    )
     habit_veggies = Habit(habit="Eat Veggies",
                     description="",
                     frequency="ttttttt",
@@ -269,14 +377,23 @@ with app.app_context():
                     program=program_ashe,
                     creator=ashe,
     )
-    habits = [habit_dog, habit_draw, habit_dress, habit_hair, habit_play,
-        habit_teeth, habit_veggies, habit_win]
+    habits = [habit_workone, habit_worktwo, habit_socialone, habit_socialtwo, habit_socialthree,
+        habit_choresone, habit_chorestwo, habit_choresthree, habit_dog, habit_draw, habit_dress,
+        habit_hair, habit_play, habit_teeth, habit_veggies, habit_win]
 
     for habit in habits:
         db.session.add(habit)
 
     db.session.commit()
-
+    member_demo1 = Member(
+        program=program_one, member=demo, stamper=demo, points=27, joined_at=datetime(2019, 12, 1)
+    )
+    member_demo2 = Member(
+        program=program_two, member=demo, stamper=demo, points=15, joined_at=datetime(2019, 12, 15)
+    )
+    member_demo3 = Member(
+        program=program_three, member=demo, stamper=demo, points=3, joined_at=datetime(2019, 12, 31)
+    )
     member_sophie1 = Member(
         program=program_mom, member=sophie, stamper=mom, points=10,
     )
@@ -293,7 +410,8 @@ with app.app_context():
         program=program_ashe, member=aly, stamper=ashe, points=12,
     )
 
-    members = [member_aly, member_ashe, member_sophie1, member_sophie2, member_sophie3]
+    members = [member_demo1, member_demo2, member_demo3, member_aly, member_ashe, member_sophie1,
+        member_sophie2, member_sophie3]
     for member in members:
         db.session.add(member)
 
@@ -309,6 +427,121 @@ with app.app_context():
                     status='stamped', habit=habit_teeth, member=member_sophie1,
                 )
                 db.session.add(daily)
+
+    # randomlist = []
+    # for i in range(0,5):
+    # n = random.randint(1,30)
+    # randomlist.append(n)
+    # print(randomlist)
+    # habits = [habit_workone, habit_worktwo, habit_socialone, habit_socialtwo, habit_socialthree,
+    #     habit_choresone, habit_chorestwo, habit_choresthree, habit_dog, habit_draw, habit_dress,
+    #     habit_hair, habit_play, habit_teeth, habit_veggies, habit_win]
+
+# Total_number_days = monthrange(2020, 2)[1]
+# print("\nTotal Number of Days in a Month: ",Total_number_days)
+    def createDailyStamps(habit, member, month, year, missedDays):
+        maxDays = monthrange(year, month)[1]
+        missedList = []
+        while len(missedList) < missedDays:
+            missedStampDay = randint(1, maxDays)
+            if missedStampDay not in missedList:
+                missedList.append(missedStampDay)
+        print("MISSEDLIST", missedList)
+        for d in range(1, 30):
+            if d not in missedList:
+                daily = DailyStamp(
+                    date=datetime(year, month, d),
+                    status='stamped',
+                    habit=habit,
+                    member=member
+                )
+                db.session.add(daily)
+        db.session.commit()
+
+    createDailyStamps(habit_workone, member_demo1, 12, 2019, 4)
+    createDailyStamps(habit_workone, member_demo1, 1, 2020, 1)
+    createDailyStamps(habit_workone, member_demo1, 2, 2020, 3)
+    createDailyStamps(habit_workone, member_demo1, 3, 2020, 0)
+    createDailyStamps(habit_workone, member_demo1, 4, 2020, 2)
+    createDailyStamps(habit_workone, member_demo1, 5, 2020, 4)
+    createDailyStamps(habit_workone, member_demo1, 6, 2020, 6)
+    createDailyStamps(habit_workone, member_demo1, 7, 2020, 8)
+    createDailyStamps(habit_workone, member_demo1, 8, 2020, 7)
+    createDailyStamps(habit_workone, member_demo1, 9, 2020, 4)
+    createDailyStamps(habit_workone, member_demo1, 10, 2020, 3)
+    createDailyStamps(habit_workone, member_demo1, 11, 2020, 1)
+
+    createDailyStamps(habit_worktwo, member_demo1, 1, 2020, 12)
+    createDailyStamps(habit_worktwo, member_demo1, 2, 2020, 10)
+    createDailyStamps(habit_worktwo, member_demo1, 3, 2020, 8)
+    createDailyStamps(habit_worktwo, member_demo1, 4, 2020, 9)
+    createDailyStamps(habit_worktwo, member_demo1, 5, 2020, 11)
+    createDailyStamps(habit_worktwo, member_demo1, 6, 2020, 18)
+    createDailyStamps(habit_worktwo, member_demo1, 7, 2020, 20)
+    createDailyStamps(habit_worktwo, member_demo1, 8, 2020, 17)
+    createDailyStamps(habit_worktwo, member_demo1, 9, 2020, 15)
+    createDailyStamps(habit_worktwo, member_demo1, 10, 2020, 15)
+    createDailyStamps(habit_worktwo, member_demo1, 11, 2020, 17)
+
+    createDailyStamps(habit_socialone, member_demo1, 6, 2020, 13)
+    createDailyStamps(habit_socialone, member_demo1, 7, 2020, 14)
+    createDailyStamps(habit_socialone, member_demo1, 8, 2020, 18)
+    createDailyStamps(habit_socialone, member_demo1, 9, 2020, 15)
+    createDailyStamps(habit_socialone, member_demo1, 10, 2020, 25)
+    createDailyStamps(habit_socialone, member_demo1, 11, 2020, 24)
+
+    createDailyStamps(habit_socialtwo, member_demo1, 2, 2020, 26)
+    createDailyStamps(habit_socialtwo, member_demo1, 3, 2020, 25)
+    createDailyStamps(habit_socialtwo, member_demo1, 4, 2020, 26)
+    createDailyStamps(habit_socialtwo, member_demo1, 5, 2020, 25)
+    createDailyStamps(habit_socialtwo, member_demo1, 6, 2020, 25)
+    createDailyStamps(habit_socialtwo, member_demo1, 7, 2020, 25)
+    createDailyStamps(habit_socialtwo, member_demo1, 8, 2020, 24)
+    createDailyStamps(habit_socialtwo, member_demo1, 9, 2020, 24)
+    createDailyStamps(habit_socialtwo, member_demo1, 10, 2020, 25)
+    createDailyStamps(habit_socialtwo, member_demo1, 11, 2020, 26)
+
+    gamedays = [8, 15, 20, 22, 29]
+    for day in gamedays:
+        daily = DailyStamp(
+            date=datetime(2020, 11, day),
+            status='stamped', habit=habit_socialthree, member=member_demo1,
+        )
+        db.session.add(daily)
+        db.session.commit()
+
+
+    createDailyStamps(habit_choresone, member_demo1, 8, 2020, 10)
+    createDailyStamps(habit_choresone, member_demo1, 9, 2020, 6)
+    createDailyStamps(habit_choresone, member_demo1, 10, 2020, 3)
+    createDailyStamps(habit_choresone, member_demo1, 11, 2020, 0)
+
+    # July 5/2020
+    startHabitDate = date(2020, 7, 5)
+    while startHabitDate < date.today():
+        weekdays = ["Monday", "Wednesday", "Friday"]
+        if startHabitDate.strftime("%A") in weekdays:
+            newStamp = DailyStamp(
+                date=startHabitDate.strftime("%Y-%m-%d"),
+                status='stamped',
+                habit=habit_chorestwo,
+                member=member_demo1,
+            )
+            db.session.add(newStamp)
+            db.session.commit()
+        startHabitDate += timedelta(days=1)
+
+    createDailyStamps(habit_choresthree, member_demo1, 1, 2020, 5)
+    createDailyStamps(habit_choresthree, member_demo1, 2, 2020, 13)
+    createDailyStamps(habit_choresthree, member_demo1, 3, 2020, 14)
+    createDailyStamps(habit_choresthree, member_demo1, 4, 2020, 19)
+    createDailyStamps(habit_choresthree, member_demo1, 5, 2020, 20)
+    createDailyStamps(habit_choresthree, member_demo1, 6, 2020, 17)
+    createDailyStamps(habit_choresthree, member_demo1, 7, 2020, 14)
+    createDailyStamps(habit_choresthree, member_demo1, 8, 2020, 10)
+    createDailyStamps(habit_choresthree, member_demo1, 9, 2020, 12)
+    createDailyStamps(habit_choresthree, member_demo1, 10, 2020, 13)
+    createDailyStamps(habit_choresthree, member_demo1, 11, 2020, 10)
 
     for d in range(1, 30):
         if d in (1, 7, 8, 14, 15, 21, 22, 26, 28, 29):

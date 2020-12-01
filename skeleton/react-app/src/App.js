@@ -53,6 +53,7 @@ function App() {
         if (!colors) {
           const res = await fetch(`/api/users/${user.id}/options`)
           const { colors_data, stamps_data } = await res.json()
+          console.log("STAMPS DATA", stamps_data)
           setColors(colors_data)
           setStamps(stamps_data)
         }
@@ -78,7 +79,7 @@ function App() {
       <HabitBoardContext.Provider value={{ programs, dispatchPrograms, habits, dispatchHabits, dailies, dispatchDailies, week }}>
         <UserContext.Provider value={{ user, setUser }}>
           <OptionsContext.Provider value={{ colors, stamps }}>
-          
+
             <NavBar authenticated={authenticated} setAuthenticated={setAuthenticated} />
             <Route path="/login" exact={true}>
               <LoginForm
@@ -121,7 +122,7 @@ function App() {
           </OptionsContext.Provider>
         </UserContext.Provider>
       </HabitBoardContext.Provider>
-      
+
     </BrowserRouter>
   );
 }
