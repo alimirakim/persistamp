@@ -14,7 +14,7 @@ export default function CalendarMap ({habit}) {
         (async () => {
             let dataFetch = await fetch(`/api/habits/${hid}/calendar/${mid}`)
             const resObj = await dataFetch.json()
-            // console.log("CALENDER RESPONSE", resObj)
+            console.log("CALENDER RESPONSE", resObj)
             // console.log("HABIT", habit)
             setCalendarData(resObj)
         })()
@@ -31,7 +31,7 @@ export default function CalendarMap ({habit}) {
     const habitRGB = hexToRgb(habit.color.hex)
 
 
-    if (!calendarData.startDate) return null;
+    if (!calendarData.yArr) return null;
 
     return (
         <>
@@ -40,7 +40,7 @@ export default function CalendarMap ({habit}) {
                 <HeatMap
                     xLabels={calendarData.xLabels}
                     yLabels={calendarData.yLabels}
-                    data={calendarData.data}
+                    data={calendarData.yArr}
                     xLabelsLocation={"bottom"}
                     xLabelWidth={60}
                     squares

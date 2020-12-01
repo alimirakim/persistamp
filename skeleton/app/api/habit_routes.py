@@ -177,23 +177,21 @@ def calendarData(hid, mid):
             startDate = start.strftime("%Y-%m-%d")
             startObj = start
             break
-    # print("GETTING SUNDAY============================", startDate)
+    print("GETTING SUNDAY============================", startDate)
     stampDates = []
     values = []
     dailystamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date >= startDate, DailyStamp.date <= endDate).all()
-    # print("DAILY STAMPS FOR CALENDAR ____________________________", dailystamps)
+
     for each in dailystamps:
         stampdata = dailystamp_schema.dump(each)
         values.append({ "date": stampdata["date"]})
         stampDates.append(stampdata["date"])
-    # print("VALUES ------------------------", values)
 
-    # print("STAMPDATES---------------------------------------------", stampDates)
     xLabels = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
-    yLabels = [None]
+    yLabels = []
+    yLabels.append(startObj.strftime("%b"))
     yArr = [[]]
-    # dateVals = [[] for i in range(len(yLabels))]
-    # print("YARR -------------------------", yArr)
+
     yArrIndex = 0
 
     while startObj <= current_date:
@@ -217,14 +215,12 @@ def calendarData(hid, mid):
     while len(yArr[-1]) < 7:
         yArr[-1].append(99)
 
-    # print("YARR =--------------------", yArr)
-
     if yLabels[-1] == None:
         yLabels.pop(-1)
         if int(date.today().strftime("%d").lstrip("0").replace(" 0", " ")) < 8:
             yLabels.append(date.today().strftime("%b"))
-            return
-        yLabels.append(date.today().strftime("%d").lstrip("0").replace(" 0", " "))
+        else:
+            yLabels.append(date.today().strftime("%d").lstrip("0").replace(" 0", " "))
 
     # print("XLABELS SWITCH", xLabels)
     # print("YLABELS SWITCH", yLabels)
@@ -232,7 +228,7 @@ def calendarData(hid, mid):
     jsonData = jsonify(values=values, startDate=startDate, endDate=endDate,
             xLabels=xLabels,
             yLabels=yLabels,
-            data=yArr)
+            yArr=yArr)
     return jsonData
 
 @habit_routes.route("/<int:hid>/stats/<int:mid>")
