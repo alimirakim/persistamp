@@ -26,6 +26,8 @@ button:hover {
   color: cornflowerblue;
   color: black;
   background-color:white;
+}
+
 .overlay{
   opacity:0.8;
   background-color:#ccc;
