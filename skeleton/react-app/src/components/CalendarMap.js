@@ -36,7 +36,7 @@ export default function CalendarMap ({habit}) {
     return (
         <>
             <div className="heatMapContainer">
-                <h3 style={{color:"#ccc", fontFamily:"Arial"}}>Calendar</h3>
+                <h3 className="heatMapHeader" style={{color:"#ccc", fontFamily:"Arial"}}>Calendar</h3>
                 <HeatMap
                     xLabels={calendarData.xLabels}
                     yLabels={calendarData.yLabels}
@@ -55,6 +55,7 @@ export default function CalendarMap ({habit}) {
                             // color:`#000`
                         }
                     }}
+                    xLabelsLocation="top"
                     cellRender={(value) => {
                         if (value === 100) {
                             return <i className={`fas fa-${habit.stamp.stamp}`} style={{color: habit.color.hex}} ></i>
@@ -67,31 +68,6 @@ export default function CalendarMap ({habit}) {
                 />
 
             </div>
-            {/* <div className='calendarContainer'>
-                <CalendarHeatmap
-                startDate={new Date(calendarData.startDate)}
-                endDate={new Date(calendarData.endDate)}
-                values={calendarData.values}
-                showWeekdayLabels={true}
-
-                titleForValue={(value) => `${value}`}
-                // classForValue={(value) => {
-                //     if (!value) {
-                //       return 'color-empty';
-                //     }
-                //     return `color-scale-stamped`;
-                //   }}
-                // />
-
-                tooltipDataAttrs={value => {
-                    if (value.date) {
-                        return { 'data-tip': `${value.date}`}
-                    }
-                    return ""
-                }}
-                />
-                <ReactTooltip />
-            </div> */}
 
         </>
     )
