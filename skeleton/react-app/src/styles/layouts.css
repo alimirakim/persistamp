@@ -42,6 +42,15 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
   padding: 1rem;
   width: max-content;
 }
+.card-dark {
+  display: flex;
+  margin: 1rem;
+  border-radius: 10px;
+  background: black;
+  /* background: linear-gradient(360deg, rgba(220,222,226,1) 0%,  rgba(255,255,255,1) 100%); */
+  padding: 1rem;
+  width: max-content;
+}
 
 dl.card-data {
   padding: 0 2rem;
@@ -49,7 +58,7 @@ dl.card-data {
 
 .card-data {
   font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif
-  
+
 }
 
 .card-data > dt {
@@ -60,7 +69,7 @@ dl.card-data {
   margin-bottom: 0.5rem;
   font-style: italic;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  
+
 }
 dt.card-name-label {
   display: inline;
