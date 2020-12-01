@@ -49,7 +49,7 @@ function App() {
     setUser(user)
   }
 
-  
+
   // When the page loads, load the user. Do only once!!
   useEffect(() => {
     (async () => {
@@ -81,7 +81,7 @@ function App() {
       console.log("printing fetch:", past_week, programs_data, habits_data, dailies_data )
     })()
   }, [user])
-  
+
   useEffect(() => {
     console.log("user", user, "programs", programs, "habits", habits, "dailies", dailies)
   }, [user, programs, habits, dailies])
