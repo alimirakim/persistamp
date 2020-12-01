@@ -29,9 +29,9 @@ export default function UserSettings(){
   const onUpdate = async (e) => {
     e.preventDefault()
     try{
-      const updatedUser = updateUser(username, firstname, lastname, color, stamp)
+      const updatedUser = await updateUser(username, firstname, lastname, color, stamp)
       console.log(updatedUser)
-      setUser(editUser(username, firstname, lastname, color, stamp))
+      setUser(updatedUser)
       setOpen(false)
     }catch(err){
       console.error(err)
