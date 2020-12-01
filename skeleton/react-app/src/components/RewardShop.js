@@ -6,6 +6,7 @@ import UserContext from '../context/UserContext'
 import HabitBoardContext from '../context/HabitBoardContext'
 import { AddName, AddDescription, ChooseColor, ChooseStamp, ChooseLimit, ChooseQuantity, ChooseCost, ActionOrCancelButtons } from './FormInputs'
 import { setProgramRewards, createReward, editReward, deleteReward, setRedeemed, redeemReward, rewardsReducer, redeemedReducer } from '../context/reducers'
+import {Link} from 'react-router-dom'
 
 
 export default function RewardShop() {
@@ -23,18 +24,18 @@ export default function RewardShop() {
       console.log("after reward fetch", res)
       const stuff = await res.json()
       console.log("fetched program/rewards/redeemed data", stuff)
-      
-      const {program_data, rewards_data, redeemed_data} = await fetch(`/api/rewards/programs/${pid}/users/${user.id}`).then(res => res.json())
+
+      const { program_data, rewards_data, redeemed_data } = await fetch(`/api/rewards/programs/${pid}/users/${user.id}`).then(res => res.json())
       setProgram(program_data)
       dispatchRewards(setProgramRewards(rewards_data))
       dispatchRedeemed(setRedeemed(redeemed_data))
     })()
   }, [])
-  
+
   useEffect(() => {
     console.log("reward shop: program", program, "rewards", rewards, "redeemed", redeemed)
   }, [program, rewards, redeemed])
-  
+
   useEffect(() => {
     if (!rewards) {
       (async () => {
@@ -52,7 +53,7 @@ export default function RewardShop() {
   //     })()
   //   }
   // }, [redeemed])
-  
+
   // console.log("got rewards and redeemed", rewards, redeemed)
   if (!program || !rewards || !redeemed) return null
 
@@ -65,7 +66,7 @@ export default function RewardShop() {
 
       <article>
         <h2>Redeem Rewards</h2>
-        <ul style={{display: "flex", flexDirection: "column-reverse"}}>
+        <ul style={{ display: "flex", flexDirection: "column-reverse" }}>
           {Object.values(rewards).map(reward => (
             <li key={reward.id} style={{ color: reward.color.hex }}>
               <RewardEditForm program={program} reward={reward} dispatchRewards={dispatchRewards} />
@@ -77,7 +78,7 @@ export default function RewardShop() {
 
       <article>
         <h2>Reward History</h2>
-        <ul style={{display: "flex", flexDirection: "column-reverse"}}>
+        <ul style={{ display: "flex", flexDirection: "column-reverse" }}>
           {Object.values(redeemed).map(redeem => (
             <li key={redeem.id} style={{ color: redeem.reward.color.hex }}>
               <dl>
@@ -195,7 +196,7 @@ export function RewardForm({ program, dispatchRewards, rewards, }) {
       })
     })
     console.log("REWARD MADE?", res)
-    if(res.ok){
+    if (res.ok) {
       const reward = await res.json()
       console.log("new reward!", reward)
       dispatchRewards(createReward(reward))
@@ -207,14 +208,17 @@ export function RewardForm({ program, dispatchRewards, rewards, }) {
       setCost(7)
       setLimit(-1)
       setQuantity(-1)
-    }else{
+    } else {
       setErrors(res.errors)
     }
   }
 
   return (
     <article>
-      <button className="make-btn" onClick={handleOpen} style={{backgroundColor: "crimson"}}><i className="fas fa-plus-circle"></i> Reward</button>
+      <Link to={`/`}>
+        <i className={`fas fa-chevron-circle-left`} style={{ color: program.color.hex }}></i>
+      </Link>
+      <button className="make-btn" onClick={handleOpen} style={{ backgroundColor: "crimson" }}><i className="fas fa-plus-circle"></i> Reward</button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Create a reward for "{program.program}"!</DialogTitle>
         <div>
@@ -238,7 +242,7 @@ export function RewardForm({ program, dispatchRewards, rewards, }) {
 }
 
 
-export function RewardEditForm({program, reward, dispatchRewards}) {
+export function RewardEditForm({ program, reward, dispatchRewards }) {
   const { colors, stamps } = useContext(OptionsContext)
   const [open, setOpen] = useState(false)
   const [name, setName] = useState(reward.reward)
@@ -250,7 +254,7 @@ export function RewardEditForm({program, reward, dispatchRewards}) {
   const [quantity, setQuantity] = useState(reward.quantity)
   console.log("reward to edit!", name, description, color, stamp, cost, limit, quantity)
   // console.log("reward to edit!", reward)
-  
+
   // if (reward.quantity == "∞") setQuantity(-1) 
   // if (reward.limit_per_member == "∞") setLimit(-1)
 
@@ -283,13 +287,13 @@ export function RewardEditForm({program, reward, dispatchRewards}) {
 
   return (
     <article>
-      <button onClick={handleOpen} style={{ borderWidth: 0, backgroundColor: "rgba(0,0,0,0", color: "white"}}>
-      
-      <i className={`fas fa-pencil-alt`}></i>
-      
-      
+      <button onClick={handleOpen} style={{ borderWidth: 0, backgroundColor: "rgba(0,0,0,0", color: "white" }}>
+
+        <i className={`fas fa-pencil-alt`}></i>
+
+
       </button>
-      
+
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Edit reward "{reward.reward}" for "{program.program}"!</DialogTitle>
         <DialogContent>
@@ -325,9 +329,9 @@ export function RewardDeleteForm({ reward, dispatchRewards }) {
 
   return (
     <article>
-    
+
       <button onClick={handleOpen} style={{ borderWidth: 0, backgroundColor: "rgba(0,0,0,0", color: "white" }}><i className={`fas fa-eraser`}></i></button>
-      
+
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Delete reward "{reward.reward}" for "{reward.program}"?</DialogTitle>
         <DialogContent>
