@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../services/auth';
 
-const SignUpForm = ({authenticated, setAuthenticated}) => {
+const SignUpForm = ({authenticated, setAuthenticated, setUser}) => {
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [birthday, setBirthday] = useState("");
@@ -23,41 +23,24 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
         password,
         );
       if (!user.errors) {
-        setAuthenticated(true);
+        setAuthenticated(true)
+        setUser(user)
       }
     }
   };
 
-  const updateFirstName = (e) => {
-    setFirstName(e.target.value);
-  };
-  const updateLastName = (e) => {
-    setLastName(e.target.value);
-  };
-  const updateBirthday = (e) => {
-    setBirthday(e.target.value);
-  };
-  const updateUsername = (e) => {
-    setUsername(e.target.value);
-  };
+  const updateFirstName = (e) => setFirstName(e.target.value)
+  const updateLastName = (e) => setLastName(e.target.value)
+  const updateBirthday = (e) => setBirthday(e.target.value)
+  const updateUsername = (e) => setUsername(e.target.value)
+  const updateEmail = (e) =>  setEmail(e.target.value)
+  const updatePassword = (e) => setPassword(e.target.value)
+  const updateRepeatPassword = (e) => setRepeatPassword(e.target.value)
 
-  const updateEmail = (e) => {
-    setEmail(e.target.value);
-  };
+  if (authenticated) return <Redirect to="/" />
 
-  const updatePassword = (e) => {
-    setPassword(e.target.value);
-  };
-
-  const updateRepeatPassword = (e) => {
-    setRepeatPassword(e.target.value);
-  };
-
-  if (authenticated) {
-    return <Redirect to="/" />;
-  }
-
-  return (
+  return (<>
+    <h2>Make an Account</h2>
     <form onSubmit={onSignUp}>
       <div>
         <label>First name</label>
@@ -125,7 +108,7 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
       </div>
       <button type="submit">Sign Up</button>
     </form>
-  );
+  </>);
 };
 
 export default SignUpForm;
