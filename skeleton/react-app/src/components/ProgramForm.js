@@ -14,6 +14,7 @@ export function ProgramForm() {
 
   const [open, setOpen] = useState(false)
   const [name, setName] = useState()
+  const [errors, setErrors] = useState([])
   const [description, setDescription] = useState()
   const [color, setColor] = useState(1)
   const [stamp, setStamp] = useState(2)
@@ -35,17 +36,22 @@ export function ProgramForm() {
         userId: user.id
       })
     })
-    // User is updated to include new membership
-    const {program, updated_user} = await res.json()
-    setUser(updated_user)
-    dispatchPrograms(createProgram(program))
-    console.log("we made a program!", program, "user!", updated_user)
-    console.log("NOW USER", user)
-
-    setName()
-    setDescription()
-    setColor(1)
-    setStamp(2)
+    console.log(res)
+    if(res.ok){
+      // User is updated to include new membership
+      const {program, updated_user} = await res.json()
+      setUser(updated_user)
+      dispatchPrograms(createProgram(program))
+      console.log("we made a program!", program, "user!", updated_user)
+      console.log("NOW USER", user)
+  
+      setName()
+      setDescription()
+      setColor(1)
+      setStamp(2)
+    }else{
+      setErrors(res.errors)
+    }
   }
 
   if (!colors || !stamps) return null
@@ -74,6 +80,7 @@ export function ProgramEditForm({ program }) {
   const { colors, stamps } = useContext(OptionsContext)
   const { dispatchPrograms } = useContext(HabitBoardContext)
 
+  const [errors, setErrors] = useState([])
   const [open, setOpen] = useState(false)
   const [name, setName] = useState(program.program)
   const [description, setDescription] = useState(program.description)
@@ -96,9 +103,23 @@ export function ProgramEditForm({ program }) {
         stamp,
       })
     })
-    const editedProgram = await res.json()
-    dispatchPrograms(editProgram(editedProgram))
-    console.log("we made a program!", editedProgram)
+    console.log('program-edit res: ', res)
+    if(res.ok){
+      const editedProgram = await res.json()
+      dispatchPrograms(editProgram(editedProgram))
+      console.log("we made a program!", editedProgram)
+    }else{
+      setErrors(res.errors)
+    }
+  }
+
+  const renderErrors = (errors) => {
+    if (errors) {
+      return errors.map(error => {
+        console.log(error)
+        return <div className='material-error'>{error}</div>
+      })
+    }
   }
 
   if (!colors || !stamps) return null
@@ -107,10 +128,14 @@ export function ProgramEditForm({ program }) {
     <button onClick={handleOpen} style={{color: "gray", backgroundColor: "rgba(0,0,0,0)", borderWidth: "0"}}>
       <i className={`fas fa-pencil-alt`}></i>
     </button>
-
+    <div>
+      {renderErrors(errors)}
+    </div>
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Edit {program.program} program details</DialogTitle>
-
+      <div>
+        {renderErrors(errors)}
+      </div>
       <DialogContent>
         <AddName name={name} setName={setName} />
         <AddDescription description={description} setDescription={setDescription} />

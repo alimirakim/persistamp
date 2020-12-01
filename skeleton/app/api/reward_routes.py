@@ -9,6 +9,15 @@ from pprint import pprint
 
 reward_routes = Blueprint("rewards", __name__, url_prefix="/rewards")
 
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f"{field} : {error}")
+    return errorMessages
 
 @reward_routes.route("/<string:type>")
 def type_rewards(type):
@@ -79,7 +88,7 @@ def create_reward(pid):
         print("\nCREATED REWARD")
         pprint(reward_data)
         return jsonify(reward_data)
-    return "Oh nooo no reward made D: "
+    return {'errors': ['Unauthorized']}, 400
 
 
 @reward_routes.route("/<int:rid>/edit", methods=["PATCH"])
@@ -113,6 +122,7 @@ def edit_reward(rid):
         print("\n\nEDITED REWARD")
         pprint(reward_data)
         return jsonify(reward_data)
+    return {'errors': ['Unauthorized']}, 400
 
 
 @reward_routes.route("/<int:rid>/delete", methods=["DELETE"])
