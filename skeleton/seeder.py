@@ -580,9 +580,55 @@ with app.app_context():
             db.session.add(daily1)
             db.session.add(daily2)
 
-
-
-
+    rewardOne = Reward(reward="go out for ice cream",
+                    description="free ice cream",
+                    cost=5,
+                    color=colors[4],
+                    limit_per_member=-1,
+                    quantity=5,
+                    stamp=stamps[28],
+                    program_id=2,
+                    creator=demo,
+                    type="custom",
+    )
+    rewardThree = Reward(reward="new bike",
+                    description="john promises to buy a new bike",
+                    cost=100,
+                    color=colors[20],
+                    limit_per_member=1,
+                    quantity=1,
+                    stamp=stamps[22],
+                    program_id=2,
+                    creator=demo,
+                    type="custom",
+    )
+    rewardTwo = Reward(reward="bowling night",
+                    description="bowling with the boizzz",
+                    cost=7,
+                    color=colors[8],
+                    limit_per_member=2,
+                    quantity=2,
+                    stamp=stamps[14],
+                    program_id=2,
+                    creator=demo,
+                    type="custom",
+    )
+    rewardFour = Reward(reward="trip to the casino",
+                    description="with robert, lyn, and rita",
+                    cost=25,
+                    color=colors[5],
+                    limit_per_member=1,
+                    quantity=1,
+                    stamp=stamps[10],
+                    program_id=2,
+                    creator=demo,
+                    type="custom",
+    )
+    db.session.add(rewardOne)
+    db.session.add(rewardTwo)
+    db.session.add(rewardThree)
+    db.session.add(rewardFour)
+    db.session.commit()
 
     for color in colors:
         reward = Reward(type='color',
