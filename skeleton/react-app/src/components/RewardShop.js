@@ -214,7 +214,7 @@ export function RewardForm({ program, dispatchRewards, rewards, }) {
 
   return (
     <article>
-      <button onClick={handleOpen}>+Reward</button>
+      <button className="make-btn" onClick={handleOpen}><i className="fas fa-plus-circle"></i> Reward</button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Create a reward for "{program.program}"!</DialogTitle>
         <div>

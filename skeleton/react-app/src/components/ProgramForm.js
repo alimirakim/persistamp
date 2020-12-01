@@ -57,7 +57,7 @@ export function ProgramForm() {
   if (!colors || !stamps) return null
 
   return (<>
-    <button onClick={handleOpen}>+Program</button>
+    <button className="make-btn make-btn-big" onClick={handleOpen}><i className="fas fa-plus-circle"></i>  Program</button>
 
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Create a new Program!</DialogTitle>

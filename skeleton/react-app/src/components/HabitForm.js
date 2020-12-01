@@ -62,7 +62,7 @@ function HabitForm({ pid, program }) {
 
   return (
     <>
-      <button onClick={handleClickOpen}>Create Habit</button>
+      <button className="make-btn" onClick={handleClickOpen}><i className="fas fa-plus-circle"></i> Habit</button>
 
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add a habit to {program}!</DialogTitle>

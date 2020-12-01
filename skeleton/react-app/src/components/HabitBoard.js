@@ -7,6 +7,7 @@ import HabitForm from './HabitForm'
 import HabitEditForm from './HabitEditForm'
 import HabitDeleteForm from './HabitDeleteForm'
 import { ProgramForm, ProgramEditForm, ProgramDeleteForm } from './ProgramForm'
+import UserProfileCard from './UserProfileCard'
 
 export default function HabitBoard() {
   const { user } = useContext(UserContext)
@@ -16,9 +17,11 @@ export default function HabitBoard() {
   if (!programs || !habits || !dailies) return null
 
   return (
-    <article>
-      <ProgramForm />
+    <article className="lo-main-center">
+      <h1 style={{fontSize: "3rem", marginTop: "1rem", marginBottom: 0, fontFamily: "Cambria", fontStyle: "italic"}}>Persistamp</h1>
+      <UserProfileCard />
       <h2>Habit Board Programs</h2>
+      <ProgramForm />
       <ul style={{display: "flex", flexDirection: "column-reverse"}}>
         {programs && Object.values(programs).map(program => {
           const [mid] = program.members.filter(m => Object.keys(user.memberships).includes(String(m)))

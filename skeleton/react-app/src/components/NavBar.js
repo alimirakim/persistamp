@@ -20,7 +20,6 @@ export default function NavBar({ authenticated, setAuthenticated, user }) {
 
   if (authenticated && user) {
     return (<>
-      <h1 style={{fontFamily: "Cambria", fontStyle: "italic"}}>Persistamp</h1>
       <nav className="stickers">
         <NavLink to='/' className="sticker sticker_logo-link" activeClassName="active">
           <img className="sticker_logo" src="/icons/turtle.svg" alt="Persistamp Logo: a red turtle stamp" />
@@ -53,9 +52,8 @@ export default function NavBar({ authenticated, setAuthenticated, user }) {
     </>)
   } else {
     return (<>
-      <h1>Persistamp</h1>
       <nav className="stickers">
-        <NavLink to='/sign-up' className="sticker sticker_logo-link" activeClassName="active">
+        <NavLink to='/login' className="sticker sticker_logo-link" activeClassName="active">
           <img className="sticker_logo" src="/icons/turtle.svg" alt="Persistamp Logo: a red turtle stamp" />
         </NavLink>
       </nav>

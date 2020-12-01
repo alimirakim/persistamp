@@ -8,7 +8,6 @@ import UsersList from "./components/UsersList";
 import User from "./components/User";
 import { authenticate } from "./services/auth";
 import HabitBoard from "./components/HabitBoard";
-import UserProfileCard from "./components/UserProfileCard";
 import UserContext from './context/UserContext';
 import HabitBoardContext from "./context/HabitBoardContext"
 import OptionsContext from './context/OptionsContext'
@@ -101,10 +100,10 @@ function App() {
                 authenticated={authenticated}
                 setAuthenticated={setAuthenticated} setUser={updateUser}
               />
+              {/* <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} setUser={updateUser} /> */}
             </Route>
-            <Route path="/sign-up" exact={true}>
-              <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} setUser={updateUser} />
-            </Route>
+            {/* <Route path="/login" exact={true}>
+            </Route> */}
 
             <Route path="/about" exact={true}>
               <>
@@ -126,7 +125,6 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
-              <UserProfileCard />
               <HabitBoard />
             </ProtectedRoute>
 

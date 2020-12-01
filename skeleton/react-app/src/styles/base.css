@@ -21,9 +21,23 @@ a:hover {
   color: white;
 }
 
+button:hover {
+  color: cornflowerblue;
+  color: black;
+  background-color:white;
+}
+
 .active {
   color: white;
   transform: rotate(20deg);
+}
+
+ul {
+  list-style-type: none;
+  list-style-position: inside;
+}
+ul > li {
+  margin-left: 0;
 }
 
 /* a. Fix item editing - infinity bugs */
