@@ -162,8 +162,8 @@ def calendarData(hid, mid):
 
     startDate = None
     startObj = None
-    for i in range(6):
-        start = firstDayOfMonth - timedelta(days=128-i)
+    for i in range(7):
+        start = firstDayOfMonth - timedelta(days=100-i)
         if start.isoweekday() == 7:
             startDate = start.strftime("%Y-%m-%d")
             startObj = start
@@ -180,51 +180,50 @@ def calendarData(hid, mid):
     # print("VALUES ------------------------", values)
 
     # print("STAMPDATES---------------------------------------------", stampDates)
-    yLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-    xLabels = [None]
-    yArr = [[] for i in range(len(yLabels))]
-    dateVals = [[] for i in range(len(yLabels))]
+    xLabels = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
+    yLabels = [None]
+    yArr = [[]]
+    # dateVals = [[] for i in range(len(yLabels))]
     # print("YARR -------------------------", yArr)
     yArrIndex = 0
 
     while startObj <= current_date:
         if startObj.strftime("%Y-%m-%d") in stampDates:
             yArr[yArrIndex].append(100)
-            dateVals[yArrIndex].append(startObj.strftime("%d").lstrip("0").replace(" 0", " "))
+            # dateVals[yArrIndex].append(startObj.strftime("%d").lstrip("0").replace(" 0", " "))
         else:
             yArr[yArrIndex].append(0)
-            dateVals[yArrIndex].append(startObj.strftime("%d").lstrip("0").replace(" 0", " "))
+            # dateVals[yArrIndex].append(startObj.strftime("%d").lstrip("0").replace(" 0", " "))
 
-        if yArrIndex == 6:
-            yArrIndex = 0
-            month = startObj.strftime("%b")
-            if month not in xLabels:
-                xLabels.append(month)
-            else:
-                xLabels.append(None)
-        else:
+        if len(yArr[yArrIndex]) == 7:
+            yArr.append([])
             yArrIndex += 1
+            month = startObj.strftime("%b")
+            if month not in yLabels:
+                yLabels.append(month)
+            else:
+                yLabels.append(None)
         startObj += timedelta(days=1)
 
-    for array in yArr:
-        if len(yArr[0]) > len(array):
-            array.append(99)
+    while len(yArr[-1]) < 7:
+        yArr[-1].append(99)
 
     # print("YARR =--------------------", yArr)
 
-    if xLabels[-1] == None:
-        xLabels.pop(-1)
+    if yLabels[-1] == None:
+        yLabels.pop(-1)
         if int(date.today().strftime("%d").lstrip("0").replace(" 0", " ")) < 8:
-            xLabels.append(date.today().strftime("%b"))
+            yLabels.append(date.today().strftime("%b"))
             return
-        xLabels.append(date.today().strftime("%d").lstrip("0").replace(" 0", " "))
+        yLabels.append(date.today().strftime("%d").lstrip("0").replace(" 0", " "))
 
     # print("XLABELS SWITCH", xLabels)
+    # print("YLABELS SWITCH", yLabels)
+    # print("Data--------------------------", yArr)
     jsonData = jsonify(values=values, startDate=startDate, endDate=endDate,
             xLabels=xLabels,
             yLabels=yLabels,
-            data=yArr,
-            dateVals=dateVals)
+            data=yArr)
     return jsonData
 
 @habit_routes.route("/<int:hid>/stats/<int:mid>")
@@ -239,7 +238,7 @@ def getHabitStats(hid, mid):
 
     daysOfHabit = (date.today() - startDate).days
 
-    attempts = (int(daysOfHabit) // 7) * int(habitFrequency)
+    attempts = (int(daysOfHabit) // 7) * int(habitFrequency) + int(habitFrequency)
 
     allStamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid)
     lastMonthStamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.member_id == mid, DailyStamp.date >= oneMonthAgo.strftime("%Y-%m-%d"))
@@ -250,20 +249,48 @@ def getHabitStats(hid, mid):
     stampObjs = list(map(dumpStamps, allStamps))
     lastMonthObjs = list(map(dumpStamps, lastMonthStamps))
     twoMonthObjs = list(map(dumpStamps, twoMonthsAgoStamps))
+    stampedDates = list(map(lambda x: x["date"], stampObjs))
+
+    streakArr = [0]
+    checkDate = startDate - timedelta(days=7)
+    totalDays = (date.today() - startDate).days + 8
+
+    while totalDays > 0:
+        if checkDate.strftime("%Y-%m-%d") in stampedDates:
+            streakArr.append(streakArr[-1] + 1)
+        else:
+            streakArr.append(0)
+        totalDays -= 1
+        checkDate += timedelta(days=1)
+    longestStreak = max(streakArr)
+    currentStreak = streakArr[-1]
+    # print("LONGEST STREAK _____________", longestStreak)
     total = len(stampObjs)
-    # print("LENGTH---------------", len(lastMonthObjs))
-    # print("TWO LENGTH---------------", len(twoMonthObjs))
+
     scoreFraction = f'{total} / {attempts}'
     score = '{:.1%}'.format(total / attempts)
+
     monthTrend = None
-    if len(lastMonthObjs) / len(twoMonthObjs) >= 1:
+    monthPercentage = None
+
+    if daysOfHabit <= 31:
+        monthTrend = "increase"
+        monthPercentage = "n/a"
+    elif len(lastMonthObjs) / len(twoMonthObjs) >= 1:
         monthTrend = 'increase'
+        monthPercentage = '{:.1%}'.format(len(lastMonthObjs) / len(twoMonthObjs))
     else:
         monthTrend = 'decrease'
-    monthPercentage = '{:.1%}'.format(len(lastMonthObjs) / len(twoMonthObjs))
+        monthPercentage = '{:.1%}'.format(len(lastMonthObjs) / len(twoMonthObjs))
 
     # print("MONTH PERCENTAGE", monthPercentage, monthTrend)
-    jsonData = jsonify(total=total, score=score, scoreFraction=scoreFraction, monthPercentage=monthPercentage, monthTrend=monthTrend)
+    jsonData = jsonify(total=total,
+                    score=score,
+                    scoreFraction=scoreFraction,
+                    monthPercentage=monthPercentage,
+                    monthTrend=monthTrend,
+                    longestStreak=longestStreak,
+                    currentStreak=currentStreak)
     return jsonData
 
 # TESTED Functions
@@ -367,7 +394,7 @@ def stamp_day(pid, mid, hid, day):
         db.session.delete(stamp)
         member.points -= 1
         db.session.commit()
-        
+
         return jsonify("Stampy deleted :C ")
 
 

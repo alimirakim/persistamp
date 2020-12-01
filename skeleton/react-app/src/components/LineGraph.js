@@ -45,16 +45,9 @@ function LineGraph({habit}) {
 
     return (
         <>
-            {/* <div className="habitDetail">
-                <ul>
-                    <li>Habit: {dataPoints.habit.habit}</li>
-                    <li>Description: {dataPoints.habit.description}</li>
-                    <li>Created: {dataPoints.habit.created_at}</li>
-                </ul>
-            </div> */}
             <div className="lineGraphContainer">
-                <h3 style={{color:"#ccc", fontFamily:"Arial"}}>Line Graph</h3>
-                <button onClick={handleClick}>{toggleTime}</button>
+                <h3 className="lineGraphHeader" style={{color:"#ccc", fontFamily:"Arial"}}>Line Graph</h3>
+                <button className="lineGraphToggle" onClick={handleClick}>{toggleTime}</button>
                 <LineChart width={700} height={400} data={dataPoints.data} margin={{ bottom: 15, left:25}}>
                     <Line strokeWidth={3}type="monotone" dataKey="stamps" dot={{ strokeWidth: 2}}stroke={habit.color.hex} />
                     <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>

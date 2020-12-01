@@ -27,7 +27,7 @@ export default function HabitStatOverview ({ habit }) {
         (async () => {
             let res = await fetch(`/api/habits/${hid}/stats/${mid}`)
             let obj = await res.json()
-            console.log("OBJ:", obj)
+            // console.log("OBJ:", obj)
             setStatData(obj)
         })()
     }, [])
@@ -36,9 +36,9 @@ export default function HabitStatOverview ({ habit }) {
     return (
         <>
             <ChakraProvider theme={customTheme}>
-                <div className="statGroup">
-                    <h3 style={{color:"#ccc", fontFamily:"Arial"}}>Overview</h3>
-                        <StatGroup>
+                <div className="statContainer">
+                    <h3 className="statOverview" style={{color:"#ccc", fontFamily:"Arial"}}>Statistics</h3>
+                        <StatGroup className="statGroup">
                             <Stat>
                                 <StatLabel>Score</StatLabel>
                                 <StatNumber>{statData.score}</StatNumber>
@@ -54,6 +54,13 @@ export default function HabitStatOverview ({ habit }) {
                             <Stat>
                                 <StatLabel>Total</StatLabel>
                                 <StatNumber>{statData.total} stamps</StatNumber>
+                            </Stat>
+                            <Stat>
+                                <StatLabel>Streak</StatLabel>
+                                <StatNumber>{statData.currentStreak}</StatNumber>
+                                <StatHelpText>
+                                    Longest: {statData.longestStreak}
+                                </StatHelpText>
                             </Stat>
                         </StatGroup>
                 </div>
