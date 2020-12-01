@@ -163,7 +163,7 @@ def calendarData(hid, mid):
     startDate = None
     startObj = None
     for i in range(7):
-        start = firstDayOfMonth - timedelta(days=90-i)
+        start = firstDayOfMonth - timedelta(days=100-i)
         if start.isoweekday() == 7:
             startDate = start.strftime("%Y-%m-%d")
             startObj = start
