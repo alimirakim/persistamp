@@ -11,7 +11,7 @@ const LoginForm = ({ authenticated, setAuthenticated, setUser }) => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   const onLogin = async (e) => {
     e.preventDefault();
