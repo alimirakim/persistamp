@@ -6,7 +6,7 @@ import UserContext from '../context/UserContext'
 import HabitBoardContext from '../context/HabitBoardContext'
 import { AddName, AddDescription, ChooseColor, ChooseStamp, ChooseLimit, ChooseQuantity, ChooseCost, ActionOrCancelButtons } from './FormInputs'
 import { setProgramRewards, createReward, editReward, deleteReward, setRedeemed, redeemReward, rewardsReducer, redeemedReducer } from '../context/reducers'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 export default function RewardShop() {
@@ -58,14 +58,18 @@ export default function RewardShop() {
   if (!program || !rewards || !redeemed) return null
 
   return (<article style={{ color: program.color.hex }}>
-    <h1><i className={`fas fa-${program.stamp.stamp}`}></i> {program.program} Reward Shop</h1>
-    <h2>Your Points: {points} <i className={`fas fa-${program.stamp.stamp}`}></i></h2>
+    <Link to={`/`}>
+      <i className={`fas fa-chevron-circle-left`} style={{ color: program.color.hex }}></i>
+    </Link>
+
+    <h1 className="cam" style={{ fontSize: "3rem", margin: "2rem" }}><i className={`fas fa-${program.stamp.stamp}`}></i> {program.program} Reward Shop</h1>
+    <h2>Your Points: <span style={{ fontSize: "3rem" }}>{points} <i className={`fas fa-${program.stamp.stamp}`}></i></span></h2>
 
     <RewardForm program={program} dispatchRewards={dispatchRewards} rewards={rewards} />
     <div style={{ display: "flex", justifyContent: "space-around" }}>
 
       <article>
-        <h2>Redeem Rewards</h2>
+        <h2 style={{ border: "10px double", padding: "0.5rem", borderRadius: "1rem" }}>Redeem Rewards</h2>
         <ul style={{ display: "flex", flexDirection: "column-reverse" }}>
           {Object.values(rewards).map(reward => (
             <li key={reward.id} style={{ color: reward.color.hex }}>
@@ -77,7 +81,7 @@ export default function RewardShop() {
       </article>
 
       <article>
-        <h2>Reward History</h2>
+        <h2 style={{ border: "10px double", padding: "0.5rem", borderRadius: "1rem" }}>Reward History</h2>
         <ul style={{ display: "flex", flexDirection: "column-reverse" }}>
           {Object.values(redeemed).map(redeem => (
             <li key={redeem.id} style={{ color: redeem.reward.color.hex }}>
@@ -215,10 +219,8 @@ export function RewardForm({ program, dispatchRewards, rewards, }) {
 
   return (
     <article>
-      <Link to={`/`}>
-        <i className={`fas fa-chevron-circle-left`} style={{ color: program.color.hex }}></i>
-      </Link>
-      <button className="make-btn" onClick={handleOpen} style={{ backgroundColor: "crimson" }}><i className="fas fa-plus-circle"></i> Reward</button>
+
+      <button className=" make-btn make-btn-big" onClick={handleOpen} style={{ backgroundColor: "crimson" }}><i className="fas fa-plus-circle"></i> Reward</button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Create a reward for "{program.program}"!</DialogTitle>
         <div>

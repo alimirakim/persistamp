@@ -37,7 +37,7 @@ export default function HabitDisplay() {
                 <i className={`fas fa-chevron-circle-left`} style={{color: habit.color.hex}}></i>
                 </Link>
                 {/* <br/> */}
-                <h1 className={`fas fa-${habit.stamp.stamp} habitDetail__title`}> {habit.habit}</h1>
+                <h1 style={{fontSize: "4rem"}} className={`cam fas fa-${habit.stamp.stamp} habitDetail__title`}> {habit.habit}</h1>
                   <table className="habitDetail__table">
                     <thead>
                       <tr>
