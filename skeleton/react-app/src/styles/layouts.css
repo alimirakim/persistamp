@@ -4,14 +4,18 @@ grids, floats, margins and padding, positioning, display types.
 
 Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
 
+
+/* .navbtn {
+  t
+} */
+
 .NavBarContainer {
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .NavBarArea {
-    background-color: lightblue;
     width: 100%;
     height: 60px;
 }
