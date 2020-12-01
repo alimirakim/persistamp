@@ -31,7 +31,7 @@ export default function UserSettings(){
     try{
       const updatedUser = updateUser(username, firstname, lastname, color, stamp)
       console.log(updatedUser)
-      // setUser(editUser(username, firstname, lastname, color, stamp))
+      setUser(editUser(username, firstname, lastname, color, stamp))
       setOpen(false)
     }catch(err){
       console.error(err)
