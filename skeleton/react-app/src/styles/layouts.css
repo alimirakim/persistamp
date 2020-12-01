@@ -61,6 +61,7 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
 .displayFormat {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 
 }
 .habitFormat {
