@@ -55,7 +55,7 @@ export const setRedeemed = (redeemed) => ({type: GET_REDEEMED_REWARDS, redeemed}
 export const redeemReward = (redeemed) => ({type: REDEEM_REWARD, redeemed})
 export const deleteRedeemed = (redeemed) => ({type: DELETE_REWARD, redeemed})
 
-export const editUser = (user) => ({type: UPDATE_USER, user})
+export const editUser = (username, firstname, lastname, color, stamp) => ({type: UPDATE_USER, username, firstname, lastname, color, stamp})
 
 
 // REDUCERS
@@ -153,7 +153,11 @@ export function userReducer(state=[], action) {
   const newState = {...state}
   switch (action.type) {
     case UPDATE_USER:
-      newState['user'] = action.user
+      newState.username = action.username
+      newState.firstname = action.firstname
+      newState.lastname = action.lastname
+      newState.color.id = action.color
+      newState.stamp.id = action.stamp
       return newState
     default: return state
   }
