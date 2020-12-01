@@ -154,6 +154,7 @@ export function RewardForm({ program, dispatchRewards, rewards, }) {
   const [cost, setCost] = useState(7)
   const [limit, setLimit] = useState(-1)
   const [quantity, setQuantity] = useState(-1)
+  const [errors, setErrors] = useState([])
 
   const handleOpen = (e) => setOpen(true)
   const handleClose = (e) => setOpen(false)
@@ -177,17 +178,21 @@ export function RewardForm({ program, dispatchRewards, rewards, }) {
       })
     })
     console.log("REWARD MADE?", res)
-    const reward = await res.json()
-    console.log("new reward!", reward)
-    dispatchRewards(createReward(reward))
-    console.log("rewards!", rewards)
-    setName()
-    setDescription()
-    setColor(1)
-    setStamp(4)
-    setCost(7)
-    setLimit(-1)
-    setQuantity(-1)
+    if(res.ok){
+      const reward = await res.json()
+      console.log("new reward!", reward)
+      dispatchRewards(createReward(reward))
+      console.log("rewards!", rewards)
+      setName()
+      setDescription()
+      setColor(1)
+      setStamp(4)
+      setCost(7)
+      setLimit(-1)
+      setQuantity(-1)
+    }else{
+      setErrors(res.errors)
+    }
   }
 
   return (
@@ -195,6 +200,9 @@ export function RewardForm({ program, dispatchRewards, rewards, }) {
       <button onClick={handleOpen}>+Reward</button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Create a reward for "{program.program}"!</DialogTitle>
+        <div>
+          {renderErrors(errors)}
+        </div>
         <DialogContent>
 
           <AddName name={name} setName={setName} />
@@ -315,4 +323,13 @@ export function RewardDeleteForm({ reward, dispatchRewards }) {
   )
 
 
+}
+
+const renderErrors = (errors) => {
+  if (errors) {
+    return errors.map(error => {
+      console.log(error)
+      return <div className='material-error'>{error}</div>
+    })
+  }
 }
