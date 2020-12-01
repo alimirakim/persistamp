@@ -67,12 +67,11 @@ function App() {
           if (!dailies) dispatchDailies(setDailies(dailies_data))
         }
       }
-
       setLoaded(true)
     })();
   }, [dailies, habits, programs, week]);
 
-  if (!loaded || !dailies) return null
+  if (!loaded) return null
 
   return (
     <BrowserRouter>

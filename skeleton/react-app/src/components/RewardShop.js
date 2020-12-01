@@ -258,7 +258,12 @@ export function RewardEditForm({program, reward, dispatchRewards}) {
 
   return (
     <article>
-      <button onClick={handleOpen} style={{ borderWidth: 0, backgroundColor: "rgba(0,0,0,0", color: "gray" }}><i className={`fas fa-pencil-alt`}></i></button>
+      <button onClick={handleOpen} style={{ borderWidth: 0, backgroundColor: "rgba(0,0,0,0", color: "gray" }}>
+      
+      <i className={`fas fa-question`}></i>
+      
+      
+      </button>
       
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Edit reward "{reward.reward}" for "{program.program}"!</DialogTitle>

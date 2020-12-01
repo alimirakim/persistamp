@@ -20,6 +20,7 @@ export default function HabitBoard() {
       <table>
         {Object.values(programs).map(program => {
           const [mid] = program.members.filter(m => Object.keys(user.memberships).includes(String(m)))
+          console.log("mid, program m, user m,", mid, program.members, user.memberships)
           return (
             <>
               <thead>
