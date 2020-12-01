@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../services/auth';
+import { FormControl, TextField } from '@material-ui/core';
+import { ActionOrCancelButtons } from '../FormInputs';
+import { Dialog, DialogContent, DialogTitle } from '@material-ui/core'
+import '../../styles/layouts.css'
 
-const SignUpForm = ({authenticated, setAuthenticated, setUser}) => {
+
+const SignUpForm = ({open, setOpen, authenticated, setAuthenticated, setUser, handleClickOpen, handleClose}) => {
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [birthday, setBirthday] = useState("");
@@ -10,6 +15,11 @@ const SignUpForm = ({authenticated, setAuthenticated, setUser}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
+  // const [open, setOpen] = React.useState(true);
+  const [errors, setErrors] = useState([])
+
+  // const handleClickOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false)
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -25,11 +35,20 @@ const SignUpForm = ({authenticated, setAuthenticated, setUser}) => {
       if (!user.errors) {
         setUser(user)
         setAuthenticated(true)
-      }
-    } else {
-      console.log("no password matchey")
+      }else {
+      setErrors(user.errors)
     }
   };
+}
+const renderErrors = (errors) => {
+  if (errors) {
+    // console.log("trying to render user setting errors")
+    return errors.map(error => {
+      // console.log(error)
+      return <div className='material-error'>{error}</div>
+    })
+  }
+}
 
   const updateFirstName = (e) => setFirstName(e.target.value)
   const updateLastName = (e) => setLastName(e.target.value)
@@ -42,75 +61,93 @@ const SignUpForm = ({authenticated, setAuthenticated, setUser}) => {
   if (authenticated) return <Redirect to="/" />
 
   return (<>
-    <h2>Make an Account</h2>
-    <form onSubmit={onSignUp}>
+    {/* <button onClick={handleClickOpen}>Sign Up</button> */}
+    <Dialog open={open} onClose={handleClose}>
+      <DialogTitle id="form-dialog-title">Make an account</DialogTitle>
       <div>
-        <label>First name</label>
-        <input
+          {renderErrors(errors)}
+      </div>
+      <DialogContent className='signUpForm'>
+        <TextField
+          autoFocus
+          defaultValue={first_name}
+          margin="dense"
+          id="first_name"
+          label="First name"
           type="text"
-          name="first_name"
+          fullWidth
           onChange={updateFirstName}
-          value={first_name}
-        ></input>
-      </div>
-      <div>
-        <label>Last name</label>
-        <input
+          required
+        />
+        <TextField
+          autoFocus
+          defaultValue={last_name}
+          margin="dense"
+          id="last_name"
+          label="Last name"
           type="text"
-          name="last_name"
+          fullWidth
           onChange={updateLastName}
-          value={last_name}
-        ></input>
-      </div>
-      <div>
-        <label>Birthday</label>
-        <input
+          required
+        />
+        <TextField
+          id="birthday"
+          label="Birthday"
           type="date"
-          name="birthday"
+          defaultValue={birthday}
           onChange={updateBirthday}
-          value={birthday}
-        ></input>
-      </div>
-      <div>
-        <label>Username</label>
-        <input
-          type="text"
-          name="username"
-          onChange={updateUsername}
-          value={username}
-        ></input>
-      </div>
-      <div>
-        <label>Email</label>
-        <input
-          type="text"
-          name="email"
-          onChange={updateEmail}
-          value={email}
-        ></input>
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          onChange={updatePassword}
-          value={password}
-        ></input>
-      </div>
-      <div>
-        <label>Confirm Password</label>
-        <input
-          type="password"
-          name="repeat_password"
-          onChange={updateRepeatPassword}
-          value={repeatPassword}
-          required={true}
-        ></input>
-      </div>
-      <button type="submit">Sign Up</button>
-    </form>
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+          <TextField
+            autoFocus
+            defaultValue={username}
+            margin="dense"
+            id="username"
+            label="Username"
+            type="text"
+            fullWidth
+            onChange={updateUsername}
+            required
+          />
+          <TextField
+            autoFocus
+            defaultValue={email}
+            margin="dense"
+            id="email"
+            label="Email"
+            type="email"
+            fullWidth
+            onChange={updateEmail}
+            required
+          />
+          <TextField
+            autoFocus
+            defaultValue={password}
+            margin="dense"
+            id="password"
+            label="Password"
+            type="password"
+            fullWidth
+            onChange={updatePassword}
+            required
+          />
+          <TextField
+            autoFocus
+            defaultValue={repeatPassword}
+            margin="dense"
+            id="repeat_password"
+            label="Confirm password"
+            type="password"
+            fullWidth
+            onChange={updateRepeatPassword}
+            required
+          />
+          <ActionOrCancelButtons handleClose={handleClose} onAction={onSignUp} action={"Sign up"}/>
+      </DialogContent>
+    </Dialog>
   </>);
 };
 
-export default SignUpForm;
+export default SignUpForm
