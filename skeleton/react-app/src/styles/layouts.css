@@ -9,7 +9,7 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
     flex-direction: column; */
     position: relative;
     text-align: center;
-    background-color: rgb(226, 209, 231);
+    background-color:rgb(191, 191, 243);
     width: 400px;
     margin: auto;
     padding: 10px;
@@ -22,6 +22,9 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
     font-style: normal;
 }
 
+.errorHeader {
+    color:red;
+}
 .NavBarContainer {
     display: flex;
     align-items: flex-start;
