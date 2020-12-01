@@ -47,7 +47,6 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
 .lineGraphHeader {
     position: relative;
     text-align: center;
-    right: 268px;
 }
 .lineGraphToggle {
     position: relative;
@@ -55,9 +54,14 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
     outline: 1px solid #ccc;
     /* box-sizing: border-box; */
 }
+.displayPage {
+    position: relative;
+    left:50px;
+}
 .displayFormat {
     display: flex;
     flex-direction: row;
+
 }
 .habitFormat {
     display: flex;
@@ -105,7 +109,7 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
 .heatMapHeader {
     position: relative;
     margin: 12px;
-    left: 30px;
+    left: 100px;
 }
 .calendarContainer {
     width: 650px;
