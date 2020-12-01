@@ -13,6 +13,7 @@ export default function UserSettings(){
   const [open, setOpen] = React.useState(false);
   const [color, setColor] = useState(user.color.id)
   const [stamp, setStamp] = useState(user.stamp.id)
+  const [errors, setErrors] = useState([])
   const [firstname, setFirstname] = useState(user.first_name)
   const [lastname, setLastname] = useState(user.last_name)
   const [username, setUsername] = useState(user.username)
@@ -28,13 +29,12 @@ export default function UserSettings(){
 
   const onUpdate = async (e) => {
     e.preventDefault()
-    try{
-      const updatedUser = await updateUser(username, firstname, lastname, color, stamp)
+    const updatedUser = await updateUser(username, firstname, lastname, color, stamp)
+    if (!updatedUser.errors) {
       setUser(updatedUser)
       setOpen(false)
-      console.log("user in store: ", user)
-    }catch(err){
-      console.error(err)
+    }else{
+      setErrors(updatedUser.errors)
     }
   }
 
@@ -42,11 +42,24 @@ export default function UserSettings(){
     console.log(user)
   }, [open])
 
+  const renderErrors = (errors) => {
+    if(errors){
+      console.log("trying to render user setting errors")
+      return errors.map(error => {
+        console.log(error)
+        return <div className='material-error'>{error}</div>
+      })
+    }
+  }
+
   return (
     <div>
       <button onClick={handleClickOpen}>Settings</button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Edit User Settings</DialogTitle>
+        <div>
+          {renderErrors(errors)}
+        </div>
         <DialogContent>
           <SetUsername username={username} setUsername={setUsername} />
           <UpdateFirstname firstname={firstname} setFirstname={setFirstname} />

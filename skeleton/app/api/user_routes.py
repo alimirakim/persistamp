@@ -11,6 +11,15 @@ from app.forms import UserForm
 
 user_routes = Blueprint('users', __name__, url_prefix="/users")
 
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f"{field} : {error}")
+    return errorMessages
 
 @user_routes.route('/list')
 @login_required
@@ -146,4 +155,4 @@ def update_user():
 
         
         return jsonify(newUser)
-    return 'User Settings Error'
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
