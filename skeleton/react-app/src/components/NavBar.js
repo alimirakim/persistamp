@@ -1,69 +1,64 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import '../styles/layouts.css';
 import UserContext from '../context/UserContext';
-import LogoutIcon from './auth/LogoutButton';
+import UserSettings from './UserSettings'
+import { logout } from "../services/auth";
 
+export default function NavBar({ authenticated, setAuthenticated, user }) {
+  // const [isLoggedIn, setIsLoggedIn] = useState(authenticated)
+  const [settingsOpen, setSettingsOpen] = useState(false)
 
-const NavBar = ({ authenticated, setAuthenticated }) => {
-  const {user} = useContext(UserContext);
+  const onLogout = async (e) => {
+    await logout();
+    setAuthenticated(false);
+  };
 
-  if (!authenticated) {
-    return (
-      <div className="NavBarArea">
-      <nav>
-        <div className="NavBarContainer">
-          <div>
-            <NavLink to='/login' className="NavBarLogo">
-              <img src="/icons/turtle.svg" alt="Persistamp Logo: a red turtle stamp" />
-            </NavLink>
-          </div>
-          <div>
-            <NavLink to="/login" exact={true} className="NavBarItem" activeClassName="active">
-              Login
-            </NavLink>
-          </div>
-          <div>
-            <NavLink to="/sign-up" exact={true} className="NavBarItem" activeClassName="active">
-              Sign Up
-            </NavLink>
-          </div>
-          <div>
-            <NavLink to="/about" exact={true} className="NavBarItem" activeClassName="active">
-              About
-            </NavLink>
-          </div>
-        </div>
+  const handleSettingsOpen = () => setSettingsOpen(true)
+  const handleSettingsClose = () => setSettingsOpen(false)
+
+  if (authenticated && user) {
+    return (<>
+      <h1 style={{fontFamily: "Cambria", fontStyle: "italic"}}>Persistamp</h1>
+      <nav className="stickers">
+        <NavLink to='/' className="sticker sticker_logo-link" activeClassName="active">
+          <img className="sticker_logo" src="/icons/turtle.svg" alt="Persistamp Logo: a red turtle stamp" />
+          <br />
+          <br />
+        </NavLink>
+        {/* <NavLink to="/" className="sticker sticker_home" activeClassName="active">
+        <i className="fas fa-home"></i>
+        <span>Home</span>
+      </NavLink> */}
+        <NavLink to="/messages" className="sticker sticker_messages" activeClassName="active">
+          <i className="fas fa-envelope"></i>
+          <span>Messages</span>
+        </NavLink>
+        <button onClick={handleSettingsOpen} className="sticker sticker_settings" activeClassName="active">
+          <i className="fas fa-id-card"></i>
+          <span>Settings</span>
+        </button>
+        <NavLink to="/about" className="sticker sticker_about" activeClassName="active">
+          <i className="fas fa-info-circle"></i>
+        About
+      </NavLink>
+        <button onClick={onLogout} className="sticker sticker_logout" activeClassName="active">
+          <i className="fas fa-door-open"></i>
+        Logout
+      </button>
       </nav>
-    </div>
-    )
+
+      <UserSettings settingsOpen={settingsOpen} handleSettingsClose={handleSettingsClose} />
+    </>)
+  } else {
+    return (<>
+      <h1>Persistamp</h1>
+      <nav className="stickers">
+        <NavLink to='/sign-up' className="sticker sticker_logo-link" activeClassName="active">
+          <img className="sticker_logo" src="/icons/turtle.svg" alt="Persistamp Logo: a red turtle stamp" />
+        </NavLink>
+      </nav>
+    </>)
   }
-  return (
-    <div className="NavBarArea">
-      <nav>
-        <div className="NavBarContainer">
-          <div>
-            <NavLink to="/" className="NavBarLogo">
-            <img src="/icons/turtle.svg" alt="Persistamp Logo: a red turtle stamp" style={{width: "5rem", height: "5rem", rotate: "90%"}} />
-
-            </NavLink>
-          </div>
-          <div>
-            <NavLink to="/users" exact={true} className="NavBarItem" activeClassName="active">
-              Users
-            </NavLink>
-          </div>
-          <NavLink to="/about" exact={true} className="NavBarItem" activeClassName="active">
-            About
-          </NavLink>
-          <div>
-            <LogoutIcon setAuthenticated={setAuthenticated} className="NavBarItem" />
-          </div>
-        </div>
-      </nav>
-    </div>
-  );
 }
-
-export default NavBar;

@@ -95,7 +95,7 @@ function App() {
         <UserContext.Provider value={{ user, setUser: updateUser }}>
           <OptionsContext.Provider value={{ colors, stamps }}>
 
-            <NavBar authenticated={authenticated} setAuthenticated={setAuthenticated} />
+            <NavBar authenticated={authenticated} setAuthenticated={setAuthenticated} user={user} />
             <Route path="/login" exact={true}>
               <LoginForm
                 authenticated={authenticated}

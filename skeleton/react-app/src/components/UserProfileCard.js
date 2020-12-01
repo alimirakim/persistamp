@@ -10,26 +10,29 @@ export default function UserProfileCard() {
   if (!user.username) {
     return null
   }
-  // console.log("user profile card data", user)
+  console.log("user profile card data", user)
 
   return (
-    <div className="infocardContainer">
-      <div id="main">
-        <img src={`/icons/${user.stamp.stamp}.svg`}></img>
-      </div>
-      <div id="textbois">
-        <h2>{user.username}</h2>
-        <h4>{user.first_name} {user.last_name}</h4>
-        <div>{user.email}</div>
-        <div id="hotlinks">
-          <a href="https://codepen.io/LIMESTA"><img id="codepenio" src="https://blog.codepen.io/wp-content/uploads/2012/06/Button-Fill-Black-Small.png" target="_blank"></img>
-          </a>
-          <a href="https://codepen.io/LIMESTA">
-            <img id="codepenio" src="https://blog.codepen.io/wp-content/uploads/2012/06/Button-Fill-Black-Small.png" target="_blank"></img>
-          </a>
-          <UserSettings />
+    <article className="card" style={{ color: user.color.hex, boxShadow: `8px 8px 0 ${user.color.hex}` }}>
+
+      <dl className="card-data">
+        <dt className="card-name-label">NAME</dt>
+        <dd className="card-name">    {user.first_name} {user.last_name}</dd>
+        <div className="card-body">
+        <div className="card-data">
+          <dt hidden="true">PROFILE IMAGE</dt>
+          <dd><i className={`avi fas fa-${user.stamp.stamp}`}></i></dd>
+          </div>
+          <div className="side-card card-data">
+            <dt>NICKNAME</dt>
+            <dd>{user.username}</dd>
+            <dt>D.O.B.</dt>
+            <dd><i className={`fas fa-birthday`}></i>{new Date(user.birthday).toLocaleString()}</dd>
+            <dt>EMAIL</dt>
+            <dd>{user.email}</dd>
+          </div>
         </div>
-      </div>
-    </div>
+      </dl>
+    </article>
   )
 }

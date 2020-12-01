@@ -4,10 +4,127 @@ grids, floats, margins and padding, positioning, display types.
 
 Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
 
+* {
+  /* outline: 1px dashed gray; */
+}
 
-/* .navbtn {
-  t
-} */
+.card {
+  display: flex;
+  margin: 1rem;
+  border-radius: 10px;
+  background: rgb(220,222,226);
+  background: linear-gradient(360deg, rgba(220,222,226,1) 0%,  rgba(255,255,255,1) 100%);
+  padding: 1rem;
+  width: max-content;
+}
+
+dl.card-data {
+  padding: 0 2rem;
+}
+
+.card-data {
+  font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif
+  
+}
+
+.card-data > dt {
+  font: bolder 0.8rem Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+}
+.card-data > dd {
+  margin-left: 0;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  
+}
+dt.card-name-label {
+  display: inline;
+  font-size: 1.2rem;
+}
+dd.card-name {
+  display: inline-block;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
+.card-body {
+  display: flex;
+}
+
+.lo-left {
+  float: left;
+}
+
+.avi {
+  font-size: 5rem;
+  float: left;
+  margin-right: 2rem;
+  padding: 1rem;
+  border-radius: 20px;
+  border: 6px double;
+}
+
+nav.stickers {
+  position: sticky;
+  top: 3rem;
+  right: 3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.sticker {
+  display: flex;
+  flex-direction: column;
+  width: 3rem;
+  height: 3rem;
+  margin: 1rem;
+  border-width: 0;
+  background-color: rgba(0,0,0,0);
+  align-items: center;
+  font: bold 1rem Cambria;
+  transition: all 0.2s ease-in-out;
+}
+
+.sticker:hover {
+  color: white;
+  transform: rotate(20deg);
+}
+
+.sticker > i {
+  font-size: 2rem;
+}
+
+.sticker_logo {
+  color: crimson;
+  /* background-image: url("/icons/turtle.svg"); */
+  margin-left: 1rem;
+  width: 4rem;
+  height: 4rem;
+  transition: transform 0.2s ease-in-out;
+}
+.sticker_logo:hover {
+  transform: scale(1.2);
+}
+
+.sticker_home {
+  color: crimson;
+}
+
+.sticker_messages {
+  color: goldenrod;
+}
+
+.sticker_settings {
+  color: cadetblue;
+}
+
+.sticker_about {
+  color: cornflowerblue;
+}
+
+.sticker_logout {
+  color: violet;
+}
 
 .NavBarContainer {
     display: flex;

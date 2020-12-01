@@ -4,6 +4,7 @@ it probably belongs here. */
 body {
     background-color:rgb(20, 30, 50);
     color: seashell;
+    font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif
 }
 table, tr, th, td {
   border-radius: 0.3rem;
@@ -12,8 +13,18 @@ table, tr, th, td {
   text-align: center;
 }
 
+a {
+  text-decoration: none;
+}
 
+a:hover {
+  color: white;
+}
 
+.active {
+  color: white;
+  transform: rotate(20deg);
+}
 
 /* a. Fix item editing - infinity bugs */
 /* b. Feedback for wrong form inputs/disable redeem button if unallowed */
