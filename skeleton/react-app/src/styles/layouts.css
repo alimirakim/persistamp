@@ -28,7 +28,8 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
 
 .board {
   width: 50vw;
-  background-image: url("./Paper-02.png");
+  /* background-image: url("./Paper-02.png"); */
+  background-color: black;
   box-shadow: 5px 5px 5px black;
   border: 10px double;
 }

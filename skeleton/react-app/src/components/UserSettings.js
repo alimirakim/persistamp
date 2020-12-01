@@ -10,7 +10,6 @@ import { ActionOrCancelButtons, SetUsername, ChooseColor, ChooseStamp, UpdateFir
 
 export default function UserSettings({ settingsOpen, handleSettingsClose }) {
   const { user, setUser } = useContext(UserContext)
-  if (!user) return null;
   const [color, setColor] = useState(user.color.id)
   const [stamp, setStamp] = useState(user.stamp.id)
   const [errors, setErrors] = useState([])
@@ -39,7 +38,7 @@ export default function UserSettings({ settingsOpen, handleSettingsClose }) {
     }
   }
 
-  
+  if (!user) return null;
   return (
 
     <Dialog open={settingsOpen} onClose={handleSettingsClose} aria-labelledby="form-dialog-title">
