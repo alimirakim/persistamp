@@ -8,7 +8,7 @@ import { ActionOrCancelButtons, AddName, AddDescription, ChooseColor, ChooseStam
 
 
 export function ProgramForm() {
-  const {user, setUser} = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
   const { colors, stamps } = useContext(OptionsContext)
   const { dispatchPrograms } = useContext(HabitBoardContext)
 
@@ -37,9 +37,10 @@ export function ProgramForm() {
     })
     // User is updated to include new membership
     const {program, updated_user} = await res.json()
-    console.log("we made a program!", program, "user!", updated_user)
-    dispatchPrograms(createProgram(program))
     setUser(updated_user)
+    dispatchPrograms(createProgram(program))
+    console.log("we made a program!", program, "user!", updated_user)
+    console.log("NOW USER", user)
 
     setName()
     setDescription()

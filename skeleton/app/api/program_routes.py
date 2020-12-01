@@ -1,9 +1,10 @@
 from flask import Blueprint, render_template, redirect, jsonify, request
 from sqlalchemy.orm import joinedload
+from flask_login import current_user
 from app.models import db, Program, User, Member
 from app.schemas import program_schema, user_schema, color_schema, stamp_schema
 from app.forms import ProgramForm
-from flask_login import current_user
+from app.utils import queryUserFullData
 
 program_routes = Blueprint("programs", __name__, url_prefix="/programs")
 
@@ -46,7 +47,7 @@ def create_program():
         program_data["creator"] = user_schema.dump(program.creator)
         ("\n\nPROGRAM DUMP", program_data)
         
-        updated_user = user_schema.dump(current_user)
+        updated_user = queryUserFullData(current_user.id)
         
         return jsonify(program=program_data, updated_user=updated_user)
     return "D: No program made"

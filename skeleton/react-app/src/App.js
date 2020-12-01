@@ -83,11 +83,11 @@ function App() {
             <Route path="/login" exact={true}>
               <LoginForm
                 authenticated={authenticated}
-                setAuthenticated={setAuthenticated}
+                setAuthenticated={setAuthenticated} setUser={setUser}
               />
             </Route>
             <Route path="/sign-up" exact={true}>
-              <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
+              <SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} setUser={setUser} />
             </Route>
 
             <Route path="/about" exact={true}>

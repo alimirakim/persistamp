@@ -5,7 +5,7 @@ from http import cookies
 from app.models import db, User, Program, Member
 from app.forms import LoginForm, SignUpForm
 from app.schemas import user_schema, color_schema, stamp_schema, member_schema
-from app.utils import dump_data_list
+from app.utils import dump_data_list, queryUserFullData
 from pprint import pprint
 
 auth_routes = Blueprint('auth', __name__)
@@ -25,20 +25,9 @@ def validation_errors_to_error_messages(validation_errors):
 @auth_routes.route('/')
 def authenticate():
     """Authenticates a user"""
-    print("\n\n\nAUTHING??", dir(current_user), current_user.is_authenticated)
     if current_user.is_authenticated:
-        user = User.query.options( \
-            joinedload(User.color), \
-            joinedload(User.stamp), \
-            joinedload(User.memberships), \
-            ).get(current_user.id)
-
-        user_data = user_schema.dump(user)
-        user_data["color"] = color_schema.dump(user.color)
-        user_data["stamp"] = stamp_schema.dump(user.stamp)
-        print("\nauthed user")
-        user_data["memberships"] = {m["id"]:m for m in dump_data_list(user.memberships, member_schema)}
-        print("\nUSER WITH MEMBERS")
+        user_data = queryUserFullData(current_user.id)
+        # print("\nUSER WITH MEMBERS")
         # pprint(user_data)
         return jsonify(user_data)
     return {'errors': ['Unauthorized']}, 401
@@ -55,11 +44,8 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
-        print(user.id, "---------------------------HEEEEREE--------------------")
-        res = make_response(user.to_dict())
         # res.set_cookie('uid_cookie', str(user.id))
-        return res
-
+        return jsonify(queryUserFullData(user.id))
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -73,8 +59,6 @@ def logout():
 @auth_routes.route('/signup', methods=['POST'])
 def sign_up():
     """Creates a new user and logs them in"""
-    # print("REQUEST FORM: ", request.form.get("username"))
-    # print("DIR REQUEST:  ", dir(request.form))
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -101,10 +85,10 @@ def sign_up():
         login_user(user)
 
         # Set cookie
-        res = make_response(jsonify(user_schema.dump(user)))
-        res.set_cookie("uid_cookie", str(user.id))
+        # res = make_response(jsonify(user_schema.dump(user)))
+        # res.set_cookie("uid_cookie", str(user.id))
 
-        return res
+        return queryUserFullData(user.id)
     return {'errors': validation_errors_to_error_messages(form.errors)}
 
 
