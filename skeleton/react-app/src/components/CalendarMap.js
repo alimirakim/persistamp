@@ -55,6 +55,7 @@ export default function CalendarMap ({habit}) {
                             // color:`#000`
                         }
                     }}
+                    xLabelsLocation="top"
                     cellRender={(value) => {
                         if (value === 100) {
                             return <i className={`fas fa-${habit.stamp.stamp}`} style={{color: habit.color.hex}} ></i>
