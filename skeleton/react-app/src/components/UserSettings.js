@@ -44,7 +44,6 @@ export default function UserSettings(){
 
   const renderErrors = (errors) => {
     if(errors){
-      console.log("trying to render user setting errors")
       return errors.map(error => {
         console.log(error)
         return <div className='material-error'>{error}</div>

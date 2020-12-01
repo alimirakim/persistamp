@@ -36,7 +36,8 @@ export function ProgramForm() {
         userId: user.id
       })
     })
-    if(!res.errors){
+    console.log(res)
+    if(res.ok){
       // User is updated to include new membership
       const {program, updated_user} = await res.json()
       setUser(updated_user)
@@ -102,14 +103,18 @@ export function ProgramEditForm({ program }) {
         stamp,
       })
     })
-    const editedProgram = await res.json()
-    dispatchPrograms(editProgram(editedProgram))
-    console.log("we made a program!", editedProgram)
+    console.log('program-edit res: ', res)
+    if(res.ok){
+      const editedProgram = await res.json()
+      dispatchPrograms(editProgram(editedProgram))
+      console.log("we made a program!", editedProgram)
+    }else{
+      setErrors(res.errors)
+    }
   }
 
   const renderErrors = (errors) => {
     if (errors) {
-      console.log("trying to render user setting errors")
       return errors.map(error => {
         console.log(error)
         return <div className='material-error'>{error}</div>
@@ -123,7 +128,9 @@ export function ProgramEditForm({ program }) {
     <button onClick={handleOpen} style={{color: "gray", backgroundColor: "rgba(0,0,0,0)", borderWidth: "0"}}>
       <i className={`fas fa-pencil-alt`}></i>
     </button>
-
+    <div>
+      {renderErrors(errors)}
+    </div>
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Edit {program.program} program details</DialogTitle>
       <div>
