@@ -10,7 +10,7 @@ export default function UserProfileCard() {
   if (!user.username) {
     return null
   }
-  console.log("user profile card data", user)
+  // console.log("user profile card data", user)
 
   return (
     <div className="infocardContainer">

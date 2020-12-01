@@ -11,14 +11,15 @@ import { ProgramForm, ProgramEditForm, ProgramDeleteForm } from './ProgramForm'
 export default function HabitBoard() {
   const { user } = useContext(UserContext)
   const { programs, habits, week, dispatchHabits } = useContext(HabitBoardContext)
-  console.log("user inside habitboard", user)
+  // console.log("user inside habitboard", user)
 
+  
   return (
     <article>
       <ProgramForm />
       <h2>Habit Board Programs</h2>
       <ul style={{display: "flex", flexDirection: "column-reverse"}}>
-        {Object.values(programs).map(program => {
+        {programs && Object.values(programs).map(program => {
           const [mid] = program.members.filter(m => Object.keys(user.memberships).includes(String(m)))
           console.log("mid, program m, user m,", mid, program.members, user.memberships)
           return (
@@ -58,7 +59,7 @@ export default function HabitBoard() {
 
                 <tbody>
                   {/* style={{display: "flex", flexDirection: "column-reverse"}}> */}
-                  {Object.values(habits)
+                  {habits && Object.values(habits)
                     .filter(habit => habit.program === program.id)
                     .map(habit => (<tr key={habit.id} style={{ color: habit.color.hex }}>
                       <td style={{ display: "flex" }}>

@@ -84,7 +84,7 @@ def delete_program(pid):
     program = Program.query.get(pid)
     db.session.delete(program)
     db.session.commit()
-    updated_user = user_schema.dump(current_user)
+    updated_user = queryUserFullData(current_user.id)
     return updated_user
 
 
