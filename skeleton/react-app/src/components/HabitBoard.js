@@ -10,10 +10,10 @@ import { ProgramForm, ProgramEditForm, ProgramDeleteForm } from './ProgramForm'
 
 export default function HabitBoard() {
   const { user } = useContext(UserContext)
-  const { programs, habits, week, dispatchHabits } = useContext(HabitBoardContext)
+  const { programs, habits, dailies, week, dispatchHabits } = useContext(HabitBoardContext)
   // console.log("user inside habitboard", user)
 
-  if (!programs) return null
+  if (!programs || !habits || !dailies) return null
   
   return (
     <article>
@@ -89,6 +89,7 @@ export default function HabitBoard() {
 // TODO How to optimize the rerenders here????
 function StampBox({ pid, mid, habit, day }) {
   const { dailies, dispatchDailies } = useContext(HabitBoardContext)
+  console.log("what dailies", dailies)
   const [isStamped, setIsStamped] = useState(Object.values(dailies).find(stamp => stamp.date === day[1] && stamp.member === mid && stamp.habit === habit.id))
 
 
