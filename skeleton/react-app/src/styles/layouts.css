@@ -4,6 +4,24 @@ grids, floats, margins and padding, positioning, display types.
 
 Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
 
+.loginContainer {
+    /* display: flex;
+    flex-direction: column; */
+    position: relative;
+    text-align: center;
+    background-color: rgb(226, 209, 231);
+    width: 400px;
+    margin: auto;
+    padding: 10px;
+    top: 80px;
+    border-radius: 15px;
+}
+.loginHeader {
+    color: black;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: normal;
+}
+
 .NavBarContainer {
     display: flex;
     align-items: flex-start;
