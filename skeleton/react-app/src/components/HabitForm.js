@@ -8,7 +8,7 @@ import { createHabit } from '../context/reducers'
 import { ActionOrCancelButtons, AddName, AddDescription, ChooseFrequency, ChooseColor, ChooseStamp } from './FormInputs'
 
 function HabitForm({ pid, program }) {
-  const {user} = useContext(UserContext)
+  const { user } = useContext(UserContext)
   const { colors, stamps } = useContext(OptionsContext)
   const {dispatchHabits} = useContext(HabitBoardContext)
   

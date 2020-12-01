@@ -27,6 +27,8 @@ export const GET_REDEEMED_REWARDS = 'GET REDEEMED REWARDS'
 export const REDEEM_REWARD = 'REDEEM REWARD'
 export const DELETE_REDEEMED = 'DELETE REDEEMED'
 
+export const UPDATE_USER = 'UPDATE_USER'
+
 
 // ACTION CREATORS
 export const setDailies = (dailies) => ({ type: GET_DAILY_STAMPS, dailies })
@@ -52,6 +54,8 @@ export const deleteReward = (reward) => ({type: DELETE_REWARD, reward})
 export const setRedeemed = (redeemed) => ({type: GET_REDEEMED_REWARDS, redeemed})
 export const redeemReward = (redeemed) => ({type: REDEEM_REWARD, redeemed})
 export const deleteRedeemed = (redeemed) => ({type: DELETE_REWARD, redeemed})
+
+export const editUser = (user) => ({type: UPDATE_USER, user})
 
 
 // REDUCERS
@@ -142,6 +146,16 @@ export function redeemedReducer(state=[], action) {
       return state.filter(reward => reward.id == action.redeemed.id)
     default:
       return state
+  }
+}
+
+export function userReducer(state=[], action) {
+  const newState = {...state}
+  switch (action.type) {
+    case UPDATE_USER:
+      newState['user'] = action.user
+      return newState
+    default: return state
   }
 }
 

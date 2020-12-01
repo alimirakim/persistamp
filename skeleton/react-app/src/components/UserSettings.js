@@ -4,11 +4,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import updateUser from '../services/user';
 import UserContext from '../context/UserContext'
+import {editUser} from '../context/reducers'
 import OptionsContext from '../context/OptionsContext'
 import { ActionOrCancelButtons, SetUsername, ChooseColor, ChooseStamp, UpdateFirstname, UpdateLastname } from './FormInputs'
 
 export default function UserSettings(){
-  const user = useContext(UserContext).user
+  const { user, setUser } = useContext(UserContext)
   const [open, setOpen] = React.useState(false);
   const [color, setColor] = useState(user.color.id)
   const [stamp, setStamp] = useState(user.stamp.id)
@@ -30,6 +31,7 @@ export default function UserSettings(){
     try{
       const updatedUser = updateUser(username, firstname, lastname, color, stamp)
       console.log(updatedUser)
+      setUser(editUser(updatedUser))
       setOpen(false)
     }catch(err){
       console.error(err)
