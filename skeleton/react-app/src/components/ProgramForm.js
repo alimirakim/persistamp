@@ -14,6 +14,7 @@ export function ProgramForm() {
 
   const [open, setOpen] = useState(false)
   const [name, setName] = useState()
+  const [errors, setErrors] = useState([])
   const [description, setDescription] = useState()
   const [color, setColor] = useState(1)
   const [stamp, setStamp] = useState(2)
@@ -35,17 +36,21 @@ export function ProgramForm() {
         userId: user.id
       })
     })
-    // User is updated to include new membership
-    const {program, updated_user} = await res.json()
-    setUser(updated_user)
-    dispatchPrograms(createProgram(program))
-    console.log("we made a program!", program, "user!", updated_user)
-    console.log("NOW USER", user)
-
-    setName()
-    setDescription()
-    setColor(1)
-    setStamp(2)
+    if(!res.errors){
+      // User is updated to include new membership
+      const {program, updated_user} = await res.json()
+      setUser(updated_user)
+      dispatchPrograms(createProgram(program))
+      console.log("we made a program!", program, "user!", updated_user)
+      console.log("NOW USER", user)
+  
+      setName()
+      setDescription()
+      setColor(1)
+      setStamp(2)
+    }else{
+      setErrors(res.errors)
+    }
   }
 
   if (!colors || !stamps) return null
@@ -74,6 +79,7 @@ export function ProgramEditForm({ program }) {
   const { colors, stamps } = useContext(OptionsContext)
   const { dispatchPrograms } = useContext(HabitBoardContext)
 
+  const [errors, setErrors] = useState([])
   const [open, setOpen] = useState(false)
   const [name, setName] = useState(program.program)
   const [description, setDescription] = useState(program.description)
@@ -101,6 +107,16 @@ export function ProgramEditForm({ program }) {
     console.log("we made a program!", editedProgram)
   }
 
+  const renderErrors = (errors) => {
+    if (errors) {
+      console.log("trying to render user setting errors")
+      return errors.map(error => {
+        console.log(error)
+        return <div className='material-error'>{error}</div>
+      })
+    }
+  }
+
   if (!colors || !stamps) return null
 
   return (<>
@@ -110,7 +126,9 @@ export function ProgramEditForm({ program }) {
 
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">Edit {program.program} program details</DialogTitle>
-
+      <div>
+        {renderErrors(errors)}
+      </div>
       <DialogContent>
         <AddName name={name} setName={setName} />
         <AddDescription description={description} setDescription={setDescription} />
