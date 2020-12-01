@@ -3,7 +3,7 @@ from app.models import db, User, Stamp, Program, Member, Habit, Reward, Color, D
 from app.schemas import user_schema, program_schema, habit_schema, member_schema, stamp_schema, color_schema, dailystamp_schema
 from sqlalchemy.orm import joinedload
 from flask_login import current_user, login_user, logout_user, login_required
-from app.utils import dump_data_list
+from app.utils import dump_data_list, queryUserFullData
 from datetime import date, timedelta
 import calendar
 from pprint import pprint
@@ -142,6 +142,8 @@ def update_user():
         user.stamp_id = form.data['stamp']
         db.session.commit()
 
-        newUser = user_schema.dump(user)
+        newUser = queryUserFullData(user.id)
+
+        
         return jsonify(newUser)
     return 'User Settings Error'

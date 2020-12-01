@@ -30,9 +30,9 @@ export default function UserSettings(){
     e.preventDefault()
     try{
       const updatedUser = await updateUser(username, firstname, lastname, color, stamp)
-      console.log(updatedUser)
       setUser(updatedUser)
       setOpen(false)
+      console.log("user in store: ", user)
     }catch(err){
       console.error(err)
     }
