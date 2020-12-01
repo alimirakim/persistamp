@@ -17,39 +17,45 @@ export default function HabitBoard() {
   if (!programs || !habits || !dailies) return null
 
   return (
-    <article className="lo-main-center">
-      <h1 style={{fontSize: "3rem", marginTop: "1rem", marginBottom: 0, fontFamily: "Cambria", fontStyle: "italic"}}>Persistamp</h1>
+    <article className="lo-main-center habit-board">
+      <h1 style={{ fontSize: "3rem", marginTop: "1rem", marginBottom: 0, fontFamily: "Cambria", fontStyle: "italic" }}>Persistamp</h1>
       <UserProfileCard />
       <h2>Habit Board Programs</h2>
       <ProgramForm />
-      <ul style={{display: "flex", flexDirection: "column-reverse"}}>
+      <ul style={{ display: "flex", flexDirection: "column-reverse" }}>
         {programs && Object.values(programs).map(program => {
           const [mid] = program.members.filter(m => Object.keys(user.memberships).includes(String(m)))
           // console.log("mid, program m, user m,", mid, program.members, user.memberships)
           return (
             <li key={program.id}>
-              <table>
+              <table className="board" style={{color: program.color.hex}}>
                 <thead>
                   <tr key={program.id} style={{ color: program.color.hex }}>
                     <td colSpan={8}>
-
-                      <ProgramEditForm program={program} />
-                      <ProgramDeleteForm program={program} />
-
-                      <h3>
-                        <i className={`fas fa-${program.stamp.stamp}`}></i> {program.program}
-                      </h3>
-                      <Link to={`/programs/${program.id}/members/${mid}/rewards`}>
-                        <i className={`fas fa-store`} style={{ color: program.color.hex }}></i>
-                      </Link>
-                      <span> Points: {user.memberships[mid].points} <i className={`fas fa-${program.stamp.stamp}`}></i></span>
+                      <div className="program">
+                        <div style={{ display: "flex" }}>
+                          <ProgramEditForm program={program} />
+                          <ProgramDeleteForm program={program} />
+                        <h3 className="program-title">
+                          <i className={`fas fa-${program.stamp.stamp}`}></i> {program.program}
+                        </h3>
+                        </div>
+                        <div className="reward-shop">
+                        <h4 className="cam">REWARD SHOP</h4>
+                            <Link to={`/programs/${program.id}/members/${mid}/rewards`}>
+                              <i className={`fas fa-store`} style={{ color: program.color.hex, fontSize: "2rem", margin: "0.5rem" }}></i>
+                            </Link>
+                            
+                            <div> <b style={{marginRight: "0.5rem"}}>POINTS:</b>  <span className="points">{user.memberships[mid].points} <i className={`fas fa-${program.stamp.stamp}`}></i></span></div>
+                        </div>
+                      </div>
                       <blockquote>{program.description}</blockquote>
 
                     </td>
                   </tr>
                   <tr>
                     <th>
-                      <HabitForm pid={program.id} program={program.program} dispatchHabits={dispatchHabits} />
+                      <HabitForm pid={program.id} program={program} dispatchHabits={dispatchHabits} />
                     </th>
                     <th><time dateTime={week[0][1]}>{week[0][0]} <br /><small>{week[0][1].slice(8, 10)}</small></time></th>
                     <th><time dateTime={week[1][1]}>{week[1][0]} <br /><small>{week[1][1].slice(8, 10)}</small></time></th>
@@ -123,9 +129,9 @@ function StampBox({ pid, mid, habit, day }) {
 
   if (isStamped) {
     return (
-      <td style={{ color: habit.color.hex }}>
+      <td className="stamp" style={{ color: habit.color.hex }}>
         <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}}`} onSubmit={onStamp("delete")}>
-          <button type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
+          <button className="stamp" type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
             <i className={`fas fa-${habit.stamp.stamp}`} style={{ color: habit.color.hex }} ></i>
           </button>
         </form>
@@ -135,9 +141,9 @@ function StampBox({ pid, mid, habit, day }) {
   } else {
     if (checkCompleted()) {
       return (
-        <td style={{ color: habit.color.hex }}>
+        <td className="stamp" style={{ color: habit.color.hex }}>
           <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}`} onSubmit={onStamp("post")}>
-            <button type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
+            <button className="stamp" type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
               <i className={`fas fa-${habit.stamp.stamp}`} style={{ color: "rgb(100,100,100,0.5)" }} ></i>
             </button>
           </form>
@@ -145,9 +151,9 @@ function StampBox({ pid, mid, habit, day }) {
       )
     } else {
       return (
-        <td style={{ color: habit.color.hex }}>
+        <td className="stamp" style={{ color: habit.color.hex }}>
           <form method="POST" action={`/api/habits/${habit.id}/programs/${pid}/members/${mid}/days/${day[1]}`} onSubmit={onStamp("post")}>
-            <button type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
+            <button className="stamp"  type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
               <i className={`fas fa-times`} style={{ color: "rgb(100,100,100,0.5)" }} ></i>
             </button>
           </form>

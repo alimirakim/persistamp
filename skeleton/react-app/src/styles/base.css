@@ -8,10 +8,17 @@ body {
     /* background-image: url("https://www.freevector.com/uploads/vector/preview/1469/FreeVector-Splash-Swoosh-Background-Image.jpg") */
 }
 table, tr, th, td {
-  border-radius: 0.3rem;
-  border: 1px solid rgb(100,100,100,0.5);
+  /* border-radius: 0.3rem; */
+  margin: 1rem;
+  /* border: 1px solid rgb(100,100,100,0.5); */
   padding: 0.2rem;
   text-align: center;
+  border-spacing: 0.5rem;
+}
+
+td, th {
+  width: 0.5rem;
+  height: 1rem;
 }
 
 a {
@@ -25,7 +32,7 @@ a:hover {
 button:hover {
   color: cornflowerblue;
   color: black;
-  background-color:white;
+  /* background-color:white; */
 }
 
 .overlay{

@@ -13,8 +13,8 @@ export default function UserProfileCard() {
   console.log("user profile card data", user)
 
   return (
-    <article className="card" style={{ color: user.color.hex, boxShadow: `8px 8px 0 ${user.color.hex}` }}>
-
+    <article className="card" style={{ color: user.color.hex, boxShadow: `8px 8px 0 ${user.color.hex}`, backgroundImage: "../images/Cardboard_light.jpg" }}>
+<img src="../images/Cardboard_light.jpg" alt="" />
       <dl className="card-data">
         <dt className="card-name-label"><i className="fas fa-address-card"></i> NAME</dt>
         <dd className="card-name">    {user.first_name} {user.last_name}</dd>

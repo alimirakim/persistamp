@@ -57,15 +57,15 @@ function HabitForm({ pid, program }) {
       })
     }
   }
-
+  console.log("WHAT R U PROGRAM HEX", program)
   if (!colors || !stamps) return null
 
   return (
     <>
-      <button className="make-btn" onClick={handleClickOpen}><i className="fas fa-plus-circle"></i> Habit</button>
+      <button className="make-btn" onClick={handleClickOpen} style={{backgroundColor: program.color.hex}}><i className="fas fa-plus-circle"></i> Habit</button>
 
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Add a habit to {program}!</DialogTitle>
+        <DialogTitle id="form-dialog-title">Add a habit to {program.program}!</DialogTitle>
         <div>
           {renderErrors(errors)}
         </div>

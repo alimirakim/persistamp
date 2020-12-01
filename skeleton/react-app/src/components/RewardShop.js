@@ -283,7 +283,7 @@ export function RewardEditForm({program, reward, dispatchRewards}) {
 
   return (
     <article>
-      <button onClick={handleOpen} style={{ borderWidth: 0, backgroundColor: "rgba(0,0,0,0", color: "gray" }}>
+      <button onClick={handleOpen} style={{ borderWidth: 0, backgroundColor: "rgba(0,0,0,0", color: "white" }}>
       
       <i className={`fas fa-pencil-alt`}></i>
       
@@ -326,7 +326,7 @@ export function RewardDeleteForm({ reward, dispatchRewards }) {
   return (
     <article>
     
-      <button onClick={handleOpen} style={{ borderWidth: 0, backgroundColor: "rgba(0,0,0,0", color: "gray" }}><i className={`fas fa-eraser`}></i></button>
+      <button onClick={handleOpen} style={{ borderWidth: 0, backgroundColor: "rgba(0,0,0,0", color: "white" }}><i className={`fas fa-eraser`}></i></button>
       
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Delete reward "{reward.reward}" for "{reward.program}"?</DialogTitle>

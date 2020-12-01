@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import LogoutButton from './auth/LogoutButton';
 import '../styles/layouts.css';
 import UserContext from '../context/UserContext';
@@ -26,14 +26,14 @@ export default function NavBar({ authenticated, setAuthenticated, user }) {
           <br />
           <br />
         </NavLink>
-        {/* <NavLink to="/" className="sticker sticker_home" activeClassName="active">
+        <Link to="/" className="sticker sticker_home">
         <i className="fas fa-home"></i>
         <span>Home</span>
-      </NavLink> */}
-        <NavLink to="/messages" className="sticker sticker_messages" activeClassName="active">
+      </Link>
+        {/* <NavLink to="/messages" className="sticker sticker_messages" activeClassName="active">
           <i className="fas fa-envelope"></i>
           <span>Messages</span>
-        </NavLink>
+        </NavLink> */}
         <button onClick={handleSettingsOpen} className="sticker sticker_settings" activeClassName="active">
           <i className="fas fa-id-card"></i>
           <span>Settings</span>
