@@ -281,12 +281,16 @@ def getHabitStats(hid, mid):
     if daysOfHabit <= 31:
         monthTrend = "increase"
         monthPercentage = "n/a"
-    elif len(lastMonthObjs) / len(twoMonthObjs) >= 1:
+    elif len(lastMonthObjs) >= len(twoMonthObjs):
         monthTrend = 'increase'
-        monthPercentage = '{:.1%}'.format(len(lastMonthObjs) / len(twoMonthObjs))
+        lastMonth = len(lastMonthObjs)
+        lastTwo = len(twoMonthObjs)
+        monthPercentage = '{:.1%}'.format((lastMonth - lastTwo) / 31)
     else:
         monthTrend = 'decrease'
-        monthPercentage = '{:.1%}'.format(len(lastMonthObjs) / len(twoMonthObjs))
+        lastMonth = len(lastMonthObjs)
+        lastTwo = len(twoMonthObjs)
+        monthPercentage = '{:.1%}'.format((lastMonth - lastTwo) / 31)
 
     # print("MONTH PERCENTAGE", monthPercentage, monthTrend)
     jsonData = jsonify(total=total,
@@ -295,7 +299,8 @@ def getHabitStats(hid, mid):
                     monthPercentage=monthPercentage,
                     monthTrend=monthTrend,
                     longestStreak=longestStreak,
-                    currentStreak=currentStreak)
+                    currentStreak=currentStreak,
+                    )
     return jsonData
 
 # TESTED Functions
