@@ -62,6 +62,7 @@ export default function RewardShop() {
       <i className={`fas fa-chevron-circle-left`} style={{ color: program.color.hex }}></i>
     </Link>
 
+    <div style={{display: "flex", flexDirection: "column", alignContent: "center", alignItems: "center"}}>
     <h1 className="cam" style={{ fontSize: "3rem", margin: "2rem" }}><i className={`fas fa-${program.stamp.stamp}`}></i> {program.program} Reward Shop</h1>
     <h2>Your Points: <span style={{ fontSize: "3rem" }}>{points} <i className={`fas fa-${program.stamp.stamp}`}></i></span></h2>
 
@@ -99,7 +100,7 @@ export default function RewardShop() {
           ))}
         </ul>
       </article>
-
+</div>
     </div>
 
   </article>)
@@ -220,7 +221,7 @@ export function RewardForm({ program, dispatchRewards, rewards, }) {
   return (
     <article>
 
-      <button className=" make-btn make-btn-big" onClick={handleOpen} style={{ backgroundColor: "crimson" }}><i className="fas fa-plus-circle"></i> Reward</button>
+      <button className=" make-btn" onClick={handleOpen} style={{ backgroundColor: "crimson", width: "100%", fontSize: "2rem" }}><i className="fas fa-plus-circle"></i> Reward</button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Create a reward for "{program.program}"!</DialogTitle>
         <div>

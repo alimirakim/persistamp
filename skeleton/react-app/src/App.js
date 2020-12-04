@@ -14,6 +14,8 @@ import OptionsContext from './context/OptionsContext'
 import AboutCard from './components/AboutCard'
 import HabitDisplay from './components/HabitDisplay'
 import RewardShop from './components/RewardShop'
+import UserProfileCard from './components/UserProfileCard'
+import {ProgramForm} from './components/ProgramForm'
 import {
   programsReducer, habitsReducer, dailiesReducer,
   setPrograms, setHabits, setDailies,
@@ -77,7 +79,7 @@ function App() {
       dispatchPrograms(setPrograms(programs_data))
       dispatchHabits(setHabits(habits_data))
       dispatchDailies(setDailies(dailies_data))
-      console.log("printing fetch:", past_week, programs_data, habits_data, dailies_data )
+      console.log("printing fetch:", past_week, programs_data, habits_data, dailies_data)
     })()
   }, [user])
 
@@ -97,10 +99,10 @@ function App() {
             <NavBar authenticated={authenticated} setAuthenticated={setAuthenticated} user={user} />
             <Route path="/login" exact={true}>
               <div className="splashPageBackground overlay">
-              <LoginForm
-                authenticated={authenticated}
-                setAuthenticated={setAuthenticated} setUser={updateUser}
-              />
+                <LoginForm
+                  authenticated={authenticated}
+                  setAuthenticated={setAuthenticated} setUser={updateUser}
+                />
               </div>
             </Route>
             <Route path="/about" exact={true}>
@@ -123,6 +125,12 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute path="/" exact={true} authenticated={authenticated}>
+            <div style={{display: "flex", flexDirection: "column", alignContent: "center", alignItems: "center", justifyContent: "center"}}>
+              <h1 style={{ fontSize: "3rem", marginTop: "1rem", marginBottom: 0, fontFamily: "Cambria", fontStyle: "italic" }}>Persistamp</h1>
+              <UserProfileCard />
+              <h2 className="cam" style={{ marginBottom: "2rem", marginTop: "5rem", fontSize: "2rem" }}>Habit Board Programs</h2>
+              <ProgramForm />
+              </div>
               <HabitBoard />
             </ProtectedRoute>
 

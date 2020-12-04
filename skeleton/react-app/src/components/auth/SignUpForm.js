@@ -35,6 +35,7 @@ const SignUpForm = ({open, setOpen, authenticated, setAuthenticated, setUser, ha
       if (!user.errors) {
         setUser(user)
         setAuthenticated(true)
+        setOpen(false)
       }else {
       setErrors(user.errors)
     }

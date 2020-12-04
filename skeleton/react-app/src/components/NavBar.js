@@ -5,6 +5,7 @@ import '../styles/layouts.css';
 import UserContext from '../context/UserContext';
 import UserSettings from './UserSettings'
 import { logout } from "../services/auth";
+import turtle from '../images/turtle.svg'
 
 export default function NavBar({ authenticated, setAuthenticated, user }) {
   // const [isLoggedIn, setIsLoggedIn] = useState(authenticated)
@@ -22,18 +23,12 @@ export default function NavBar({ authenticated, setAuthenticated, user }) {
     return (<>
       <nav className="stickers">
         <NavLink to='/' className="sticker sticker_logo-link" activeClassName="active">
-          <img className="sticker_logo" src="/icons/turtle.svg" alt="Persistamp Logo: a red turtle stamp" />
-          <br />
-          <br />
+          <img className="sticker_logo" src={turtle} alt="Persistamp Logo: a red turtle stamp" />
         </NavLink>
-        <Link to="/" className="sticker sticker_home">
-        <i className="fas fa-home"></i>
-        <span>Home</span>
-      </Link>
-        {/* <NavLink to="/messages" className="sticker sticker_messages" activeClassName="active">
+        <NavLink to="/messages" className="sticker sticker_messages" activeClassName="active">
           <i className="fas fa-envelope"></i>
           <span>Messages</span>
-        </NavLink> */}
+        </NavLink>
         <button onClick={handleSettingsOpen} className="sticker sticker_settings" activeClassName="active">
           <i className="fas fa-id-card"></i>
           <span>Settings</span>
@@ -54,7 +49,7 @@ export default function NavBar({ authenticated, setAuthenticated, user }) {
     return (<>
       <nav className="stickers">
         <NavLink to='/login' className="sticker sticker_logo-link" activeClassName="active">
-          <img className="sticker_logo" src="/icons/turtle.svg" alt="Persistamp Logo: a red turtle stamp" />
+          <img className="sticker_logo" src={turtle} alt="Persistamp Logo: a red turtle stamp" />
         </NavLink>
       </nav>
     </>)
