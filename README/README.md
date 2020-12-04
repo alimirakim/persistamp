@@ -4,71 +4,6 @@
 
 **NOTE-MIRA** I have commented out a lot of details that will only be relevant for later stretch goals (mainly rewards and accountability buddies) to hopefully make it easier to read the important things. Please look at the code of this readme if you wish to see any of that. The section immediately below of 'goals' is just a rough spit-out of thoughts to help start thinking about potential workflow, to give some kind of starting point. Please add your own notes as any of you see fit.
 
-**GOALS, IN CHRONOLOGICAL ORDER**
-* habit tracker - make a habit, mark it each day, see the trend results
-* reward system - earn points, add custom rewards, 'buy' rewards - provide simple default rewards. MVP, just one easy one. 
-* accountability buddy - connect accounts, assigning the 'giver'. click habit to ask for confirmation. giver is pinged and confirms. giver can add custom rewards.
-* multiple buddies and programs/trackers - make 'friends'. create trackers specific to 'program', rather than specific to 'user', then associate programs to users. programs have program-specific tasks, rewards, and buddies.
-
-### GOAL Tables and good testing seeder data created
-* create database with flask/sqlalchemy/alembic - make ALL, keep non-mvps separate
-* create nice seeder data. users, their habits, their histories
-
-### GOAL: Have backend CRUDs working with postman.
-### Have frontend fetching, posting, and displaying on templates, full interactivity for user implemented
-* set up routes - mvp ONLY
-  * backend - user/auth, habits, days. Try to clean the data back here. Perhaps provide extra routes just for different data grabs.
-  * frontend - user signup/login, habit tracker render/connects (crud), results displays (Read, api), navigation, render, skeleton templates - LOGIC ONLY, forms, links, prove that results print to template, forms and buttons function and perform all CRUDs. helper functions refactored
-**IDEALLY by monday**
-
-### GOAL Make it presentable
-* decide and stump out components and structure
-* build the react components based on structure and semantics
-* work on CSS/Sass for styling. Decide on naming convention - SMACSS is my pref.
-* Organize by base, layout, module, function, theming.
-* graphs
-* add polish and user qol 
-**IDEALLY wed**
-
-### GOAL: Reward CRUDs 
-* backend route - adding points, shop, spending, and rewards
-* frontend - similarly so. add points when user checks habit. navigate to shop.
-  buy items. track rewards - apply in some way (like color theme)
-* add user 'settings' - custom features per use like avatar, color, title
-  design so they can all work together similarly, as rewards and settings
-  show options/buttons to change settings like avatar for user.
-* add custom rewards
-
-### GOAL: pretty up the shop, quality check
-* potential super-polish step - add explanations/helper tooltips
-* make rewards feel satisfying
-**rewards done by sunday**
-
-## ACCOUNTABILITY BUDDY FEATURE
-### BACKEND
-  * routes to fetch buddy/relation and position/status
-### FRONTEND
-  * add form/template for sending invite/adding friend. the GIVER must send the invite. the TAKER must accept. has only a title for now. once accepted, can add
-  tasks and rewards
-  * add functionality to assign 'giver/rewardee' roles and permissions
-  * confirmation-system where taker sends request and giver confirms. giver can
-    also just click it on their own without being pinged.
-  * giver - modify templates as needed for giver accounts
-  * giver-permissions for custom reward-making
-  * display giver/taker buddy
-**tuesday**
-
-### MULTIPLE BUDDIES/PROGRAMS FEATURE
-* hook up all unused tables to bundle tasks/rewards/etc. into 'programs' that
-  users can have and switch between
-
-FRONT 
-* provide a menu to quickly and easily switch between and differentiate programs
-* make it clear which programs you are a giver and a taker.
-* switch the rewards system, points, tasks, and buddy based on selected program
-<!-- * friends/followers/bonds/cheerleaders? - allows each other to view each other's progress/habits? -->
-
-
 ## Table Of Contents
 <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 <!-- code_chunk_output -->
@@ -144,8 +79,6 @@ make this app suit its platform better, and provide some benefit or feature that
 Ideas so far include showing more friendly and intuitive 'habit-health' indicator (like a plant icon), providing a simplistic and 
 minimal reward system to motivate usersto continue their habits, and some kind of sharing and/or friend-connecting/accountability 
 buddy functionality.
-
-Purpose, market, functionality
 
 
 ## Technologies
@@ -349,7 +282,7 @@ based on how we decide to go about it.
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
 | GET    | `/` | renders user's public profile page |
-<!-- 
+
 | GET    | `/redeemed` | renders user's redeemed reward history |
 | GET    | `/programs/:pid/redeemed` | renders user's redeemed reward history for a program |
 | GET    | `/programs/:pid/habits/:hid/history` | renders the public habit history page for a user's habit (MIRA not for MVP, I think, because I think having the option to make this private would be best?) | 
@@ -358,7 +291,7 @@ based on how we decide to go about it.
 | POST   | `/bonds/create` | creates a bond between users. |
 | GET    | `/bonds/remove` | renders a form to confirm removal of a bond. |
 | DELETE | `/bonds/remove` | deletes a bond between users.. |
--->
+
 
 #### ROOT: `/settings`
 | METHOD | Route Path | Purpose         |
@@ -369,7 +302,7 @@ based on how we decide to go about it.
 | GET    | `/delete`  | Render a form to delete the logged-in user's account. |
 | DELETE | `/delete`  | Delete the logged-in user's account. |
 
-<!-- 
+
 #### ROOT: `/programs`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
@@ -380,7 +313,7 @@ based on how we decide to go about it.
 | PATCH  | `/:pid/edit` | Render 'edit' form for a program. | 
 | GET    | `/:pid/delete` | Render a delete confirmation for a program. |
 | DELETE | `/:pid/delete` | Delete a program | 
--->
+
 
 #### ROOT: `/programs/:pid/habits`
 | METHOD | Route Path | Purpose         |
@@ -422,7 +355,7 @@ based on how we decide to go about it.
 | GET    | `/years`  |  | 
 -->
 
-<!-- #### ROOT: `/programs/:pid/rewards`
+#### ROOT: `/programs/:pid/rewards`
 | GET    | `/` | render the reward shop page for a program. |
 | POST   | `/:pid/create` | create a custom reward for a program |
 | PATCH  | `/:rid/edit`   | edit a custom reward for a program |
@@ -430,14 +363,14 @@ based on how we decide to go about it.
 | GET    | `/redeemed` | render a history of redeemed rewards for a program |
 | GET    | `/:rid/redeemed` | render a history of redemptions for one of a program's rewards | -->
 
-<!-- #### ROOT: `/rewards`
+#### ROOT: `/rewards`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
 | GET    | `/create` | render the create-custom-reward form |
 | GET    | `/edit`   | render the edit-custom-reward form
 | GET |  | `/delete` | render the delete-confirmation reward form -->
 
-<!-- #### ROOT: `/programs/:pid/users`
+#### ROOT: `/programs/:pid/users`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
 | GET    | `/` | Render the list of users of a program |
@@ -481,42 +414,36 @@ based on how we decide to go about it.
 | DELETE | `/:uid`     | Delete a `user` account |
 | GET    | `/:uid/auth` | Not sure, but I think we may need a route just to check auth? |
 | GET    | `/:uid/programs` | Get all a `user`'s subscribed `programs`. |
-<!-- 
+
 **NOTE-MIRA** For reward and buddies stretch goal features only.
 | GET    | `/:uid/redeemed` | Get all a `user`'s `redeem`ed rewards. |
 | GET    | `/:uid/redeemed/:type` | Get all a `user`'s `redeem`ed rewards of a specific `type`. |
 | GET    | `/:uid/bonds` | Get all a `user`'s `bond`s. |
 | POST   | `/:uid/bonds` | Create a `bond` with another `user`. |
 | DELETE | `/:uid/bonds/:bid` | Delete a `bond` with a `user`. |
--->
+
 
 #### ROOT: `/programs`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
 | POST   | `/`        | Create a new `program`.    |
 | GET    | `/:pid`    | Get a `program`'s details. |
-<!-- 
 | PATCH  | `/:pid`    | Edit a `program`.   |
 | DELETE | `/:pid`    | Delete a `program`. |
 | GET    | `/:pid/stampers` | Get all a `program`'s `stamper`s. |
 | GET    | `/:pid/stampers/:uid` | Get a specific `stamper` and the member(s) they are accountable for. | 
--->
 
 #### ROOT: `/programs/:pid/members`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
 | GET    | `/`        | Get a `program`'s `member`s. |
-<!-- 
 | POST   | `/:uid`    | Add a `member` to the `program`. |
 | DELETE | `/:uid`    | Delete a `member` from the `program`. | 
--->
 | GET    | `/:uid/habits` | Get a `member`'s `habit`s for a `program`, including last seven days of history for each. |
 | GET    | `/:uid/habits/:hid` | Get a `user` `habit`'s details, including full history (via `stamp_checks`) |
-<!-- 
 | GET    | `/:uid/stamper` | Get a `member`'s `stamper` in the `program`.
 | PATCH  | `/:uid/stamper` | Change a `member`'s `stamper` in the `program`.
 | DELETE | `/:uid/stamper` |  Unassign the assigned `stamper`.
--->
 
 #### ROOT: `/programs/:pid/habits`
 | METHOD | Route Path | Purpose         |
@@ -530,18 +457,17 @@ based on how we decide to go about it.
 #### ROOT: `/programs/:pid/habits/:hid/members/:uid`
 | POST   | `/stamp`   | Change status of associated `daily_stamp` to 'stamped' |
 | DELETE | `/`     | Change status of associated `daily_stamp` to 'unstamped' |
-<!-- 
 | POST   | `/ping`     | Change status of associated `daily_stamp` to 'pending' | 
--->
 
-<!-- #### ROOT: `/rewards`
+
+#### ROOT: `/rewards`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
 | GET    | `/`        | Get all default rewards. |
 | GET    | `/:type`   | Get all rewards of a specific type. | <-- default-permanent options only
- -->
 
-<!-- 
+
+
 #### ROOT: `/programs/:pid/rewards`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
@@ -550,7 +476,6 @@ based on how we decide to go about it.
 | PATCH  | `/:rid`    | Edit a custom `reward`.    |
 | DELETE | `/:rid`    | Delete a custom `reward`.  | 
 | POST   | `/:rid/redeem/users/:uid` | Redeem a `reward` for a `user` | <-- effects points
--->
 
 <!--
 | METHOD | Route Path | Purpose         |
