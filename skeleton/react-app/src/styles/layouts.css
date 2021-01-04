@@ -1,0 +1,413 @@
+/* For layout-effecting css rules. If it effects the placement and physical
+layout of elements on the page, it probably belongs here. Think flexboxes and
+grids, floats, margins and padding, positioning, display types.
+
+Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
+
+* {
+  /* outline: 1px dashed gray; */
+}
+/* 
+.habit-board {
+  background-image: url("./Gradient_0000s_0185_186.png");
+  background-size: 100%;
+  background-blend-mode: multiply;
+} */
+
+.program {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.program-title {
+  font-size: 2rem;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
+}
+
+.board {
+  width: 50vw;
+  /* background-image: url("./Paper-02.png"); */
+  background-color: black;
+  box-shadow: 5px 5px 5px black;
+  border: 10px double;
+}
+
+.points {
+  font-size: 1.5rem;
+}
+
+.reward-shop {
+  border-radius: 20px;
+  border: 5px double;
+  padding: 1rem;
+}
+
+.cam {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  margin: 0;
+}
+
+.stamp {
+  margin: 0.2rem;
+  border-radius: 50%;
+  /* border: 5px lightgrey solid; */
+  /* background: white; */
+  font-size: 1rem;
+}
+
+.make-btn {
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border-width: 0;
+  /* background-color: crimson; */
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif
+}
+
+.make-btn-big {
+  font-size: 2rem;
+  width: 30%;
+}
+
+.lo-main-center {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.card {
+  display: flex;
+  margin: 1rem;
+  border-radius: 10px;
+  background-color: whitesmoke;
+  /* background-image: url("./Cardboard_light.jpg"); */
+  /* background: linear-gradient(360deg, rgba(120,110,150,1) 0%,  rgba(200,200,2100,1) 100%); */
+  padding: 1rem;
+  width: max-content;
+}
+.card-dark {
+  display: flex;
+  margin: 1rem;
+  border-radius: 10px;
+  background: black;
+  /* background: linear-gradient(360deg, rgba(220,222,226,1) 0%,  rgba(255,255,255,1) 100%); */
+  padding: 1rem;
+  width: max-content;
+}
+
+dl.card-data {
+  padding: 0 2rem;
+}
+
+.card-data {
+  font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif
+
+}
+
+.card-data > dt {
+  font: bolder 0.8rem Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+}
+.card-data > dd {
+  margin-left: 0;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
+dt.card-name-label {
+  display: inline;
+  font-size: 1.2rem;
+}
+dd.card-name {
+  display: inline-block;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
+.card-body {
+  display: flex;
+}
+
+.lo-left {
+  float: left;
+}
+
+.avi {
+  font-size: 5rem;
+  float: left;
+  margin-right: 2rem;
+  padding: 1rem;
+  border-radius: 20px;
+  border: 6px double;
+}
+
+
+
+nav.stickers {
+  position: absolute;
+  top: 3rem;
+  right: 3rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.sticker {
+  display: flex;
+  flex-direction: column;
+  width: 3rem;
+  height: 3rem;
+  margin: 1rem;
+  border-width: 0;
+  background-color: rgba(0,0,0,0);
+  align-items: center;
+  font: bold 1rem Cambria;
+  transition: all 0.2s ease-in-out;
+}
+
+.sticker:hover {
+  color: white;
+  transform: rotate(20deg);
+}
+
+.sticker > i {
+  font-size: 2rem;
+}
+
+.sticker_logo {
+  color: crimson;
+  /* background-image: url("/icons/turtle.svg"); */
+  margin-left: 1rem;
+  width: 4rem;
+  height: 4rem;
+  transition: transform 0.2s ease-in-out;
+}
+.sticker_logo:hover {
+  transform: scale(1.2);
+}
+
+.sticker_home {
+  color: goldenrod;
+}
+
+.sticker_messages {
+  color: goldenrod;
+}
+
+.sticker_settings {
+  color: cadetblue;
+}
+
+.sticker_about {
+  color: cornflowerblue;
+}
+
+.sticker_logout {
+  color: violet;
+}
+
+.loginContainer {
+    /* display: flex;
+    flex-direction: column; */
+    position: relative;
+    text-align: center;
+    background-color:rgb(191, 191, 243);
+    width: 400px;
+    margin: auto;
+    padding: 10px;
+    top: 80px;
+    border-radius: 15px;
+}
+.loginHeader {
+    color: black;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-style: normal;
+}
+
+.errorHeader {
+    color:red;
+}
+.NavBarContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+
+.NavBarArea {
+    width: 100%;
+    height: 60px;
+}
+
+.NavBarItem {
+    display: flex;
+    margin: 15px;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+    align-self: flex-end;
+
+}
+.NavBarLogo {
+    font-size: 22px;
+    font-weight:bold;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+}
+
+.lineGraphLabels {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.lineGraphContainer {
+    /* position: relative;
+    width: 650px;
+    left: 95px; */
+    margin: 15px;
+}
+.lineGraphHeader {
+    position: relative;
+    text-align: center;
+}
+.lineGraphToggle {
+    position: relative;
+    left: 640px;
+    outline: 1px solid #ccc;
+    /* box-sizing: border-box; */
+}
+.displayPage {
+    position: relative;
+    left:50px;
+}
+.displayFormat {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+.habitFormat {
+    display: flex;
+    flex-direction: column;
+}
+
+.habitDetailContainer {
+    position: relative;
+    margin: 20px;
+    /* display: flex;
+    flex-direction: row; */
+    width:100%;
+    /* left:20px; */
+}
+.habitDetail__title {
+    font-size: 30px;
+    position: relative;
+    left: 40px;
+    margin: 20px;
+}
+.habitDetail__items {
+    margin: 10px;
+}
+.habitDetail__name {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.habitDetail__description {
+    position: relative;
+
+}
+.habitDetail__table {
+    table-layout: fixed;
+    width: 700px;
+}
+.habitDetail__cell {
+    width: 25%;
+}
+.heatMapContainer {
+    position: relative;
+    top: 50px;
+    left: 60px;
+}
+.heatMapHeader {
+    position: relative;
+    margin: 12px;
+    left: 100px;
+}
+.calendarContainer {
+    width: 650px;
+    height: 400px;
+}
+
+.calendarLabel {
+    color: "#ccc"
+}
+
+.statContainer {
+    position: relative;
+    width: 650px;
+    left: 95px;
+    /* margin: 25px; */
+}
+/* .statGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+} */
+.statOverview {
+    position: relative;
+    text-align: center;
+    right: 50px;
+}
+
+.color-scale-stamped {
+    fill: "black"
+}
+
+body {
+    margin: 0px;
+}
+
+.AboutContainer{
+  padding: 10px;
+  justify-content: center;
+}
+.AboutCardContainer {
+  display: flex;
+  flex-direction: row;
+  border: 2px solid black;
+  padding: 18px;
+  margin: 15px;
+  justify-content: space-between;
+  max-width: 400px;
+}
+
+.AboutCardDetailsContainer {
+  display: flex;
+  flex-direction: column;
+}
+.AboutCardImageContainer {
+  max-height: 85px;
+}
+.AboutCardImageContainer img{
+  height: 85px;
+}
+.AboutCardContainer h3 {
+  margin-top: 0px;
+  margin-bottom: 5px;
+  padding: 0px;
+}
+.AboutCardContainer p {
+  margin: 0px;
+  padding: 0px;
+}
+.material-error{
+    margin-left: 25px;
+}

@@ -1,0 +1,40 @@
+ status = postgresql.ENUM('unstamped', 'pending', 'stamped', name='status')
+    status.create(op.get_bind())
+    op.add_column('status', sa.Column('status', sa.Enum('unstamped', 'pending', 'stamped', name='status'), nullable=True))
+
+
+# bonds = db.Table( # combined unique constraint
+#   "bonds",
+#   db.Model.metadata,
+#   db.Column("id", db.Integer, primary_key=True),
+#   db.Column("user1_id", db.Integer, db.ForeignKey("users.id"), nullable=False),
+#   db.Column("user2_id", db.Integer, db.ForeignKey("users.id"), nullable=False),
+#   db.Column("created_at", db.DateTime, default=datetime.now()),
+# )
+
+
+Components
+- NavBar (david for now), auth stuff, home logo button,
+- splash page
+-
+
+(Home page)
+- user profile card? (user details, avatar, birthday, first and last name) *update have data rendering, need a way to get userId*
+- habit board container
+   - grabs the list of user habits
+   - habit Components
+   - daily stamp component
+   - calendar day display Components
+- habit creation form component
+- habit detail component (edit the title, delete the component entirely)
+
+(Settings page)
+- user Settings
+
+(Habit Performance Display Page)
+- line graph component ( for each habit ) - eric, david
+- (for now, print out habit history)
+- calendar component - mira, brian?
+- best streak graph component
+
+- month, week, day, year dropdown select component for graphs

@@ -1,0 +1,5 @@
+/* For state-effecting rules. If it is a 'state' that changes, like from hidden
+to visible or changing color et cetera, it probably belongs here. Basically,
+if the JavaScript code is related (ex. adding/removing classes), put it here.
+
+Naming convention: start with 'is-'. EXAMPLE: is-hidden, is-blue, is-picked. */
