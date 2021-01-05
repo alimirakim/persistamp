@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from sqlalchemy.orm import joinedload
 from flask_login import current_user
-from app.models import DailyStamp, Membership
+from app.models import db, DailyStamp, Membership
 from app.schemas import dailystamp_schema
 
 daily_stamp_routes = Blueprint("stamps", __name__, url_prefix="/daily-stamps")
@@ -46,10 +46,9 @@ def current_week():
 def stamp_day(pid, mid, hid, day):
     """Change the status of a daily_stamp to 'stamped' or 'pending'."""
     print("stamping...")
-    memberhip = Membership.query.get(mid)
+    membership = Membership.query.get(mid)
     # day = date
     if request.method == "POST":
-        membership = Membership.query.get(mid)
         stamp = DailyStamp.query.join(Membership.daily_stamps).filter( \
             DailyStamp.habit_id == hid,  \
             DailyStamp.membership_id == mid, \

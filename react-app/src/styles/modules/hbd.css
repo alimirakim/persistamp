@@ -1,0 +1,24 @@
+/* .hbd habit board */
+
+.hbd {
+  display: flex;
+  flex-direction: column;
+  align-content: center; 
+  align-items: center;
+  justify-content: center;
+}
+
+.hbd > h1 {
+  font-size: 3rem; 
+  margin-top: 1rem; 
+  margin-bottom: 0; 
+  font-family: Cambria; 
+  font-style: italic;
+}
+
+.hbd > h2 {
+  
+  margin-bottom: 2rem; 
+  margin-top: 5rem; 
+  font-size: 2rem;
+}

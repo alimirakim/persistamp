@@ -84,6 +84,7 @@ def react_root(path):
         return app.send_static_file('favicon.ico')
     return app.send_static_file('index.html')
 
+
 @app.route("/api/options")
 def options():
     """Return color and stamp options from database"""
