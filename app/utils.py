@@ -49,7 +49,7 @@ def queryUserFullData(id):
     user_data["habit_ids"] = tuple(habits.keys())
     user_data["daily_stamp_ids"] = tuple(daily_stamps.keys())
     # user_data["redeemed_ids"] = redeemed_schema.dump(user.???)
-    print("\nUSER DATA", user_data)
+    # print("\nUSER DATA", user_data)
     
     return jsonify(
         memberships_data=memberships, 
@@ -106,3 +106,47 @@ def validation_errors_to_error_messages(validation_errors):
         for error in validation_errors[field]:
             errorMessages.append(f"{field} : {error}")
     return errorMessages
+
+
+colors = [
+    "#ff5964", # 0
+    "#d66ba0", # 1
+    "#e87ea1", # 2
+    "#dc9e82", # 3
+    "#ebb3a9", # 4
+    "#dcc48e", # 5
+    "#f4e4ba", # 6
+    "#f2f3d9", # 7
+    "#c2d8b9", # 8
+    "#b0f2b4", # 10
+    "#9df7e5", # 
+    "#b8f3ff", # 
+    "#b49fcc", # 
+    "#b07bac", # 14
+    "#ffffff", # 
+    "#a5243d", # 
+    "#be5a38", # 16
+    "#f29e4c", # 17
+    "#f1c453", # 
+    "#efea5a", # 
+    "#b9e769", # 20
+    "#83e377", # 
+    "#16db93", # 
+    "#0db39e", # 
+    "#8ac6d0", # 
+    "#58a4b0", # 25
+    "#048ba8", # 
+    "#2c699a", # 
+    "#54478c", # 
+    "#af4d98", # 29
+    "#808080", # 
+    "#000000", # 
+]
+
+stamps = [
+    "user-circle", "calendar-alt", "check-circle", "award", "cogs", 
+    "clipboard-check", "medal", "heart", "star", "palette", "dice", "car-alt", 
+    "chess-queen", "basketball-ball", "bowling-ball", "dumbbell", "guitar", 
+    "key", "laptop", "pencil-alt", "pen-alt", "tooth", "biking", "dog", "cat", 
+    "carrot", "cookie", "bacon", "ice-cream",
+]

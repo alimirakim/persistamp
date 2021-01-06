@@ -1,11 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from 'react-router-dom'
 import HabitBoardContext from "../../context/HabitBoardContext"
-import HabitForm from '../forms/HabitForm'
-import HabitEditForm from '../forms/HabitEditForm'
-import HabitDeleteForm from '../forms/HabitDeleteForm'
-import { ProgramEditForm, ProgramDeleteForm } from '../forms/ProgramForm'
-import StampBox from './StampBox'
 import ProgramCard from './ProgramCard'
 
 export default function HabitBoard() {

@@ -12,20 +12,19 @@ import HabitBoardContext from "./context/HabitBoardContext"
 import OptionsContext from './context/OptionsContext'
 
 
-import HabitBoard from "./components/HomePage/HabitBoard";
 import AboutCard from './components/AboutCard'
 import HabitDisplay from './components/DisplayPage/HabitDisplay'
 import RewardShop from './components/RewardPage/RewardShop'
-import UserProfileCard from './components/HomePage/UserProfileCard'
-import { ProgramForm } from './components/forms/ProgramForm'
+import Homepage from './components/HomePage/Homepage'
 
 import {
-  programsReducer, habitsReducer, dailiesReducer,
-  setPrograms, setHabits, setDailies,
+  userReducer, programsReducer, habitsReducer, dailiesReducer,
+  setUser, setPrograms, setHabits, setDailies,
   resetPrograms, resetHabits, resetDailies,
 } from "./context/reducers"
 
 import './styles/index.css'
+import { dispatchUserContent } from "./utils";
 
 // import HabitForm from "./components/HabitForm";
 // import BarGraph from './components/BarGraph';
@@ -35,11 +34,11 @@ import './styles/index.css'
 function App() {
   const [auth, setAuth] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [user, setUser] = useState()
   const [colors, setColors] = useState()
   const [stamps, setStamps] = useState()
   const [week, setWeek] = useState()
 
+  const [user, dispatchUser] = useReducer(userReducer)
   const [programs, dispatchPrograms] = useReducer(programsReducer)
   const [habits, dispatchHabits] = useReducer(habitsReducer)
   const [dailies, dispatchDailies] = useReducer(dailiesReducer)
@@ -49,9 +48,17 @@ function App() {
     dispatchPrograms(resetPrograms())
     dispatchHabits(resetHabits())
     dispatchDailies(resetDailies())
-    setUser(user)
   }
-
+  
+  function loadUserData(content) {
+    const { user_data, programs_data, habits_data, daily_stamps_data, past_week } = content
+    setWeek(past_week)
+    dispatchUser(setUser(user_data))
+    dispatchPrograms(setPrograms(programs_data))
+    dispatchHabits(setHabits(habits_data))
+    dispatchDailies(setDailies(daily_stamps_data))
+    setAuth(true)
+  }
 
   // When the page loads, load the user. Do only once!!
   useEffect(() => {
@@ -61,17 +68,10 @@ function App() {
       })
       const content = await res.json();
       if (!content.errors) {
-        const { user_data, programs_data, habits_data, daily_stamps_data, past_week } = content
-        console.log("after auth week", past_week)
-        setUser(user_data)
-        setWeek(past_week)
-        dispatchPrograms(setPrograms(programs_data))
-        dispatchHabits(setHabits(habits_data))
-        dispatchDailies(setDailies(daily_stamps_data))
-        setAuth(true);
+        loadUserData(content)
       }
       const { colors_data, stamps_data } = await fetch(`/api/options`).then(res => res.json())
-      console.log("colors?!", colors_data)
+      console.log("color count", colors_data.length, "stamp count", stamps_data.length)
       setColors(colors_data)
       setStamps(stamps_data)
       setLoaded(true)
@@ -79,24 +79,24 @@ function App() {
   }, [])
 
 
+
+
   // When the user changes, reload programs, habits, and dailies
   useEffect(() => {
     if (!user) return;
     (async () => {
-
-      console.log("effected")
       const { programs_data, habits_data, dailies_data } = await fetch(`/api/users/${user.id}/programs`).then(res => res.json())
       console.log("reload", programs_data, habits_data, dailies_data)
       dispatchPrograms(setPrograms(programs_data))
       dispatchHabits(setHabits(habits_data))
       dispatchDailies(setDailies(dailies_data))
-      console.log("printing fetch:", programs_data, habits_data, dailies_data)
     })()
   }, [user])
 
-  useEffect(() => {
-    console.log("user", user, "programs", programs, "habits", habits, "dailies", dailies)
-  }, [user, programs, habits, dailies])
+  useEffect(() => console.log("user", user), [user])
+  useEffect(() => console.log("programs", programs), [programs])
+  useEffect(() => console.log("habits", habits), [habits])
+  useEffect(() => console.log("dailies", dailies), [dailies])
 
 
   if (!loaded) return null
@@ -110,18 +110,20 @@ function App() {
 
           <Route path="/login" exact={true}>
             <div className="splashPageBackground overlay">
-              <LoginForm auth={auth} setAuth={setAuth} setUser={updateUser} />
+              <LoginForm auth={auth} setAuth={setAuth} loadUserData={loadUserData} />
             </div>
           </Route>
 
           <Route path="/about" exact={true}>
             <AboutCard />
           </Route>
+          
+          
 
           <ProtectedRoute path="/users" exact={true} auth={auth}>
             <UsersList />
           </ProtectedRoute>
-          
+
           <ProtectedRoute path="/users/:uid" exact={true} auth={auth}>
             <User />
           </ProtectedRoute>
@@ -132,14 +134,7 @@ function App() {
             </ProtectedRoute>
 
             <ProtectedRoute path="/" exact={true} auth={auth}>
-              <div className="hbd">
-                <h1>Persistamp</h1>
-                <UserProfileCard />
-                <h2 className="cam">Habit Board Programs</h2>
-                <ProgramForm />
-              </div>
-
-              <HabitBoard />
+              <Homepage />
             </ProtectedRoute>
           </HabitBoardContext.Provider>
 

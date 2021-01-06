@@ -7,7 +7,7 @@ import { stampDay, unstampDay, setDailies } from "../../context/reducers"
 
 // TODO How to optimize the rerenders here????
 export default function StampBox({ ds, stampPath, mid, habit }) {
-  if (ds) console.log("stampbox", ds)
+  // if (ds) console.log("stampbox", ds)
   const [isStamped, setIsStamped] = useState(ds ? true : false)
   const { dailies, dispatchDailies } = useContext(HabitBoardContext)
 

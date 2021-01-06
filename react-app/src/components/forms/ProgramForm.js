@@ -7,7 +7,7 @@ import { createProgram, editProgram, deleteProgram } from '../../context/reducer
 import { ActionOrCancelButtons, AddName, AddDescription, ChooseColor, ChooseStamp } from './FormInputs'
 
 
-export function ProgramForm() {
+export default function ProgramForm() {
   const { user, setUser } = useContext(UserContext)
   const { colors, stamps } = useContext(OptionsContext)
   const { dispatchPrograms } = useContext(HabitBoardContext)

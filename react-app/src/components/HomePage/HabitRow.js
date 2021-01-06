@@ -32,7 +32,6 @@ export default function HabitRow({ habit, mid }) {
         </Link>
       </td>
       {week.map(day => {
-        console.log("day?", day)
         const ds = currentWeekStamps.find(dsid=> dailies[dsid].date == day[1])
         const stampPath = `/api/daily-stamps/${habit.id}/programs/${habit.program}/memberships/${mid}/days/${day[1]}`
         return <StampBox ds={ds} mid={mid} habit={habit} stampPath={stampPath} />

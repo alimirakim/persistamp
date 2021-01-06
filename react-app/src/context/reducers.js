@@ -1,5 +1,10 @@
 
 // ACTION TYPES
+
+export const GET_USER = 'GET USER'
+export const UPDATE_USER = 'UPDATE_USER'
+export const LOGOUT_USER = 'LOGOUT USER'
+
 export const GET_USER_PROGRAMS = 'GET USER PROGRAMS'
 export const CREATE_PROGRAM = 'CREATE PROGRAM'
 export const EDIT_PROGRAM = 'EDIT PROGRAM'
@@ -32,45 +37,60 @@ export const REDEEM_REWARD = 'REDEEM REWARD'
 export const DELETE_REDEEMED = 'DELETE REDEEMED'
 export const RESET_REDEEMED = 'RESET REDEEMED'
 
-export const UPDATE_USER = 'UPDATE_USER'
 
 
 // ACTION CREATORS
+export const setUser = (user) => ({ type: GET_USER, user })
+export const editUser = (user) => ({ type: UPDATE_USER, user })
+export const logoutUser = () => ({type: LOGOUT_USER})
+
 export const setDailies = (dailies) => ({ type: GET_DAILY_STAMPS, dailies })
 export const stampDay = (daily) => ({ type: STAMP_DAY, daily })
 export const unstampDay = (daily) => ({ type: UNSTAMP_DAY, daily })
 export const pendDay = (daily) => ({ type: PEND_DAY, daily })
-export const resetDailies = () => ({type: RESET_DAILY_STAMPS})
+export const resetDailies = () => ({ type: RESET_DAILY_STAMPS })
 
 export const setPrograms = (programs) => ({ type: GET_USER_PROGRAMS, programs })
 export const createProgram = (program) => ({ type: CREATE_PROGRAM, program })
 export const editProgram = (program) => ({ type: EDIT_PROGRAM, program })
 export const deleteProgram = (program) => ({ type: DELETE_PROGRAM, program })
-export const resetPrograms = () => ({type: RESET_PROGRAMS})
+export const resetPrograms = () => ({ type: RESET_PROGRAMS })
 
 export const setHabits = (habits) => ({ type: GET_USER_HABITS, habits })
 export const createHabit = (habit) => ({ type: CREATE_HABIT, habit })
 export const editHabit = (habit) => ({ type: EDIT_HABIT, habit })
 export const deleteHabit = (habit) => ({ type: DELETE_HABIT, habit })
-export const resetHabits = () => ({type: RESET_HABITS})
+export const resetHabits = () => ({ type: RESET_HABITS })
 
-export const setProgramRewards = (rewards) => ({type: GET_PROGRAM_REWARDS, rewards})
-export const createReward = (reward) => ({type: CREATE_REWARD, reward})
-export const editReward = (reward) => ({type: EDIT_REWARD, reward})
-export const deleteReward = (reward) => ({type: DELETE_REWARD, reward})
-export const resetProgramRewards = () => ({type: RESET_PROGRAM_REWARDS})
+export const setProgramRewards = (rewards) => ({ type: GET_PROGRAM_REWARDS, rewards })
+export const createReward = (reward) => ({ type: CREATE_REWARD, reward })
+export const editReward = (reward) => ({ type: EDIT_REWARD, reward })
+export const deleteReward = (reward) => ({ type: DELETE_REWARD, reward })
+export const resetProgramRewards = () => ({ type: RESET_PROGRAM_REWARDS })
 
-export const setRedeemed = (redeemed) => ({type: GET_REDEEMED_REWARDS, redeemed})
-export const redeemReward = (redeemed) => ({type: REDEEM_REWARD, redeemed})
-export const deleteRedeemed = (redeemed) => ({type: DELETE_REWARD, redeemed})
-export const resetRedeemed = () => ({type: RESET_REDEEMED})
+export const setRedeemed = (redeemed) => ({ type: GET_REDEEMED_REWARDS, redeemed })
+export const redeemReward = (redeemed) => ({ type: REDEEM_REWARD, redeemed })
+export const deleteRedeemed = (redeemed) => ({ type: DELETE_REWARD, redeemed })
+export const resetRedeemed = () => ({ type: RESET_REDEEMED })
 
-export const editUser = (user) => ({type: UPDATE_USER, user})
 
 
 // REDUCERS
+export function userReducer(state = {}, action) {
+  const newState = { ...state }
+  switch (action.type) {
+    case GET_USER:
+      return action.user
+    case LOGOUT_USER:
+      return {}
+    default:
+      return state
+  }
+}
+
+
 export function programsReducer(state = {}, action) {
-  const newState = {...state}
+  const newState = { ...state }
   switch (action.type) {
     case GET_USER_PROGRAMS:
       return action.programs
@@ -92,7 +112,7 @@ export function programsReducer(state = {}, action) {
 
 
 export function habitsReducer(state = {}, action) {
-  const newState = {...state}
+  const newState = { ...state }
   switch (action.type) {
     case GET_USER_HABITS:
       return action.habits
@@ -114,7 +134,7 @@ export function habitsReducer(state = {}, action) {
 
 
 export function dailiesReducer(state = {}, action) {
-  const newState = {...state}
+  const newState = { ...state }
   switch (action.type) {
     case GET_DAILY_STAMPS:
       return action.dailies
@@ -132,8 +152,8 @@ export function dailiesReducer(state = {}, action) {
 }
 
 
-export function rewardsReducer(state={}, action) {
-  const newState = {...state}
+export function rewardsReducer(state = {}, action) {
+  const newState = { ...state }
   switch (action.type) {
     case GET_PROGRAM_REWARDS:
       return action.rewards
@@ -154,7 +174,7 @@ export function rewardsReducer(state={}, action) {
 }
 
 
-export function redeemedReducer(state=[], action) {
+export function redeemedReducer(state = [], action) {
   switch (action.type) {
     case GET_REDEEMED_REWARDS:
       return action.redeemed
