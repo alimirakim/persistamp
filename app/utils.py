@@ -23,7 +23,9 @@ def queryUserFullData(id):
     user = User.query.options( \
         joinedload(User.color), \
         joinedload(User.stamp), \
-        joinedload(User.memberships).joinedload(Membership.program).joinedload(Program.habits), \
+        joinedload(User.memberships) \
+        .joinedload(Membership.program) \
+        .joinedload(Program.habits), \
         ).get(id)
     
     memberships = {}

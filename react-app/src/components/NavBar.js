@@ -29,7 +29,7 @@ export default function NavBar({ auth, setAuth, user }) {
           <span>Messages</span>
         </NavLink>
         <button onClick={handleSettingsOpen} className="sticker sticker_settings" activeClassName="active">
-          <i className="fas id-card"></i>
+          <i className="fas fa-id-card"></i>
           <span>Settings</span>
         </button>
         <NavLink to="/about" className="sticker sticker_about" activeClassName="active">

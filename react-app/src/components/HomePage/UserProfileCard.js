@@ -1,8 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Avatar } from '@material-ui/core'
-import '../styles/UserProfileCard.css'
-import UserContext from '../context/UserContext'
-import UserSettings from './forms/UserSettings'
+import UserContext from '../../context/UserContext'
+import UserSettings from '../forms/UserSettings'
 
 export default function UserProfileCard() {
   const { user } = useContext(UserContext)

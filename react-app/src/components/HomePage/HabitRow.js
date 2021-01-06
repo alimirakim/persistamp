@@ -10,6 +10,7 @@ import StampBox from './StampBox'
 export default function HabitRow({ habit, mid }) {
   const { week, dailies } = useContext(HabitBoardContext)
   const currentWeekStamps = []
+  // TODO Make this even smarter so it grabs exactly the stamps in the week
   let i = 0
   while (i < 7 && i < habit.daily_stamps.length) {
     currentWeekStamps.push(habit.daily_stamps[i])
@@ -23,7 +24,10 @@ export default function HabitRow({ habit, mid }) {
         <HabitEditForm habit={habit} />
         <HabitDeleteForm habit={habit} />
 
-        <Link to={`/graphs/${habit.id}/memberships/${mid}`} style={{ color: `${habit.color.hex}`, textDecoration: "none" }}>
+        <Link 
+        to={`/graphs/${habit.id}/memberships/${mid}`} 
+        style={{ color: `${habit.color.hex}`, textDecoration: "none" }}
+        >
           <i className={`fas fa-${habit.stamp.stamp}`}></i> {habit.habit}
         </Link>
       </td>

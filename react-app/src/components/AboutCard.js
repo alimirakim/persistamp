@@ -11,9 +11,9 @@ function AboutCard() {
   }
   const renderImage = (user) => {
     if (user.image) {
-      return <img src={user.image} alt="profile picture" />
+      return <img src={user.image} alt="profile portrait" />
     } else {
-      return <img src={blankPic} alt="profile picture" />
+      return <img src={blankPic} alt="profile portrait" />
     }
   }
   let users = [

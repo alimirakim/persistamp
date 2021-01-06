@@ -14,7 +14,18 @@ const LoginForm = ({ auth, setAuth, setUser }) => {
 
   const onLogin = async (e) => {
     e.preventDefault();
-    const user = await login(email, password);
+    const user = await login(email, password)
+    if (!user.errors) {
+      setAuth(true);
+      setUser(user)
+    } else {
+      setErrors(user.errors);
+    }
+  }
+  
+  const onDemoLogin = async (e) => {
+    e.preventDefault();
+    const user = await login("demo@gmail.com", "password")
     if (!user.errors) {
       setAuth(true);
       setUser(user)
@@ -22,6 +33,7 @@ const LoginForm = ({ auth, setAuth, setUser }) => {
       setErrors(user.errors);
     }
   };
+  
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false)
   const updateEmail = (e) => setEmail(e.target.value);
@@ -40,6 +52,8 @@ const LoginForm = ({ auth, setAuth, setUser }) => {
         ))}
       </div>
       <h2 className="loginHeader">Persistamp</h2>
+      
+      <button onClick={onDemoLogin} className="btn">Demo Login</button>
       <form onSubmit={onLogin}>
           <TextField
             autoFocus

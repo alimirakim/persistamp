@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import LoginForm from "./components/auth/LoginForm";
-import SignUpForm from "./components/auth/SignUpForm";
+// import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/UserPage";
-import { authenticate } from "./services/auth";
 
 import UserContext from './context/UserContext';
 import HabitBoardContext from "./context/HabitBoardContext"
@@ -17,7 +16,7 @@ import HabitBoard from "./components/HomePage/HabitBoard";
 import AboutCard from './components/AboutCard'
 import HabitDisplay from './components/DisplayPage/HabitDisplay'
 import RewardShop from './components/RewardPage/RewardShop'
-import UserProfileCard from './components/UserProfileCard'
+import UserProfileCard from './components/HomePage/UserProfileCard'
 import { ProgramForm } from './components/forms/ProgramForm'
 
 import {
@@ -60,9 +59,10 @@ function App() {
       const res = await fetch('/api/auth/', {
         headers: { 'Content-Type': 'application/json' }
       })
-      const { user_data, programs_data, habits_data, daily_stamps_data, past_week } = await res.json();
-      console.log("after auth week", past_week)
-      if (!user_data.errors) {
+      const content = await res.json();
+      if (!content.errors) {
+        const { user_data, programs_data, habits_data, daily_stamps_data, past_week } = content
+        console.log("after auth week", past_week)
         setUser(user_data)
         setWeek(past_week)
         dispatchPrograms(setPrograms(programs_data))
@@ -121,6 +121,7 @@ function App() {
           <ProtectedRoute path="/users" exact={true} auth={auth}>
             <UsersList />
           </ProtectedRoute>
+          
           <ProtectedRoute path="/users/:uid" exact={true} auth={auth}>
             <User />
           </ProtectedRoute>
