@@ -11,3 +11,12 @@ class Redeemed(db.Model):
 
     user = db.relationship("User", back_populates="redeemed")
     reward = db.relationship("Reward", back_populates="redeemed")
+    
+    def to_dict(self):
+        """Return dict of Redeemed"""
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "reward_id": self.reward_id,
+            "redeemed_at": self.redeemed_at,
+        }

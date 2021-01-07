@@ -2,8 +2,8 @@ from flask import Blueprint, render_template, redirect, jsonify, request
 from sqlalchemy.orm import joinedload
 from flask_login import current_user
 from app.models import db, Reward, Redeemed, Membership, Program
-from app.schemas import reward_schema, redeemed_schema, color_schema, stamp_schema, user_schema, program_schema, membership_schema
-from app.utils import dump_data_list, dumpProgramFullData, dumpRewardFullData, dumpRedeemedData, validation_errors_to_error_messages
+from app.schemas import reward_schema, redeemed_schema, color_schema, icon_schema, user_schema, program_schema, membership_schema
+from app.utils import dump_data_list, validation_errors_to_error_messages
 from app.forms import RewardForm
 from pprint import pprint
 
@@ -24,44 +24,22 @@ def type_rewards(type):
 def program_and_rewards_and_redeemed(pid, uid):
     """Get a list of a program's custom rewards."""
     program = Program.query.get(pid)
-    program_data = dumpProgramFullData(program)
-    
-    rewards = Reward.query.filter(Reward.program_id == pid).options(joinedload(Reward.stamp), joinedload(Reward.color), joinedload(Reward.creator)).all()
-    
-    rewards_obj = {}
-    rewards_data = dump_data_list(rewards, reward_schema)
-    rewards_data = [reward for reward in rewards_data]
-    for reward in rewards:
-        rewards_obj[reward.id] = dumpRewardFullData(reward)
-    
+    rewards = Reward.query.filter(Reward.program_id == pid).all()
     redeemed = Redeemed.query.join(Redeemed.reward) \
         .filter(Redeemed.user_id == uid, Reward.program_id == pid) \
-        .options( \
-        joinedload(Redeemed.reward), \
-        joinedload(Redeemed.user), \
-        joinedload(Redeemed.reward).joinedload(Reward.color), \
-        joinedload(Redeemed.reward).joinedload(Reward.stamp) \
-        ).order_by(Redeemed.redeemed_at).all()
-    
-    redeemed_data = dump_data_list(redeemed, redeemed_schema)
-    i = 0
-    for redeemed_one in redeemed:
-        dumpRedeemedData(redeemed_data[i], redeemed_one.reward)
-        i += 1
-    return jsonify(program_data=program_data, rewards_data=rewards_obj, redeemed_data=redeemed_data)
+        .order_by(Redeemed.redeemed_at).all()
+
+    return jsonify(
+        program_data=program.to_dict(), 
+        rewards_data=[r.to_dict() for r in rewards],
+        redeemed_data=[r.to_dict() for r in redeemed])
 
 
 @reward_routes.route("/programs/<int:pid>/rewards")
 def program_rewards(pid):
     """Get a list of a program's custom rewards."""
-    rewards = Reward.query.filter(Reward.program_id == pid).options(joinedload(Reward.stamp), joinedload(Reward.color), joinedload(Reward.creator)).all()
-    
-    rewards_obj = {}
-    rewards_data = dump_data_list(rewards, reward_schema)
-    rewards_data = [reward for reward in rewards_data]
-    for reward in rewards:
-        rewards_obj[reward.id] = dumpRewardFullData(reward)
-    return jsonify(rewards_obj)
+    rewards = Reward.query.filter(Reward.program_id == pid).all()
+    return [r.to_dict() for r in rewards]
 
 
 @reward_routes.route("/programs/<int:pid>/create", methods=["POST"])
@@ -70,11 +48,11 @@ def create_reward(pid):
     form['csrf_token'].data = request.cookies['csrf_token']
     
     if form.validate():
-        reward = Reward(reward=form['reward'].data,
+        reward = Reward(title=form["title"].data,
                         type='custom',
                         description=form['description'].data,
                         color_id=form['color'].data,
-                        stamp_id=form['stamp'].data,
+                        icon_id=form["icon"].data,
                         cost=form['cost'].data,
                         limit_per_member=form['limit'].data,
                         quantity=form['quantity'].data,
@@ -83,8 +61,7 @@ def create_reward(pid):
         db.session.add(reward)
         db.session.commit()
             
-        reward_data = dumpRewardFullData(reward)
-        return jsonify(reward_data)
+        return reward.to_dict()
     return {'errors': ['Failed to create reward']}, 400
 
 
@@ -95,19 +72,17 @@ def edit_reward(rid):
     form['csrf_token'].data = request.cookies['csrf_token']
     
     if form.validate():
-        reward = Reward.query.options(joinedload(Reward.color), joinedload(Reward.stamp)).get(rid)
-        reward.reward = form["reward"].data
+        reward = Reward.query.options(joinedload(Reward.color), joinedload(Reward.icon)).get(rid)
+        reward.title = form["title"].data
         reward.description = form["description"].data
         reward.cost = form["cost"].data
         reward.quantity = form["quantity"].data
         reward.limit_per_member = form["limit"].data
         reward.color_id = form["color"].data
-        reward.stamp_id = form["stamp"].data
+        reward.icon_id = form["icon"].data
         
         db.session.commit()
-        reward_data = dumpRewardFullData(reward)
-        
-        return jsonify(reward_data)
+        return reward.to_dict()
     return {'errors': ['Editing reward failed']}, 400
 
 
@@ -145,10 +120,8 @@ def redeem_reward(rid, mid):
                         reward_id=reward.id,)
     db.session.add(redeemed)
     db.session.commit()
-    redeemed_data = redeemed_schema.dump(redeemed)
-    dumpRedeemedData(redeemed_data, reward)
 
-    return jsonify(points=membership.points, redeemed_data=redeemed_data)
+    return jsonify(points=membership.points, redeemed_data=redeemed_to_dict())
     
     
 @reward_routes.route("/programs/<int:pid>/users/<int:uid>/redeemed")
@@ -156,16 +129,6 @@ def redeemed_rewards(pid, uid):
     """Get a list of a user's redeemed rewards, ordered by redeemed_at dates."""
     redeemed = Redeemed.query.join(Redeemed.reward) \
       .filter(Redeemed.user_id == uid, Reward.program_id == pid) \
-      .options( \
-      joinedload(Redeemed.reward), \
-      joinedload(Redeemed.user), \
-      joinedload(Redeemed.reward).joinedload(Reward.color), \
-      joinedload(Redeemed.reward).joinedload(Reward.stamp) \
-      ).order_by(Redeemed.redeemed_at).all()
+      .order_by(Redeemed.redeemed_at).all()
     
-    redeemed_data = dump_data_list(redeemed, redeemed_schema)
-    i = 0
-    for reward in redeemed:
-        dumpRedeemedData(redeemed_data, reward)
-        i += 1
-    return jsonify(redeemed_data)
+    return [r.to_dict() for r in redeemed]

@@ -9,7 +9,7 @@ export default function UserProfileCard() {
   if (!user) return null
   return (
     <>
-    <article className="card-dark" style={{ color: user.color.hex, boxShadow: `8px 8px 0 ${user.color.hex}` }}>
+    <article className="card-dark" style={{ color: user.color, boxShadow: `8px 8px 0 ${user.color}` }}>
 
       <dl className="card-data">
         <dt className="card-name-label"><i className="fas fa-address-card"></i> NAME</dt>
@@ -17,7 +17,7 @@ export default function UserProfileCard() {
         <div className="card-body">
         <div className="card-data">
           <dt hidden="true">PROFILE IMAGE</dt>
-          <dd><i className={`avi fas fa-${user.stamp.stamp}`}></i></dd>
+          <dd><i className={`avi fas fa-${user.icon}`}></i></dd>
           </div>
           <div className="side-card card-data">
             <dt> <i className="fas fa-heart"></i> NICKNAME</dt>
@@ -36,7 +36,7 @@ export default function UserProfileCard() {
   // }
   return (
     <>
-    <article className="card" style={{ color: user.color.hex, boxShadow: `8px 8px 0 ${user.color.hex}` }}>
+    <article className="card" style={{ color: user.color, boxShadow: `8px 8px 0 ${user.color}` }}>
 
       <dl className="card-data">
         <dt className="card-name-label"><i className="fas fa-address-card"></i> NAME</dt>
@@ -44,7 +44,7 @@ export default function UserProfileCard() {
         <div className="card-body">
         <div className="card-data">
           <dt hidden="true">PROFILE IMAGE</dt>
-          <dd><i className={`avi fas fa-${user.stamp.stamp}`}></i></dd>
+          <dd><i className={`avi fas fa-${user.icon}`}></i></dd>
           </div>
           <div className="side-card card-data">
             <dt> <i className="fas fa-heart"></i> NICKNAME</dt>

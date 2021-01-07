@@ -3,12 +3,10 @@ import HabitBoardContext from "../../context/HabitBoardContext"
 import ProgramCard from './ProgramCard'
 
 export default function HabitBoard() {
-  const { programs, habits, dailies, week, dispatchHabits } = useContext(HabitBoardContext)
-  // console.log("user inside habitboard", user)
+  const { programs, habits, dailies, } = useContext(HabitBoardContext)
 
   if (!programs || !habits || !dailies) return null
   if (!Object.keys(programs).length) return null
-  console.log("programs, habits, dailies", programs, habits, dailies)
 
   return (
     <article className="lo-main-center habit-board">

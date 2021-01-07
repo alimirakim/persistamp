@@ -1,8 +1,8 @@
 
 from flask import Blueprint, jsonify, request
 from sqlalchemy.orm import joinedload
-from app.models import db, Habit, DailyStamp
-from app.schemas import habit_schema, dailystamp_schema
+from app.models import db, Habit, Stamp
+from app.schemas import habit_schema, stamp_schema
 from app.utils import validation_errors_to_error_messages
 from flask_login import current_user
 from datetime import date, timedelta, datetime
@@ -24,8 +24,8 @@ def getWeeklyGraph(hid, interval, mid):
         splitDate = currentStrDate.split("-")
         lastYear = int(splitDate[0]) - 1
         lastDate = date(lastYear, int(splitDate[1]), int(splitDate[2]))
-        habitHistory = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.membership_id == mid, DailyStamp.date >= lastDate).all()
-        stamps = [dailystamp_schema.dump(stamp)["date"] for stamp in habitHistory]
+        habitHistory = Stamp.query.filter(Stamp.habit_id == hid, Stamp.membership_id == mid, Stamp.date >= lastDate).all()
+        stamps = [stamp_schema.dump(stamp)["date"] for stamp in habitHistory]
 
         monthDict = {month: index for index, month in enumerate(calendar.month_abbr) if month}
 
@@ -75,8 +75,8 @@ def getWeeklyGraph(hid, interval, mid):
         i += 7
     newAxisLabels = list(reversed(axisLabels))
 
-    daily_stamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.membership_id == mid, DailyStamp.date <= past_week_dates[0], DailyStamp.date >= past_week_dates[-1]).all()
-    stamps = [dailystamp_schema.dump(stamp)["date"] for stamp in daily_stamps]
+    stamps = Stamp.query.filter(Stamp.habit_id == hid, Stamp.membership_id == mid, Stamp.date <= past_week_dates[0], Stamp.date >= past_week_dates[-1]).all()
+    stamps = [stamp_schema.dump(stamp)["date"] for stamp in stamps]
 
     isStamped = []
     for each in past_week_dates:
@@ -124,10 +124,10 @@ def calendarData(hid, mid):
     print("GETTING SUNDAY============================", startDate)
     stampDates = []
     values = []
-    dailystamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.membership_id == mid, DailyStamp.date >= startDate, DailyStamp.date <= endDate).all()
+    stamps = Stamp.query.filter(Stamp.habit_id == hid, Stamp.membership_id == mid, Stamp.date >= startDate, Stamp.date <= endDate).all()
 
-    for each in dailystamps:
-        stampdata = dailystamp_schema.dump(each)
+    for each in stamps:
+        stampdata = stamp_schema.dump(each)
         values.append({ "date": stampdata["date"]})
         stampDates.append(stampdata["date"])
 
@@ -190,12 +190,12 @@ def getHabitStats(hid, mid):
 
     attempts = (int(daysOfHabit) // 7) * int(habitFrequency) + int(habitFrequency)
 
-    allStamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.membership_id == mid)
-    lastMonthStamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.membership_id == mid, DailyStamp.date >= oneMonthAgo.strftime("%Y-%m-%d"))
-    twoMonthsAgoStamps = DailyStamp.query.filter(DailyStamp.habit_id == hid, DailyStamp.membership_id == mid, DailyStamp.date < oneMonthAgo.strftime("%Y-%m-%d"), DailyStamp.date >= twoMonthsAgo.strftime("%Y-%m-%d"))
+    allStamps = Stamp.query.filter(Stamp.habit_id == hid, Stamp.membership_id == mid)
+    lastMonthStamps = Stamp.query.filter(Stamp.habit_id == hid, Stamp.membership_id == mid, Stamp.date >= oneMonthAgo.strftime("%Y-%m-%d"))
+    twoMonthsAgoStamps = Stamp.query.filter(Stamp.habit_id == hid, Stamp.membership_id == mid, Stamp.date < oneMonthAgo.strftime("%Y-%m-%d"), Stamp.date >= twoMonthsAgo.strftime("%Y-%m-%d"))
 
     def dumpStamps(stamp):
-        return dailystamp_schema.dump(stamp)
+        return stamp_schema.dump(stamp)
     stampObjs = list(map(dumpStamps, allStamps))
     lastMonthObjs = list(map(dumpStamps, lastMonthStamps))
     twoMonthObjs = list(map(dumpStamps, twoMonthsAgoStamps))

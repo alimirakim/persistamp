@@ -62,14 +62,14 @@ export default function RewardShop() {
   // console.log("got rewards and redeemed", rewards, redeemed)
   if (!program || !rewards || !redeemed) return null
 
-  return (<article style={{ color: program.color.hex }}>
+  return (<article style={{ color: program.color }}>
     <Link to={`/`}>
-      <i className={`fas fa-chevron-circle-left`} style={{ color: program.color.hex }}></i>
+      <i className={`fas fa-chevron-circle-left`} style={{ color: program.color }}></i>
     </Link>
 
     <div style={{ display: "flex", flexDirection: "column", alignContent: "center", alignItems: "center" }}>
-      <h1 className="cam" style={{ fontSize: "3rem", margin: "2rem" }}><i className={`fas fa-${program.stamp.stamp}`}></i> {program.program} Reward Shop</h1>
-      <h2>Your Points: <span style={{ fontSize: "3rem" }}>{points} <i className={`fas fa-${program.stamp.stamp}`}></i></span></h2>
+      <h1 className="cam" style={{ fontSize: "3rem", margin: "2rem" }}><i className={`fas fa-${program.stamp}`}></i> {program.program} Reward Shop</h1>
+      <h2>Your Points: <span style={{ fontSize: "3rem" }}>{points} <i className={`fas fa-${program.stamp}`}></i></span></h2>
 
       <RewardForm program={program} dispatchRewards={dispatchRewards} rewards={rewards} />
       <div style={{ display: "flex", justifyContent: "space-around" }}>
@@ -78,7 +78,7 @@ export default function RewardShop() {
           <h2 style={{ border: "10px double", padding: "0.5rem", borderRadius: "1rem" }}>Redeem Rewards</h2>
           <ul style={{ display: "flex", flexDirection: "column-reverse" }}>
             {Object.values(rewards).map(reward => (
-              <li key={reward.id} style={{ color: reward.color.hex }}>
+              <li key={reward.id} style={{ color: reward.color }}>
                 <RewardEditForm program={program} reward={reward} dispatchRewards={dispatchRewards} />
                 <RewardDeleteForm reward={reward} dispatchRewards={dispatchRewards} />
                 <RedeemForm redeemed={redeemed} reward={reward} mid={mid} setPoints={setPoints} dispatchRedeemed={dispatchRedeemed} />
@@ -90,7 +90,7 @@ export default function RewardShop() {
           <h2 style={{ border: "10px double", padding: "0.5rem", borderRadius: "1rem" }}>Reward History</h2>
           <ul style={{ display: "flex", flexDirection: "column-reverse" }}>
             {Object.values(redeemed).map(redeem => (
-              <li key={redeem.id} style={{ color: redeem.reward.color.hex }}>
+              <li key={redeem.id} style={{ color: redeem.reward.color }}>
                 <dl>
                   <dt>Reward:</dt>
                   <dd>{redeem.reward.reward}</dd>
@@ -99,7 +99,7 @@ export default function RewardShop() {
                   <dt>Redeemed at:</dt>
                   <dd>{new Date(redeem.redeemed_at).toLocaleString()}</dd>
                   <dt>Cost:</dt>
-                  <dd>{redeem.reward.cost} <i className={`fas fa-${redeem.reward.stamp.stamp}`}></i></dd>
+                  <dd>{redeem.reward.cost} <i className={`fas fa-${redeem.reward.stamp}`}></i></dd>
                 </dl>
               </li>
             ))}
@@ -128,7 +128,7 @@ function RedeemForm({ redeemed, reward, uid, setPoints, dispatchRedeemed }) {
   }
 
   return (<>
-    <button onClick={handleOpen} style={{ color: reward.color.hex, backgroundColor: "rgba(250,250,250,0.1)", borderRadius: "1rem", borderWidth: 0, width: "100%" }}>
+    <button onClick={handleOpen} style={{ color: reward.color, backgroundColor: "rgba(250,250,250,0.1)", borderRadius: "1rem", borderWidth: 0, width: "100%" }}>
       <h3>{reward.reward}</h3>
       <blockquote>{reward.description}</blockquote>
       <dl>
@@ -137,13 +137,13 @@ function RedeemForm({ redeemed, reward, uid, setPoints, dispatchRedeemed }) {
         <dt>Quantity:</dt>
         <dd>{reward.quantity}</dd>
         <dt>Cost:</dt>
-        <dd>{reward.cost} <i className={`fas fa-${reward.stamp.stamp}`}></i></dd>
+        <dd>{reward.cost} <i className={`fas fa-${reward.stamp}`}></i></dd>
       </dl>
     </button>
 
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle style={{ color: reward.color.hex }}>Redeem Reward: "{reward.reward}"</DialogTitle>
-      <DialogContent style={{ color: reward.color.hex }}>
+      <DialogTitle style={{ color: reward.color }}>Redeem Reward: "{reward.reward}"</DialogTitle>
+      <DialogContent style={{ color: reward.color }}>
         <blockquote>{reward.description}</blockquote>
         <dl>
           <dt>Limit per Member:</dt>
@@ -151,7 +151,7 @@ function RedeemForm({ redeemed, reward, uid, setPoints, dispatchRedeemed }) {
           <dt>Quantity Remaining:</dt>
           <dd>{reward.quantity}</dd>
           <dt>Cost:</dt>
-          <dd>{reward.cost} <i className={`fas fa-${reward.stamp.stamp}`}></i></dd>
+          <dd>{reward.cost} <i className={`fas fa-${reward.stamp}`}></i></dd>
         </dl>
         <ActionOrCancelButtons handleClose={handleClose} onAction={onRedeem} action={"Redeem"} />
       </DialogContent>
@@ -159,8 +159,8 @@ function RedeemForm({ redeemed, reward, uid, setPoints, dispatchRedeemed }) {
 
 
     {/* <Dialog open={openRedeemed} onClose={handleClose}>
-      <DialogTitle style={{ color: reward.color.hex }}>Keep it up!</DialogTitle>
-      <DialogContent style={{ color: reward.color.hex }}>
+      <DialogTitle style={{ color: reward.color }}>Keep it up!</DialogTitle>
+      <DialogContent style={{ color: reward.color }}>
         <blockquote>{reward.description}</blockquote>
         You 
         <ActionOrCancelButtons handleClose={handleClose} onAction={onRedeem} action={"Redeem"} />

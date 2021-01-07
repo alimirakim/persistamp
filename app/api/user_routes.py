@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
-from app.models import db, User, Stamp, Program, Membership, Habit, Reward, Color, DailyStamp
-from app.schemas import user_schema, program_schema, habit_schema, membership_schema, stamp_schema, color_schema, dailystamp_schema
+from app.models import db, User, Stamp, Program, Membership, Habit, Reward, Color, Stamp
+from app.schemas import user_schema, program_schema, habit_schema, membership_schema, icon_schema, color_schema, stamp_schema
 from sqlalchemy.orm import joinedload
 from flask_login import current_user, login_user, logout_user, login_required
 from datetime import date, timedelta
@@ -23,11 +23,8 @@ def users():
 @login_required
 def user():
     """Get the current user's information."""
-    user = User.query.filter(User.id == current_user.id).options(joinedload(User.stamp)).one()
-    user_data = user_schema.dump(user)
-    user_data["stamp"] = user.stamp.to_dict()
-    del user_data["hashed_password"]
-    return jsonify(user_data)
+    user = User.query.get(current_user.id)
+    return user.to_dict()
 
 
 # TESTED Functions
@@ -47,10 +44,8 @@ def user_programs(uid):
         .join(Membership.program).filter(Membership.member_id == uid) \
         .options(joinedload(Program.rewards), \
             joinedload(Program.memberships), \
-            joinedload(Program.stamp), \
-            joinedload(Program.color), \
-            joinedload(Program.habits).joinedload(Habit.daily_stamps), \
-            joinedload(Program.habits).joinedload(Habit.stamp), \
+            joinedload(Program.habits).joinedload(Habit.stamps), \
+            joinedload(Program.habits).joinedload(Habit.icon), \
             joinedload(Program.habits).joinedload(Habit.color)) \
         .all()
     programs_data = dump_data_list(user_programs, program_schema)
@@ -65,19 +60,19 @@ def user_programs(uid):
                 for j in range(len(user_programs[i].habits)):
                     programs_data[i]["habits"].append(habit_schema.dump(user_programs[i].habits[j]))
                     habit = habit_schema.dump(user_programs[i].habits[j])
-                    habit["stamp"] = stamp_schema.dump(user_programs[i].habits[j].stamp)
+                    habit["icon"] = icon_schema.dump(user_programs[i].habits[j].icon)
                     habit["color"] = color_schema.dump(user_programs[i].habits[j].color)
-                    # Daily stamps for prev week for habit
-                    habit["daily_stamps"] = DailyStamp.query.filter( \
-                        DailyStamp.habit_id == habit["id"], \
-                        DailyStamp.membership_id == mid, \
-                        DailyStamp.date <= past_week[0][1], \
-                        DailyStamp.date >= past_week[6][1]).all()
-                    habit["daily_stamps"] = dump_data_list(habit["daily_stamps"], dailystamp_schema)
+                    # Daily icons for prev week for habit
+                    habit["stamps"] = Stamp.query.filter( \
+                        Stamp.habit_id == habit["id"], \
+                        Stamp.membership_id == mid, \
+                        Stamp.date <= past_week[0][1], \
+                        Stamp.date >= past_week[6][1]).all()
+                    habit["stamps"] = dump_data_list(habit["stamps"], stamp_schema)
                     programs_data[i]["habits"][j] = habit
             except:
                 print("\nno mid probs")
-        programs_data[i]["stamp"] = stamp_schema.dump(user_programs[i].stamp)
+        programs_data[i]["icon"] = icon_schema.dump(user_programs[i].icon)
         programs_data[i]["color"] = color_schema.dump(user_programs[i].color)
 
     programs_fin = {}
@@ -89,8 +84,8 @@ def user_programs(uid):
         programs_fin.update({program["id"]: program})
 
     for habit in habits_fin.values():
-        dailies_fin.update({stamp["id"]:stamp for stamp in habit["daily_stamps"]})
-        habit["daily_stamps"] = [daily["id"] for daily in habit["daily_stamps"]]
+        dailies_fin.update({stamp["id"]:stamp for stamp in habit["stamps"]})
+        habit["stamps"] = [daily["id"] for daily in habit["stamps"]]
         
     return jsonify(programs_data=programs_fin, habits_data=habits_fin, dailies_data=dailies_fin, past_week=past_week)
 
@@ -106,8 +101,9 @@ def update_user():
         user.username = form.data['username']
         user.first_name = form.data['firstname']
         user.last_name = form.data['lastname']
+        user.birthday = form.data['birthday']
         user.color_id = form.data['color']
-        user.stamp_id = form.data['stamp']
+        user.icon_id = form.data['icon']
         db.session.commit()
 
         newUser = queryUserFullData(user.id)

@@ -15,4 +15,16 @@ class Membership(db.Model):
     program = db.relationship("Program", back_populates="memberships")
     member = db.relationship("User", foreign_keys=[member_id], back_populates="memberships")
     stamper = db.relationship("User", foreign_keys=[stamper_id], back_populates="stampers")
-    daily_stamps = db.relationship("DailyStamp", back_populates="membership")
+    stamps = db.relationship("Stamp", back_populates="membership")
+
+    def to_dict(self):
+        """"""
+        return {
+          "id": self.id,
+          "program_id": self.program_id,
+          "member_id": self.member_id,
+          "stamper_id": self.stamper_id,
+          "points": self.points,
+          "joined_at": self.joined_at,
+          # "stamp_ids": [s.id for s in self.stamps],
+        }

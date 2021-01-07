@@ -12,13 +12,13 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(50))
     email = db.Column(db.String(50), nullable=False, unique=True)
     color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)
-    stamp_id = db.Column(db.Integer, db.ForeignKey("stamps.id"), nullable=False, default=1)
+    icon_id = db.Column(db.Integer, db.ForeignKey("icons.id"), nullable=False, default=1)
     birthday = db.Column(db.Date)
     hashed_password = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
-    stamp = db.relationship("Stamp", back_populates="users")
-    color = db.relationship("Color", back_populates="users")
+    icon = db.relationship("Icon", backref="users")
+    color = db.relationship("Color", backref="users")
     # programs = db.relationship("Program", secondary="Membership", foreign_keys="[Membership.member_id]", back_populates="users")
     memberships = db.relationship("Membership", foreign_keys="[Membership.member_id]", back_populates="member")
     stampers = db.relationship("Membership", foreign_keys="[Membership.stamper_id]", back_populates="stamper")
@@ -28,9 +28,6 @@ class User(db.Model, UserMixin):
     created_programs = db.relationship("Program", back_populates="creator")
     created_habits = db.relationship("Habit", back_populates="creator")
     created_rewards = db.relationship("Reward", back_populates="creator")
-    
-
-          
 
     @property
     def password(self):
@@ -47,13 +44,13 @@ class User(db.Model, UserMixin):
         """Return a dictionary of all user data"""
         program_ids = []
         habit_ids = []
-        daily_stamp_ids = []
+        stamp_ids = []
         for membership in self.memberships:
             program_ids.append(membership.program_id)
             for habit in membership.program.habits:
                 habit_ids.append(habit.id)
-                for stamp in habit.daily_stamps:
-                    daily_stamp_ids.append(stamp.id)
+                for stamp in habit.stamps:
+                    stamp_ids.append(stamp.id)
       
         return {
           "id": self.id,
@@ -62,12 +59,8 @@ class User(db.Model, UserMixin):
           "first_name": self.first_name,
           "last_name": self.last_name,
           "birthday": self.birthday,
-          "color_id": self.color_id,
-          "stamp_id": self.stamp_id,
+          "color": self.color.hex,
+          "icon": self.icon.title,
           "membership_ids": [m.id for m in self.memberships],
-          # "stamper_ids": [s.id for s in self.stampers],
-          "program_ids": program_ids,
-          "habit_ids": habit_ids,
-          "daily_stamp_ids": daily_stamp_ids,
           "redeemed_ids": [r.id for r in self.redeemed],
         }

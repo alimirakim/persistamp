@@ -24,21 +24,21 @@ export default function HabitDisplay() {
     }
   }, [habit])
   if (!habit) return null
-  console.log("habitDISPLAY", habit.stamp.stamp)
+  console.log("habitDISPLAY", habit.icon)
 
   return (
     <HabitContext.Provider value={habit}>
-      <article style={{ color: habit.color.hex }}>
+      <article style={{ color: habit.color }}>
         <div className="displayPage">
           <div className="displayFormat">
             <div className="habitFormat">
               <div className="habitDetailContainer">
                 <Link to={`/`}>
-                  <i className={`fas fa-chevron-circle-left`} style={{ color: habit.color.hex }}></i>
+                  <i className={`fas fa-chevron-circle-left`} style={{ color: habit.color }}></i>
                 </Link>
                 {/* <br/> */}
                 <h1 style={{ fontSize: "4rem" }} className={`cam habitDetail__title`}>
-                  <i className={`fas fa-${habit.stamp.stamp}`}></i>
+                  <i className={`fas fa-${habit.icon}`}></i>
                   &nbsp;{habit.habit}
                 </h1>
                 <table className="habitDetail__table">
@@ -55,7 +55,7 @@ export default function HabitDisplay() {
                     <tr>
                       <td className="habitDetail__cell">{habit.description}</td>
                       <td className="habitDetail__cell">{habit.program.program}</td>
-                      <td className="habitDetail__cell">{habit.stamp.stamp}</td>
+                      <td className="habitDetail__cell">{habit.icon}</td>
                       <td className="habitDetail__cell">{habit.frequency} Days</td>
                       <td className="habitDetail__cell">{new Date(habit.created_at).toLocaleString()}</td>
                     </tr>

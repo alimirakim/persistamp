@@ -4,7 +4,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 from http import cookies
 from app.models import db, User, Program, Membership
 from app.forms import LoginForm, SignUpForm
-from app.schemas import user_schema, color_schema, stamp_schema, membership_schema
+from app.schemas import user_schema, membership_schema
 from app.utils import dump_data_list, queryUserFullData, validation_errors_to_error_messages
 from pprint import pprint
 

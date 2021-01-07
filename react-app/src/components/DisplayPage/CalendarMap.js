@@ -27,7 +27,7 @@ export default function CalendarMap({ habit }) {
       b: parseInt(result[3], 16)
     } : null;
   }
-  const habitRGB = hexToRgb(habit.color.hex)
+  const habitRGB = hexToRgb(habit.color)
 
 
   if (!calendarData.yArr) return null;
@@ -57,10 +57,10 @@ export default function CalendarMap({ habit }) {
           xLabelsLocation="top"
           cellRender={(value) => {
             if (value === 100) {
-              return <i className={`fas fa-${habit.stamp.stamp}`} style={{ color: habit.color.hex }} ></i>
+              return <i className={`fas fa-${habit.icon}`} style={{ color: habit.color }} ></i>
             }
             // } else if (value === 99) {
-            //     return <i className={`fas fa-${habit.stamp.stamp}`} style={{color: "#444"}} ></i>
+            //     return <i className={`fas fa-${habit.icon}`} style={{color: "#444"}} ></i>
             // }
           }}
 

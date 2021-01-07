@@ -10,11 +10,11 @@ from .models import (db,
                      Program,
                      Membership,
                      Habit,
-                     DailyStamp,
+                     Stamp,
                      Reward,
                      Redeemed,
                      Bond,
-                     Stamp,
+                     Icon,
                      Color)
 from .api import (user_routes,
                   auth_routes,
@@ -23,8 +23,7 @@ from .api import (user_routes,
                   habit_detail_routes,
                   membership_routes,
                   reward_routes,
-                  daily_stamp_routes)
-from .schemas import color_schema, stamp_schema
+                  stamp_routes)
 from .utils import dump_data_list
 
 from .seeds import seed_commands
@@ -54,7 +53,7 @@ app.register_blueprint(habit_routes, url_prefix="/api/habits")
 app.register_blueprint(habit_detail_routes, url_prefix="/api/habit-details")
 app.register_blueprint(membership_routes, url_prefix="/api/memberships")
 app.register_blueprint(reward_routes, url_prefix="/api/rewards")
-app.register_blueprint(daily_stamp_routes, url_prefix="/api/daily-stamps")
+app.register_blueprint(stamp_routes, url_prefix="/api/stamps")
 
 db.init_app(app)
 Migrate(app, db)
@@ -90,5 +89,7 @@ def react_root(path):
 def options():
     """Return color and stamp options from database"""
     colors = Color.query.all()
-    stamps = Stamp.query.all()
-    return jsonify(colors_data=dump_data_list(colors, color_schema), stamps_data=dump_data_list(stamps, stamp_schema))
+    icons = Icon.query.all()
+    return jsonify(
+        colors_data=[c.to_dict() for c in colors], 
+        stamps_data=[i.to_dict() for i in icons])

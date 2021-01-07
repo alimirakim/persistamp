@@ -64,7 +64,7 @@ export function ChooseColor({ colors, color, setColor }) {
       value={color}
     >
       {colors.map((color) => (
-        <MenuItem key={color.id} value={color.id} style={{ backgroundColor: `${color.hex}` }} >
+        <MenuItem key={color.id} value={color.id} style={{ backgroundColor: `${color}` }} >
           {color.name.split("-").join(" ")}
         </MenuItem>
       ))}
@@ -80,8 +80,8 @@ export function ChooseStamp({ stamps, stamp, setStamp, color }) {
     <Select onChange={updateStamp} labelId="stamp" value={stamp}>
       {stamps.map((stamp) => (
         <MenuItem key={stamp.id} value={stamp.id} style={{color: color}}>
-          <i className={`fas fa-${stamp.stamp}`} style={{color: color}}></i>
-          {stamp.stamp.split("-").join(" ")}
+          <i className={`fas fa-${stamp}`} style={{color: color}}></i>
+          {stamp.split("-").join(" ")}
         </MenuItem>
       ))}
     </Select>

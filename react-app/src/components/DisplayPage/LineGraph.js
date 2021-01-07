@@ -48,16 +48,16 @@ function LineGraph({habit}) {
                 <h3 className="lineGraphHeader" style={{color:"#ccc", fontFamily:"Arial"}}>Line Graph</h3>
                 <button className="lineGraphToggle" onClick={handleClick}>{toggleTime}</button>
                 <LineChart width={700} height={400} data={dataPoints.data} margin={{ bottom: 15, left:25}}>
-                    <Line strokeWidth={3}type="monotone" dataKey="stamps" dot={{ strokeWidth: 2}}stroke={habit.color.hex} />
+                    <Line strokeWidth={3}type="monotone" dataKey="stamps" dot={{ strokeWidth: 2}}stroke={habit.color} />
                     <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>
 
-                    <XAxis className="lineGraphLabels" dataKey="dates" stroke={habit.color.hex}>
+                    <XAxis className="lineGraphLabels" dataKey="dates" stroke={habit.color}>
                         <Label  stroke="#ccc" value={xAxis.split("").join(" ")} offset={0} position="bottom" />
                     </XAxis>
                     <YAxis label={{ font: "Arial", stroke: "#ccc", value:'S t a m p   C o u n t', angle: -90, position:"left" }}
                             domain={dataPoints.yDomain}
                             ticks={dataPoints.ticks}
-                            stroke={habit.color.hex}
+                            stroke={habit.color}
                             className="lineGraphLabels"/>
                     <Tooltip />
                 </LineChart>

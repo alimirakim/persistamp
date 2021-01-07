@@ -6,25 +6,25 @@ from random import *
 from calendar import monthrange
 
 from app import app, db
-from app.models import User, Program, Habit, Stamp, DailyStamp, Membership, Reward, Color
+from app.models import User, Program, Habit, Color, Icon, Stamp, Membership, Reward
 
 
 with app.app_context():
     db.drop_all()
     db.create_all()
 
-    stamps = {
-      "symbols": [""],
-      "animals": [""],
-      "people": [""],
-      "food": [""],
-      "things": [""],
-      "other": [""],
-      "body": [""],
-    }
+    # icons = {
+    #   "symbols": [""],
+    #   "animals": [""],
+    #   "people": [""],
+    #   "food": [""],
+    #   "things": [""],
+    #   "other": [""],
+    #   "body": [""],
+    # }
 
     users = [""]
-    stamp_sets = {
+    icon_sets = {
         "defaults": ["user-circle", "calendar-alt", "check-circle", "award", "cogs", "clipboard-check", "medal"],
         "symbols": ["heart", "star"],
         "things": ["palette", "dice", "car-alt", "chess-queen", "basketball-ball", "bowling-ball", "dumbbell", "guitar", "key", "laptop", "pencil-alt", "pen-alt"],
@@ -34,11 +34,11 @@ with app.app_context():
         "food": ["carrot", "cookie", "bacon", "ice-cream"],
     }
 
-    stamps = []
-    for type, names in stamp_sets.items():
-        [stamps.append(Stamp(type=type, stamp=stamp)) for stamp in names]
-    for stamp in stamps:
-        db.session.add(stamp)
+    icons = []
+    for type, titles in icon_sets.items():
+        [icons.append(Icon(type=type, title=title)) for title in titles]
+    for icon in icons:
+        db.session.add(icon)
 
 
     darkmode_colors = {
@@ -78,16 +78,16 @@ with app.app_context():
         "black":              "#000000",
     }
     colors = []
-    for name, hex in darkmode_colors.items():
-        color = Color(name=name,
+    for title, hex in darkmode_colors.items():
+        color = Color(title=title,
                       hex=hex,
                       mode="dark",
         )
         colors.append(color)
         db.session.add(color)
 
-    for name, hex in lightmode_colors.items():
-        color = Color(name=name,
+    for title, hex in lightmode_colors.items():
+        color = Color(title=title,
                       hex=hex,
                       mode="light",
                       )
@@ -102,7 +102,7 @@ with app.app_context():
                   email="alimirakim@gmail.com",
                   hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[1],
-                  stamp=stamps[0],
+                  icon=icons[0],
                   birthday=datetime(1991, 6, 27)
     )
     dyclee = User(username="dyclee",
@@ -110,26 +110,8 @@ with app.app_context():
                   last_name="Lee",
                   email="fakedavid@gmail.com",
                   hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",                  color=colors[2],
-                  stamp=stamps[0],
+                  icon=icons[0],
                   birthday=datetime(1994, 8, 18)
-    )
-    awod = User(username="Awodfkai",
-                  first_name="Brian",
-                  last_name="Wang",
-                  email="fakebrian@gmail.com",
-                  hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
-                  color=colors[3],
-                  stamp=stamps[0],
-                  birthday=datetime(1992, 7, 17)
-    )
-    eric = User(username="eric",
-                  first_name="Eric",
-                  last_name="Lyda",
-                  email="fakeeric@gmail.com",
-                  hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
-                  color=colors[4],
-                  stamp=stamps[0],
-                  birthday=datetime(1990, 6, 6)
     )
     yn = User(username="yn",
                   first_name="Yegres",
@@ -137,7 +119,7 @@ with app.app_context():
                   email="yegresnidirg@gmail.com",
                   hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[5],
-                  stamp=stamps[0],
+                  icon=icons[0],
     )
     inho = User(username="InhoShi",
                   first_name="Derek",
@@ -145,7 +127,7 @@ with app.app_context():
                   email="fakederek@gmail.com",
                   hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[6],
-                  stamp=stamps[0],
+                  icon=icons[0],
                   birthday=datetime(1993, 4, 4)
     )
     aly = User(username="Aly Cat",
@@ -154,7 +136,7 @@ with app.app_context():
                   email="fakeali@gmail.com",
                   hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[7],
-                  stamp=stamps[0],
+                  icon=icons[0],
                   birthday=datetime(1994, 3, 3)
     )
     sophie = User(username="sophie",
@@ -163,7 +145,7 @@ with app.app_context():
                   email="sophie@gmail.com",
                   hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[8],
-                  stamp=stamps[0],
+                  icon=icons[0],
                   birthday=datetime(1995, 2, 2)
     )
     ashe = User(username="ashen",
@@ -172,7 +154,7 @@ with app.app_context():
                   email="ashendawn@gmail.com",
                   hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[9],
-                  stamp=stamps[0],
+                  icon=icons[0],
     )
     mom = User(username="DemoMom",
                   first_name="demo",
@@ -180,7 +162,7 @@ with app.app_context():
                   email="demolina@gmail.com",
                   hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[10],
-                  stamp=stamps[0],
+                  icon=icons[0],
                   birthday=datetime(1989, 11, 19),
     )
     demo = User(username="TheDemoUser1",
@@ -189,46 +171,46 @@ with app.app_context():
                   email="demo@gmail.com",
                   hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[10],
-                  stamp=stamps[0],
+                  icon=icons[0],
     )
-    users = [myki, dyclee, awod, eric, yn, inho, aly, sophie, ashe, mom, demo]
+    users = [myki, dyclee, yn, inho, aly, sophie, ashe, mom, demo]
     for user in users:
         db.session.add(user)
     db.session.commit()
 
     # Programs
-    program_one = Program(program="Work",
+    program_one = Program(title="Work",
                         description="bring home the bacon",
                         color=colors[0],
-                        creator_id=11,
-                        stamp_id=28,
+                        creator_id=9,
+                        icon_id=28,
                         created_at=datetime(2019, 12, 1),
     )
-    program_two = Program(program="Social",
+    program_two = Program(title="Social",
                         description="family and friends",
                         color=colors[22],
-                        creator_id=11,
-                        stamp_id=8,
+                        creator_id=9,
+                        icon_id=8,
                         created_at=datetime(2019, 12, 15),
     )
-    program_three = Program(program="Chores and errands",
+    program_three = Program(title="Chores and errands",
                         description="just do it",
                         color=colors[11],
-                        creator_id=11,
-                        stamp_id=6,
+                        creator_id=9,
+                        icon_id=6,
                         created_at=datetime(2019, 12, 31),
     )
-    program_mom = Program(program="Sophia and Mom",
+    program_mom = Program(title="Sophia and Mom",
                         description="",
                         color=colors[11],
                         creator_id=1,
     )
-    program_me = Program(program="Promises to Me",
+    program_me = Program(title="Promises to Me",
                         description="",
                         color=colors[12],
                         creator_id=2,
     )
-    program_ashe = Program(program="Mario Kart Championships",
+    program_ashe = Program(title="Mario Kart Championships",
                         description="",
                         color=colors[13],
                         creator_id=2,
@@ -245,7 +227,7 @@ with app.app_context():
                     description="code once a day keeps the doctor away.. ",
                     frequency=7,
                     color=colors[1],
-                    stamp_id=19,
+                    icon_id=19,
                     program=program_one,
                     creator=demo,
                     created_at=datetime(2019, 12, 1),
@@ -254,7 +236,7 @@ with app.app_context():
                     description="meet with team to discuss project",
                     frequency=5,
                     color=colors[5],
-                    stamp_id=1,
+                    icon_id=1,
                     program=program_one,
                     creator=demo,
                     created_at=datetime(2020, 1, 4),
@@ -263,7 +245,7 @@ with app.app_context():
                     description="take spot to the park",
                     frequency=4,
                     color=colors[2],
-                    stamp_id=24,
+                    icon_id=24,
                     program=program_two,
                     creator=demo,
                     created_at=datetime(2020, 5, 29),
@@ -272,7 +254,7 @@ with app.app_context():
                     description="love is in the air",
                     frequency=1,
                     color=colors[15],
-                    stamp_id=13,
+                    icon_id=13,
                     program=program_two,
                     creator=demo,
                     created_at=datetime(2020, 2, 18),
@@ -281,7 +263,7 @@ with app.app_context():
                     description="we're winning it this year",
                     frequency=1,
                     color=colors[16],
-                    stamp_id=14,
+                    icon_id=14,
                     program=program_two,
                     creator=demo,
                     created_at=datetime(2020, 11, 11),
@@ -290,7 +272,7 @@ with app.app_context():
                     description="you promised",
                     frequency=7,
                     color=colors[21],
-                    stamp_id=3,
+                    icon_id=3,
                     program=program_three,
                     creator=demo,
                     created_at=datetime(2020, 8, 17),
@@ -299,7 +281,7 @@ with app.app_context():
                     description="5:30 at Palmer Field",
                     frequency=3,
                     color=colors[17],
-                    stamp_id=12,
+                    icon_id=12,
                     program=program_three,
                     creator=demo,
                     created_at=datetime(2020, 7, 5),
@@ -308,7 +290,7 @@ with app.app_context():
                     description="don't forget leg day",
                     frequency=3,
                     color=colors[4],
-                    stamp_id=16,
+                    icon_id=16,
                     program=program_three,
                     creator=demo,
                     created_at=datetime(2019, 12, 31),
@@ -317,7 +299,7 @@ with app.app_context():
                     description="",
                     frequency="ttttttt",
                     color=colors[16],
-                    stamp=stamps[11],
+                    icon=icons[11],
                     program=program_mom,
                     creator=mom,
     )
@@ -325,7 +307,7 @@ with app.app_context():
                     description="",
                     frequency="ttttttt",
                     color=colors[13],
-                    stamp=stamps[9],
+                    icon=icons[9],
                     program=program_mom,
                     creator=mom,
     )
@@ -333,7 +315,7 @@ with app.app_context():
                     description="",
                     frequency="ttttttt",
                     color=colors[10],
-                    stamp=stamps[7],
+                    icon=icons[7],
                     program=program_mom,
                     creator=mom,
     )
@@ -341,7 +323,7 @@ with app.app_context():
                     description="",
                     frequency="ttttttt",
                     color=colors[2],
-                    stamp=stamps[4],
+                    icon=icons[4],
                     program=program_me,
                     creator=sophie,
     )
@@ -349,7 +331,7 @@ with app.app_context():
                     description="",
                     frequency="ttttttt",
                     color=colors[2],
-                    stamp=stamps[4],
+                    icon=icons[4],
                     program=program_me,
                     creator=sophie,
     )
@@ -357,7 +339,7 @@ with app.app_context():
                     description="",
                     frequency="tffffft",
                     color=colors[2],
-                    stamp=stamps[6],
+                    icon=icons[6],
                     program=program_me,
                     creator=sophie,
     )
@@ -365,7 +347,7 @@ with app.app_context():
                     description="",
                     frequency="tffffft",
                     color=colors[2],
-                    stamp=stamps[4],
+                    icon=icons[4],
                     program=program_me,
                     creator=sophie,
     )
@@ -373,7 +355,7 @@ with app.app_context():
                     description="",
                     frequency="tffffft",
                     color=colors[18],
-                    stamp=stamps[5],
+                    icon=icons[5],
                     program=program_ashe,
                     creator=ashe,
     )
@@ -417,15 +399,15 @@ with app.app_context():
 
     db.session.commit()
 
-    def create_daily_stamps(year=2020, month=11):
-        """Generate daily stamp instances and add to db session."""
+    def create_stamps(year=2020, month=11):
+        """Generate stamp instances and add to db session."""
         for d in range(1, 30):
             if d in (1, 7, 8, 15, 21, 22, 28):
-                daily = DailyStamp(
+                stamp = Stamp(
                     date=datetime(2020, 11, d),
                     status='stamped', habit=habit_teeth, membership=member_sophie1,
                 )
-                db.session.add(daily)
+                db.session.add(stamp)
 
     # randomlist = []
     # for i in range(0,5):
@@ -438,7 +420,7 @@ with app.app_context():
 
 # Total_number_days = monthrange(2020, 2)[1]
 # print("\nTotal Number of Days in a Month: ",Total_number_days)
-    def createDailyStamps(habit, membership, month, year, missedDays):
+    def createStamps(habit, membership, month, year, missedDays):
         maxDays = monthrange(year, month)[1]
         missedList = []
         while len(missedList) < missedDays:
@@ -447,79 +429,79 @@ with app.app_context():
                 missedList.append(missedStampDay)
         for d in range(1, 30):
             if d not in missedList:
-                daily = DailyStamp(
+                stamp = Stamp(
                     date=datetime(year, month, d),
                     status='stamped',
                     habit=habit,
                     membership_id=membership
                 )
-                db.session.add(daily)
+                db.session.add(stamp)
         db.session.commit()
 
-    createDailyStamps(habit_workone, 1, 12, 2019, 4)
-    createDailyStamps(habit_workone, 1, 1, 2020, 1)
-    createDailyStamps(habit_workone, 1, 2, 2020, 3)
-    createDailyStamps(habit_workone, 1, 3, 2020, 0)
-    createDailyStamps(habit_workone, 1, 4, 2020, 2)
-    createDailyStamps(habit_workone, 1, 5, 2020, 4)
-    createDailyStamps(habit_workone, 1, 6, 2020, 6)
-    createDailyStamps(habit_workone, 1, 7, 2020, 8)
-    createDailyStamps(habit_workone, 1, 8, 2020, 7)
-    createDailyStamps(habit_workone, 1, 9, 2020, 4)
-    createDailyStamps(habit_workone, 1, 10, 2020, 3)
-    createDailyStamps(habit_workone, 1, 11, 2020, 1)
+    createStamps(habit_workone, 1, 12, 2019, 4)
+    createStamps(habit_workone, 1, 1, 2020, 1)
+    createStamps(habit_workone, 1, 2, 2020, 3)
+    createStamps(habit_workone, 1, 3, 2020, 0)
+    createStamps(habit_workone, 1, 4, 2020, 2)
+    createStamps(habit_workone, 1, 5, 2020, 4)
+    createStamps(habit_workone, 1, 6, 2020, 6)
+    createStamps(habit_workone, 1, 7, 2020, 8)
+    createStamps(habit_workone, 1, 8, 2020, 7)
+    createStamps(habit_workone, 1, 9, 2020, 4)
+    createStamps(habit_workone, 1, 10, 2020, 3)
+    createStamps(habit_workone, 1, 11, 2020, 1)
 
-    createDailyStamps(habit_worktwo, 1, 1, 2020, 12)
-    createDailyStamps(habit_worktwo, 1, 2, 2020, 10)
-    createDailyStamps(habit_worktwo, 1, 3, 2020, 8)
-    createDailyStamps(habit_worktwo, 1, 4, 2020, 9)
-    createDailyStamps(habit_worktwo, 1, 5, 2020, 11)
-    createDailyStamps(habit_worktwo, 1, 6, 2020, 18)
-    createDailyStamps(habit_worktwo, 1, 7, 2020, 20)
-    createDailyStamps(habit_worktwo, 1, 8, 2020, 17)
-    createDailyStamps(habit_worktwo, 1, 9, 2020, 15)
-    createDailyStamps(habit_worktwo, 1, 10, 2020, 15)
-    createDailyStamps(habit_worktwo, 1, 11, 2020, 17)
+    createStamps(habit_worktwo, 1, 1, 2020, 12)
+    createStamps(habit_worktwo, 1, 2, 2020, 10)
+    createStamps(habit_worktwo, 1, 3, 2020, 8)
+    createStamps(habit_worktwo, 1, 4, 2020, 9)
+    createStamps(habit_worktwo, 1, 5, 2020, 11)
+    createStamps(habit_worktwo, 1, 6, 2020, 18)
+    createStamps(habit_worktwo, 1, 7, 2020, 20)
+    createStamps(habit_worktwo, 1, 8, 2020, 17)
+    createStamps(habit_worktwo, 1, 9, 2020, 15)
+    createStamps(habit_worktwo, 1, 10, 2020, 15)
+    createStamps(habit_worktwo, 1, 11, 2020, 17)
 
-    createDailyStamps(habit_socialone, 2, 6, 2020, 13)
-    createDailyStamps(habit_socialone, 2, 7, 2020, 14)
-    createDailyStamps(habit_socialone, 2, 8, 2020, 18)
-    createDailyStamps(habit_socialone, 2, 9, 2020, 15)
-    createDailyStamps(habit_socialone, 2, 10, 2020, 25)
-    createDailyStamps(habit_socialone, 2, 11, 2020, 24)
+    createStamps(habit_socialone, 2, 6, 2020, 13)
+    createStamps(habit_socialone, 2, 7, 2020, 14)
+    createStamps(habit_socialone, 2, 8, 2020, 18)
+    createStamps(habit_socialone, 2, 9, 2020, 15)
+    createStamps(habit_socialone, 2, 10, 2020, 25)
+    createStamps(habit_socialone, 2, 11, 2020, 24)
 
-    createDailyStamps(habit_socialtwo, 2, 2, 2020, 26)
-    createDailyStamps(habit_socialtwo, 2, 3, 2020, 25)
-    createDailyStamps(habit_socialtwo, 2, 4, 2020, 26)
-    createDailyStamps(habit_socialtwo, 2, 5, 2020, 25)
-    createDailyStamps(habit_socialtwo, 2, 6, 2020, 25)
-    createDailyStamps(habit_socialtwo, 2, 7, 2020, 25)
-    createDailyStamps(habit_socialtwo, 2, 8, 2020, 24)
-    createDailyStamps(habit_socialtwo, 2, 9, 2020, 24)
-    createDailyStamps(habit_socialtwo, 2, 10, 2020, 25)
-    createDailyStamps(habit_socialtwo, 2, 11, 2020, 26)
+    createStamps(habit_socialtwo, 2, 2, 2020, 26)
+    createStamps(habit_socialtwo, 2, 3, 2020, 25)
+    createStamps(habit_socialtwo, 2, 4, 2020, 26)
+    createStamps(habit_socialtwo, 2, 5, 2020, 25)
+    createStamps(habit_socialtwo, 2, 6, 2020, 25)
+    createStamps(habit_socialtwo, 2, 7, 2020, 25)
+    createStamps(habit_socialtwo, 2, 8, 2020, 24)
+    createStamps(habit_socialtwo, 2, 9, 2020, 24)
+    createStamps(habit_socialtwo, 2, 10, 2020, 25)
+    createStamps(habit_socialtwo, 2, 11, 2020, 26)
 
     gamedays = [8, 15, 20, 22, 29]
     for day in gamedays:
-        daily = DailyStamp(
+        stamp = Stamp(
             date=datetime(2020, 11, day),
             status='stamped', habit=habit_socialthree, membership_id=2,
         )
-        db.session.add(daily)
+        db.session.add(stamp)
         db.session.commit()
 
 
-    createDailyStamps(habit_choresone, 3, 8, 2020, 10)
-    createDailyStamps(habit_choresone, 3, 9, 2020, 6)
-    createDailyStamps(habit_choresone, 3, 10, 2020, 3)
-    createDailyStamps(habit_choresone, 3, 11, 2020, 0)
+    createStamps(habit_choresone, 3, 8, 2020, 10)
+    createStamps(habit_choresone, 3, 9, 2020, 6)
+    createStamps(habit_choresone, 3, 10, 2020, 3)
+    createStamps(habit_choresone, 3, 11, 2020, 0)
 
     # July 5/2020
     startHabitDate = date(2020, 7, 5)
     while startHabitDate < date.today():
         weekdays = ["Monday", "Wednesday", "Friday"]
         if startHabitDate.strftime("%A") in weekdays:
-            newStamp = DailyStamp(
+            newStamp = Stamp(
                 date=startHabitDate.strftime("%Y-%m-%d"),
                 status='stamped',
                 habit=habit_chorestwo,
@@ -529,95 +511,95 @@ with app.app_context():
             db.session.commit()
         startHabitDate += timedelta(days=1)
 
-    createDailyStamps(habit_choresthree, 3, 1, 2020, 5)
-    createDailyStamps(habit_choresthree, 3, 2, 2020, 13)
-    createDailyStamps(habit_choresthree, 3, 3, 2020, 14)
-    createDailyStamps(habit_choresthree, 3, 4, 2020, 19)
-    createDailyStamps(habit_choresthree, 3, 5, 2020, 20)
-    createDailyStamps(habit_choresthree, 3, 6, 2020, 17)
-    createDailyStamps(habit_choresthree, 3, 7, 2020, 14)
-    createDailyStamps(habit_choresthree, 3, 8, 2020, 10)
-    createDailyStamps(habit_choresthree, 3, 9, 2020, 12)
-    createDailyStamps(habit_choresthree, 3, 10, 2020, 13)
-    createDailyStamps(habit_choresthree, 3, 11, 2020, 10)
+    createStamps(habit_choresthree, 3, 1, 2020, 5)
+    createStamps(habit_choresthree, 3, 2, 2020, 13)
+    createStamps(habit_choresthree, 3, 3, 2020, 14)
+    createStamps(habit_choresthree, 3, 4, 2020, 19)
+    createStamps(habit_choresthree, 3, 5, 2020, 20)
+    createStamps(habit_choresthree, 3, 6, 2020, 17)
+    createStamps(habit_choresthree, 3, 7, 2020, 14)
+    createStamps(habit_choresthree, 3, 8, 2020, 10)
+    createStamps(habit_choresthree, 3, 9, 2020, 12)
+    createStamps(habit_choresthree, 3, 10, 2020, 13)
+    createStamps(habit_choresthree, 3, 11, 2020, 10)
 
     for d in range(1, 30):
         if d in (1, 7, 8, 14, 15, 21, 22, 26, 28, 29):
-            daily = DailyStamp(
+            stamp = Stamp(
                 date=datetime(2020, 11, d),
                 status='stamped', habit=habit_draw, membership=member_sophie2,
             )
-            db.session.add(daily)
+            db.session.add(stamp)
     for d in range(1, 30):
         if d in (1, 3, 4, 14, 17, 20, 22, 28, 26):
-            daily = DailyStamp(
+            stamp = Stamp(
                 date=datetime(2020, 10, d),
                 status='stamped', habit=habit_draw, membership=member_sophie2,
             )
-            db.session.add(daily)
+            db.session.add(stamp)
     for d in range(1, 30):
         if d in (1, 4, 7):
-            daily = DailyStamp(
+            stamp = Stamp(
                 date=datetime(2020, 8, d),
                 status='stamped', habit=habit_draw, membership=member_sophie2,
             )
-            db.session.add(daily)
+            db.session.add(stamp)
 
     for d in range(1, 30):
         if d not in (1, 7, 8, 14, 15, 21, 22, 23, 24, 25, 29):
             print("\nDATE", d)
             print(datetime(2020, 11, d))
-            daily1 = DailyStamp(
+            stamp1 = Stamp(
                 date=datetime(2020, 11, d),
                 status='stamped', habit=habit_hair, membership=member_sophie2,
             )
-            daily2 = DailyStamp(
+            stamp2 = Stamp(
                 date=datetime(2020, 11, d),
                 status='stamped', habit=habit_dress, membership=member_sophie2,
             )
-            db.session.add(daily1)
-            db.session.add(daily2)
+            db.session.add(stamp1)
+            db.session.add(stamp2)
 
-    rewardOne = Reward(reward="go out for ice cream",
+    rewardOne = Reward(title="go out for ice cream",
                     description="free ice cream",
                     cost=5,
                     color=colors[4],
                     limit_per_member=-1,
                     quantity=5,
-                    stamp=stamps[28],
+                    icon=icons[28],
                     program_id=2,
                     creator=demo,
                     type="custom",
     )
-    rewardThree = Reward(reward="new bike",
+    rewardThree = Reward(title="new bike",
                     description="john promises to buy a new bike",
                     cost=100,
                     color=colors[20],
                     limit_per_member=1,
                     quantity=1,
-                    stamp=stamps[22],
+                    icon=icons[22],
                     program_id=2,
                     creator=demo,
                     type="custom",
     )
-    rewardTwo = Reward(reward="bowling night",
+    rewardTwo = Reward(title="bowling night",
                     description="bowling with the boizzz",
                     cost=7,
                     color=colors[8],
                     limit_per_member=2,
                     quantity=2,
-                    stamp=stamps[14],
+                    icon=icons[14],
                     program_id=2,
                     creator=demo,
                     type="custom",
     )
-    rewardFour = Reward(reward="trip to the casino",
+    rewardFour = Reward(title="trip to the casino",
                     description="with robert, lyn, and rita",
                     cost=25,
                     color=colors[5],
                     limit_per_member=1,
                     quantity=1,
-                    stamp=stamps[10],
+                    icon=icons[10],
                     program_id=2,
                     creator=demo,
                     type="custom",
@@ -628,28 +610,16 @@ with app.app_context():
     db.session.add(rewardFour)
     db.session.commit()
 
-    for color in colors:
-        reward = Reward(type='color',
-                        reward=f"Color: {color.name.title()}",
-                        description=f"Gain access to the '{color.name.title()}' color theme!",
-                        cost=7,
-                        color=color,
-                        limit_per_member=1,
-                        quantity=-1,
-                        stamp=stamps[6],
-        )
-        db.session.add(reward)
-
     cookies = ["Chocolate Chip", "Sugar", "Mint", "Peanut Butter"]
     for cookie in cookies:
         reward = Reward(type='custom',
-                        reward=f"{cookie} Cookie",
+                        title=f"{cookie} Cookie",
                         description=f"One giant {cookie.lower()} cookie.",
                         cost=7,
                         color=colors[7],
                         limit_per_member=-1,
                         quantity=-1,
-                        stamp=stamps[12],
+                        icon=icons[12],
                         program=program_mom,
                         creator=mom,
         )

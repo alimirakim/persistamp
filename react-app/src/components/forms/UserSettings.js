@@ -18,9 +18,8 @@ import {
 
 export default function UserSettings({ settingsOpen, handleSettingsClose }) {
   const { user, setUser } = useContext(UserContext)
-  console.log("user settings user", user)
-  const [color, setColor] = useState(user.color.id)
-  const [stamp, setStamp] = useState(user.stamp.id)
+  const [color, setColor] = useState(user.color)
+  const [stamp, setStamp] = useState(user.icon)
   const [errors, setErrors] = useState([])
   const [firstname, setFirstname] = useState(user.first_name)
   const [lastname, setLastname] = useState(user.last_name)

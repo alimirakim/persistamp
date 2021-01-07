@@ -49,8 +49,7 @@ function HabitForm({ pid, program }) {
   }
 
   const renderErrors = (errors) => {
-    if (errors) {
-      console.log("trying to render user setting errors")
+    if (errors.length) {
       return errors.map(error => {
         console.log(error)
         return <div className='material-error'>{error}</div>
@@ -61,7 +60,7 @@ function HabitForm({ pid, program }) {
 
   return (
     <>
-      <button className="make-btn" onClick={handleClickOpen} style={{backgroundColor: program.color.hex, color: "black"}}><i className="fas fa-plus-circle"></i> Habit</button>
+      <button className="make-btn" onClick={handleClickOpen} style={{backgroundColor: program.color, color: "black"}}><i className="fas fa-plus-circle"></i> Habit</button>
 
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add a habit to {program.program}!</DialogTitle>

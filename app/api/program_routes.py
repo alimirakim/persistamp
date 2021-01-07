@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, jsonify, request
 from sqlalchemy.orm import joinedload
 from flask_login import current_user
 from app.models import db, Program, User, Membership
-from app.schemas import program_schema, user_schema, color_schema, stamp_schema
+from app.schemas import program_schema, user_schema, color_schema, icon_schema
 from app.forms import ProgramForm
 from app.utils import queryUserFullData, validation_errors_to_error_messages
 
@@ -26,10 +26,10 @@ def create_program():
 
     if form.validate():
         program = Program(
-            program=form.data['program'],
+            program=form.data["title"],
             description=form.data['description'],
             color_id=form.data['color'],
-            stamp_id=form.data['stamp'],
+            icon_id=form.data["icon"],
             creator_id=request.json['userId'],
         )
         db.session.add(program)
@@ -43,7 +43,7 @@ def create_program():
 
         program_data = program_schema.dump(program)
         program_data["color"] = color_schema.dump(program.color)
-        program_data["stamp"] = stamp_schema.dump(program.stamp)
+        program_data["icon"] = icon_schema.dump(program.icon)
         program_data["creator"] = user_schema.dump(program.creator)
         
         updated_user = queryUserFullData(current_user.id)
@@ -60,19 +60,15 @@ def edit_program(pid):
     form['csrf_token'].data = request.cookies['csrf_token']
     
     if form.validate():
-        program = Program.query.options(joinedload(Program.color), joinedload(Program.stamp), joinedload(Program.creator)).get(pid)
-        program.program = form.data['program']
+        program = Program.query.options(joinedload(Program.color), joinedload(Program.icon), joinedload(Program.creator)).get(pid)
+        program.title = form.data['title']
         program.description = form.data['description']
         program.color_id = form.data['color']
-        program.stamp_id = form.data['stamp']
+        program.icon_id = form.data["icon"]
         
         db.session.commit()
-        program_data = program_schema.dump(program)
-        program_data["color"] = color_schema.dump(program.color)
-        program_data["stamp"] = stamp_schema.dump(program.stamp)
-        program_data["creator"] = user_schema.dump(program.creator)
 
-        return jsonify(program_data)
+        return program.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 

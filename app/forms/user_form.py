@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField
 from wtforms.validators import DataRequired
-from app.utils import colors, stamps
+from app.utils import colors, icons
 
 
 class UserForm(FlaskForm):
@@ -11,7 +11,7 @@ class UserForm(FlaskForm):
     color = SelectField(validators=[DataRequired()], 
                         choices=range(1, len(colors)+1), 
                         default=1)
-    stamp = SelectField(validators=[DataRequired()], 
-                        choices=range(1, len(stamps)+1), 
+    icon = SelectField(validators=[DataRequired()], 
+                        choices=range(1, len(icons)+1), 
                         default=1)
     submit = SubmitField()

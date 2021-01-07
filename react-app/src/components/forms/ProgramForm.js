@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { Dialog, DialogTitle, DialogContent, InputLabel } from '@material-ui/core'
+import { Dialog, DialogTitle, DialogContent } from '@material-ui/core'
 import UserContext from '../../context/UserContext'
 import HabitBoardContext from '../../context/HabitBoardContext'
 import OptionsContext from '../../context/OptionsContext'
@@ -18,7 +18,6 @@ export default function ProgramForm() {
   const [description, setDescription] = useState()
   const [color, setColor] = useState(1)
   const [stamp, setStamp] = useState(2)
-  console.log("program ")
 
   const handleOpen = (e) => setOpen(true)
   const handleClose = (e) => setOpen(false)
@@ -52,7 +51,6 @@ export default function ProgramForm() {
     }
   }
   if (!colors || !stamps) return null
-  console.log("program colors/stamps", stamps)
 
   return (<>
     <button className="make-btn make-btn-big" onClick={handleOpen} style={{backgroundColor: "crimson"}}>
@@ -101,11 +99,9 @@ export function ProgramEditForm({ program }) {
         stamp,
       })
     })
-    console.log('program-edit res: ', res)
     if(res.ok){
       const editedProgram = await res.json()
       dispatchPrograms(editProgram(editedProgram))
-      console.log("we made a program!", editedProgram)
     }else{
       setErrors(res.errors)
     }
@@ -114,7 +110,6 @@ export function ProgramEditForm({ program }) {
   const renderErrors = (errors) => {
     if (errors) {
       return errors.map(error => {
-        console.log(error)
         return <div className='material-error'>{error}</div>
       })
     }
@@ -162,7 +157,6 @@ export function ProgramDeleteForm({ program }) {
     dispatchPrograms(deleteProgram(program))
     const res = await fetch(`/api/programs/${program.id}`, { method: "DELETE" })
     const updated_user = await res.json()
-    console.log("deleted :0, user now:", updated_user)
     setUser(updated_user)
   }
 

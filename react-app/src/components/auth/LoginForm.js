@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import { login } from "../../services/auth";
-import { FormControl, TextField, Button } from '@material-ui/core';
-import { ActionOrCancelButtons } from '../forms/FormInputs';
+import { TextField, Button } from '@material-ui/core';
 import SignUpForm from './SignUpForm';
 
 
@@ -42,6 +41,7 @@ const LoginForm = ({ auth, setAuth, loadUserData }) => {
       handleClose={handleClose}
       auth={auth}
       setAuth={setAuth}
+      loadUserData={loadUserData}
     />
     <div className="loginContainer">
       <div>

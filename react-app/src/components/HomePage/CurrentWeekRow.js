@@ -10,11 +10,15 @@ export default function CurrentWeekRow({ program, dispatchHabits }) {
   return (
     <tr>
       <th>
-        <HabitForm pid={program.id} program={program} dispatchHabits={dispatchHabits} />
+        <HabitForm 
+        pid={program.id} 
+        program={program} 
+        dispatchHabits={dispatchHabits} 
+        />
       </th>
 
       {week.map((day, i) => (
-        <th>
+        <th key={day}>
           <time dateTime={week[i][1]}>{week[i][0]} <br />
             <small>{week[i][1].slice(8, 10)}</small>
           </time>

@@ -18,7 +18,7 @@ export default function HabitEditForm({ habit }) {
   const [description, setDescription] = useState(habit.description)
   const [frequency, setFrequency] = useState(habit.frequency)
   const [color, setColor] = useState(habit.color.id)
-  const [stamp, setStamp] = useState(habit.stamp.id)
+  const [stamp, setStamp] = useState(habit.icon.id)
 
   const handleClickOpen = () => {
     console.log("opened habit", habit)
