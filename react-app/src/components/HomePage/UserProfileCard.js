@@ -1,7 +1,6 @@
-import React, { useContext, useState } from 'react'
-import { Avatar } from '@material-ui/core'
+import React, { useContext } from 'react'
 import UserContext from '../../context/UserContext'
-import UserSettings from '../forms/UserSettings'
+// import UserSettings from '../forms/UserSettings'
 
 export default function UserProfileCard() {
   const { user } = useContext(UserContext)
@@ -9,54 +8,27 @@ export default function UserProfileCard() {
   if (!user) return null
   return (
     <>
-    <article className="card-dark" style={{ color: user.color, boxShadow: `8px 8px 0 ${user.color}` }}>
+      <article className="card-dark" style={{ color: user.color, boxShadow: `8px 8px 0 ${user.color}` }}>
 
-      <dl className="card-data">
-        <dt className="card-name-label"><i className="fas fa-address-card"></i> NAME</dt>
-        <dd className="card-name">    {user.first_name} {user.last_name}</dd>
-        <div className="card-body">
-        <div className="card-data">
-          <dt hidden="true">PROFILE IMAGE</dt>
-          <dd><i className={`avi fas fa-${user.icon}`}></i></dd>
+        <dl className="card-data">
+          <dt className="card-name-label"><i className="fas fa-address-card"></i> NAME</dt>
+          <dd className="card-name">    {user.first_name} {user.last_name}</dd>
+          <div className="card-body">
+            <div className="card-data">
+              <dt hidden={true}>PROFILE IMAGE</dt>
+              <dd><i className={`avi fas fa-${user.icon}`}></i></dd>
+            </div>
+            <div className="side-card card-data">
+              <dt> <i className="fas fa-heart"></i> NICKNAME</dt>
+              <dd>{user.username}</dd>
+              <dt><i className="fas fa-birthday-cake"></i> D.O.B.</dt>
+              <dd><i className={`fas fa-birthday`}></i> {new Date(user.birthday).toLocaleString('en-EN', { year: 'numeric', month: 'long', day: 'numeric' })}</dd>
+              <dt> <i className="fas fa-envelope-square"></i> EMAIL</dt>
+              <dd>{user.email}</dd>
+            </div>
           </div>
-          <div className="side-card card-data">
-            <dt> <i className="fas fa-heart"></i> NICKNAME</dt>
-            <dd>{user.username}</dd>
-            <dt><i className="fas fa-birthday-cake"></i> D.O.B.</dt>
-            <dd><i className={`fas fa-birthday`}></i> {new Date(user.birthday).toLocaleString('en-EN', {year: 'numeric', month: 'long', day: 'numeric'})}</dd>
-            <dt> <i className="fas fa-envelope-square"></i> EMAIL</dt>
-            <dd>{user.email}</dd>
-          </div>
-        </div>
-      </dl>
-    </article>
-    </>
-    )
-
-  // }
-  return (
-    <>
-    <article className="card" style={{ color: user.color, boxShadow: `8px 8px 0 ${user.color}` }}>
-
-      <dl className="card-data">
-        <dt className="card-name-label"><i className="fas fa-address-card"></i> NAME</dt>
-        <dd className="card-name">    {user.first_name} {user.last_name}</dd>
-        <div className="card-body">
-        <div className="card-data">
-          <dt hidden="true">PROFILE IMAGE</dt>
-          <dd><i className={`avi fas fa-${user.icon}`}></i></dd>
-          </div>
-          <div className="side-card card-data">
-            <dt> <i className="fas fa-heart"></i> NICKNAME</dt>
-            <dd>{user.username}</dd>
-            <dt><i className="fas fa-birthday-cake"></i> D.O.B.</dt>
-            <dd><i className={`fas fa-birthday`}></i> {new Date(user.birthday).toLocaleString('en-EN', {year: 'numeric', month: 'long', day: 'numeric'})}</dd>
-            <dt> <i className="fas fa-envelope-square"></i> EMAIL</dt>
-            <dd>{user.email}</dd>
-          </div>
-        </div>
-      </dl>
-    </article>
+        </dl>
+      </article>
     </>
   )
 }

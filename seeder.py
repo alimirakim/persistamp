@@ -404,7 +404,7 @@ with app.app_context():
         for d in range(1, 30):
             if d in (1, 7, 8, 15, 21, 22, 28):
                 stamp = Stamp(
-                    date=datetime(2020, 11, d),
+                    date=date(2020, 11, d),
                     status='stamped', habit=habit_teeth, membership=member_sophie1,
                 )
                 db.session.add(stamp)
@@ -430,7 +430,7 @@ with app.app_context():
         for d in range(1, 30):
             if d not in missedList:
                 stamp = Stamp(
-                    date=datetime(year, month, d),
+                    date=date(year, month, d),
                     status='stamped',
                     habit=habit,
                     membership_id=membership
@@ -484,7 +484,7 @@ with app.app_context():
     gamedays = [8, 15, 20, 22, 29]
     for day in gamedays:
         stamp = Stamp(
-            date=datetime(2020, 11, day),
+            date=date(2020, 11, day),
             status='stamped', habit=habit_socialthree, membership_id=2,
         )
         db.session.add(stamp)
@@ -526,21 +526,21 @@ with app.app_context():
     for d in range(1, 30):
         if d in (1, 7, 8, 14, 15, 21, 22, 26, 28, 29):
             stamp = Stamp(
-                date=datetime(2020, 11, d),
+                date=date(2020, 11, d),
                 status='stamped', habit=habit_draw, membership=member_sophie2,
             )
             db.session.add(stamp)
     for d in range(1, 30):
         if d in (1, 3, 4, 14, 17, 20, 22, 28, 26):
             stamp = Stamp(
-                date=datetime(2020, 10, d),
+                date=date(2020, 10, d),
                 status='stamped', habit=habit_draw, membership=member_sophie2,
             )
             db.session.add(stamp)
     for d in range(1, 30):
         if d in (1, 4, 7):
             stamp = Stamp(
-                date=datetime(2020, 8, d),
+                date=date(2020, 8, d),
                 status='stamped', habit=habit_draw, membership=member_sophie2,
             )
             db.session.add(stamp)
@@ -550,11 +550,11 @@ with app.app_context():
             print("\nDATE", d)
             print(datetime(2020, 11, d))
             stamp1 = Stamp(
-                date=datetime(2020, 11, d),
+                date=date(2020, 11, d),
                 status='stamped', habit=habit_hair, membership=member_sophie2,
             )
             stamp2 = Stamp(
-                date=datetime(2020, 11, d),
+                date=date(2020, 11, d),
                 status='stamped', habit=habit_dress, membership=member_sophie2,
             )
             db.session.add(stamp1)

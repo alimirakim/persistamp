@@ -18,13 +18,13 @@ import RewardShop from './components/RewardPage/RewardShop'
 import Homepage from './components/HomePage/Homepage'
 
 import {
-  userReducer, programsReducer, habitsReducer, dailiesReducer,
-  setUser, setPrograms, setHabits, setDailies,
-  resetPrograms, resetHabits, resetDailies,
+  userReducer, programsReducer, habitsReducer, stampsReducer,
+  setUser, setPrograms, setHabits, setStamps,
+  resetPrograms, resetHabits, resetStamps,
 } from "./context/reducers"
 
 import './styles/index.css'
-import { dispatchUserContent } from "./utils";
+// import { dispatchUserContent } from "./utils";
 
 // import HabitForm from "./components/HabitForm";
 // import BarGraph from './components/BarGraph';
@@ -35,28 +35,29 @@ function App() {
   const [auth, setAuth] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [colors, setColors] = useState()
-  const [stamps, setStamps] = useState()
+  const [icons, setIcons] = useState()
   const [week, setWeek] = useState()
 
   const [user, dispatchUser] = useReducer(userReducer)
   const [programs, dispatchPrograms] = useReducer(programsReducer)
   const [habits, dispatchHabits] = useReducer(habitsReducer)
-  const [dailies, dispatchDailies] = useReducer(dailiesReducer)
+  const [stamps, dispatchStamps] = useReducer(stampsReducer)
 
   // Fancy wrapper function that can be passed down for fancy extra effects :3
   const updateUser = (user) => {
     dispatchPrograms(resetPrograms())
     dispatchHabits(resetHabits())
-    dispatchDailies(resetDailies())
+    dispatchStamps(resetStamps())
   }
   
   function loadUserData(content) {
-    const { user_data, programs_data, habits_data, daily_stamps_data, past_week } = content
+    const { user_data, programs_data, habits_data, stamps_data, past_week } = content
+    console.log("stamps data", stamps_data)
     setWeek(past_week)
     dispatchUser(setUser(user_data))
     dispatchPrograms(setPrograms(programs_data))
     dispatchHabits(setHabits(habits_data))
-    dispatchDailies(setDailies(daily_stamps_data))
+    dispatchStamps(setStamps(stamps_data))
     setAuth(true)
   }
 
@@ -70,33 +71,30 @@ function App() {
       if (!content.errors) {
         loadUserData(content)
       }
-      const { colors_data, stamps_data } = await fetch(`/api/options`).then(res => res.json())
-      console.log("color count", colors_data.length, "stamp count", stamps_data.length)
+      const { colors_data, icons_data } = await fetch(`/api/options`).then(res => res.json())
+      console.log("color count", colors_data.length, "stamp count", icons_data.length)
       setColors(colors_data)
-      setStamps(stamps_data)
+      setIcons(icons_data)
       setLoaded(true)
     })()
   }, [])
 
-
-
-
-  // When the user changes, reload programs, habits, and dailies
-  useEffect(() => {
-    if (!user) return;
-    (async () => {
-      const { programs_data, habits_data, dailies_data } = await fetch(`/api/users/${user.id}/programs`).then(res => res.json())
-      console.log("reload", programs_data, habits_data, dailies_data)
-      dispatchPrograms(setPrograms(programs_data))
-      dispatchHabits(setHabits(habits_data))
-      dispatchDailies(setDailies(dailies_data))
-    })()
-  }, [user])
+  // When the user changes, reload programs, habits, and stamps
+  // useEffect(() => {
+  //   if (!user) return;
+  //   (async () => {
+  //     const { programs_data, habits_data, stamps_data } = await fetch(`/api/users/${user.id}/programs`).then(res => res.json())
+  //     console.log("reload", programs_data, habits_data, stamps_data)
+  //     dispatchPrograms(setPrograms(programs_data))
+  //     dispatchHabits(setHabits(habits_data))
+  //     dispatchStamps(setStamps(stamps_data))
+  //   })()
+  // }, [user])
 
   useEffect(() => console.log("user", user), [user])
   useEffect(() => console.log("programs", programs), [programs])
   useEffect(() => console.log("habits", habits), [habits])
-  useEffect(() => console.log("dailies", dailies), [dailies])
+  useEffect(() => console.log("stamps", stamps), [stamps])
 
 
   if (!loaded) return null
@@ -104,7 +102,7 @@ function App() {
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ user, setUser: updateUser }}>
-        <OptionsContext.Provider value={{ colors, stamps }}>
+        <OptionsContext.Provider value={{ colors, icons }}>
 
           <NavBar auth={auth} setAuth={setAuth} user={user} />
 
@@ -128,7 +126,7 @@ function App() {
             <User />
           </ProtectedRoute>
 
-          <HabitBoardContext.Provider value={{ programs, dispatchPrograms, habits, dispatchHabits, dailies, dispatchDailies, week }}>
+          <HabitBoardContext.Provider value={{ programs, dispatchPrograms, habits, dispatchHabits, stamps, dispatchStamps, week }}>
             <ProtectedRoute path="/graphs/:hid/memberships/:mid" auth={auth}>
               <HabitDisplay />
             </ProtectedRoute>

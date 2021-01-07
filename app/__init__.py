@@ -92,4 +92,4 @@ def options():
     icons = Icon.query.all()
     return jsonify(
         colors_data=[c.to_dict() for c in colors], 
-        stamps_data=[i.to_dict() for i in icons])
+        icons_data=[i.to_dict() for i in icons])

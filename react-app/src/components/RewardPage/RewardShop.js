@@ -7,7 +7,7 @@ import UserContext from '../../context/UserContext'
 import HabitBoardContext from '../../context/HabitBoardContext'
 
 import {
-  AddName, AddDescription, ChooseColor, ChooseStamp, ChooseLimit, ChooseQuantity, ChooseCost, ActionOrCancelButtons
+  AddTitle, AddDescription, ChooseColor, ChooseIcon, ChooseLimit, ChooseQuantity, ChooseCost, ActionOrCancelButtons
 } from '../forms/FormInputs'
 import {
   setProgramRewards, createReward, editReward, deleteReward, setRedeemed, redeemReward, rewardsReducer, redeemedReducer
@@ -68,8 +68,8 @@ export default function RewardShop() {
     </Link>
 
     <div style={{ display: "flex", flexDirection: "column", alignContent: "center", alignItems: "center" }}>
-      <h1 className="cam" style={{ fontSize: "3rem", margin: "2rem" }}><i className={`fas fa-${program.stamp}`}></i> {program.program} Reward Shop</h1>
-      <h2>Your Points: <span style={{ fontSize: "3rem" }}>{points} <i className={`fas fa-${program.stamp}`}></i></span></h2>
+      <h1 className="cam" style={{ fontSize: "3rem", margin: "2rem" }}><i className={`fas fa-${program.icon}`}></i> {program.title} Reward Shop</h1>
+      <h2>Your Points: <span style={{ fontSize: "3rem" }}>{points} <i className={`fas fa-${program.icon}`}></i></span></h2>
 
       <RewardForm program={program} dispatchRewards={dispatchRewards} rewards={rewards} />
       <div style={{ display: "flex", justifyContent: "space-around" }}>
@@ -99,7 +99,7 @@ export default function RewardShop() {
                   <dt>Redeemed at:</dt>
                   <dd>{new Date(redeem.redeemed_at).toLocaleString()}</dd>
                   <dt>Cost:</dt>
-                  <dd>{redeem.reward.cost} <i className={`fas fa-${redeem.reward.stamp}`}></i></dd>
+                  <dd>{redeem.reward.cost} <i className={`fas fa-${redeem.reward.icon}`}></i></dd>
                 </dl>
               </li>
             ))}
@@ -137,7 +137,7 @@ function RedeemForm({ redeemed, reward, uid, setPoints, dispatchRedeemed }) {
         <dt>Quantity:</dt>
         <dd>{reward.quantity}</dd>
         <dt>Cost:</dt>
-        <dd>{reward.cost} <i className={`fas fa-${reward.stamp}`}></i></dd>
+        <dd>{reward.cost} <i className={`fas fa-${reward.icon}`}></i></dd>
       </dl>
     </button>
 
@@ -151,7 +151,7 @@ function RedeemForm({ redeemed, reward, uid, setPoints, dispatchRedeemed }) {
           <dt>Quantity Remaining:</dt>
           <dd>{reward.quantity}</dd>
           <dt>Cost:</dt>
-          <dd>{reward.cost} <i className={`fas fa-${reward.stamp}`}></i></dd>
+          <dd>{reward.cost} <i className={`fas fa-${reward.icon}`}></i></dd>
         </dl>
         <ActionOrCancelButtons handleClose={handleClose} onAction={onRedeem} action={"Redeem"} />
       </DialogContent>
@@ -173,12 +173,12 @@ function RedeemForm({ redeemed, reward, uid, setPoints, dispatchRedeemed }) {
 
 export function RewardForm({ program, dispatchRewards, rewards, }) {
   const { user } = useContext(UserContext)
-  const { colors, stamps } = useContext(OptionsContext)
+  const { colors, icons } = useContext(OptionsContext)
   const [open, setOpen] = useState(false)
-  const [name, setName] = useState()
+  const [title, setTitle] = useState()
   const [description, setDescription] = useState()
   const [color, setColor] = useState(1)
-  const [stamp, setStamp] = useState(4)
+  const [icon, setIcon] = useState(4)
   const [cost, setCost] = useState(7)
   const [limit, setLimit] = useState(-1)
   const [quantity, setQuantity] = useState(-1)
@@ -195,10 +195,10 @@ export function RewardForm({ program, dispatchRewards, rewards, }) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        reward: name,
+        reward: title,
         description,
         color,
-        stamp,
+        icon,
         cost,
         limit,
         quantity,
@@ -211,10 +211,10 @@ export function RewardForm({ program, dispatchRewards, rewards, }) {
       console.log("new reward!", reward)
       dispatchRewards(createReward(reward))
       console.log("rewards!", rewards)
-      setName()
+      setTitle()
       setDescription()
       setColor(1)
-      setStamp(4)
+      setIcon(4)
       setCost(7)
       setLimit(-1)
       setQuantity(-1)
@@ -228,16 +228,16 @@ export function RewardForm({ program, dispatchRewards, rewards, }) {
 
       <button className=" make-btn" onClick={handleOpen} style={{ backgroundColor: "crimson", width: "100%", fontSize: "2rem" }}><i className="fas fa-plus-circle"></i> Reward</button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Create a reward for "{program.program}"!</DialogTitle>
+        <DialogTitle>Create a reward for "{program.title}"!</DialogTitle>
         <div>
           {renderErrors(errors)}
         </div>
         <DialogContent>
 
-          <AddName name={name} setName={setName} />
+          <AddTitle title={title} setTitle={setTitle} />
           <AddDescription description={description} setDescription={setDescription} />
           <ChooseColor colors={colors} color={color} setColor={setColor} />
-          <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} color={color} />
+          <ChooseIcon icons={icons} icon={icon} setIcon={setIcon} color={color} />
           <ChooseCost cost={cost} setCost={setCost} />
           <ChooseLimit limit={limit} setLimit={setLimit} />
           <ChooseQuantity quantity={quantity} setQuantity={setQuantity} />
@@ -251,16 +251,16 @@ export function RewardForm({ program, dispatchRewards, rewards, }) {
 
 
 export function RewardEditForm({ program, reward, dispatchRewards }) {
-  const { colors, stamps } = useContext(OptionsContext)
+  const { colors, icons } = useContext(OptionsContext)
   const [open, setOpen] = useState(false)
-  const [name, setName] = useState(reward.reward)
+  const [title, setTitle] = useState(reward.reward)
   const [description, setDescription] = useState(reward.description)
   const [color, setColor] = useState(reward.color.id)
-  const [stamp, setStamp] = useState(reward.stamp.id)
+  const [icon, setIcon] = useState(reward.icon.id)
   const [cost, setCost] = useState(reward.cost)
   const [limit, setLimit] = useState(reward.limit_per_member)
   const [quantity, setQuantity] = useState(reward.quantity)
-  console.log("reward to edit!", name, description, color, stamp, cost, limit, quantity)
+  console.log("reward to edit!", title, description, color, icon, cost, limit, quantity)
   // console.log("reward to edit!", reward)
 
   // if (reward.quantity == "∞") setQuantity(-1) 
@@ -278,10 +278,10 @@ export function RewardEditForm({ program, reward, dispatchRewards }) {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        reward: name,
+        reward: title,
         description,
         color,
-        stamp,
+        icon,
         cost,
         limit,
         quantity,
@@ -303,13 +303,13 @@ export function RewardEditForm({ program, reward, dispatchRewards }) {
       </button>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Edit reward "{reward.reward}" for "{program.program}"!</DialogTitle>
+        <DialogTitle>Edit reward "{reward.reward}" for "{program.title}"!</DialogTitle>
         <DialogContent>
 
-          <AddName name={name} setName={setName} />
+          <AddTitle title={title} setTitle={setTitle} />
           <AddDescription description={description} setDescription={setDescription} />
           <ChooseColor colors={colors} color={color} setColor={setColor} />
-          <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} color={color} />
+          <ChooseIcon icons={icons} icon={icon} setIcon={setIcon} color={color} />
           <ChooseCost cost={cost} setCost={setCost} />
           <ChooseLimit limit={limit} setLimit={setLimit} />
           <ChooseQuantity quantity={quantity} setQuantity={setQuantity} />
@@ -343,7 +343,7 @@ export function RewardDeleteForm({ reward, dispatchRewards }) {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Delete reward "{reward.reward}" for "{reward.program}"?</DialogTitle>
         <DialogContent>
-          <strong>Are you sure you want to PERMANENTLY delete this reward option for {reward.program.program}?</strong>
+          <strong>Are you sure you want to PERMANENTLY delete this reward option for {reward.program.title}?</strong>
           <ActionOrCancelButtons handleClose={handleClose} onAction={onDelete} action={"Delete"} />
         </DialogContent>
       </Dialog>

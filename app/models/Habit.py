@@ -1,6 +1,6 @@
 from .db import db
 from datetime import datetime
-
+from pprint import pprint
 
 class Habit(db.Model):
     __tablename__ = "habits"
@@ -26,6 +26,8 @@ class Habit(db.Model):
 
     def to_dict(self):
         """Return dict of Habit"""
+        print("habit stamp dates")
+        pprint([s.date for s in self.stamps])
         return {
             "id": self.id,
             "title": self.habit,
@@ -35,5 +37,4 @@ class Habit(db.Model):
             "icon": self.icon.title,
             "program_id": self.program_id,
             "created_at": self.created_at,
-            "stamp_ids": [s.id for s in self.stamps],
         }

@@ -18,7 +18,9 @@ def authenticate():
         # user_data = queryUserFullData(current_user.id)
         # print("\nUSER WITH MEMBERS")
         # pprint(user_data)
-        return queryUserFullData(current_user.id)
+        user_data = queryUserFullData(current_user.id)
+        print("user data", user_data)
+        return user_data
     return {'errors': ['Unauthorized']}, 401
 
 
@@ -59,7 +61,7 @@ def sign_up():
             password=form.data['password'],
             first_name=form.data['first_name'],
             last_name=form.data['last_name'],
-            birthday=form.data['birthday']
+            birthday=form.data['birthday'],
         )
         program = Program(program=f"{form.data['username']}'s Habits",
                           creator=user,)

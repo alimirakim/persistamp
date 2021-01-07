@@ -4,20 +4,20 @@ import UserContext from '../../context/UserContext'
 import HabitBoardContext from '../../context/HabitBoardContext'
 import OptionsContext from '../../context/OptionsContext'
 import { createProgram, editProgram, deleteProgram } from '../../context/reducers'
-import { ActionOrCancelButtons, AddName, AddDescription, ChooseColor, ChooseStamp } from './FormInputs'
+import { ActionOrCancelButtons, AddTitle, AddDescription, ChooseColor, ChooseIcon } from './FormInputs'
 
 
 export default function ProgramForm() {
   const { user, setUser } = useContext(UserContext)
-  const { colors, stamps } = useContext(OptionsContext)
+  const { colors, icons } = useContext(OptionsContext)
   const { dispatchPrograms } = useContext(HabitBoardContext)
   
   const [open, setOpen] = useState(false)
-  const [name, setName] = useState()
+  const [title, setTitle] = useState()
   const [errors, setErrors] = useState([])
   const [description, setDescription] = useState()
   const [color, setColor] = useState(1)
-  const [stamp, setStamp] = useState(2)
+  const [icon, setIcon] = useState(2)
 
   const handleOpen = (e) => setOpen(true)
   const handleClose = (e) => setOpen(false)
@@ -29,10 +29,10 @@ export default function ProgramForm() {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        program: name,
+        program: title,
         description,
         color,
-        stamp,
+        icon,
         userId: user.id
       })
     })
@@ -42,15 +42,15 @@ export default function ProgramForm() {
       setUser(updated_user)
       dispatchPrograms(createProgram(program))
   
-      setName()
+      setTitle()
       setDescription()
       setColor(1)
-      setStamp(2)
+      setIcon(2)
     }else{
       setErrors(res.errors)
     }
   }
-  if (!colors || !stamps) return null
+  if (!colors || !icons) return null
 
   return (<>
     <button className="make-btn make-btn-big" onClick={handleOpen} style={{backgroundColor: "crimson"}}>
@@ -60,10 +60,10 @@ export default function ProgramForm() {
       <DialogTitle id="form-dialog-title">Create a new Program!</DialogTitle>
 
       <DialogContent>
-        <AddName name={name} setName={setName} />
+        <AddTitle title={title} setTitle={setTitle} />
         <AddDescription description={description} setDescription={setDescription} />
         <ChooseColor colors={colors} color={color} setColor={setColor} />
-        <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} color={color} />
+        <ChooseIcon icons={icons} icon={icon} setIcon={setIcon} color={color} />
         <ActionOrCancelButtons handleClose={handleClose} onAction={onCreate} action={"Create"} />
 
       </DialogContent>
@@ -73,15 +73,15 @@ export default function ProgramForm() {
 
 
 export function ProgramEditForm({ program }) {
-  const { colors, stamps } = useContext(OptionsContext)
+  const { colors, icons } = useContext(OptionsContext)
   const { dispatchPrograms } = useContext(HabitBoardContext)
 
   const [errors, setErrors] = useState([])
   const [open, setOpen] = useState(false)
-  const [name, setName] = useState(program.program)
+  const [title, setTitle] = useState(program.title)
   const [description, setDescription] = useState(program.description)
   const [color, setColor] = useState(program.color.id)
-  const [stamp, setStamp] = useState(program.stamp.id)
+  const [icon, setIcon] = useState(program.icon.id)
 
   const handleOpen = (e) => setOpen(true)
   const handleClose = (e) => setOpen(false)
@@ -93,10 +93,10 @@ export function ProgramEditForm({ program }) {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        program: name,
+        program: title,
         description,
         color,
-        stamp,
+        icon,
       })
     })
     if(res.ok){
@@ -115,7 +115,7 @@ export function ProgramEditForm({ program }) {
     }
   }
 
-  if (!colors || !stamps) return null
+  if (!colors || !icons) return null
 
   return (<>
     <button onClick={handleOpen} style={{color: "gray", backgroundColor: "rgba(0,0,0,0)", borderWidth: "0"}}>
@@ -125,15 +125,15 @@ export function ProgramEditForm({ program }) {
       {renderErrors(errors)}
     </div>
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Edit {program.program} program details</DialogTitle>
+      <DialogTitle id="form-dialog-title">Edit {program.title} program details</DialogTitle>
       <div>
         {renderErrors(errors)}
       </div>
       <DialogContent>
-        <AddName name={name} setName={setName} />
+        <AddTitle title={title} setTitle={setTitle} />
         <AddDescription description={description} setDescription={setDescription} />
         <ChooseColor colors={colors} color={color} setColor={setColor} />
-        <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} color={color} />
+        <ChooseIcon icons={icons} icon={icon} setIcon={setIcon} color={color} />
         <ActionOrCancelButtons handleClose={handleClose} onAction={onEdit} action={"Save"} />
 
       </DialogContent>
@@ -167,7 +167,7 @@ export function ProgramDeleteForm({ program }) {
       </button>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Delete "{program.program}"?</DialogTitle>
+        <DialogTitle>Delete "{program.title}"?</DialogTitle>
 
         <DialogContent>
           <strong>Are you sure you want to PERMANENTLY delete this and all its habits?</strong>

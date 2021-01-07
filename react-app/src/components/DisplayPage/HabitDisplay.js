@@ -3,8 +3,8 @@ import { Link, useParams } from 'react-router-dom'
 
 import HabitContext from '../../context/HabitContext'
 
-import HabitEditForm from '../forms/HabitEditForm'
-import HabitDeleteForm from '../forms/HabitDeleteForm'
+// import HabitEditForm from '../forms/HabitEditForm'
+// import HabitDeleteForm from '../forms/HabitDeleteForm'
 import LineGraph from './LineGraph'
 import CalendarMap from './CalendarMap';
 import HabitStatOverview from './HabitStatOverview';
@@ -24,7 +24,6 @@ export default function HabitDisplay() {
     }
   }, [habit])
   if (!habit) return null
-  console.log("habitDISPLAY", habit.icon)
 
   return (
     <HabitContext.Provider value={habit}>
@@ -39,7 +38,7 @@ export default function HabitDisplay() {
                 {/* <br/> */}
                 <h1 style={{ fontSize: "4rem" }} className={`cam habitDetail__title`}>
                   <i className={`fas fa-${habit.icon}`}></i>
-                  &nbsp;{habit.habit}
+                  &nbsp;{habit.title}
                 </h1>
                 <table className="habitDetail__table">
                   <thead>
@@ -54,7 +53,7 @@ export default function HabitDisplay() {
                   <tbody>
                     <tr>
                       <td className="habitDetail__cell">{habit.description}</td>
-                      <td className="habitDetail__cell">{habit.program.program}</td>
+                      {/* <td className="habitDetail__cell">{habit.program.title}</td> */}
                       <td className="habitDetail__cell">{habit.icon}</td>
                       <td className="habitDetail__cell">{habit.frequency} Days</td>
                       <td className="habitDetail__cell">{new Date(habit.created_at).toLocaleString()}</td>

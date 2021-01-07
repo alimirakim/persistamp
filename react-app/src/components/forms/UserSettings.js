@@ -11,7 +11,7 @@ import {
   ActionOrCancelButtons, 
   SetUsername, 
   ChooseColor, 
-  ChooseStamp, 
+  ChooseIcon, 
   UpdateFirstname, 
   UpdateLastname 
 } from '../forms/FormInputs'
@@ -19,16 +19,16 @@ import {
 export default function UserSettings({ settingsOpen, handleSettingsClose }) {
   const { user, setUser } = useContext(UserContext)
   const [color, setColor] = useState(user.color)
-  const [stamp, setStamp] = useState(user.icon)
+  const [icon, setIcon] = useState(user.icon)
   const [errors, setErrors] = useState([])
   const [firstname, setFirstname] = useState(user.first_name)
   const [lastname, setLastname] = useState(user.last_name)
   const [username, setUsername] = useState(user.username)
-  const { colors, stamps } = useContext(OptionsContext)
+  const { colors, icons } = useContext(OptionsContext)
 
   const onUpdate = async (e) => {
     e.preventDefault()
-    const updatedUser = await updateUser(username, firstname, lastname, color, stamp)
+    const updatedUser = await updateUser(username, firstname, lastname, color, icon)
     if (!updatedUser.errors) {
       setUser(updatedUser)
       handleSettingsClose()
@@ -59,7 +59,7 @@ export default function UserSettings({ settingsOpen, handleSettingsClose }) {
         <UpdateFirstname firstname={firstname} setFirstname={setFirstname} />
         <UpdateLastname lastname={lastname} setLastname={setLastname} />
         <ChooseColor colors={colors} color={color} setColor={setColor} />
-        <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} />
+        <ChooseIcon icons={icons} icon={icon} setIcon={setIcon} />
         <ActionOrCancelButtons handleClose={handleSettingsClose} onAction={onUpdate} action={"Update"} />
       </DialogContent>
     </Dialog>

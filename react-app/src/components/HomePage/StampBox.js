@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import HabitBoardContext from "../../context/HabitBoardContext"
-import { stampDay, unstampDay, setDailies } from "../../context/reducers"
+import { stampDay, unstampDay } from "../../context/reducers"
 
 
 
@@ -19,11 +19,13 @@ import { stampDay, unstampDay, setDailies } from "../../context/reducers"
 
 export default function StampBox({ currentStamps, day, mid, habit }) {
   const [stamp, setStamp] = useState("")
-  const { dailies, dispatchDailies } = useContext(HabitBoardContext)
-  const stampPath = `/api/daily-stamps/${habit.id}/programs/${habit.program}/memberships/${mid}/days/${day[1]}`
+  const { stamps, dispatchStamps } = useContext(HabitBoardContext)
+  const stampPath = `/api/stamps/${habit.id}/programs/${habit.program_id}/memberships/${mid}/days/${day[1]}`
 
   useEffect(() => {
-    const ds = currentStamps.find(dsid => dailies[dsid].date == day[1])
+    const ds = currentStamps.find(sid => stamps[sid].date == day[1])
+    if (currentStamps.length) console.log("test stamp", Date(stamps[currentStamps[0]].date), day[1])
+    // console.log("test stamp", stamps[currentStamps[0]].date.toISOString(), day[1])
     let stampStatus = ""
     if (ds) stampStatus = "stamped"
     else if (currentStamps.length >= habit.frequency) stampStatus = "fulfilled"
@@ -33,14 +35,13 @@ export default function StampBox({ currentStamps, day, mid, habit }) {
   const onStamp = (method) => async (ev) => {
     ev.preventDefault()
     const res = await fetch(stampPath, { method })
-    const ds = await res.json()
-    if (ds && ds.status === "stamped") {
-      dispatchDailies(stampDay(ds))
+    const newStamp = await res.json()
+    if (newStamp && newStamp.status === "stamped") {
+      console.log("ds", newStamp)
+      dispatchStamps(stampDay(newStamp))
       // setStamp("stamped")
-    } else if (currentStamps.length >= habit.frequency) {
-      // setStamp("fulfilled")
     } else {
-      dispatchDailies(unstampDay(ds))
+      dispatchStamps(unstampDay(newStamp))
       // setStamp("")
     }
     console.log("stamp", stamp, currentStamps)
@@ -54,6 +55,7 @@ export default function StampBox({ currentStamps, day, mid, habit }) {
   // }
 
   if (stamp === "stamped") {
+    console.log("stamped!!")
     return (
       <td className="stamp" style={{ color: habit.color }}>
         <form method="POST" onSubmit={onStamp("delete")}>

@@ -8,5 +8,5 @@
 //   setWeek(past_week)
 //   dispatchPrograms(setPrograms(programs_data))
 //   dispatchHabits(setHabits(habits_data))
-//   dispatchDailies(setDailies(daily_stamps_data))
+//   dispatchStamps(setStamps(daily_stamps_data))
 // }

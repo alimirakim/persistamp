@@ -8,6 +8,7 @@ import calendar
 from pprint import pprint
 from app.forms import UserForm
 from app.utils import validation_errors_to_error_messages, dump_data_list, get_past_week
+from pprint import pprint
 
 user_routes = Blueprint('users', __name__, url_prefix="/users")
 
@@ -39,55 +40,44 @@ def user_details(uid):
 @user_routes.route("/<int:uid>/programs")
 def user_programs(uid):
     """Get a user's subscribed programs."""
+    user = current_user.to_dict()
     past_week = get_past_week()
     user_programs = Program.query \
         .join(Membership.program).filter(Membership.member_id == uid) \
         .options(joinedload(Program.rewards), \
             joinedload(Program.memberships), \
-            joinedload(Program.habits).joinedload(Habit.stamps), \
-            joinedload(Program.habits).joinedload(Habit.icon), \
-            joinedload(Program.habits).joinedload(Habit.color)) \
+            joinedload(Program.habits).joinedload(Habit.stamps)) \
         .all()
-    programs_data = dump_data_list(user_programs, program_schema)
-
-    for i in range(len(user_programs)):
-        if user_programs[i].memberships:
-            memberships = [m.id for m in current_user.memberships]
-            try:
-                [mid] = [m for m in programs_data[i]["memberships"] if m in memberships]
-                programs_data[i]["habits"] = []
-
-                for j in range(len(user_programs[i].habits)):
-                    programs_data[i]["habits"].append(habit_schema.dump(user_programs[i].habits[j]))
-                    habit = habit_schema.dump(user_programs[i].habits[j])
-                    habit["icon"] = icon_schema.dump(user_programs[i].habits[j].icon)
-                    habit["color"] = color_schema.dump(user_programs[i].habits[j].color)
-                    # Daily icons for prev week for habit
-                    habit["stamps"] = Stamp.query.filter( \
-                        Stamp.habit_id == habit["id"], \
-                        Stamp.membership_id == mid, \
-                        Stamp.date <= past_week[0][1], \
-                        Stamp.date >= past_week[6][1]).all()
-                    habit["stamps"] = dump_data_list(habit["stamps"], stamp_schema)
-                    programs_data[i]["habits"][j] = habit
-            except:
-                print("\nno mid probs")
-        programs_data[i]["icon"] = icon_schema.dump(user_programs[i].icon)
-        programs_data[i]["color"] = color_schema.dump(user_programs[i].color)
-
-    programs_fin = {}
-    habits_fin = {}
-    dailies_fin = {}
-    for program in programs_data:
-        habits_fin.update({habit["id"]:habit for habit in program["habits"]})
-        program["habits"] = [habit["id"] for habit in program["habits"]]
-        programs_fin.update({program["id"]: program})
-
-    for habit in habits_fin.values():
-        dailies_fin.update({stamp["id"]:stamp for stamp in habit["stamps"]})
-        habit["stamps"] = [daily["id"] for daily in habit["stamps"]]
         
-    return jsonify(programs_data=programs_fin, habits_data=habits_fin, dailies_data=dailies_fin, past_week=past_week)
+    programs_data = {p.id:p.to_dict() for p in user_programs}
+    habits_data = {}
+    stamps_data = {}
+    
+    for program in user_programs:
+        print("programs_data")
+        pprint(user["membership_ids"])
+        program_mids = [m.id for m in program.memberships]
+        mid = next(m for m in program_mids if m in user["membership_ids"])
+        for habit in program.habits:
+            habits_data[habit.id] = habit.to_dict()
+            
+            # Daily icons for prev week for habit
+            stamps = Stamp.query.filter( \
+                Stamp.habit_id == habit.id, \
+                Stamp.membership_id == mid, \
+                Stamp.date <= past_week[0][1], \
+                Stamp.date >= past_week[6][1]).all()
+            for stamp in stamps:
+                stamps_data[stamp.id] = stamp.to_dict()
+            habits_data[habit.id]["week_stamps"] = [s.id for s in stamps]
+        
+    print("\nfinal")
+    pprint(stamps_data)
+    return jsonify(
+        programs_data=programs_data, 
+        habits_data=habits_data, 
+        stamps_data=stamps_data, 
+        past_week=past_week,)
 
 
 @user_routes.route("/settings", methods=['PUT'])

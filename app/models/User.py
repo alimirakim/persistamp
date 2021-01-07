@@ -62,5 +62,6 @@ class User(db.Model, UserMixin):
           "color": self.color.hex,
           "icon": self.icon.title,
           "membership_ids": [m.id for m in self.memberships],
+          "memberships": {m.id:m.to_dict() for m in self.memberships},
           "redeemed_ids": [r.id for r in self.redeemed],
         }

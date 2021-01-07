@@ -11,10 +11,10 @@ import HabitRow from './HabitRow'
 export default function ProgramCard({ program }) {
   const { user } = useContext(UserContext)
   const { habits } = useContext(HabitBoardContext)
-  const mid = program.memberships.find(m => Object.keys(user.memberships).includes(String(m)))
-
+  const mid = String(program.membership_ids.find(m => user.membership_ids.includes(m)))
   return (
     <li key={program.id}>
+    <i>TEST</i>
       <table className="board" style={{ color: program.color }}>
 
         <thead>
@@ -26,7 +26,7 @@ export default function ProgramCard({ program }) {
                   <ProgramDeleteForm program={program} />
 
                   <h3 className="program-title">
-                    <i className={`fas fa-${program.stamp}`}></i> {program.program}
+                    <i className={`fas fa-${program.stamp}`}></i> {program.title}
                   </h3>
                 </div>
                 <RewardShopButton
@@ -45,9 +45,9 @@ export default function ProgramCard({ program }) {
 
         <tbody>
           {/* style={{display: "flex", flexDirection: "column-reverse"}}> */}
-          {program.habits.map(hid => (
+          {program.habit_ids.map(hid => (
             <HabitRow
-              mid={mid}
+              membership={user.memberships[mid]}
               habit={habits[hid]}
             />
           ))

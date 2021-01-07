@@ -28,10 +28,10 @@ export default function HabitDeleteForm({habit }) {
 
 
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Delete Habit: "{habit.habit}"</DialogTitle>
+        <DialogTitle id="form-dialog-title">Delete Habit: "{habit.title}"</DialogTitle>
 
         <DialogContent>
-        <strong>Are you SURE you want to delete this habit from {habit.program.program}?</strong>
+        <strong>Are you SURE you want to delete this habit?</strong>
           <ActionOrCancelButtons handleClose={handleClose} onAction={onDelete} action={"Delete"} />
         </DialogContent>
 

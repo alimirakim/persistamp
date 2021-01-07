@@ -41,7 +41,7 @@ def queryUserFullData(id):
                 stamps[stamp.id] = stamp.to_dict()
 
     print("\nhabits?")
-    pprint(programs)
+    pprint(stamps)
     return jsonify(
         memberships_data=memberships, 
         programs_data=programs, 

@@ -19,6 +19,10 @@ class Membership(db.Model):
 
     def to_dict(self):
         """"""
+        member_habit_stamps = {}
+        for habit in self.program.habits:
+            member_habit_stamps[habit.id] = sorted([s.id for s in habit.stamps if s.membership_id == self.id], reverse=True)
+        
         return {
           "id": self.id,
           "program_id": self.program_id,
@@ -26,5 +30,7 @@ class Membership(db.Model):
           "stamper_id": self.stamper_id,
           "points": self.points,
           "joined_at": self.joined_at,
+          # habid_id stamp_ids
+          "hid_sids": member_habit_stamps,
           # "stamp_ids": [s.id for s in self.stamps],
         }

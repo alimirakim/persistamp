@@ -18,18 +18,18 @@ export function ActionOrCancelButtons({ handleClose, onAction, action }) {
 }
 
 
-export function AddName({ name, setName }) {
-  const updateName = (e) => setName(e.target.value)
+export function AddTitle({ title, setTitle }) {
+  const updateTitle = (e) => setTitle(e.target.value)
   return (
     <TextField
       autoFocus
-      defaultValue={name}
+      defaultValue={title}
       margin="dense"
-      id="name"
-      label="Name"
+      id="title"
+      label="Title"
       type="text"
       fullWidth
-      onChange={updateName}
+      onChange={updateTitle}
       required
     />
   )
@@ -72,16 +72,15 @@ export function ChooseColor({ colors, color, setColor }) {
   </>)
 }
 
-export function ChooseStamp({ stamps, stamp, setStamp, color }) {
-  console.log("TODO set color of options to match chosen color", color)
-  const updateStamp = (e) => setStamp(Number(e.target.value))
+export function ChooseIcon({ icons, icon, setIcon, color }) {
+  const updateIcon = (e) => setIcon(Number(e.target.value))
   return (<>
-    <InputLabel id="stamp">Stamp</InputLabel>
-    <Select onChange={updateStamp} labelId="stamp" value={stamp}>
-      {stamps.map((stamp) => (
-        <MenuItem key={stamp.id} value={stamp.id} style={{color: color}}>
-          <i className={`fas fa-${stamp}`} style={{color: color}}></i>
-          {stamp.split("-").join(" ")}
+    <InputLabel id="icon">Icon</InputLabel>
+    <Select onChange={updateIcon} labelId="icon" value={icon}>
+      {icons.map((icon) => (
+        <MenuItem key={icon.id} value={icon.id} style={{ color }}>
+          <i className={`fas fa-${icon}`} style={{ color }}></i>
+          {icon.split("-").join(" ")}
         </MenuItem>
       ))}
     </Select>
@@ -129,41 +128,41 @@ export function ChooseLimit({ limit, setLimit }) {
     <InputLabel id="limit">Limit per Member</InputLabel>
     <Select onChange={updateLimit} label="limit" value={limit}>
       <MenuItem value={-1}>--</MenuItem>
-      {[...Array(10).keys()].map(i => (<MenuItem value={i+1}>{i+1}</MenuItem>))}
+      {[...Array(10).keys()].map(i => (<MenuItem value={i + 1}>{i + 1}</MenuItem>))}
     </Select>
   </>)
 }
 
 
-export function ChooseQuantity({quantity, setQuantity}) {
+export function ChooseQuantity({ quantity, setQuantity }) {
   const updateQuantity = (e) => setQuantity(e.target.value)
-  
+
   return (<>
     <InputLabel id="quantity">Quantity</InputLabel>
     <Select onChange={updateQuantity} label="quantity" value={quantity}>
       <MenuItem value={-1}>--</MenuItem>
-      {[...Array(101).keys()].map(i => (<MenuItem value={i+1}>{i+1}</MenuItem>))}
+      {[...Array(101).keys()].map(i => (<MenuItem value={i + 1}>{i + 1}</MenuItem>))}
     </Select>
   </>)
 }
 
 
-export function ChooseCost({cost, setCost}) {
+export function ChooseCost({ cost, setCost }) {
   const updateCost = (e) => setCost(e.target.value)
-  
+
   return (<>
     <InputLabel id="cost">Cost</InputLabel>
-    <Select style={{width: "500px"}} onChange={updateCost} label="cost" value={cost}>
-      {[...Array(365).keys()].map(i => (<MenuItem value={i+1}>{i+1}</MenuItem>))}
+    <Select style={{ width: "500px" }} onChange={updateCost} label="cost" value={cost}>
+      {[...Array(365).keys()].map(i => (<MenuItem value={i + 1}>{i + 1}</MenuItem>))}
     </Select>
   </>)
 }
 
-export function UpdateFirstname({firstname, setFirstname }) {
+export function UpdateFirstname({ firstname, setFirstname }) {
   const updateName = (e) => setFirstname(e.target.value)
 
   return (<>
-    <TextField label="First Name" type="text" fullWidth onChange={updateName} defaultValue={firstname}/>
+    <TextField label="First Name" type="text" fullWidth onChange={updateName} defaultValue={firstname} />
   </>)
 }
 
@@ -171,6 +170,6 @@ export function UpdateLastname({ lastname, setLastname }) {
   const updateName = (e) => setLastname(e.target.value)
 
   return (<>
-    <TextField label="Last Name" type="text" fullWidth onChange={updateName} defaultValue={lastname}/>
+    <TextField label="Last Name" type="text" fullWidth onChange={updateName} defaultValue={lastname} />
   </>)
 }

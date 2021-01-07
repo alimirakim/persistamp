@@ -19,11 +19,11 @@ export const DELETE_HABIT = 'DELETE HABIT'
 export const EDIT_HABIT = 'EDIT HABIT'
 export const RESET_HABITS = 'RESET HABITS'
 
-export const GET_DAILY_STAMPS = 'GET_DAILY_STAMPS'
-export const STAMP_DAY = 'STAMP_DAY'
-export const UNSTAMP_DAY = 'UNSTAMP_DAY'
-export const PEND_DAY = 'PEND_DAY'
-export const RESET_DAILY_STAMPS = 'RESET DAILY STAMPS'
+export const GET_STAMPS = 'GET STAMPS'
+export const STAMP_DAY = 'STAMP DAY'
+export const UNSTAMP_DAY = 'UNSTAMP DAY'
+export const PEND_DAY = 'PEND DAY'
+export const RESET_STAMPS = 'RESET STAMPS'
 
 export const GET_REWARDS = 'GET REWARDS'
 export const GET_PROGRAM_REWARDS = 'GET PROGRAM REWARDS'
@@ -44,11 +44,11 @@ export const setUser = (user) => ({ type: GET_USER, user })
 export const editUser = (user) => ({ type: UPDATE_USER, user })
 export const logoutUser = () => ({type: LOGOUT_USER})
 
-export const setDailies = (dailies) => ({ type: GET_DAILY_STAMPS, dailies })
-export const stampDay = (daily) => ({ type: STAMP_DAY, daily })
-export const unstampDay = (daily) => ({ type: UNSTAMP_DAY, daily })
-export const pendDay = (daily) => ({ type: PEND_DAY, daily })
-export const resetDailies = () => ({ type: RESET_DAILY_STAMPS })
+export const setStamps = (stamps) => ({ type: GET_STAMPS, stamps })
+export const stampDay = (stamp) => ({ type: STAMP_DAY, stamp })
+export const unstampDay = (stamp) => ({ type: UNSTAMP_DAY, stamp })
+export const pendDay = (stamp) => ({ type: PEND_DAY, stamp })
+export const resetStamps = () => ({ type: RESET_STAMPS })
 
 export const setPrograms = (programs) => ({ type: GET_USER_PROGRAMS, programs })
 export const createProgram = (program) => ({ type: CREATE_PROGRAM, program })
@@ -133,18 +133,18 @@ export function habitsReducer(state = {}, action) {
 }
 
 
-export function dailiesReducer(state = {}, action) {
+export function stampsReducer(state = {}, action) {
   const newState = { ...state }
   switch (action.type) {
-    case GET_DAILY_STAMPS:
-      return action.dailies
+    case GET_STAMPS:
+      return action.stamps
     case STAMP_DAY:
-      newState[action.daily.id] = action.daily
+      newState[action.stamp.id] = action.stamp
       return newState
     case UNSTAMP_DAY:
-      delete newState[action.daily.id]
+      delete newState[action.stamp.id]
       return newState
-    case RESET_DAILY_STAMPS:
+    case RESET_STAMPS:
       return {}
     default:
       return state

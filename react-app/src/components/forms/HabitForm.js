@@ -5,20 +5,20 @@ import OptionsContext from '../../context/OptionsContext';
 import HabitBoardContext from '../../context/HabitBoardContext'
 import { habitCreate } from '../../services/auth';
 import { createHabit } from '../../context/reducers'
-import { ActionOrCancelButtons, AddName, AddDescription, ChooseFrequency, ChooseColor, ChooseStamp } from './FormInputs'
+import { ActionOrCancelButtons, AddTitle, AddDescription, ChooseFrequency, ChooseColor, ChooseIcon } from './FormInputs'
 
 function HabitForm({ pid, program }) {
   const { user } = useContext(UserContext)
-  const { colors, stamps } = useContext(OptionsContext)
+  const { colors, icons } = useContext(OptionsContext)
   const {dispatchHabits} = useContext(HabitBoardContext)
   
   const [errors, setErrors] = useState([])
   const [open, setOpen] = React.useState(false);
-  const [name, setName] = useState()
+  const [title, setTitle] = useState()
   const [description, setDescription] = useState()
   const [frequency, setFrequency] = useState(7)
   const [color, setColor] = useState(1)
-  const [stamp, setStamp] = useState(3)
+  const [icon, setIcon] = useState(3)
 
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false)
@@ -27,22 +27,22 @@ function HabitForm({ pid, program }) {
     e.preventDefault()
     const userId = user.id
     const newHabit = await habitCreate(
-      name,
+      title,
       description,
       frequency,
       color,
-      stamp,
+      icon,
       userId,
       pid,
       )
     if(!newHabit.errors){
       dispatchHabits(createHabit(newHabit))
       setOpen(false)
-      setName()
+      setTitle()
       setDescription()
       setFrequency(7)
       setColor(1)
-      setStamp(3)
+      setIcon(3)
     }else{
       setErrors(newHabit.errors)
     }
@@ -56,23 +56,23 @@ function HabitForm({ pid, program }) {
       })
     }
   }
-  if (!colors || !stamps) return null
+  if (!colors || !icons) return null
 
   return (
     <>
       <button className="make-btn" onClick={handleClickOpen} style={{backgroundColor: program.color, color: "black"}}><i className="fas fa-plus-circle"></i> Habit</button>
 
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Add a habit to {program.program}!</DialogTitle>
+        <DialogTitle id="form-dialog-title">Add a habit to {program.title}!</DialogTitle>
         <div>
           {renderErrors(errors)}
         </div>
         <DialogContent className='user-settings'>
-          <AddName name={name} setName={setName} />
+          <AddTitle title={title} setTitle={setTitle} />
           <AddDescription description={description} setDescription={setDescription} />
           <ChooseFrequency frequency={frequency} setFrequency={setFrequency} />
           <ChooseColor colors={colors} color={color} setColor={setColor} />
-          <ChooseStamp stamps={stamps} stamp={stamp} setStamp={setStamp} color={color} />
+          <ChooseIcon icons={icons} icon={icon} setIcon={setIcon} color={color} />
           <ActionOrCancelButtons handleClose={handleClose} onAction={onCreate} action={"Create"} />
         </DialogContent>
 
