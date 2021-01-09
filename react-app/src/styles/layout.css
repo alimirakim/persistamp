@@ -7,7 +7,7 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
 * {
   /* outline: 1px dashed gray; */
 }
-/* 
+/*
 .habit-board {
   background-image: url("./Gradient_0000s_0185_186.png");
   background-size: 100%;
@@ -335,6 +335,7 @@ nav.stickers {
     position: relative;
     top: 50px;
     left: 60px;
+    width:500px;
 }
 .heatMapHeader {
     position: relative;
