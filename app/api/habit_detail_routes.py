@@ -105,7 +105,7 @@ def getWeeklyGraph(hid, interval, mid):
 
 
 @habit_detail_routes.route("<int:hid>/calendar/<int:mid>")
-def calendarData(hid, mid):
+def getCalendarData(hid, mid):
     current_date = date.today()
     endDate = current_date.strftime("%Y-%m-%d")
 

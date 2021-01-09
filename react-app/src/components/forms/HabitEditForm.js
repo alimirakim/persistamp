@@ -2,14 +2,14 @@ import React, { useState, useContext } from 'react'
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core'
 import UserContext from '../../context/UserContext';
 import OptionsContext from '../../context/OptionsContext'
-import HabitBoardContext from '../../context/HabitBoardContext'
+import ProgramBoardContext from '../../context/ProgramBoardContext'
 import { editHabit } from '../../context/reducers'
 import { ActionOrCancelButtons, AddTitle, AddDescription, ChooseFrequency, ChooseColor, ChooseIcon } from './FormInputs'
 
 
 export default function HabitEditForm({ habit }) {
   const { user } = useContext(UserContext)
-  const { dispatchHabits } = useContext(HabitBoardContext)
+  const { dispatchHabits } = useContext(ProgramBoardContext)
   const { colors, icons } = useContext(OptionsContext)
 
   const [open, setOpen] = React.useState(false);

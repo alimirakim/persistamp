@@ -1,9 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import HabitBoardContext from "../../context/HabitBoardContext"
+import ProgramBoardContext from "../../context/ProgramBoardContext"
 import { stampDay, unstampDay } from "../../context/reducers"
-
-
-
 
 // TODO How to optimize the rerenders here????
 // Create a user slice of state. In that slice, have user's memberships, habits,
@@ -14,37 +11,35 @@ import { stampDay, unstampDay } from "../../context/reducers"
 // alt 3 have each stampbox have its island state what only fetches and such
 // straight from the source
 
-
-
-
-export default function StampBox({ currentStamps, day, mid, habit }) {
-  const [stamp, setStamp] = useState("")
-  const { stamps, dispatchStamps } = useContext(HabitBoardContext)
+export default function StampBox({ day, mid, hid }) {
+  const { stamps, habits, dispatchStamps, dispatchHabits } = useContext(ProgramBoardContext)
+  const habit = habits[hid]
+  const [stampStatus, setStampStatus] = useState("")
   const stampPath = `/api/stamps/${habit.id}/programs/${habit.program_id}/memberships/${mid}/days/${day[1]}`
 
   useEffect(() => {
-    const ds = currentStamps.find(sid => stamps[sid].date == day[1])
-    if (currentStamps.length) console.log("test stamp", Date(stamps[currentStamps[0]].date), day[1])
-    // console.log("test stamp", stamps[currentStamps[0]].date.toISOString(), day[1])
-    let stampStatus = ""
-    if (ds) stampStatus = "stamped"
-    else if (currentStamps.length >= habit.frequency) stampStatus = "fulfilled"
-    setStamp(stampStatus)
-  }, [currentStamps])
-  
+    const s = habit.stamp_ids.find(sid => stamps[sid].date === day[1])
+    let status = ""
+    if (s) status = "stamped"
+    else if (habit.stamp_ids.length >= habit.frequency) status = "fulfilled"
+    setStampStatus(status)
+  }, [habits])
+
   const onStamp = (method) => async (ev) => {
     ev.preventDefault()
+    // console.log("onStamp", stampStatus)
     const res = await fetch(stampPath, { method })
-    const newStamp = await res.json()
-    if (newStamp && newStamp.status === "stamped") {
-      console.log("ds", newStamp)
-      dispatchStamps(stampDay(newStamp))
+    const stamp = await res.json()
+    if (method === "post") {
+      dispatchStamps(stampDay(stamp))
+      dispatchHabits(stampDay(stamp))
       // setStamp("stamped")
-    } else {
-      dispatchStamps(unstampDay(newStamp))
+    } else if (method === "delete") {
+
+      dispatchStamps(unstampDay(stamp))
+      dispatchHabits(unstampDay(stamp))
       // setStamp("")
     }
-    console.log("stamp", stamp, currentStamps)
   }
 
   // const checkCompleted = () => {
@@ -54,8 +49,7 @@ export default function StampBox({ currentStamps, day, mid, habit }) {
   //   else return false
   // }
 
-  if (stamp === "stamped") {
-    console.log("stamped!!")
+  if (stampStatus === "stamped") {
     return (
       <td className="stamp" style={{ color: habit.color }}>
         <form method="POST" onSubmit={onStamp("delete")}>
@@ -66,7 +60,7 @@ export default function StampBox({ currentStamps, day, mid, habit }) {
       </td>
     )
 
-  } else if (stamp === "fulfilled") {
+  } else if (stampStatus === "fulfilled") {
     return (
       <td className="stamp" style={{ color: habit.color }}>
         <form method="POST" onSubmit={onStamp("post")}>

@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import HabitBoardContext from "../../context/HabitBoardContext"
+import ProgramBoardContext from "../../context/ProgramBoardContext"
 import ProgramCard from './ProgramCard'
 
-export default function HabitBoard() {
-  const { programs, habits, stamps, } = useContext(HabitBoardContext)
+export default function ProgramBoard() {
+  const { programs, habits, stamps, } = useContext(ProgramBoardContext)
 
   if (!programs || !habits || !stamps) return null
   
@@ -11,7 +11,7 @@ export default function HabitBoard() {
     <article className="lo-main-center habit-board">
       <ul style={{ display: "flex", flexDirection: "column-reverse" }}>
         {Object.values(programs).map(program => (
-          <ProgramCard program={program} />
+          <ProgramCard key={program.id} program={program} />
         ))}
       </ul>
     </article>

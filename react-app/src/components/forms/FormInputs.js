@@ -64,8 +64,8 @@ export function ChooseColor({ colors, color, setColor }) {
       value={color}
     >
       {colors.map((color) => (
-        <MenuItem key={color.id} value={color.id} style={{ backgroundColor: `${color}` }} >
-          {color.name.split("-").join(" ")}
+        <MenuItem key={color.id} value={color.id} style={{ backgroundColor: `${color.hex}` }} >
+          {color.title.split("-").join(" ")}
         </MenuItem>
       ))}
     </Select>
@@ -79,8 +79,8 @@ export function ChooseIcon({ icons, icon, setIcon, color }) {
     <Select onChange={updateIcon} labelId="icon" value={icon}>
       {icons.map((icon) => (
         <MenuItem key={icon.id} value={icon.id} style={{ color }}>
-          <i className={`fas fa-${icon}`} style={{ color }}></i>
-          {icon.split("-").join(" ")}
+          <i className={`fas fa-${icon.title}`} style={{ color }}></i>
+          {icon.title.split("-").join(" ")}
         </MenuItem>
       ))}
     </Select>

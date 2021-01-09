@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core'
 import UserContext from '../../context/UserContext';
 import OptionsContext from '../../context/OptionsContext';
-import HabitBoardContext from '../../context/HabitBoardContext'
+import ProgramBoardContext from '../../context/ProgramBoardContext'
 import { habitCreate } from '../../services/auth';
 import { createHabit } from '../../context/reducers'
 import { ActionOrCancelButtons, AddTitle, AddDescription, ChooseFrequency, ChooseColor, ChooseIcon } from './FormInputs'
@@ -10,7 +10,7 @@ import { ActionOrCancelButtons, AddTitle, AddDescription, ChooseFrequency, Choos
 function HabitForm({ pid, program }) {
   const { user } = useContext(UserContext)
   const { colors, icons } = useContext(OptionsContext)
-  const {dispatchHabits} = useContext(HabitBoardContext)
+  const {dispatchHabits} = useContext(ProgramBoardContext)
   
   const [errors, setErrors] = useState([])
   const [open, setOpen] = React.useState(false);

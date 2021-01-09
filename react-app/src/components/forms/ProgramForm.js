@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { Dialog, DialogTitle, DialogContent } from '@material-ui/core'
 import UserContext from '../../context/UserContext'
-import HabitBoardContext from '../../context/HabitBoardContext'
+import ProgramBoardContext from '../../context/ProgramBoardContext'
 import OptionsContext from '../../context/OptionsContext'
 import { createProgram, editProgram, deleteProgram } from '../../context/reducers'
 import { ActionOrCancelButtons, AddTitle, AddDescription, ChooseColor, ChooseIcon } from './FormInputs'
@@ -10,7 +10,7 @@ import { ActionOrCancelButtons, AddTitle, AddDescription, ChooseColor, ChooseIco
 export default function ProgramForm() {
   const { user, setUser } = useContext(UserContext)
   const { colors, icons } = useContext(OptionsContext)
-  const { dispatchPrograms } = useContext(HabitBoardContext)
+  const { dispatchPrograms } = useContext(ProgramBoardContext)
   
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState()
@@ -74,7 +74,7 @@ export default function ProgramForm() {
 
 export function ProgramEditForm({ program }) {
   const { colors, icons } = useContext(OptionsContext)
-  const { dispatchPrograms } = useContext(HabitBoardContext)
+  const { dispatchPrograms } = useContext(ProgramBoardContext)
 
   const [errors, setErrors] = useState([])
   const [open, setOpen] = useState(false)
@@ -144,7 +144,7 @@ export function ProgramEditForm({ program }) {
 
 
 export function ProgramDeleteForm({ program }) {
-  const {dispatchPrograms} = useContext(HabitBoardContext)
+  const {dispatchPrograms} = useContext(ProgramBoardContext)
   const {setUser} = useContext(UserContext)
   const [open, setOpen] = useState(false)
 

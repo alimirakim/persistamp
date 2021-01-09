@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core'
-import HabitBoardContext from '../../context/HabitBoardContext'
+import ProgramBoardContext from '../../context/ProgramBoardContext'
 import { deleteHabit } from '../../context/reducers'
 import { ActionOrCancelButtons } from './FormInputs'
 
 export default function HabitDeleteForm({habit }) {
-  const {dispatchHabits} = useContext(HabitBoardContext)
+  const {dispatchHabits} = useContext(ProgramBoardContext)
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => setOpen(true);

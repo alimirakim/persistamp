@@ -8,7 +8,7 @@ import UsersList from "./components/UsersList";
 import User from "./components/UserPage";
 
 import UserContext from './context/UserContext';
-import HabitBoardContext from "./context/HabitBoardContext"
+import ProgramBoardContext from "./context/ProgramBoardContext"
 import OptionsContext from './context/OptionsContext'
 
 
@@ -49,7 +49,7 @@ function App() {
     dispatchHabits(resetHabits())
     dispatchStamps(resetStamps())
   }
-  
+
   function loadUserData(content) {
     const { user_data, programs_data, habits_data, stamps_data, past_week } = content
     console.log("stamps data", stamps_data)
@@ -115,8 +115,8 @@ function App() {
           <Route path="/about" exact={true}>
             <AboutCard />
           </Route>
-          
-          
+
+
 
           <ProtectedRoute path="/users" exact={true} auth={auth}>
             <UsersList />
@@ -126,7 +126,7 @@ function App() {
             <User />
           </ProtectedRoute>
 
-          <HabitBoardContext.Provider value={{ programs, dispatchPrograms, habits, dispatchHabits, stamps, dispatchStamps, week }}>
+          <ProgramBoardContext.Provider value={{ programs, dispatchPrograms, habits, dispatchHabits, stamps, dispatchStamps, week }}>
             <ProtectedRoute path="/graphs/:hid/memberships/:mid" auth={auth}>
               <HabitDisplay />
             </ProtectedRoute>
@@ -134,11 +134,11 @@ function App() {
             <ProtectedRoute path="/" exact={true} auth={auth}>
               <Homepage />
             </ProtectedRoute>
-          </HabitBoardContext.Provider>
 
-          <ProtectedRoute path="/programs/:pid/memberships/:mid/rewards" exact={true} auth={auth}>
-            <RewardShop />
-          </ProtectedRoute>
+            <ProtectedRoute path="/programs/:pid/memberships/:mid/rewards" exact={true} auth={auth}>
+              <RewardShop />
+            </ProtectedRoute>
+          </ProgramBoardContext.Provider>
 
         </OptionsContext.Provider>
       </UserContext.Provider>

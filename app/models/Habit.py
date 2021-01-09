@@ -1,5 +1,5 @@
 from .db import db
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from pprint import pprint
 
 class Habit(db.Model):
@@ -26,8 +26,6 @@ class Habit(db.Model):
 
     def to_dict(self):
         """Return dict of Habit"""
-        print("habit stamp dates")
-        pprint([s.date for s in self.stamps])
         return {
             "id": self.id,
             "title": self.habit,
@@ -38,3 +36,20 @@ class Habit(db.Model):
             "program_id": self.program_id,
             "created_at": self.created_at,
         }
+
+    def week_stamps_for_member(self, mid):
+        """Return past week's stamps for Habit and User."""
+        current_date = date.today()
+        past_week = [(current_date - timedelta(days=i)) for i in range(7)]
+        past_week_days = [day.strftime('%A')[0:3] for day in past_week]
+        past_week_dates = [date.strftime('%Y-%m-%d') for date in past_week]
+        stamp_ids = []
+        for stamp in self.stamps:
+            if stamp.membership_id == mid and stamp.date <= past_week[0] and stamp.date >= past_week[6]:
+                stamp_ids.append(stamp.id)
+        return stamp_ids
+
+    def to_dict_for_member(self, mid):
+        """Return dict of Habit, including past week's stamps for User."""
+        stamp_ids = self.week_stamps_for_member(mid)
+        return {**self.to_dict(), "stamp_ids": stamp_ids}

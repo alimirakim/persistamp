@@ -61,7 +61,7 @@ def user_programs(uid):
         for habit in program.habits:
             habits_data[habit.id] = habit.to_dict()
             
-            # Daily icons for prev week for habit
+            # Stamps for prev week for habit
             stamps = Stamp.query.filter( \
                 Stamp.habit_id == habit.id, \
                 Stamp.membership_id == mid, \

@@ -18,9 +18,9 @@ def authenticate():
         # user_data = queryUserFullData(current_user.id)
         # print("\nUSER WITH MEMBERS")
         # pprint(user_data)
-        user_data = queryUserFullData(current_user.id)
-        print("user data", user_data)
-        return user_data
+        content = queryUserFullData(current_user.id)
+        print("user data", content)
+        return content
     return {'errors': ['Unauthorized']}, 401
 
 

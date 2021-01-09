@@ -42,7 +42,7 @@ export const RESET_REDEEMED = 'RESET REDEEMED'
 // ACTION CREATORS
 export const setUser = (user) => ({ type: GET_USER, user })
 export const editUser = (user) => ({ type: UPDATE_USER, user })
-export const logoutUser = () => ({type: LOGOUT_USER})
+export const logoutUser = () => ({ type: LOGOUT_USER })
 
 export const setStamps = (stamps) => ({ type: GET_STAMPS, stamps })
 export const stampDay = (stamp) => ({ type: STAMP_DAY, stamp })
@@ -127,6 +127,15 @@ export function habitsReducer(state = {}, action) {
       return newState
     case RESET_HABITS:
       return {}
+
+    case STAMP_DAY:
+      newState[action.stamp.habit_id].stamp_ids.push(action.stamp.id)
+      return newState
+      case UNSTAMP_DAY:
+      const stampIds = newState[action.stamp.habit_id].stamp_ids
+      newState[action.stamp.habit_id].stamp_ids = stampIds.filter(sid => sid !== action.stamp.id)
+      return newState
+
     default:
       return state
   }

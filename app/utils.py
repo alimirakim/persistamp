@@ -16,7 +16,7 @@ def dump_data_list(instances, schema):
     return data
 
 
-def queryUserFullData(id):
+def queryUserFullData(uid):
     """
     Query for user by id and return jsonifiable object including data for: 
     color, stamp, memberships object (key ids, value objects).
@@ -25,25 +25,25 @@ def queryUserFullData(id):
         joinedload(User.memberships) \
         .joinedload(Membership.program) \
         .joinedload(Program.habits), \
-        ).get(id)
+        ).get(uid)
     
-    memberships = {}
     programs = {}
     habits = {}
     stamps = {}
     
     for membership in user.memberships:
-        memberships[membership.id] = membership.to_dict()
-        programs[membership.program_id] = membership.program.to_dict()
+        programs[membership.program_id] = membership.program.to_dict_for_user(uid)
         for habit in membership.program.habits:
-            habits[habit.id] = habit.to_dict()
+            habits[habit.id] = habit.to_dict_for_member(membership.id)
             for stamp in habit.stamps:
-                stamps[stamp.id] = stamp.to_dict()
+                if stamp.membership_id == membership.id:
+                    stamps[stamp.id] = stamp.to_dict()
 
-    print("\nhabits?")
-    pprint(stamps)
+    print("\nuser data?")
+    # pprint(programs)
+    pprint(habits)
+    # pprint(stamps)
     return jsonify(
-        memberships_data=memberships, 
         programs_data=programs, 
         habits_data=habits, 
         stamps_data=stamps, 

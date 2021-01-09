@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from 'react-router-dom'
 
 
-export default function RewardShopButton({ program, points, mid }) {
+export default function RewardShopButton({ program, points }) {
 
   return (
-    <Link to={`/programs/${program.id}/memberships/${mid}/rewards`}>
+    <Link to={`/programs/${program.id}/memberships/${program.membership_id}/rewards`}>
       <div className="reward-shop">
         <h4 className="cam">REWARD SHOP</h4>
         <i className={`fas fa-store`} style={{ color: program.color, fontSize: "2rem", margin: "0.5rem" }}></i>

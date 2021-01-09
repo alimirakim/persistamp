@@ -4,7 +4,7 @@ import { Dialog, DialogTitle, DialogContent } from '@material-ui/core'
 
 import OptionsContext from '../../context/OptionsContext'
 import UserContext from '../../context/UserContext'
-import HabitBoardContext from '../../context/HabitBoardContext'
+import ProgramBoardContext from '../../context/ProgramBoardContext'
 
 import {
   AddTitle, AddDescription, ChooseColor, ChooseIcon, ChooseLimit, ChooseQuantity, ChooseCost, ActionOrCancelButtons
@@ -17,21 +17,18 @@ import {
 export default function RewardShop() {
   const { pid, mid } = useParams()
   const { user } = useContext(UserContext)
-  const membership = user.memberships[mid]
-  const [program, setProgram] = useState()
+  const {programs} = useContext(ProgramBoardContext)
+  console.log("context", programs)
+  const program = programs[pid]
   const [rewards, dispatchRewards] = useReducer(rewardsReducer)
   const [redeemed, dispatchRedeemed] = useReducer(redeemedReducer)
-  const [points, setPoints] = useState(membership.points)
+  const [points, setPoints] = useState(program.points)
 
   useEffect(() => {
     (async () => {
       const res = await fetch(`/api/rewards/programs/${pid}/users/${user.id}`)
-      console.log("after reward fetch", res)
       const stuff = await res.json()
-      console.log("fetched program/rewards/redeemed data", stuff)
-
-      const { program_data, rewards_data, redeemed_data } = await fetch(`/api/rewards/programs/${pid}/users/${user.id}`).then(res => res.json())
-      setProgram(program_data)
+      const { rewards_data, redeemed_data } = await fetch(`/api/rewards/programs/${pid}/users/${user.id}`).then(res => res.json())
       dispatchRewards(setProgramRewards(rewards_data))
       dispatchRedeemed(setRedeemed(redeemed_data))
     })()
@@ -59,7 +56,6 @@ export default function RewardShop() {
   //   }
   // }, [redeemed])
 
-  // console.log("got rewards and redeemed", rewards, redeemed)
   if (!program || !rewards || !redeemed) return null
 
   return (<article style={{ color: program.color }}>

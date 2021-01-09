@@ -3,7 +3,7 @@ import React from 'react'
 // OUR COMPONENTS
 import UserProfileCard from './UserProfileCard'
 import ProgramForm from '../forms/ProgramForm'
-import HabitBoard from './HabitBoard'
+import ProgramBoard from './ProgramBoard'
 
 export default function Homepage() {
 
@@ -15,7 +15,7 @@ export default function Homepage() {
       <ProgramForm />
     </div>
 
-    <HabitBoard />
+    <ProgramBoard />
   </main>
   )
 }

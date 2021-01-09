@@ -39,7 +39,7 @@ def current_week():
         Stamp.user_id == current_user.id, \
         Stamp.date <= past_week_dates[0], \
         Stamp.date >= past_week_dates[6]).all()
-    return jsonify(days=past_week_days, dates=past_week_dates, stamps=[stamp_schema.dump(stamp) for stamp in stamps])
+    return jsonify(days=past_week_days, dates=past_week_dates, stamps=[stamp.to_dict() for stamp in stamps])
 
 
 @stamp_routes.route("/<int:hid>/programs/<int:pid>/memberships/<int:mid>/days/<day>", methods=["delete", "post"])
@@ -72,14 +72,16 @@ def stamp_day(pid, mid, hid, day):
         if stamp.status == 'stamped':
             membership.points += 1
         db.session.commit()
-        return jsonify(stamp_schema.dump(stamp))
+        return stamp.to_dict()
     elif request.method == "DELETE":
         stamp = Stamp.query.filter( \
             Stamp.habit_id == hid,  \
             Stamp.membership_id == mid, \
-            Stamp.date == day).one_or_none()
+            Stamp.date == day).one()
+        print("\ndelete stamp")
+        print(stamp)
         db.session.delete(stamp)
         membership.points -= 1
         db.session.commit()
 
-        return jsonify("Stampy deleted :C ")
+        return stamp.to_dict()

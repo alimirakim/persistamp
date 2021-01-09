@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 
-import HabitBoardProvider from '../../context/HabitBoardContext'
+import ProgramBoardProvider from '../../context/ProgramBoardContext'
 import HabitForm from '../forms/HabitForm'
 
 
 export default function CurrentWeekRow({ program, dispatchHabits }) {
-  const { week } = useContext(HabitBoardProvider)
+  const { week } = useContext(ProgramBoardProvider)
 
   return (
     <tr>
