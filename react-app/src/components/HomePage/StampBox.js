@@ -12,7 +12,13 @@ import { stampDay, unstampDay } from "../../context/reducers"
 // straight from the source
 
 export default function StampBox({ day, mid, hid }) {
-  const { stamps, habits, dispatchStamps, dispatchHabits } = useContext(ProgramBoardContext)
+  const {
+    stamps,
+    habits,
+    dispatchStamps,
+    dispatchHabits,
+    dispatchPrograms
+  } = useContext(ProgramBoardContext)
   const habit = habits[hid]
   const [stampStatus, setStampStatus] = useState("")
   const stampPath = `/api/stamps/${habit.id}/programs/${habit.program_id}/memberships/${mid}/days/${day[1]}`
@@ -27,17 +33,19 @@ export default function StampBox({ day, mid, hid }) {
 
   const onStamp = (method) => async (ev) => {
     ev.preventDefault()
-    // console.log("onStamp", stampStatus)
     const res = await fetch(stampPath, { method })
     const stamp = await res.json()
     if (method === "post") {
       dispatchStamps(stampDay(stamp))
       dispatchHabits(stampDay(stamp))
+      
+      console.log("onStamp", stampStatus)
+      dispatchPrograms(stampDay(stamp))
       // setStamp("stamped")
     } else if (method === "delete") {
-
       dispatchStamps(unstampDay(stamp))
       dispatchHabits(unstampDay(stamp))
+      dispatchPrograms(unstampDay(stamp))
       // setStamp("")
     }
   }

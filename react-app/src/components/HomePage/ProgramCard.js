@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 
-import UserContext from '../../context/UserContext'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
 import { ProgramEditForm, ProgramDeleteForm } from '../forms/ProgramForm'
 import RewardShopButton from "./RewardShopButton";
@@ -9,11 +8,9 @@ import HabitRow from './HabitRow'
 
 
 export default function ProgramCard({ program }) {
-  const { user } = useContext(UserContext)
   const { habits } = useContext(ProgramBoardContext)
   return (
     <li key={program.id}>
-    <i>TEST</i>
       <table className="board" style={{ color: program.color }}>
 
         <thead>
@@ -29,7 +26,7 @@ export default function ProgramCard({ program }) {
                   </h3>
                 </div>
                 <RewardShopButton
-                  points={program.points}
+                  
                   program={program}
                 />
               </div>

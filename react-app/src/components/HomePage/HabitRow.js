@@ -11,7 +11,7 @@ import StampBox from './StampBox'
 // Though dailies is updating, habit's dailies list is not.
 // Too many sources of truth.
 export default function HabitRow({ habit, program }) {
-  const { week, stamps } = useContext(ProgramBoardContext)
+  const { week } = useContext(ProgramBoardContext)
 
   return (
     <tr key={habit.id} style={{ color: habit.color }}>
@@ -19,11 +19,10 @@ export default function HabitRow({ habit, program }) {
         <HabitEditForm habit={habit} />
         <HabitDeleteForm habit={habit} />
 
-        <Link
-          to={`/graphs/${habit.id}/memberships/${program.membership_id}`}
-          style={{ color: `${habit.color}`, textDecoration: "none" }}
-        >
-          <i className={`fas fa-${habit.icon}`}></i> {habit.title}
+        <Link to={`/graphs/${habit.id}/memberships/${program.membership_id}`}>
+          <div className="hbt-btn" style={{ backgroundColor: habit.color }}>
+            <i className={`fas fa-${habit.icon}`}></i> {habit.title}
+          </div>
         </Link>
       </td>
       {week.map(day => {
