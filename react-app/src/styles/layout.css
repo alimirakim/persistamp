@@ -31,17 +31,13 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
   /* background-image: url("./Paper-02.png"); */
   background-color: black;
   box-shadow: 5px 5px 5px black;
-  border: 10px double;
+  border-width: 10px;
+  /* background: linear-gradient(135deg, rgba(0,0,0,1), rgba(55,55,55,1)); */
+  background: linear-gradient(-45deg, rgba(0,0,0,1), rgba(25,25,25,1));
 }
 
 .points {
   font-size: 1.5rem;
-}
-
-.reward-shop {
-  border-radius: 20px;
-  border: 5px double;
-  padding: 1rem;
 }
 
 .cam {

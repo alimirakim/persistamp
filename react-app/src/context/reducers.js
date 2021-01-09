@@ -105,6 +105,17 @@ export function programsReducer(state = {}, action) {
       return newState
     case RESET_PROGRAMS:
       return {}
+
+    // TODO QUESTION Why does this double the points?!?!?!???
+    case STAMP_DAY:
+      const program_s = Object.values(newState).find(program => program.membership_ids.includes(action.stamp.membership_id))
+      newState[program_s.id].points += 0.5
+      return newState
+    case UNSTAMP_DAY:
+      const program_u = Object.values(newState).find(program => program.membership_ids.includes(action.stamp.membership_id))
+      newState[program_u.id].points -= 0.5
+      return newState
+
     default:
       return state
   }
@@ -131,7 +142,7 @@ export function habitsReducer(state = {}, action) {
     case STAMP_DAY:
       newState[action.stamp.habit_id].stamp_ids.push(action.stamp.id)
       return newState
-      case UNSTAMP_DAY:
+    case UNSTAMP_DAY:
       const stampIds = newState[action.stamp.habit_id].stamp_ids
       newState[action.stamp.habit_id].stamp_ids = stampIds.filter(sid => sid !== action.stamp.id)
       return newState
