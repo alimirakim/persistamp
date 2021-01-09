@@ -9,7 +9,7 @@ import turtle from '../images/turtle.svg'
 export default function NavBar({ auth, setAuth, user }) {
   // const [isLoggedIn, setIsLoggedIn] = useState(auth)
   const [settingsOpen, setSettingsOpen] = useState(false)
-
+  // console.log("NAVBAR", auth, setAuth, user)
   const onLogout = async (e) => {
     await logout();
     setAuth(false);

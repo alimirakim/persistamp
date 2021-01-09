@@ -157,6 +157,7 @@ nav.stickers {
   right: 3rem;
   display: flex;
   flex-direction: column;
+  z-index: 1;
 }
 
 .sticker {
@@ -291,6 +292,7 @@ nav.stickers {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    /* z-index: -1; */
 
 }
 .habitFormat {
