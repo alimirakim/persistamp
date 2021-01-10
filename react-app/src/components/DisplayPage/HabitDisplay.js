@@ -55,7 +55,7 @@ export default function HabitDisplay() {
                     <tbody>
                       <tr>
                         <td className="habitDetail__cell">{habit.description}</td>
-                        {/* <td className="habitDetail__cell">{habit.program.title}</td> */}
+                        <td className="habitDetail__cell">{habit.program.title}</td>
                         <td className="habitDetail__cell">{habit.icon}</td>
                         <td className="habitDetail__cell">{habit.frequency} Days</td>
                         <td className="habitDetail__cell">{new Date(habit.created_at).toLocaleString()}</td>

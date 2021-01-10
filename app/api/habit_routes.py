@@ -24,7 +24,11 @@ def habit_details(hid, mid):
     """Get a habit's details, including recent history."""
     # TODO Ask TA how to filter joinedload to only return stamps of 'member id blah', and filter attributes for each joinedload.
     habit = Habit.query.get(hid)
-    return habit.to_dict()
+    # print("HABIT", habit.to_dict())
+    program = program_schema.dump(Program.query.get(habit.to_dict()["program_id"]))
+    habitWProgram = habit.to_dict()
+    habitWProgram["program"] = program
+    return habitWProgram
 
 
 @habit_routes.route("/edit/<int:hid>", methods=["PATCH"])
