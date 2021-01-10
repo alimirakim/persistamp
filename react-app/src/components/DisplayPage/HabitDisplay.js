@@ -45,20 +45,20 @@ export default function HabitDisplay() {
                   <table className="habitDetail__table">
                     <thead>
                       <tr>
-                        <th>Description</th>
-                        <th>Program</th>
-                        <th>Stamp</th>
-                        <th>Frequency</th>
-                        <th>Started on</th>
+                        <th className="habitDetail-border">Description</th>
+                        <th className="habitDetail-border">Program</th>
+                        <th className="habitDetail-border">Stamp</th>
+                        <th className="habitDetail-border">Frequency</th>
+                        <th className="habitDetail-border">Started on</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td className="habitDetail__cell">{habit.description}</td>
-                        <td className="habitDetail__cell">{habit.program.title}</td>
-                        <td className="habitDetail__cell">{habit.icon}</td>
-                        <td className="habitDetail__cell">{habit.frequency} Days</td>
-                        <td className="habitDetail__cell">{new Date(habit.created_at).toLocaleString()}</td>
+                        <td className="habitDetail__cell habitDetail-border">{habit.description}</td>
+                        <td className="habitDetail__cell habitDetail-border">{habit.program.title}</td>
+                        <td className="habitDetail__cell habitDetail-border">{habit.icon}</td>
+                        <td className="habitDetail__cell habitDetail-border">{habit.frequency} Days</td>
+                        <td className="habitDetail__cell habitDetail-border">{new Date(habit.created_at).toLocaleString()}</td>
                       </tr>
                     </tbody>
                   </table>

@@ -274,12 +274,11 @@ nav.stickers {
     position: relative;
     text-align: center;
 }
-.lineGraphToggle {
+/* .lineGraphToggle {
     position: relative;
     left: 640px;
     outline: 1px solid #ccc;
-    /* box-sizing: border-box; */
-}
+} */
 .displayPage {
     position: relative;
     left:50px;
@@ -303,31 +302,42 @@ nav.stickers {
     flex-direction: row; */
     width:100%;
     /* left:20px; */
-}
-.habitDetail__title {
+  }
+  .habitDetail__title {
     font-size: 30px;
     position: relative;
     left: 40px;
     margin: 20px;
-}
-.habitDetail__items {
+  }
+  .habitDetail__items {
     margin: 10px;
-}
-.habitDetail__name {
+  }
+  .habitDetail__name {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-}
-.habitDetail__description {
+  }
+  .habitDetail__description {
     position: relative;
 
-}
-.habitDetail__table {
+  }
+  .habitDetail__table {
+    /* border: 1px solid; */
     table-layout: fixed;
     width: 700px;
-}
-.habitDetail__cell {
+  }
+  .habitDetail-border {
+      border: 1px solid;
+
+    }
+  .habitDetail__cell {
+  /* border: 1px solid; */
     width: 25%;
+}
+#toggle-select {
+  background-color: black;
+  position: relative;
+  left: 630px;
 }
 .heatMapContainer {
     position: relative;
