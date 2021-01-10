@@ -1,14 +1,21 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
 
 import ProgramBoardContext from '../../context/ProgramBoardContext'
-import { ProgramEditForm, ProgramDeleteForm } from '../forms/ProgramForm'
+import ProgramEditForm from '../forms/ProgramEditForm'
+import ProgramDeleteForm from '../forms/ProgramDeleteForm'
 import RewardShopButton from "./RewardShopButton";
 import CurrentWeekRow from "./CurrentWeekRow";
 import HabitRow from './HabitRow'
-
+import { EditButton, DeleteButton } from '../forms/FormInputs'
 
 export default function ProgramCard({ program }) {
   const { habits } = useContext(ProgramBoardContext)
+  const [openEdit, setOpenEdit] = useState(false)
+  const [openDelete, setOpenDelete] = useState(false)
+
+  const toggleEdit = (e) => setOpenEdit(!openEdit)
+  const toggleDelete = (e) => setOpenDelete(!openDelete)
+
   return (
     <li key={program.id}>
       <table className="board" style={{ color: program.color }}>
@@ -18,15 +25,23 @@ export default function ProgramCard({ program }) {
             <td colSpan={8}>
               <div className="program">
                 <div style={{ display: "flex" }}>
-                  <ProgramEditForm program={program} />
-                  <ProgramDeleteForm program={program} />
+
+                  <EditButton handleOpen={toggleEdit} />
+                  {openEdit &&
+                    <ProgramEditForm open={openEdit} handleClose={toggleEdit} program={program} />
+                  }
+
+                  <DeleteButton handleOpen={toggleDelete} />
+                  {openDelete &&
+                    <ProgramDeleteForm open={openDelete} handleClose={toggleDelete} program={program} />
+                  }
 
                   <h3 className="program-title">
-                    <i className={`fas fa-${program.stamp}`}></i> {program.title}
+                    <i className={`fas fa-${program.icon}`}></i> {program.title}
                   </h3>
                 </div>
                 <RewardShopButton
-                  
+
                   program={program}
                 />
               </div>

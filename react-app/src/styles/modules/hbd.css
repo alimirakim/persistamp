@@ -36,3 +36,10 @@ div.hbt-btn:hover {
   color: rgb(0,0,0);
   /* padding: 0.7rem; */
 }
+
+td.stamp {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,0.1);
+}

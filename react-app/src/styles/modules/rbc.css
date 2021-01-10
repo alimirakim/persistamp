@@ -1,0 +1,81 @@
+.ico-btn {
+  position: relative;
+  color: #969696;
+  border: 4px solid #969696;
+  border-radius: 50%;
+}
+
+.ico-btn > i {
+  position: absolute;
+}
+
+/* MODULE radio-box-circles */
+.rbc {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 1.5rem);
+  grid-auto-columns: 1.5rem;
+  grid-auto-rows: 1.5rem;
+  grid-gap: 0.2rem;
+  justify-content: center;
+  align-content: center;
+}
+
+/* radio-box-circle container (label) */
+.rbc-con {
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+
+/* Hide default radio input-box */
+.rbc-input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* radio-box-circle (span), create custom radio-box */
+.rbc-box {
+  position: absolute;
+  height: 1.5rem;
+  width: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+/* Styling for rbc-color variant */
+.rbc-color {
+  border: 4px solid rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+}
+
+/* ON HOVER/CHECK: remove border */
+.rbc-color:hover, .rbc-input:checked ~ .rbc-box {
+  border: 0 solid rgba(56, 53, 53, 0);
+}
+
+.rbc-image {
+  font-size: 1.2rem;
+  border-radius: 15%;
+}
+
+/* Styling for foreground-checkmark-indicator variant */
+/* Create hidden check-icon */
+.rbc-checkmark {
+  position: absolute;
+  opacity: 0;
+  font-size: 0.8rem;
+}
+
+/* ON CHECK: Show checkmark-icon */
+.rbc-input:checked ~ .rbc-box > .rbc-checkmark {
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+/* Styling for background-checkmark-indicator variant */
+/* ON HOVER/CHECK: fill background with white screen */
+.rbc-image:hover, .rbc-input:checked ~ .rbc-image {
+  /* background-color: rgba(0,0,0,0.5); */
+  background-color: rgba(255, 255, 255, 0.1);
+}
+/*# sourceMappingURL=rbc.css.map */

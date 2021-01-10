@@ -34,7 +34,7 @@ def queryUserFullData(uid):
     for membership in user.memberships:
         programs[membership.program_id] = membership.program.to_dict_for_user(uid)
         for habit in membership.program.habits:
-            habits[habit.id] = habit.to_dict_for_member(membership.id)
+            habits[habit.id] = habit.to_dict_for_user(user)
             for stamp in habit.stamps:
                 if stamp.membership_id == membership.id:
                     stamps[stamp.id] = stamp.to_dict()

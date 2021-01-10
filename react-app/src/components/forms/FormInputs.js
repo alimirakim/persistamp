@@ -4,6 +4,24 @@ import {
 } from '@material-ui/core'
 
 
+export function EditButton({ handleOpen }) {
+  return (
+    <button onClick={handleOpen} style={{ color: "gray", backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
+      <i className={`fas fa-pencil-alt`}></i>
+    </button>
+  )
+}
+
+
+export function DeleteButton({ handleOpen }) {
+  return (
+    <button onClick={handleOpen} style={{ color: "gray", backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
+      <i className={`fas fa-eraser`}></i>
+    </button>
+  )
+}
+
+
 export function ActionOrCancelButtons({ handleClose, onAction, action }) {
   return (
     <DialogActions>
@@ -88,11 +106,8 @@ export function ChooseIcon({ icons, icon, setIcon, color }) {
 }
 
 
-export function ChooseFrequency({ frequency, setFrequency }) {
-
-  const updateFrequency = (e) => setFrequency(e.target.value)
-
-  return (<>
+export function ChooseFrequency({ frequency, updateFrequency }) {
+  return (
     <Select onChange={updateFrequency} label="frequency" value={frequency}>
       <MenuItem value={1}>1 days</MenuItem>
       <MenuItem value={2}>2 days</MenuItem>
@@ -102,7 +117,7 @@ export function ChooseFrequency({ frequency, setFrequency }) {
       <MenuItem value={6}>6 days</MenuItem>
       <MenuItem value={7}>7 days</MenuItem>
     </Select>
-  </>)
+  )
 }
 
 export function SetUsername({ username, setUsername }) {
