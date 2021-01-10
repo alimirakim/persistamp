@@ -40,10 +40,7 @@ export default function ProgramCard({ program }) {
                     <i className={`fas fa-${program.icon}`}></i> {program.title}
                   </h3>
                 </div>
-                <RewardShopButton
-
-                  program={program}
-                />
+                <RewardShopButton program={program} />
               </div>
               <blockquote>{program.description}</blockquote>
 

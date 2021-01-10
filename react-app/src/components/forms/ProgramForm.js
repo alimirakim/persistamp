@@ -1,12 +1,7 @@
-import React, { useState, useContext } from 'react'
-import { Dialog, DialogTitle, DialogContent } from '@material-ui/core'
-import UserContext from '../../context/UserContext'
+import React, { useContext } from 'react'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
-import OptionsContext from '../../context/OptionsContext'
-import { createProgram, editProgram, deleteProgram } from '../../context/reducers'
-import { ActionOrCancelButtons, AddTitle, AddDescription, ChooseColor, ChooseIcon } from './FormInputs'
+import { createProgram } from '../../context/reducers'
 import FormWrapper from './FormWrapper'
-
 
 
 export default function ProgramForm({ open, handleClose }) {

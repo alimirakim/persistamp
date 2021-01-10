@@ -14,9 +14,10 @@ export default function DeleteForm({
 
   const onDelete = async (e) => {
     e.preventDefault()
-    setOpen(false)
+    handleClose()
     dispatcher(actionCreator(item))
     const res = await fetch(path, { method: "DELETE"})
+    console.log("deleted? :)")
   }
   
   return (

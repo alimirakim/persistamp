@@ -10,7 +10,7 @@ import User from "./components/UserPage";
 import UserContext from './context/UserContext';
 import ProgramBoardContext from "./context/ProgramBoardContext"
 import OptionsContext from './context/OptionsContext'
-
+import RewardShopContext from './context/RewardShopContext'
 
 import AboutCard from './components/AboutCard'
 import HabitDisplay from './components/DisplayPage/HabitDisplay'
@@ -31,7 +31,7 @@ import './styles/index.css'
 // import LineGraph from "./components/LineGraph";
 
 
-function App() {
+export default function App() {
   const [auth, setAuth] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [colors, setColors] = useState()
@@ -146,5 +146,3 @@ function App() {
     </BrowserRouter>
   );
 }
-
-export default App;
