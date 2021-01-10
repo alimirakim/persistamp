@@ -420,3 +420,11 @@ body {
 .material-error{
     margin-left: 25px;
 }
+
+.loadingpage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+
+}

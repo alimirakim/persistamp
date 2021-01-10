@@ -16,6 +16,7 @@ import AboutCard from './components/AboutCard'
 import HabitDisplay from './components/DisplayPage/HabitDisplay'
 import RewardShop from './components/RewardPage/RewardShop'
 import Homepage from './components/HomePage/Homepage'
+import LoadingPage from './components/LoadingPage'
 
 import {
   userReducer, programsReducer, habitsReducer, stampsReducer,
@@ -97,7 +98,11 @@ function App() {
   useEffect(() => console.log("stamps", stamps), [stamps])
 
 
-  if (!loaded) return null
+  if (!loaded) {
+    return (<>
+      <LoadingPage />
+    </>)
+  }
 
   return (
     <BrowserRouter>
