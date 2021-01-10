@@ -88,127 +88,106 @@ export function userReducer(state = {}, action) {
   }
 }
 
+export function programBoardReducer(state = {
+  programs: {},
+  habits: {},
+  stamps: {},
 
-
-export function programsReducer(state = {}, action) {
+}, action) {
   const newState = { ...state }
   switch (action.type) {
     case GET_USER_PROGRAMS:
-      return action.programs
+      newState.programs = action.programs
+      return newState
     case CREATE_PROGRAM:
-      newState[action.program.id] = action.program
+      newState.programs[action.program.id] = action.program
       return newState
     case DELETE_PROGRAM:
-      delete newState[action.program.id]
+      delete newState.programs[action.program.id]
       return newState
     case EDIT_PROGRAM:
-      newState[action.program.id] = action.program
+      newState.programs[action.program.id] = action.program
       return newState
-    case RESET_PROGRAMS:
-      return {}
 
     // TODO QUESTION Why does this double the points?!?!?!???
+    // STAMPS
     case STAMP_DAY:
-      const program_s = Object.values(newState).find(program => program.membership_ids.includes(action.stamp.membership_id))
-      newState[program_s.id].points += 0.5
+      const program_s = Object.values(state.stamps).find(program => program.membership_ids.includes(action.stamp.membership_id))
+      newState.stamps[program_s.id].points += 0.5
       return newState
     case UNSTAMP_DAY:
-      const program_u = Object.values(newState).find(program => program.membership_ids.includes(action.stamp.membership_id))
-      newState[program_u.id].points -= 0.5
+      const program_u = Object.values(state.stamps).find(program => program.membership_ids.includes(action.stamp.membership_id))
+      newState.stamps[program_u.id].points -= 0.5
       return newState
 
-    default:
-      return state
-  }
-}
-
-
-export function habitsReducer(state = {}, action) {
-  const newState = { ...state }
-  switch (action.type) {
+    // HABITS      
     case GET_USER_HABITS:
-      return action.habits
+      return newState.actions = action.habits
     case CREATE_HABIT:
-      newState[action.habit.id] = action.habit
+      newState.habits[action.habit.id] = action.habit
       return newState
     case DELETE_HABIT:
-      delete newState[action.habit.id]
+      delete newState.habits[action.habit.id]
       return newState
     case EDIT_HABIT:
-      newState[action.habit.id] = action.habit
-      return newState
-    case RESET_HABITS:
-      return {}
-
-    case STAMP_DAY:
-      newState[action.stamp.habit_id].stamp_ids.push(action.stamp.id)
-      return newState
-    case UNSTAMP_DAY:
-      const stampIds = newState[action.stamp.habit_id].stamp_ids
-      newState[action.stamp.habit_id].stamp_ids = stampIds.filter(sid => sid !== action.stamp.id)
+      newState.habits[action.habit.id] = action.habit
       return newState
 
-    default:
-      return state
-  }
-}
+// STAMPS
+        const newState = { ...state }
+        switch (action.type) {
+          case GET_STAMPS:
+            return action.stamps
+          case STAMP_DAY:
+            newState[action.stamp.id] = action.stamp
+            return newState
+          case UNSTAMP_DAY:
+            delete newState[action.stamp.id]
+            return newState
+          case RESET_STAMPS:
+            return {}
+          default:
+            return state
+        }
+      }
 
 
-export function stampsReducer(state = {}, action) {
-  const newState = { ...state }
-  switch (action.type) {
-    case GET_STAMPS:
-      return action.stamps
-    case STAMP_DAY:
-      newState[action.stamp.id] = action.stamp
-      return newState
-    case UNSTAMP_DAY:
-      delete newState[action.stamp.id]
-      return newState
-    case RESET_STAMPS:
-      return {}
-    default:
-      return state
-  }
-}
+      export function rewardsReducer(state = {}, action) {
+        const newState = { ...state }
+        switch (action.type) {
+          case GET_PROGRAM_REWARDS:
+            return action.rewards
+          case CREATE_REWARD:
+            newState[action.reward.id] = action.reward
+            return newState
+          case EDIT_REWARD:
+            newState[action.reward.id] = action.reward
+            return newState
+          case DELETE_REWARD:
+            delete newState[action.reward.id]
+            return newState
+          case RESET_PROGRAM_REWARDS:
+            return {}
+          default:
+            return state
+        }
+      }
 
 
-export function rewardsReducer(state = {}, action) {
-  const newState = { ...state }
-  switch (action.type) {
-    case GET_PROGRAM_REWARDS:
-      return action.rewards
-    case CREATE_REWARD:
-      newState[action.reward.id] = action.reward
-      return newState
-    case EDIT_REWARD:
-      newState[action.reward.id] = action.reward
-      return newState
-    case DELETE_REWARD:
-      delete newState[action.reward.id]
-      return newState
-    case RESET_PROGRAM_REWARDS:
-      return {}
-    default:
-      return state
-  }
-}
-
-
-export function redeemedReducer(state = [], action) {
-  switch (action.type) {
-    case GET_REDEEMED_REWARDS:
-      return action.redeemed
-    case REDEEM_REWARD:
-      return [...state, action.redeemed]
-    case DELETE_REDEEMED:
-      return state.filter(reward => reward.id == action.redeemed.id)
-    case RESET_REDEEMED:
-      return {}
-    default:
-      return state
-  }
-}
+      export function redeemedReducer(state = [], action) {
+        switch (action.type) {
+          case GET_REDEEMED_REWARDS:
+            return action.redeemed
+          case REDEEM_REWARD:
+            return [...state, action.redeemed]
+          case DELETE_REDEEMED:
+            return state.filter(reward => reward.id == action.redeemed.id)
+          case RESET_REDEEMED:
+            return {}
+          default:
+            return state
+        }
+      }
 
 // export function userReducer(state=[], action) {
 //   const newState = {...state}
