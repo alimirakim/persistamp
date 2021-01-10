@@ -11,7 +11,7 @@ export default function ProgramForm() {
   const { user, setUser } = useContext(UserContext)
   const { colors, icons } = useContext(OptionsContext)
   const { dispatchPrograms } = useContext(ProgramBoardContext)
-  
+
   const [open, setOpen] = useState(false)
   const [title, setTitle] = useState()
   const [errors, setErrors] = useState([])
@@ -41,7 +41,7 @@ export default function ProgramForm() {
       const {program, updated_user} = await res.json()
       setUser(updated_user)
       dispatchPrograms(createProgram(program))
-  
+
       setTitle()
       setDescription()
       setColor(1)
@@ -171,9 +171,9 @@ export function ProgramDeleteForm({ program }) {
 
         <DialogContent>
           <strong>Are you sure you want to PERMANENTLY delete this and all its habits?</strong>
-          <ActionOrCancelButtons onAction={onDelete} action={"Delete"} />
+          <ActionOrCancelButtons handleClose={handleClose} onAction={onDelete} action={"Delete"} />
         </DialogContent>
-        
+
       </Dialog>
     </>
   )
