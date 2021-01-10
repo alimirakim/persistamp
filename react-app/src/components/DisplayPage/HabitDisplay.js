@@ -25,6 +25,7 @@ export default function HabitDisplay() {
   }, [habit])
   if (!habit) return null
 
+  // console.log("HABIT", habit);
   return (
     <HabitContext.Provider value={habit}>
       <main>
