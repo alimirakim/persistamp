@@ -70,7 +70,21 @@ ul > li {
 }
 
 .about-card_a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 150px;
+  height: 70px;
+}
+.about-card_icon {
+  color: black;
+}
+.about-card_icon:hover {
   color: lightseagreen;
+}
+
+.grey-icon {
+  color: grey;
 }
 
 /* a. Fix item editing - infinity bugs */

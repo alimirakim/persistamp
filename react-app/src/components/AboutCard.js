@@ -5,55 +5,71 @@ import brian from '../images/brian-linkedin.jpg'
 import mira from '../images/mira-linkedin.jpg'
 
 function AboutCard() {
-  const renderLinks = (links) => {
+  const renderLinks = (user) => {
     // console.log("links should be rendering")
     // console.log(links)
-    return links.map(link => {
-      return <a className="about-card_a" target='_blank' key={links[1]} href={link[1]}>{link[0]}</a>
-    })
+    return (<>
+      <div className="about-card_a">
+        <a className="about-card_icon" href={`mailto:${user.email}`}>
+          <i className="fas fa-envelope fa-2x"></i>
+        </a>
+        <a className="about-card_icon" target='_blank' href={user.links[0]}>
+          <i className="fab fa-github fa-2x"></i>
+        </a>
+        {user.links[1] ?
+          <a className="about-card_icon" target='_blank' href={user.links[1]}>
+            <i className="fab fa-linkedin-in fa-2x"></i>
+          </a>
+          :
+          <i className="fab fa-linkedin-in fa-2x grey-icon"></i>
+        }
+      </div>
+    </>)
+    // return links.map(link => {
+    //   return <a className="about-card_a" target='_blank' key={links[1]} href={link[1]}>{link[0]}</a>
+    // })
   }
   const renderImage = (user) => {
     if (user.image) {
       return <img className="about-img"  src={user.image} alt="profile portrait" />
     } else {
-      return <img src={blankPic} alt="profile portrait" />
+      return <img className="about-img" src={blankPic} alt="profile portrait" />
     }
   }
   let users = [
     {
       name: "Alicia Kim",
       email: "alicia.mira.kim@gmail.com",
-      links: [["GitHub", "https://www.github.com/alimirakim"], ["LinkedIn", "https://www.linkedin.com/in/alicia-mira-kim-416a0a41"]],
+      links: ["https://www.github.com/alimirakim", "https://www.linkedin.com/in/alicia-mira-kim-416a0a41"],
       image: mira,
     },
     {
       name: "Brian Wang",
       email: "brbwang@gmail.com",
-      links: [["GitHub", "https://www.github.com/Awodfkai"], ["LinkedIn", "https://www.linkedin.com/in/brian-wang-902373163"]],
+      links: ["https://www.github.com/Awodfkai", "https://www.linkedin.com/in/brian-wang-902373163"],
       image: brian,
     },
     {
       name: "David Lee",
       email: "dyclee@umich.com",
-      links: [["GitHub", "https://www.github.com/dyclee"], ["LinkedIn", "https://www.linkedin.com/in/daveyclee"]],
+      links: ["https://www.github.com/dyclee", "https://www.linkedin.com/in/daveyclee"],
       image: david,
     },
     {
       name: "Eric Lyda",
       email: "lydaeric@gmail.com",
-      links: [["GitHub", "https://www.github.com/ELyda95"], ["LinkedIn", "https://www.linkedin.com/"]],
+      links: ["https://www.github.com/ELyda95"],
     },
   ];
-  return (
+  return (<>
+    <div className="AboutHeader">About Us</div>
     <div className="AboutContainer">
-      <h1>About Us</h1>
       {users.map(user => {
           return (
             <div key={user.name[0]} className="AboutCardContainer" style={{ backgroundColor: "white", color: "black" }}>
               <div className="AboutCardDetailsContainer">
                 <h3>{user.name}</h3>
-                <p>{user.email}</p>
-                {renderLinks(user.links)}
+                {renderLinks(user)}
               </div>
               <div className="AboutCardImageContainer">
                 {renderImage(user)}
@@ -63,7 +79,7 @@ function AboutCard() {
         })
       }
     </div>
-  )
+  </>)
 }
 
 export default AboutCard

@@ -468,18 +468,29 @@ body {
     margin: 0px;
 }
 
-.AboutContainer{
-  padding: 10px;
+.AboutHeader {
+  font-size: 40px;
+  display: flex;
   justify-content: center;
+  padding: 15px;
+}
+
+.AboutContainer{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin: 0 auto;
+  width: 800px;
+  height: 380px;
 }
 .AboutCardContainer {
   display: flex;
   flex-direction: row;
   border: 2px solid black;
-  padding: 18px;
+  padding: 22px;
   margin: 15px;
   justify-content: space-between;
-  max-width: 400px;
+  width: 350px;
 }
 
 .AboutCardDetailsContainer {
@@ -511,4 +522,8 @@ body {
   align-items: center;
   height: 500px;
 
+}
+
+.about-img {
+  border-radius: 50px;
 }
