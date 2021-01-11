@@ -1,7 +1,21 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import {
   Button, TextField, DialogActions, InputLabel, MenuItem, Select
 } from '@material-ui/core'
+
+
+export function Icon(props) {
+  return <i className={`fas fa-${props.icon}`}></i> 
+}
+
+export function BackButton(path, color) {
+  return (
+    <Link to={path}>
+      <i className={`fas fa-chevron-circle-left`} style={{ color }}></i>
+    </Link>
+  )
+}
 
 
 export function EditButton({ handleOpen }) {

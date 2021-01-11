@@ -20,19 +20,19 @@ def type_rewards(type):
     return jsonify(dump_data_list(rewards, reward_schema))
 
 
-@reward_routes.route("/programs/<int:pid>/users/<int:uid>")
-def program_and_rewards_and_redeemed(pid, uid):
+@reward_routes.route("/programs/<int:pid>")
+def program_and_rewards_and_redeemed(pid):
     """Get a list of a program's custom rewards."""
     program = Program.query.get(pid)
     rewards = Reward.query.filter(Reward.program_id == pid).all()
     redeemed = Redeemed.query.join(Redeemed.reward) \
-        .filter(Redeemed.user_id == uid, Reward.program_id == pid) \
+        .filter(Redeemed.user_id == current_user.id, Reward.program_id == pid) \
         .order_by(Redeemed.redeemed_at).all()
 
     return jsonify(
-        program_data=program.to_dict(), 
-        rewards_data=[r.to_dict() for r in rewards],
-        redeemed_data=[r.to_dict() for r in redeemed])
+        program_data=program.to_dict_for_user(current_user.id), 
+        rewards_data={r.id:r.to_dict() for r in rewards},
+        redeemed_data={r.id:r.to_dict() for r in redeemed})
 
 
 @reward_routes.route("/programs/<int:pid>/rewards")
@@ -121,7 +121,7 @@ def redeem_reward(rid, mid):
     db.session.add(redeemed)
     db.session.commit()
 
-    return jsonify(points=membership.points, redeemed_data=redeemed_to_dict())
+    return jsonify(redeemed_data=redeemed.to_dict())
     
     
 @reward_routes.route("/programs/<int:pid>/users/<int:uid>/redeemed")

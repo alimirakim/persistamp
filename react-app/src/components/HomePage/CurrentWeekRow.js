@@ -1,14 +1,11 @@
 import React, { useContext, useState } from "react";
 
 import ProgramBoardProvider from '../../context/ProgramBoardContext'
-import HabitForm from '../forms/HabitForm'
 
 
 export default function CurrentWeekRow({ program }) {
   const { week } = useContext(ProgramBoardProvider)
-  const [openCreate, setOpenCreate] = useState(false)
 
-  const toggleCreate = (e) => setOpenCreate(!openCreate)
 
   return (
     <tr>

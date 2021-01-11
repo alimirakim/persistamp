@@ -1,6 +1,7 @@
 
 // ACTION TYPES
 export const GET_ALL = 'GET ALL'
+export const GET_WEEK = 'GET WEEK'
 
 export const GET_USER_PROGRAMS = 'GET USER PROGRAMS'
 export const CREATE_PROGRAM = 'CREATE PROGRAM'
@@ -24,7 +25,8 @@ export const RESET_STAMPS = 'RESET STAMPS'
 
 
 // ACTION CREATORS
-export const setAll = (all) => ({ type: GET_ALL, ...all })
+export const setAll = (all) => ({ type: GET_ALL, all })
+export const setWeek = (week) => ({type: GET_WEEK, week})
 
 export const setPrograms = (programs) => ({ type: GET_USER_PROGRAMS, programs })
 export const createProgram = (program) => ({ type: CREATE_PROGRAM, program })
@@ -52,7 +54,7 @@ export default function programBoardReducer(state = {
 
   switch (action.type) {
     case GET_ALL:
-      return { ...newState, week: action.week, programs: action.programs, habits: action.habits, stamps: action.stamps }
+      return { ...newState, ...action.all }
 
 
     case GET_USER_PROGRAMS:

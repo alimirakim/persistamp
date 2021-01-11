@@ -28,6 +28,7 @@ export default function HabitDisplay() {
   
   if (!habit) return null
 
+    
   return (
     <HabitContext.Provider value={habit}>
       <article style={{ color: habit.color }}>

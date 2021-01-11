@@ -10,7 +10,7 @@ import User from "./components/UserPage";
 import UserContext from './context/UserContext';
 import { ProgramBoardContextProvider } from "./context/ProgramBoardContext"
 import OptionsContext from './context/OptionsContext'
-import RewardShopContext from './context/RewardShopContext'
+import { RewardShopContextProvider } from './context/RewardShopContext'
 
 import AboutCard from './components/AboutCard'
 import HabitDisplay from './components/DisplayPage/HabitDisplay'
@@ -88,19 +88,21 @@ export default function App() {
             <User />
           </ProtectedRoute>
 
-          <ProtectedRoute path="/graphs/:hid/memberships/:mid" auth={auth}>
+          {/* <ProtectedRoute path="/graphs/:hid/memberships/:mid" auth={auth}> */}
             <HabitDisplay />
-          </ProtectedRoute>
+          {/* </ProtectedRoute> */}
 
-            <ProgramBoardContextProvider>
-              <ProtectedRoute path="/" exact={true} auth={auth}>
-                <Homepage uid={user.id} />
+          <ProgramBoardContextProvider>
+            <ProtectedRoute path="/" exact={true} auth={auth}>
+              <Homepage uid={user.id} />
+            </ProtectedRoute>
+          </ProgramBoardContextProvider>
+
+            <RewardShopContextProvider>
+              <ProtectedRoute path="/programs/:pid/memberships/:mid/rewards" exact={true} auth={auth}>
+                <RewardShop />
               </ProtectedRoute>
-            </ProgramBoardContextProvider>
-
-          <ProtectedRoute path="/programs/:pid/memberships/:mid/rewards" exact={true} auth={auth}>
-            <RewardShop />
-          </ProtectedRoute>
+            </RewardShopContextProvider>
 
         </OptionsContext.Provider>
       </UserContext.Provider>

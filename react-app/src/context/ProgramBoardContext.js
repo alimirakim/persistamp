@@ -1,7 +1,7 @@
-import React, { createContext, useState, useReducer } from 'react';
+import React, { createContext, useReducer } from 'react';
 
 import programBoardReducer, {
-  setAll,
+  setAll, setWeek,
   setPrograms, createProgram, editProgram, deleteProgram,
   setHabits, createHabit, editHabit, deleteHabit,
   setStamps, stampDay, unstampDay,
