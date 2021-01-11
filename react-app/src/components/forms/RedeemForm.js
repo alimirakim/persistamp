@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useContext, useReducer } from 'react'
 import { Dialog, DialogTitle, DialogContent } from '@material-ui/core'
 
-import { redeemReward } from '../../context/reducers'
+import { redeemReward } from '../../reducers/rewardsReducer'
 import { ActionOrCancelButtons } from './FormInputs'
 
 

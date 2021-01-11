@@ -91,5 +91,5 @@ def options():
     colors = Color.query.all()
     icons = Icon.query.all()
     return jsonify(
-        colors_data={c.id:c.to_dict() for c in colors}, 
+        colors_data={c.id:c.to_dict() for c in colors},
         icons_data={i.id:i.to_dict() for i in icons})

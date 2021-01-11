@@ -6,13 +6,17 @@ import ProgramDeleteForm from '../forms/ProgramDeleteForm'
 import RewardShopButton from "./RewardShopButton";
 import CurrentWeekRow from "./CurrentWeekRow";
 import HabitRow from './HabitRow'
+import HabitForm from '../forms/HabitForm'
 import { EditButton, DeleteButton } from '../forms/FormInputs'
+
 
 export default function ProgramCard({ program }) {
   const { habits } = useContext(ProgramBoardContext)
+  const [openCreate, setOpenCreate] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
 
+  const toggleCreate = (e) => setOpenCreate(!openCreate)
   const toggleEdit = (e) => setOpenEdit(!openEdit)
   const toggleDelete = (e) => setOpenDelete(!openDelete)
 
@@ -39,6 +43,14 @@ export default function ProgramCard({ program }) {
                   <h3 className="program-title">
                     <i className={`fas fa-${program.icon}`}></i> {program.title}
                   </h3>
+                  <button onClick={toggleCreate}>Add Habit</button>
+                  {openCreate &&
+                    <HabitForm
+                      open={openCreate}
+                      handleClose={toggleCreate}
+                      pid={program.id}
+                    />
+                  }
                 </div>
                 <RewardShopButton program={program} />
               </div>
@@ -53,11 +65,7 @@ export default function ProgramCard({ program }) {
         <tbody>
           {/* style={{display: "flex", flexDirection: "column-reverse"}}> */}
           {program.habit_ids.map(hid => (
-            <HabitRow
-              key={hid}
-              habit={habits[hid]}
-              program={program}
-            />
+            <HabitRow key={hid} habit={habits[hid]} program={program} />
           ))
           }
         </tbody>

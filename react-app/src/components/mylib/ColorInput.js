@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 export default function ColorInput({ icon, value, setValue, toggleIcons, colors }) {
 
-  console.log("color icon", icon)
+  // console.log("color icon", icon)
   if (!colors) colors = [
     "rgb(70,60,70)",
     "#f9fbefff",
@@ -25,13 +25,12 @@ export default function ColorInput({ icon, value, setValue, toggleIcons, colors 
   const handleChange = (e) => setValue(e.target.value)
 
   const chipColor = (color) => {
-    console.log("color", color)
-    if (color !== "#f9fbef") return { backgroundColor: color }
+    if (color !== "#ffffff") return { backgroundColor: color }
     else return { backgroundColor: color, borderColor: "lightgray" }
   }
 
   const iconColor = (color) => {
-    if (color !== "#f9fbef") return { color: "white" }
+    if (color !== "#ffffff") return { color: "white" }
     else return {}
   }
 

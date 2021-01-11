@@ -13,7 +13,6 @@ export default function FormWrapper({
   open,
   handleClose,
   dispatcher,
-  actionCreator,
   uniqueContent,
   uniqueInputs: UniqueInputs,
   edit,
@@ -32,7 +31,7 @@ export default function FormWrapper({
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    handleClose()
+    console.log("uniqueContent", uniqueContent)
     const res = await fetch(path, {
       method: edit ? "PATCH" : "POST",
       headers: { "Content-Type": "application/json" },
@@ -41,10 +40,12 @@ export default function FormWrapper({
       })
     })
     const content = await res.json()
+    console.log("form res", content)
     if (content.errors) {
       setErrors(content.errors)
     } else {
-      dispatcher(actionCreator(content))
+      handleClose()
+      dispatcher(content)
       // setErrors([])
       // setTitle("")
       // setDescription("")

@@ -5,7 +5,7 @@ from pprint import pprint
 class Habit(db.Model):
     __tablename__ = "habits"
     id = db.Column(db.Integer, primary_key=True)
-    habit = db.Column(db.String(50), nullable=False)
+    title = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(250))
     frequency = db.Column(db.String(7), nullable=False, default="7")
     color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)
@@ -28,7 +28,7 @@ class Habit(db.Model):
         """Return dict of Habit"""
         return {
             "id": self.id,
-            "title": self.habit,
+            "title": self.title,
             "description": self.description,
             "frequency": self.frequency,
             "color": self.color.hex,
@@ -49,8 +49,24 @@ class Habit(db.Model):
             if stamp.membership_id in membership_ids and stamp.date <= past_week[0] and stamp.date >= past_week[6]:
                 stamp_ids.append(stamp.id)
         return stamp_ids
+        
+    def all_stamps_for_user(self, user):
+        """Return the full history of this habit's stamps for the User"""
+        membership_ids = [m.id for m in user.memberships]
+        stamp_ids = []
+        for stamp in self.stamps:
+            if stamp.membership_id in membership_ids:
+                stamp_ids.append(stamp.id)
+        return stamp_ids
 
     def to_dict_for_user(self, user):
         """Return dict of Habit, including past week's stamps for User."""
         stamp_ids = self.week_stamps_for_user(user)
         return {**self.to_dict(), "stamp_ids": stamp_ids}
+    
+    def to_dict_for_user_details(self, user):
+        """Return dict of Habit, including past week's stamps for User."""
+        stamp_ids = self.all_stamps_for_user(user)
+        habit_dict = self.to_dict()
+        habit_dict["program"] = self.program.to_dict()
+        return {**habit_dict, "stamp_ids": stamp_ids}

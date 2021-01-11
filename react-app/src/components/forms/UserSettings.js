@@ -1,11 +1,11 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 import updateUser from '../../services/user';
 import UserContext from '../../context/UserContext'
-import { editUser } from '../../context/reducers'
+import { editUser } from '../../reducers/userReducer'
 import OptionsContext from '../../context/OptionsContext'
 import { 
   ActionOrCancelButtons, 

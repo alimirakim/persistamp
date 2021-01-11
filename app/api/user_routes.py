@@ -7,7 +7,7 @@ from datetime import date, timedelta
 import calendar
 from pprint import pprint
 from app.forms import UserForm
-from app.utils import validation_errors_to_error_messages, dump_data_list, get_past_week
+from app.utils import queryUserFullData, validation_errors_to_error_messages, dump_data_list, get_past_week
 from pprint import pprint
 
 user_routes = Blueprint('users', __name__, url_prefix="/users")
@@ -24,17 +24,14 @@ def users():
 @login_required
 def user():
     """Get the current user's information."""
-    user = User.query.get(current_user.id)
-    return user.to_dict()
+    return queryUserFullData(current_user.id)
 
 
 # TESTED Functions
 @user_routes.route("/<int:uid>")
 def user_details(uid):
     """Get a user's information by id."""
-    user = User.query.get(uid)
-    user_data = user_schema.dump(user)
-    return jsonify(user_data)
+    return queryUserFullData(uid)
 
 
 @user_routes.route("/<int:uid>/programs")

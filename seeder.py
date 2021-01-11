@@ -223,7 +223,7 @@ with app.app_context():
     db.session.commit()
 
     # Habits
-    habit_workone = Habit(habit="Code",
+    habit_workone = Habit(title="Code",
                     description="code once a day keeps the doctor away.. ",
                     frequency=7,
                     color=colors[1],
@@ -232,7 +232,7 @@ with app.app_context():
                     creator=demo,
                     created_at=datetime(2019, 12, 1),
                     )
-    habit_worktwo = Habit(habit="Team Meetings",
+    habit_worktwo = Habit(title="Team Meetings",
                     description="meet with team to discuss project",
                     frequency=5,
                     color=colors[5],
@@ -241,7 +241,7 @@ with app.app_context():
                     creator=demo,
                     created_at=datetime(2020, 1, 4),
                     )
-    habit_socialone = Habit(habit="Spot",
+    habit_socialone = Habit(title="Spot",
                     description="take spot to the park",
                     frequency=4,
                     color=colors[2],
@@ -250,7 +250,7 @@ with app.app_context():
                     creator=demo,
                     created_at=datetime(2020, 5, 29),
                     )
-    habit_socialtwo = Habit(habit="Date Night",
+    habit_socialtwo = Habit(title="Date Night",
                     description="love is in the air",
                     frequency=1,
                     color=colors[15],
@@ -259,7 +259,7 @@ with app.app_context():
                     creator=demo,
                     created_at=datetime(2020, 2, 18),
                     )
-    habit_socialthree = Habit(habit="Gameday!",
+    habit_socialthree = Habit(title="Gameday!",
                     description="we're winning it this year",
                     frequency=1,
                     color=colors[16],
@@ -268,7 +268,7 @@ with app.app_context():
                     creator=demo,
                     created_at=datetime(2020, 11, 11),
                     )
-    habit_choresone = Habit(habit="Dishes",
+    habit_choresone = Habit(title="Dishes",
                     description="you promised",
                     frequency=7,
                     color=colors[21],
@@ -277,7 +277,7 @@ with app.app_context():
                     creator=demo,
                     created_at=datetime(2020, 8, 17),
                     )
-    habit_chorestwo = Habit(habit="Drive Sara to practice",
+    habit_chorestwo = Habit(title="Drive Sara to practice",
                     description="5:30 at Palmer Field",
                     frequency=3,
                     color=colors[17],
@@ -286,7 +286,7 @@ with app.app_context():
                     creator=demo,
                     created_at=datetime(2020, 7, 5),
                     )
-    habit_choresthree = Habit(habit="Exercise/Gym",
+    habit_choresthree = Habit(title="Exercise/Gym",
                     description="don't forget leg day",
                     frequency=3,
                     color=colors[4],
@@ -295,7 +295,7 @@ with app.app_context():
                     creator=demo,
                     created_at=datetime(2019, 12, 31),
                     )
-    habit_veggies = Habit(habit="Eat Veggies",
+    habit_veggies = Habit(title="Eat Veggies",
                     description="",
                     frequency="ttttttt",
                     color=colors[16],
@@ -303,7 +303,7 @@ with app.app_context():
                     program=program_mom,
                     creator=mom,
     )
-    habit_dog = Habit(habit="Walk Bentley",
+    habit_dog = Habit(title="Walk Bentley",
                     description="",
                     frequency="ttttttt",
                     color=colors[13],
@@ -311,7 +311,7 @@ with app.app_context():
                     program=program_mom,
                     creator=mom,
     )
-    habit_teeth = Habit(habit="Brush Teeth",
+    habit_teeth = Habit(title="Brush Teeth",
                     description="",
                     frequency="ttttttt",
                     color=colors[10],
@@ -319,7 +319,7 @@ with app.app_context():
                     program=program_mom,
                     creator=mom,
     )
-    habit_hair = Habit(habit="brush hair",
+    habit_hair = Habit(title="brush hair",
                     description="",
                     frequency="ttttttt",
                     color=colors[2],
@@ -327,7 +327,7 @@ with app.app_context():
                     program=program_me,
                     creator=sophie,
     )
-    habit_dress = Habit(habit="wear a pretty dress",
+    habit_dress = Habit(title="wear a pretty dress",
                     description="",
                     frequency="ttttttt",
                     color=colors[2],
@@ -335,7 +335,7 @@ with app.app_context():
                     program=program_me,
                     creator=sophie,
     )
-    habit_draw = Habit(habit="draw a picture",
+    habit_draw = Habit(title="draw a picture",
                     description="",
                     frequency="tffffft",
                     color=colors[2],
@@ -343,7 +343,7 @@ with app.app_context():
                     program=program_me,
                     creator=sophie,
     )
-    habit_play = Habit(habit="play with Ashe",
+    habit_play = Habit(title="play with Ashe",
                     description="",
                     frequency="tffffft",
                     color=colors[2],
@@ -351,7 +351,7 @@ with app.app_context():
                     program=program_me,
                     creator=sophie,
     )
-    habit_win = Habit(habit="win at mario kart",
+    habit_win = Habit(title="win at mario kart",
                     description="",
                     frequency="tffffft",
                     color=colors[18],

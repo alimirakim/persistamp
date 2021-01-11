@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { deleteReward} from '../../context/reducers'
+import { deleteReward} from '../../reducers/rewardsReducer'
 import DeleteForm from '../forms/DeleteForm'
 import RewardShopContext from '../../context/RewardShopContext'
 

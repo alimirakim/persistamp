@@ -8,7 +8,7 @@ import UsersList from "./components/UsersList";
 import User from "./components/UserPage";
 
 import UserContext from './context/UserContext';
-import ProgramBoardContext from "./context/ProgramBoardContext"
+import { ProgramBoardContextProvider } from "./context/ProgramBoardContext"
 import OptionsContext from './context/OptionsContext'
 import RewardShopContext from './context/RewardShopContext'
 
@@ -17,11 +17,7 @@ import HabitDisplay from './components/DisplayPage/HabitDisplay'
 import RewardShop from './components/RewardPage/RewardShop'
 import Homepage from './components/HomePage/Homepage'
 
-import {
-  userReducer, programsReducer, habitsReducer, stampsReducer,
-  setUser, setPrograms, setHabits, setStamps,
-  resetPrograms, resetHabits, resetStamps,
-} from "./context/reducers"
+import userReducer, { setUser } from "./reducers/userReducer"
 
 import './styles/index.css'
 // import { dispatchUserContent } from "./utils";
@@ -31,35 +27,16 @@ import './styles/index.css'
 // import LineGraph from "./components/LineGraph";
 
 
+
 export default function App() {
   const [auth, setAuth] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [colors, setColors] = useState()
   const [icons, setIcons] = useState()
-  const [week, setWeek] = useState()
-
   const [user, dispatchUser] = useReducer(userReducer)
-  const [programs, dispatchPrograms] = useReducer(programsReducer)
-  const [habits, dispatchHabits] = useReducer(habitsReducer)
-  const [stamps, dispatchStamps] = useReducer(stampsReducer)
+  let content;
 
-  // Fancy wrapper function that can be passed down for fancy extra effects :3
-  const updateUser = (user) => {
-    dispatchPrograms(resetPrograms())
-    dispatchHabits(resetHabits())
-    dispatchStamps(resetStamps())
-  }
-
-  function loadUserData(content) {
-    const { user_data, programs_data, habits_data, stamps_data, past_week } = content
-    console.log("stamps data", stamps_data)
-    setWeek(past_week)
-    dispatchUser(setUser(user_data))
-    dispatchPrograms(setPrograms(programs_data))
-    dispatchHabits(setHabits(habits_data))
-    dispatchStamps(setStamps(stamps_data))
-    setAuth(true)
-  }
+  // const updateUser = (user) => dispatchPB(resetPrograms())
 
   // When the page loads, load the user. Do only once!!
   useEffect(() => {
@@ -67,10 +44,11 @@ export default function App() {
       const res = await fetch('/api/auth/', {
         headers: { 'Content-Type': 'application/json' }
       })
-      const content = await res.json();
-      if (!content.errors) {
-        loadUserData(content)
-      }
+      content = await res.json();
+      // const { user_data, programs_data, habits_data, stamps_data, past_week } = content
+      dispatchUser(setUser(content.user_data))
+      setAuth(true)
+
       const { colors_data, icons_data } = await fetch(`/api/options`).then(res => res.json())
       console.log("color count", colors_data.length, "stamp count", icons_data.length)
       setColors(colors_data)
@@ -79,44 +57,28 @@ export default function App() {
     })()
   }, [])
 
-  // When the user changes, reload programs, habits, and stamps
-  // useEffect(() => {
-  //   if (!user) return;
-  //   (async () => {
-  //     const { programs_data, habits_data, stamps_data } = await fetch(`/api/users/${user.id}/programs`).then(res => res.json())
-  //     console.log("reload", programs_data, habits_data, stamps_data)
-  //     dispatchPrograms(setPrograms(programs_data))
-  //     dispatchHabits(setHabits(habits_data))
-  //     dispatchStamps(setStamps(stamps_data))
-  //   })()
-  // }, [user])
-
   useEffect(() => console.log("user", user), [user])
-  useEffect(() => console.log("programs", programs), [programs])
-  useEffect(() => console.log("habits", habits), [habits])
-  useEffect(() => console.log("stamps", stamps), [stamps])
-
+  // useEffect(() => console.log("programs", programs : ""), [pb])
+  // useEffect(() => console.log("habits", pb.habits), [pb.habits])
+  // useEffect(() => console.log("stamps", pb.stamps), [pb.stamps])
 
   if (!loaded) return null
-
   return (
     <BrowserRouter>
-      <UserContext.Provider value={{ user, setUser: updateUser }}>
+      <UserContext.Provider value={{ user }}>
         <OptionsContext.Provider value={{ colors, icons }}>
 
           <NavBar auth={auth} setAuth={setAuth} user={user} />
 
           <Route path="/login" exact={true}>
             <div className="splashPageBackground overlay">
-              <LoginForm auth={auth} setAuth={setAuth} loadUserData={loadUserData} />
+              <LoginForm auth={auth} setAuth={setAuth} />
             </div>
           </Route>
 
           <Route path="/about" exact={true}>
             <AboutCard />
           </Route>
-
-
 
           <ProtectedRoute path="/users" exact={true} auth={auth}>
             <UsersList />
@@ -126,19 +88,19 @@ export default function App() {
             <User />
           </ProtectedRoute>
 
-          <ProgramBoardContext.Provider value={{ programs, dispatchPrograms, habits, dispatchHabits, stamps, dispatchStamps, week }}>
-            <ProtectedRoute path="/graphs/:hid/memberships/:mid" auth={auth}>
-              <HabitDisplay />
-            </ProtectedRoute>
+          <ProtectedRoute path="/graphs/:hid/memberships/:mid" auth={auth}>
+            <HabitDisplay />
+          </ProtectedRoute>
 
-            <ProtectedRoute path="/" exact={true} auth={auth}>
-              <Homepage />
-            </ProtectedRoute>
+            <ProgramBoardContextProvider>
+              <ProtectedRoute path="/" exact={true} auth={auth}>
+                <Homepage uid={user.id} />
+              </ProtectedRoute>
+            </ProgramBoardContextProvider>
 
-            <ProtectedRoute path="/programs/:pid/memberships/:mid/rewards" exact={true} auth={auth}>
-              <RewardShop />
-            </ProtectedRoute>
-          </ProgramBoardContext.Provider>
+          <ProtectedRoute path="/programs/:pid/memberships/:mid/rewards" exact={true} auth={auth}>
+            <RewardShop />
+          </ProtectedRoute>
 
         </OptionsContext.Provider>
       </UserContext.Provider>

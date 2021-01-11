@@ -1,34 +1,32 @@
 import React, { useState, useContext } from 'react'
 import FormWrapper from './FormWrapper'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
-import { editHabit } from '../../context/reducers'
-import {ChooseFrequency} from './FormInputs'
+import { ChooseFrequency } from './FormInputs'
 
 
-  export default function HabitEditForm({ open, handleClose, habit }) {
-    const { dispatchHabits } = useContext(ProgramBoardContext)
-    const [frequency, setFrequency] = useState(habit.frequency)
-    const updateFrequency = (e) => setFrequency(e.target.value)
-  
-    const uniqueInputs = () => (
-      <ChooseFrequency frequency={frequency} updateFrequency={updateFrequency} />
-    )
-  
-    return (
-      <FormWrapper
-        type="habit"
-        path={`/api/habits/edit/${habit.id}`}
-        open={open}
-        handleClose={handleClose}
-        dispatcher={dispatchHabits}
-        actionCreator={editHabit}
-        uniqueContent={frequency}
-        uniqueInputs={uniqueInputs}
-        edit={habit}
-      />
-    )
-  }
-  
+export default function HabitEditForm({ open, handleClose, habit }) {
+  const { dispatchEditHabit } = useContext(ProgramBoardContext)
+  const [frequency, setFrequency] = useState(habit.frequency)
+  const updateFrequency = (e) => setFrequency(e.target.value)
+
+  const uniqueInputs = () => (
+    <ChooseFrequency frequency={frequency} updateFrequency={updateFrequency} />
+  )
+
+  return (
+    <FormWrapper
+      type="habit"
+      path={`/api/habits/edit/${habit.id}`}
+      open={open}
+      handleClose={handleClose}
+      dispatcher={dispatchEditHabit}
+      uniqueContent={{frequency}}
+      uniqueInputs={uniqueInputs}
+      edit={habit}
+    />
+  )
+}
+
 // export default function HabitEditForm({ habit }) {
 
 //   const { user } = useContext(UserContext)

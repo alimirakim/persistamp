@@ -12,17 +12,20 @@ import HabitStatOverview from './HabitStatOverview';
 
 export default function HabitDisplay() {
   const { hid, mid } = useParams()
-  const [habit, setHabit] = useState()
+  const [habit, setHabit] = useState("")
 
   useEffect(() => {
     if (!habit) {
       (async () => {
-        const res = await fetch(`/api/habits/${hid}/memberships/${mid}`)
+        const res = await fetch(`/api/habits/${hid}`)
         const habit = await res.json()
         setHabit(habit)
       })()
     }
   }, [habit])
+  
+  
+  
   if (!habit) return null
 
   return (
@@ -53,7 +56,7 @@ export default function HabitDisplay() {
                   <tbody>
                     <tr>
                       <td className="habitDetail__cell">{habit.description}</td>
-                      {/* <td className="habitDetail__cell">{habit.program.title}</td> */}
+                      <td className="habitDetail__cell">{habit.program.title}</td>
                       <td className="habitDetail__cell">{habit.icon}</td>
                       <td className="habitDetail__cell">{habit.frequency} Days</td>
                       <td className="habitDetail__cell">{new Date(habit.created_at).toLocaleString()}</td>

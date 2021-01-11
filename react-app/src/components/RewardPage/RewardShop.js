@@ -2,26 +2,20 @@ import React, { useEffect, useState, useContext, useReducer } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 import UserContext from '../../context/UserContext'
-import ProgramBoardContext from '../../context/ProgramBoardContext'
 import RewardShopContext from '../../context/RewardShopContext'
 import RewardForm from '../forms/RewardForm'
 import RewardEditForm from '../forms/RewardEditForm'
 import RewardDeleteForm from '../forms/RewardDeleteForm'
 import RedeemForm from '../forms/RedeemForm'
 
-import {
-  setProgramRewards, setRedeemed, rewardsReducer, redeemedReducer
-} from '../../context/reducers'
+import rewardsReducer, { setProgramRewards, setRedeemed } from '../../reducers/rewardsReducer'
 
 
 export default function RewardShop() {
   const { pid, mid } = useParams()
   const { user } = useContext(UserContext)
-  const { programs } = useContext(ProgramBoardContext)
-  const program = programs[pid]
   const [rewards, dispatchRewards] = useReducer(rewardsReducer)
-  const [redeemed, dispatchRedeemed] = useReducer(redeemedReducer)
-  const [points, setPoints] = useState(program.points)
+  const [points, setPoints] = useState(0)
 
   useEffect(() => {
     (async () => {
@@ -29,13 +23,12 @@ export default function RewardShop() {
       const stuff = await res.json()
       const { rewards_data, redeemed_data } = await fetch(`/api/rewards/programs/${pid}/users/${user.id}`).then(res => res.json())
       dispatchRewards(setProgramRewards(rewards_data))
-      dispatchRedeemed(setRedeemed(redeemed_data))
     })()
   }, [])
 
   useEffect(() => console.log("reward shop: program"), [program])
   useEffect(() => console.log("rewards", rewards), [rewards])
-  useEffect(() => console.log("redeemed", redeemed), [redeemed])
+  // useEffect(() => console.log("redeemed", redeemed), [redeemed])
 
   useEffect(() => {
     if (!rewards) {
@@ -55,10 +48,10 @@ export default function RewardShop() {
   //   }
   // }, [redeemed])
 
-  if (!program || !rewards || !redeemed) return null
+  if (!program || !rewards) return null
 
   return (
-    <RewardShopContext.Provider rewards={rewards} redeemed={redeemed} points={points} >
+    <RewardShopContext.Provider rewards={rewards} redeemed={rewards.redeemed} points={points} >
 
       <article style={{ color: program.color }}>
         <Link to={`/`}>
@@ -79,7 +72,7 @@ export default function RewardShop() {
                   <li key={reward.id} style={{ color: reward.color }}>
                     <RewardEditForm program={program} reward={reward} dispatchRewards={dispatchRewards} />
                     <RewardDeleteForm reward={reward} dispatchRewards={dispatchRewards} />
-                    <RedeemForm redeemed={redeemed} reward={reward} mid={mid} setPoints={setPoints} dispatchRedeemed={dispatchRedeemed} />
+                    {/* <RedeemForm redeemed={redeemed} reward={reward} mid={mid} setPoints={setPoints} dispatchRedeemed={dispatchRedeemed} /> */}
                   </li>))}
               </ul>
             </article>
@@ -87,7 +80,7 @@ export default function RewardShop() {
             <article>
               <h2 style={{ border: "10px double", padding: "0.5rem", borderRadius: "1rem" }}>Reward History</h2>
               <ul style={{ display: "flex", flexDirection: "column-reverse" }}>
-                {Object.values(redeemed).map(redeem => (
+                {Object.values(rewards.redeemed).map(redeem => (
                   <li key={redeem.id} style={{ color: redeem.reward.color }}>
                     <dl>
                       <dt>Reward:</dt>

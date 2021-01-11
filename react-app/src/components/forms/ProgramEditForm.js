@@ -1,11 +1,10 @@
 import React, { useContext } from 'react'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
-import { editProgram } from '../../context/reducers'
 import FormWrapper from './FormWrapper'
 
 
 export default function ProgramEditForm({ open, handleClose, program }) {
-  const { dispatchPrograms } = useContext(ProgramBoardContext)
+  const { dispatchEditProgram } = useContext(ProgramBoardContext)
 
   const uniqueInputs = () => (<></>)
 
@@ -15,9 +14,7 @@ export default function ProgramEditForm({ open, handleClose, program }) {
       path={`/api/programs/edit/${program.id}`}
       open={open}
       handleClose={handleClose}
-      dispatcher={dispatchPrograms}
-      actionCreator={editProgram}
-      // uniqueContent={}
+      dispatcher={dispatchEditProgram}
       uniqueInputs={uniqueInputs}
       edit={program}
     />

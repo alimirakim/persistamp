@@ -2,7 +2,7 @@ import FormWrapper from "./FormWrapper"
 import React, { useState,useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { ChooseLimit, ChooseQuantity, ChooseCost } from '../forms/FormInputs'
-import { createReward, } from '../../context/reducers'
+import { createReward, } from '../../reducers/rewardsReducer'
 import RewardShopContext from '../../context/RewardShopContext'
 
 
