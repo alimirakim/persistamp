@@ -13,22 +13,23 @@ habit_routes = Blueprint("habits", __name__)
 # TESTED Functions
 @habit_routes.route("/programs/<int:pid>")
 def program_habits(pid):
-    """Get a list of a program's habits."""
+    """Get a dict of a program's habits."""
     habits = Habit.query.filter(Habit.program_id == pid).all()
-    return [habit.to_dict() for habit in habits]
+    return {habit.id:habit.to_dict() for habit in habits}
 
 
 # TESTED Functions
+# @habit_routes.route("/<int:hid>")
 @habit_routes.route("/<int:hid>/memberships/<int:mid>")
 def habit_details(hid, mid):
-    """Get a habit's details, including recent history."""
-    # TODO Ask TA how to filter joinedload to only return stamps of 'member id blah', and filter attributes for each joinedload.
+    """Get a habit's details for a user, including recent history."""
     habit = Habit.query.get(hid)
-    # print("HABIT", habit.to_dict())
+    print("HABIT", habit.to_dict())
     program = program_schema.dump(Program.query.get(habit.to_dict()["program_id"]))
     habitWProgram = habit.to_dict()
     habitWProgram["program"] = program
     return habitWProgram
+    # return habit.to_dict_for_user(current_user)
 
 
 @habit_routes.route("/edit/<int:hid>", methods=["PATCH"])
@@ -46,7 +47,7 @@ def edit_habit(hid):
         habit.icon_id = form.data["icon"]
         db.session.commit()
 
-        return habit.to_dict()
+        return habit.to_dict_for_user(current_user)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
@@ -77,5 +78,5 @@ def create_habit(pid):
         db.session.add(habit)
         db.session.commit()
         habit = Habit.query.get(newHabit.id)
-        return newHabit.to_dict()
+        return newHabit.to_dict_for_user(current_user)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400

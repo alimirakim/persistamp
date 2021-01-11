@@ -49,7 +49,7 @@ function AboutCard() {
       <h1>About Us</h1>
       {users.map(user => {
           return (
-            <div key={user.name} className="AboutCardContainer" style={{ backgroundColor: "white", color: "black" }}>
+            <div key={user.name[0]} className="AboutCardContainer" style={{ backgroundColor: "white", color: "black" }}>
               <div className="AboutCardDetailsContainer">
                 <h3>{user.name}</h3>
                 <p>{user.email}</p>

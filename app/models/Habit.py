@@ -37,19 +37,20 @@ class Habit(db.Model):
             "created_at": self.created_at,
         }
 
-    def week_stamps_for_member(self, mid):
+    def week_stamps_for_user(self, user):
         """Return past week's stamps for Habit and User."""
+        membership_ids = [m.id for m in user.memberships]
         current_date = date.today()
         past_week = [(current_date - timedelta(days=i)) for i in range(7)]
         past_week_days = [day.strftime('%A')[0:3] for day in past_week]
         past_week_dates = [date.strftime('%Y-%m-%d') for date in past_week]
         stamp_ids = []
         for stamp in self.stamps:
-            if stamp.membership_id == mid and stamp.date <= past_week[0] and stamp.date >= past_week[6]:
+            if stamp.membership_id in membership_ids and stamp.date <= past_week[0] and stamp.date >= past_week[6]:
                 stamp_ids.append(stamp.id)
         return stamp_ids
 
-    def to_dict_for_member(self, mid):
+    def to_dict_for_user(self, user):
         """Return dict of Habit, including past week's stamps for User."""
-        stamp_ids = self.week_stamps_for_member(mid)
+        stamp_ids = self.week_stamps_for_user(user)
         return {**self.to_dict(), "stamp_ids": stamp_ids}
