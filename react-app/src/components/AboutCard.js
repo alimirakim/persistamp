@@ -25,10 +25,8 @@ function AboutCard() {
         }
       </div>
     </>)
-    // return links.map(link => {
-    //   return <a className="about-card_a" target='_blank' key={links[1]} href={link[1]}>{link[0]}</a>
-    // })
   }
+
   const renderImage = (user) => {
     if (user.image) {
       return <img className="about-img"  src={user.image} alt="profile portrait" />
@@ -62,22 +60,24 @@ function AboutCard() {
     },
   ];
   return (<>
-    <div className="AboutHeader">About Us</div>
-    <div className="AboutContainer">
-      {users.map(user => {
-          return (
-            <div key={user.name[0]} className="AboutCardContainer" style={{ backgroundColor: "white", color: "black" }}>
-              <div className="AboutCardDetailsContainer">
-                <h3>{user.name}</h3>
-                {renderLinks(user)}
+    <div className="AboutPage">
+      <div className="AboutHeader">About Us</div>
+      <div className="AboutContainer">
+        {users.map(user => {
+            return (
+              <div key={user.name[0]} className="AboutCardContainer" style={{ backgroundColor: "black", color: "black" }}>
+                <div className="AboutCardDetailsContainer">
+                  <h3 style={{ color: "white"}}>{user.name}</h3>
+                  {renderLinks(user)}
+                </div>
+                <div className="AboutCardImageContainer">
+                  {renderImage(user)}
+                </div>
               </div>
-              <div className="AboutCardImageContainer">
-                {renderImage(user)}
-              </div>
-            </div>
-          )
-        })
-      }
+            )
+          })
+        }
+      </div>
     </div>
   </>)
 }

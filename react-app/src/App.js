@@ -3,6 +3,7 @@ import { BrowserRouter, Route } from "react-router-dom";
 import LoginForm from "./components/auth/LoginForm";
 // import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
+import Footer from './components/Footer';
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/UserPage";
@@ -144,6 +145,8 @@ function App() {
               <RewardShop />
             </ProtectedRoute>
           </ProgramBoardContext.Provider>
+
+          <Footer />
 
         </OptionsContext.Provider>
       </UserContext.Provider>
