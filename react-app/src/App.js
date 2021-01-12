@@ -58,11 +58,13 @@ export default function App() {
       <UserContext.Provider value={user}>
         <OptionsContext.Provider value={{ colors, icons }}>
 
-          <NavBar auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
+          <ProtectedRoute path="/" auth={auth}>
+            <NavBar auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
+          </ProtectedRoute>
 
           <Route path="/login" exact={true}>
             <div className="splashPageBackground overlay">
-              <LoginForm auth={auth} setAuth={setAuth} />
+              <LoginForm auth={auth} setAuth={setAuth} setUser={setUser} />
             </div>
           </Route>
 

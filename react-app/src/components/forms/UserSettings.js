@@ -1,6 +1,6 @@
 
 
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -19,11 +19,10 @@ import IconInput from '../mylib/IconInput'
 import ErrorMessages from '../mylib/ErrorMessages'
 
 
-export default function UserSettings({ open, handleClose, setUser }) {
-  const user = useContext(UserContext)
+export default function UserSettings({ open, handleClose, user, setUser }) {
   const { colors, icons } = useContext(OptionsContext)
-  const [colorId, setColorId] = useState(colors ? Object.values(colors).find(c => c.hex === user.color).id : "")
-  const [iconId, setIconId] = useState(icons ? Object.values(icons).find(i => i.title === user.icon).id : "")
+  const [colorId, setColorId] = useState("")
+  const [iconId, setIconId] = useState("")
   const [errors, setErrors] = useState([])
   const [firstname, setFirstname] = useState(user.first_name)
   const [lastname, setLastname] = useState(user.last_name)
@@ -32,6 +31,14 @@ export default function UserSettings({ open, handleClose, setUser }) {
   const [openIcons, setOpenIcons] = useState(false)
 
   const toggleIcons = () => setOpenIcons(!openIcons)
+  
+  useEffect(() => {
+    if (!user.errors) {
+      setColorId(Object.values(colors).find(c => c.hex === user.color).id)
+      setIconId(Object.values(icons).find(i => i.title === user.icon).id)
+    }
+  }, [user])
+  
 
   const onUpdate = async (e) => {
     e.preventDefault()

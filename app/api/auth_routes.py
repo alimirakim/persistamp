@@ -48,8 +48,9 @@ def sign_up():
     """Creates a new user and logs them in"""
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    if form.validate_on_submit():
-
+    print("\nform", form.data)
+    if form.validate():
+        print("\nform", form.data)
         # Create user, default program, and default membership records
         user = User(
             username=form.data['username'],
@@ -59,7 +60,7 @@ def sign_up():
             last_name=form.data['last_name'],
             birthday=form.data['birthday'],
         )
-        program = Program(program=f"{form.data['username']}'s Habits",
+        program = Program(title=f"{form.data['username']}'s Habits",
                           creator=user,)
         membership = Membership(program=program,
                             member=user,

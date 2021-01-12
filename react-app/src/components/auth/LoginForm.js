@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { login } from "../../services/auth";
 import { TextField, Button } from '@material-ui/core';
 import SignUpForm from './SignUpForm';
 
 
-const LoginForm = ({ auth, setAuth, loadUserData }) => {
+export default function LoginForm({ auth, setAuth, setUser }) {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -13,16 +12,34 @@ const LoginForm = ({ auth, setAuth, loadUserData }) => {
 
   const onLogin = async (e) => {
     e.preventDefault();
-    const content = await login(email, password)
-    if (!content.errors) loadUserData(content)
-    else setErrors(content.errors)
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    })
+    const user = await res.json()
+
+    if (!user.errors) {
+      setAuth(true)
+      setUser(user)
+    }
+    else setErrors(user.errors)
   }
 
   const onDemoLogin = async (e) => {
     e.preventDefault();
-    const content = await login("demo@gmail.com", "password")
-    if (!content.errors) loadUserData(content)
-    else setErrors(content.errors)
+    const res = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: "demo@gmail.com", password: "password" })
+    })
+    const user = await res.json()
+      console.log("redirect", user)
+      if (!user.errors) {
+      setAuth(true)
+      setUser(user)
+    }
+    else setErrors(user.errors)
   }
 
   const handleClickOpen = () => setOpen(true);
@@ -31,17 +48,17 @@ const LoginForm = ({ auth, setAuth, loadUserData }) => {
 
   const updatePassword = (e) => setPassword(e.target.value);
 
+  console.log("auth", auth)
   if (auth) return <Redirect to="/" />
 
   return (<>
-    <SignUpForm 
-    open={open}
+    <SignUpForm
+      open={open}
       setOpen={setOpen}
       handleClickOpen={handleClickOpen}
       handleClose={handleClose}
       auth={auth}
       setAuth={setAuth}
-      loadUserData={loadUserData}
     />
     <div className="loginContainer">
       <div>
@@ -90,5 +107,3 @@ const LoginForm = ({ auth, setAuth, loadUserData }) => {
 
   </>);
 };
-
-export default LoginForm;

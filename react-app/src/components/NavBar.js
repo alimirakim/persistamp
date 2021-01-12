@@ -42,7 +42,7 @@ export default function NavBar({ auth, setAuth, setUser }) {
       </button>
       </nav>
 
-      <UserSettings open={settingsOpen} handleClose={handleSettingsClose} setUser={setUser} />
+      <UserSettings open={settingsOpen} handleClose={handleSettingsClose} user={user} setUser={setUser} />
       
     </>)
   } else {
