@@ -26,7 +26,7 @@ export default function HabitStatOverview ({ habit }) {
         (async () => {
             let res = await fetch(`/api/habit-details/${hid}/stats/${mid}`)
             let obj = await res.json()
-            console.log("OBJ:", obj)
+            // console.log("OBJ:", obj)
             setStatData(obj)
         })()
     }, [])
@@ -36,7 +36,7 @@ export default function HabitStatOverview ({ habit }) {
         <>
             <ChakraProvider theme={customTheme}>
                 <div className="statContainer">
-                    <h3 className="statOverview" style={{color:"#ccc", fontFamily:"Arial"}}>Statistics</h3>
+                    <h3 className="statOverview" style={{color:"#FFFFFF", fontFamily:"Arial"}}>Statistics</h3>
                         <StatGroup className="statGroup">
                             <Stat>
                                 <StatLabel>Score</StatLabel>

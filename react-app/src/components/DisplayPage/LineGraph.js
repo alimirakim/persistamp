@@ -40,12 +40,13 @@ function LineGraph({habit}) {
     return
   }
 
-  if (!dataPoints.data) return null;
+    if (!dataPoints.data) return null;
+    // console.log("DATA", dataPoints)
 
     return (
         <>
             <div className="lineGraphContainer">
-                <h3 className="lineGraphHeader" style={{color:"#ccc", fontFamily:"Arial"}}>Line Graph</h3>
+                <h3 className="lineGraphHeader" style={{color:"#FFFFFF", fontFamily:"Arial"}}>Line Graph</h3>
                 {/* <button className="lineGraphToggle" onClick={handleClick}>{toggleTime}</button> */}
                 {/* <label for="toggle-select">Choose an interval</label> */}
                 <select onChange={handleClick} name="toggleInterval" id="toggle-select">

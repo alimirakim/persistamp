@@ -35,7 +35,7 @@ export default function CalendarMap({ habit }) {
   return (
     <>
       <div className="heatMapContainer">
-        <h3 className="heatMapHeader" style={{ color: "#ccc", fontFamily: "Arial" }}>Calendar</h3>
+        <h3 className="heatMapHeader" style={{ color: "#FFFFFF", fontFamily: "Arial" }}>Calendar</h3>
         <HeatMap
           xLabels={calendarData.xLabels}
           yLabels={calendarData.yLabels}
