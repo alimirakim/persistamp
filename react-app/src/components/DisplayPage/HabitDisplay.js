@@ -17,7 +17,7 @@ export default function HabitDisplay() {
   useEffect(() => {
     if (!habit) {
       (async () => {
-        const res = await fetch(`/api/habits/${hid}`)
+        const res = await fetch(`/api/habits/${hid}/memberships/${mid}`)
         const habit = await res.json()
         setHabit(habit)
       })()

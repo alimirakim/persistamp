@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../services/auth';
-import { FormControl, TextField, Button } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
 import { ActionOrCancelButtons } from '../forms/FormInputs';
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core'
-
+import ErrorMessages from '../mylib/ErrorMessages'
 
 const SignUpForm = ({auth, setAuth, setUser}) => {
   const [first_name, setFirstName] = useState("");
@@ -42,15 +42,6 @@ const SignUpForm = ({auth, setAuth, setUser}) => {
     }
   };
 }
-const renderErrors = (errors) => {
-  if (errors) {
-    // console.log("trying to render user setting errors")
-    return errors.map(error => {
-      // console.log(error)
-      return <div className='material-error errorHeader'>{error}</div>
-    })
-  }
-}
 
   const updateFirstName = (e) => setFirstName(e.target.value)
   const updateLastName = (e) => setLastName(e.target.value)
@@ -68,9 +59,9 @@ const renderErrors = (errors) => {
     </Button>
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle id="form-dialog-title">Make an account</DialogTitle>
-      <div>
-          {renderErrors(errors)}
-      </div>
+      
+      <ErrorMessages errors={errors} />
+      
       <DialogContent className='orm'>
         <TextField
           autoFocus

@@ -231,7 +231,7 @@ dd.card-name {
 
 nav.stickers {
   position: absolute;
-  top: 1rem;
+  top: 3rem;
   left: 1rem;
   display: flex;
   flex-direction: column;
@@ -510,8 +510,10 @@ body {
   margin: 0px;
   padding: 0px;
 }
-.material-error{
+.err{
     margin-left: 25px;
+    text-transform: uppercase;
+    color: red;
 }
 
 .loadingpage {
