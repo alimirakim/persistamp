@@ -66,7 +66,7 @@ export default function UserSettings({ open, handleClose, user, setUser }) {
 
       <DialogContent>
         <SetUsername username={username} setUsername={setUsername} />
-        <UpdateFirstname firstame={firstname} setFirstname={setFirstname} />
+        <UpdateFirstname firstname={firstname} setFirstname={setFirstname} />
         <UpdateLastname lastname={lastname} setLastname={setLastname} />
         <UpdateBirthday birthday={birthday} setBirthday={setBirthday} />
         <IconInput open={openIcons} color={colors[colorId].hex} icons={icons} value={iconId} setValue={setIconId} />
