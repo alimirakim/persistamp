@@ -54,14 +54,19 @@ const SignUpForm = ({auth, setAuth, setUser}) => {
   if (auth) return <Redirect to="/" />
 
   return (<>
-    <Button onClick={handleClickOpen} color="primary">
+
+    <Button className='signUpButton'onClick={handleClickOpen} color="secondary" variant="contained">
       Sign up
     </Button>
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog open={open} onClose={handleClose}
+          PaperProps={{
+            style: { backgroundColor: "#FFD1D6"}
+          }}
+    >
       <DialogTitle id="form-dialog-title">Make an account</DialogTitle>
-      
+
       <ErrorMessages errors={errors} />
-      
+
       <DialogContent className='orm'>
         <TextField
           autoFocus
@@ -70,7 +75,7 @@ const SignUpForm = ({auth, setAuth, setUser}) => {
           id="first_name"
           label="First name"
           type="text"
-        
+
           onChange={updateFirstName}
           required
         />

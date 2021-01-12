@@ -35,7 +35,7 @@ export default function HabitStatOverview ({ habit }) {
         <>
             <ChakraProvider theme={customTheme}>
                 <div className="statContainer">
-                    <h3 className="statOverview" style={{color:"#ccc", fontFamily:"Arial"}}>Statistics</h3>
+                    <h3 className="statOverview" style={{color:"#FFFFFF", fontFamily:"Arial"}}>Statistics</h3>
                         <StatGroup className="statGroup">
                             <Stat>
                                 <StatLabel>Score</StatLabel>

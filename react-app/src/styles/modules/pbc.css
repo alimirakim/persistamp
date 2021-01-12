@@ -70,7 +70,8 @@ table {
 }
 
 .th-thin-under {
-  border-bottom: 4px double;
+  border-bottom: 1px solid;
+  
 }
 
 .pbc-hr {

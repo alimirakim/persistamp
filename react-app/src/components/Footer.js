@@ -45,7 +45,9 @@ const renderUser = (user) => {
                     <i className="fab fa-linkedin-in fa-1x"></i>
                     </a>
                     :
+                    <a className="about-card_icon" >
                     <i className="fab fa-linkedin-in fa-1x grey-icon"></i>
+                    </a>
                 }
             </div>
         </div>

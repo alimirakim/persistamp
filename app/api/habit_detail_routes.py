@@ -23,7 +23,11 @@ def getWeeklyGraph(hid, interval, mid):
         currentStrDate = current_date.strftime("%Y-%m-%d")
         splitDate = currentStrDate.split("-")
         lastYear = int(splitDate[0]) - 1
-        lastDate = date(lastYear, int(splitDate[1]), int(splitDate[2]))
+
+        if int(splitDate[1]) == 12:
+            lastDate = date(int(splitDate[0]), 1, int(splitDate[2]))
+        else:
+            lastDate = date(lastYear, int(splitDate[1]) + 1, int(splitDate[2]))
         habitHistory = Stamp.query.filter(Stamp.habit_id == hid, Stamp.membership_id == mid, Stamp.date >= lastDate).all()
         stamps = [stamp_schema.dump(stamp)["date"] for stamp in habitHistory]
 
@@ -121,7 +125,7 @@ def getCalendarData(hid, mid):
             startDate = start.strftime("%Y-%m-%d")
             startObj = start
             break
-    print("GETTING SUNDAY============================", startDate)
+    # print("GETTING SUNDAY============================", startDate)
     stampDates = []
     values = []
     stamps = Stamp.query.filter(Stamp.habit_id == hid, Stamp.membership_id == mid, Stamp.date >= startDate, Stamp.date <= endDate).all()
