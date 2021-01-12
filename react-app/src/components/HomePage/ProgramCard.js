@@ -1,13 +1,13 @@
 import React, { useState, useContext } from "react";
-
+import { Link } from 'react-router-dom'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
 import ProgramEditForm from '../forms/ProgramEditForm'
 import ProgramDeleteForm from '../forms/ProgramDeleteForm'
-import RewardShopButton from "./RewardShopButton";
+import RewardPoints from "./RewardPoints";
 import CurrentWeekRow from "./CurrentWeekRow";
 import HabitRow from './HabitRow'
 import HabitForm from '../forms/HabitForm'
-import { EditButton, DeleteButton } from '../forms/FormInputs'
+import { AddButton, RewardShopButton, EditButton, DeleteButton } from '../forms/FormInputs'
 
 
 export default function ProgramCard({ program }) {
@@ -15,6 +15,7 @@ export default function ProgramCard({ program }) {
   const [openCreate, setOpenCreate] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
+  const rewardShopPath = `/programs/${program.id}/memberships/${program.membership_id}/rewards`
 
   const toggleCreate = (e) => setOpenCreate(!openCreate)
   const toggleEdit = (e) => setOpenEdit(!openEdit)
@@ -22,44 +23,60 @@ export default function ProgramCard({ program }) {
 
   return (
     <li key={program.id}>
-      <table className="board th-dark-gr" style={{ color: program.color }}>
 
-        <thead>
-          <tr key={program.id} style={{ color: program.color }}>
-            <td colSpan={8}>
-              <div className="program">
-                <div style={{ display: "flex" }}>
+      <ProgramEditForm open={openEdit} handleClose={toggleEdit} program={program} />
+      <ProgramDeleteForm open={openDelete} handleClose={toggleDelete} program={program} />
+      <HabitForm open={openCreate} handleClose={toggleCreate} pid={program.id} />
 
-                  <EditButton handleOpen={toggleEdit} />
-                    <ProgramEditForm open={openEdit} handleClose={toggleEdit} program={program} />
+      <article className="pbc th-card-shadow" style={{ background: `linear-gradient(-45deg, rgb(20,10,0) -100%, ${program.color}, rgb(255,255,255) 200%` }}>
+      <i className={`pbc-points-ico fas fa-5x fa-${program.icon}`}></i>
 
-                  <DeleteButton handleOpen={toggleDelete} />
-                    <ProgramDeleteForm open={openDelete} handleClose={toggleDelete} program={program} />
+        <header className="pbc-hdr">
+          <div className="pbc-title-con">
+            <h3 className="pbc-title">{program.title}</h3>
 
-                  <h3 className="program-title">
-                    <i className={`fas fa-${program.icon}`}></i> {program.title}
-                  </h3>
-                  <button onClick={toggleCreate}>Add Habit</button>
-                    <HabitForm open={openCreate} handleClose={toggleCreate} pid={program.id} />
-                </div>
-                <RewardShopButton program={program} />
+            <div className="pbc-hr lo-row-center">
+              <div className="line left" />
+              <div className="pbc-ico">
+                <i className={`lo-center fas fa-xs fa-${program.icon}`} />
               </div>
-              <blockquote>{program.description}</blockquote>
+              <div className="line right" />
+            </div>
 
-            </td>
-          </tr>
-          {/* TODO Where is dispatchHabits?  */}
-          <CurrentWeekRow program={program} />
-        </thead>
+            {program.description && <>
+              <blockquote className="pbc-desc">{program.description}</blockquote>
+            </>}
+          </div>
 
-        <tbody>
-          {/* style={{display: "flex", flexDirection: "column-reverse"}}> */}
-          {program.habit_ids.map(hid => (
-            <HabitRow key={hid} habit={habits[hid]} program={program} />
-          ))
-          }
-        </tbody>
-      </table>
+          <RewardPoints program={program} />
+
+          {/* interactive buttons */}
+          <div className="pbc-btns">
+            <AddButton handleOpen={toggleCreate} />
+            <RewardShopButton path={rewardShopPath} />
+            <EditButton handleOpen={toggleEdit} />
+            <DeleteButton handleOpen={toggleDelete} />
+          </div>
+
+        </header>
+
+        <div className="pbc-body">
+          <table>
+            <thead>
+              {/* TODO Where is dispatchHabits?  */}
+              <CurrentWeekRow program={program} />
+            </thead>
+
+            <tbody>
+              {/* style={{display: "flex", flexDirection: "column-reverse"}}> */}
+              {program.habit_ids.map(hid => (
+                <HabitRow key={hid} habit={habits[hid]} program={program} />
+              ))
+              }
+            </tbody>
+          </table>
+        </div>
+      </article>
     </li>
   )
 }

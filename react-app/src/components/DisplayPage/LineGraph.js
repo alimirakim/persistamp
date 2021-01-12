@@ -13,8 +13,6 @@ function LineGraph({habit}) {
 
     useEffect(() => {
         (async () => {
-            // console.log("TOGGLE TIME:   ", toggleTime)
-            // console.log(typeof(toggleTime))
             const res = await fetch(`/api/habit-details/${hid}/memberships/${mid}/graph/${toggleTime}`)
             const resObj = await res.json()
 

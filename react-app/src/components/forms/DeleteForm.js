@@ -16,7 +16,6 @@ export default function DeleteForm({
     handleClose()
     dispatcher(item)
     const res = await fetch(path, { method: "DELETE" })
-    console.log("deleted? :)")
   }
 
   if (!open) return null

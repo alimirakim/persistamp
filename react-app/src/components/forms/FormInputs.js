@@ -16,7 +16,6 @@ export function getColorId(colors, hex) {
 
 
 export function getIconId(icons, title) {
-  console.log("get icon...", icons, title)
   return Object.values(icons).find(i => i.title == title).id
 }
 
@@ -30,10 +29,37 @@ export function BackButton(path, color) {
 }
 
 
+export function IconButton({ onClick, icon }) {
+  return (
+    <button className="ico-btn" onClick={onClick}>
+      <i className={`fas fa-lg fa-${icon}`}></i>
+    </button>
+  )
+}
+
+export function AddButton({ handleOpen }) {
+  return (
+    <button className="ico-btn" onClick={handleOpen}>
+      <i className={`fas fa-2x fa-plus`}></i>
+    </button>
+  )
+}
+
+export function RewardShopButton({ path }) {
+  return (
+    <Link to={path}>
+      <button className="ico-btn" type="button">
+        <i className={`fas fa-2x fa-store`}></i>
+      </button>
+    </Link>
+  )
+}
+
+
 export function EditButton({ handleOpen }) {
   return (
-    <button onClick={handleOpen} style={{ color: "gray", backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
-      <i className={`fas fa-pencil-alt`}></i>
+    <button className="ico-btn" onClick={handleOpen}>
+      <i className={`fas fa-2x fa-pencil-alt`}></i>
     </button>
   )
 }
@@ -41,8 +67,8 @@ export function EditButton({ handleOpen }) {
 
 export function DeleteButton({ handleOpen }) {
   return (
-    <button onClick={handleOpen} style={{ color: "gray", backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
-      <i className={`fas fa-eraser`}></i>
+    <button className="ico-btn" onClick={handleOpen}>
+      <i className={`fas fa-2x fa-eraser`}></i>
     </button>
   )
 }
@@ -100,16 +126,16 @@ export function AddDescription({ description, setDescription }) {
 export function ChooseFrequency({ frequency, updateFrequency }) {
   return (<>
     <InputLabel id="frequency">Frequency</InputLabel>
-      <Select onChange={updateFrequency} id="frequency" value={frequency} style={{margin: "0.5rem 0"}}>
-        <MenuItem value={1}>1 days</MenuItem>
-        <MenuItem value={2}>2 days</MenuItem>
-        <MenuItem value={3}>3 days</MenuItem>
-        <MenuItem value={4}>4 days</MenuItem>
-        <MenuItem value={5}>5 days</MenuItem>
-        <MenuItem value={6}>6 days</MenuItem>
-        <MenuItem value={7}>7 days</MenuItem>
-      </Select>
- </> )
+    <Select onChange={updateFrequency} id="frequency" value={frequency} style={{ margin: "0.5rem 0" }}>
+      <MenuItem value={1}>1 days</MenuItem>
+      <MenuItem value={2}>2 days</MenuItem>
+      <MenuItem value={3}>3 days</MenuItem>
+      <MenuItem value={4}>4 days</MenuItem>
+      <MenuItem value={5}>5 days</MenuItem>
+      <MenuItem value={6}>6 days</MenuItem>
+      <MenuItem value={7}>7 days</MenuItem>
+    </Select>
+  </>)
 }
 
 export function SetUsername({ username, setUsername }) {
@@ -196,7 +222,6 @@ export function UpdateLastname({ lastname, setLastname }) {
 export function UpdateBirthday({ birthday, setBirthday }) {
   const updateBirthday = (e) => {
     setBirthday(e.target.value)
-    console.log("birthday", e.target.value)
   }
 
   return (

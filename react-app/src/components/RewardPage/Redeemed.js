@@ -2,7 +2,6 @@ import React from 'react'
 
 
 export default function Redeemed({ reward, redeem }) {
-  console.log("redeemed AT", redeem.redeemed_at)
   return (
     <article className="rrr th-shadow">
       <dl>

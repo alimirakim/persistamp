@@ -12,3 +12,36 @@ Naming convention: start with `th-`. EXAMPLE: th-bg-primary */
 .th-shadow {
   box-shadow: 15px 15px 5px rgba(0,0,0,0.2);
 }
+
+.th-card-shadow {
+  position: relative;
+}
+.th-card-shadow:before, .th-card-shadow:after {
+  z-index: -2;
+  position: absolute;
+  content: "";
+  bottom: 2rem;
+  left: 2rem;
+  width: 50%;
+  top: 80%;
+  background: black;
+
+  -webkit-box-shadow: 0 2rem 2rem black;
+  -moz-box-shadow: 0 2rem 2rem black;
+  box-shadow: 0 2rem 2rem black;
+
+  -webkit-transform: rotate(-3deg);
+  -moz-transform: rotate(-3deg);
+  -o-transform: rotate(-3deg);
+  -ms-transform: rotate(-3deg);
+  transform: rotate(-3deg);
+}
+.th-card-shadow:after {
+  -webkit-transform: rotate(3deg);
+  -moz-transform: rotate(3deg);
+  -o-transform: rotate(3deg);
+  -ms-transform: rotate(3deg);
+  transform: rotate(3deg);
+  right: 2rem;
+  left: auto;
+}

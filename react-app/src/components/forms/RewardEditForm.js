@@ -9,8 +9,8 @@ export default function RewardEditForm({ open, handleClose, reward }) {
   const [cost, setCost] = useState(reward.cost)
   const [limit, setLimit] = useState(reward.limit_per_member)
   const [quantity, setQuantity] = useState(reward.quantity)
-console.log("limit", limit, "quantity", quantity)
-  const uniqueInputs = () => (<>
+
+const uniqueInputs = () => (<>
     <ChooseCost cost={cost} setCost={setCost} />
     <ChooseLimit limit={limit} setLimit={setLimit} />
     <ChooseQuantity quantity={quantity} setQuantity={setQuantity} />

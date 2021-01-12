@@ -6,8 +6,6 @@ import mira from '../images/mira-linkedin.jpg'
 
 function AboutCard() {
   const renderLinks = (user) => {
-    // console.log("links should be rendering")
-    // console.log(links)
     return (<>
       <div className="about-card_a">
         <a className="about-card_icon" href={`mailto:${user.email}`}>
@@ -59,7 +57,7 @@ function AboutCard() {
       links: ["https://www.github.com/ELyda95"],
     },
   ];
-  return (<>
+  return (<main>
     <div className="AboutPage">
       <div className="AboutHeader">About Us</div>
       <div className="AboutContainer">
@@ -78,8 +76,13 @@ function AboutCard() {
           })
         }
       </div>
+      <aside>
+      <h2>Attributions</h2>
+      <a href='https://www.freepik.com/photos/background'>Background photo created by denamorado - www.freepik.com</a>
+      </aside>
+      
     </div>
-  </>)
+  </main>)
 }
 
 export default AboutCard

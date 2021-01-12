@@ -11,7 +11,6 @@ export default function Homepage() {
   const user = useContext(UserContext)
   const { dispatchSetAll } = useContext(ProgramBoardContext)
 
-  console.log("user", user)
   useEffect(() => {
     if (!user.errors) {
       (async () => {

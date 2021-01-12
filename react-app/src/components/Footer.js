@@ -30,10 +30,8 @@ let users = [
 ];
 
 const renderUser = (user) => {
-    // console.log("links should be rendering")
-    // console.log(links)
-    return (<>
-        <div className="about-card_footer">
+    return (
+        <div key={user.shortname} className="about-card_footer">
             <div className={`footer-user_name footer-${user.shortname}`}>{user.name}</div>
             <div className="footer-links">
                 <a className="about-card_icon" href={`mailto:${user.email}`}>
@@ -51,11 +49,10 @@ const renderUser = (user) => {
                 }
             </div>
         </div>
-    </>)
+    )
 }
 
 export default function Footer ({auth}) {
-    // console.log("AUTH IN FOOTER", auth)
     if (!auth) {
         return null;
     }

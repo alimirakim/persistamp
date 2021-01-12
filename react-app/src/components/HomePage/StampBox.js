@@ -20,7 +20,6 @@ export default function StampBox({ day, mid, hid }) {
   const stampPath = `/api/stamps/${habits[hid].id}/programs/${habits[hid].program_id}/memberships/${mid}/days/${day[1]}`
   
   useEffect(() => {
-    // console.log("stampy habit", habits[hid].stamp_ids.length, habits[hid].frequency, habits[hid])
     const s = habits[hid].stamp_ids.find(sid => stamps[sid].date === day[1])
     let status = ""
     if (s) status = "stamped"
@@ -30,7 +29,6 @@ export default function StampBox({ day, mid, hid }) {
 
   const onStamp = (method) => async (ev) => {
     ev.preventDefault()
-    console.log("preStamp", habits[hid])
     const res = await fetch(stampPath, { method })
     const stamp = await res.json()
     if (method === "post") {

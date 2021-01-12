@@ -98,26 +98,8 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
 }
 
 
-.program {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
 
-.program-title {
-  font-size: 2rem;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif
-}
 
-.board {
-  width: 50vw;
-  /* background-image: url("./Paper-02.png"); */
-  background-color: black;
-  box-shadow: 15px 15px 20px rgba(0,0,0,0.5);
-  border-width: 10px;
-  /* background: linear-gradient(135deg, rgba(0,0,0,1), rgba(55,55,55,1)); */
-}
 
 .points {
   font-size: 1.5rem;

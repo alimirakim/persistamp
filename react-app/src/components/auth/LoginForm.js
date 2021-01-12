@@ -21,7 +21,6 @@ export default function LoginForm({ auth, setAuth, setUser }) {
     })
     const user = await res.json()
 
-    console.log("login user", user)
     if (!user.errors) {
       setAuth(true)
       setUser(user)

@@ -1,4 +1,4 @@
-.ico-btn {
+.stamp-btn {
   display: block;
   position: relative;
   color: #969696;
@@ -8,7 +8,7 @@
   height: 1.5rem;
 }
 
-.ico-btn > i {
+.stamp-btn > i {
   position: absolute;
 }
 
