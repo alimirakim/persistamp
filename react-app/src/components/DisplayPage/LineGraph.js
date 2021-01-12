@@ -41,7 +41,7 @@ function LineGraph({habit}) {
   }
 
     if (!dataPoints.data) return null;
-    console.log("DATA", dataPoints)
+    // console.log("DATA", dataPoints)
 
     return (
         <>

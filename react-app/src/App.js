@@ -69,9 +69,7 @@ export default function App() {
           </ProtectedRoute>
 
           <Route path="/login" exact={true}>
-            <div className="splashPageBackground overlay">
-              <SplashContainer auth={auth} setAuth={setAuth} setUser={setUser} />
-            </div>
+            <SplashContainer auth={auth} setAuth={setAuth} setUser={setUser} />
           </Route>
 
           <Route path="/about" exact={true}>

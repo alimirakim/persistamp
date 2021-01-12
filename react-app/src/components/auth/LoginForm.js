@@ -30,21 +30,6 @@ export default function LoginForm({ auth, setAuth, setUser }) {
     else setErrors(user.errors)
   }
 
-  const onDemoLogin = async (e) => {
-    e.preventDefault();
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: "demo@gmail.com", password: "password" })
-    })
-    const user = await res.json()
-    if (!user.errors) {
-      setAuth(true)
-      setUser(user)
-    }
-    else setErrors(user.errors)
-  }
-
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false)
   const updateEmail = (e) => setEmail(e.target.value);
@@ -53,19 +38,16 @@ export default function LoginForm({ auth, setAuth, setUser }) {
   if (auth) return <Redirect to="/" />
 
   return (<>
-    {/* <h2 className="loginHeader">Persistamp</h2> */}
-    <Button onClick={handleClickOpen} color="primary">
+    <Button className='loginButton' onClick={handleClickOpen} variant="contained" color="secondary">
       Log in
     </Button>
-        
-    <button onClick={onDemoLogin} className="btn">Demo Login</button>
-    
+
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle id="form-dialog-title">Log in</DialogTitle>
       <DialogContent className='loginForm'>
-      
+
         <ErrorMessages errors={errors} />
-        
+
         <TextField
           autoFocus
           defaultValue={email}

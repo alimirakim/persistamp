@@ -13,19 +13,19 @@ import numberThree from '../../images/number3.png';
 const instructions = [
     {
         number: 1,
-        text: "Create programs and habits that you want to commit to.",
+        text: "Customize your own programs and habits.",
         image: instruction1,
         numberIcon: numberOne,
     },
     {
         number: 2,
-        text: "Customize and keep track of each habit.",
+        text: "Follow your progress and earn points.",
         image: instruction2,
         numberIcon: numberTwo,
     },
     {
         number: 3,
-        text: "Follow how you're doing and reward yourself.",
+        text: "Buy rewards at your custom shop.",
         image: instruction3,
         numberIcon: numberThree,
     },

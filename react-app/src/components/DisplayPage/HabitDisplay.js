@@ -25,7 +25,7 @@ export default function HabitDisplay() {
   }, [habit])
 
   if (!habit) return null
-
+  // console.log("HABIT", habit);
   return (
     <HabitContext.Provider value={habit}>
       <main>
@@ -56,7 +56,7 @@ export default function HabitDisplay() {
                       <tr>
                         <td className="habitDetail__cell habitDetail-border">{habit.description}</td>
                         <td className="habitDetail__cell habitDetail-border">{habit.program.title}</td>
-                        <td className="habitDetail__cell habitDetail-border">{habit.icon}</td>
+                        <td className="habitDetail__cell habitDetail-border"><i className={`fas fa-${habit.icon}`} /></td>
                         <td className="habitDetail__cell habitDetail-border">{habit.frequency} Days</td>
                         <td className="habitDetail__cell habitDetail-border">{new Date(habit.created_at).toLocaleString()}</td>
                       </tr>
