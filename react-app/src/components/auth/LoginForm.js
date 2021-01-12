@@ -42,7 +42,11 @@ export default function LoginForm({ auth, setAuth, setUser }) {
       Log in
     </Button>
 
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog open={open} onClose={handleClose}
+      PaperProps={{
+        style: { backgroundColor: "#FFD1D6"}
+      }}
+    >
       <DialogTitle id="form-dialog-title">Log in</DialogTitle>
       <DialogContent className='loginForm'>
 
