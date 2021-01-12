@@ -47,11 +47,11 @@ export default function NavBar({ auth, setAuth, user }) {
     </>)
   } else {
     return (<>
-      <nav className="stickers">
+      {/* <nav className="stickers">
         <NavLink to='/login' className="sticker sticker_logo-link" activeClassName="active">
           <img className="sticker_logo" src={turtle} alt="Persistamp Logo: a red turtle stamp" />
         </NavLink>
-      </nav>
+      </nav> */}
     </>)
   }
 }

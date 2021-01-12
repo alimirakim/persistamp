@@ -41,7 +41,7 @@ button:hover {
 }
 
 .overlay{
-  opacity:0.8;
+  /* opacity:0.8; */
   background-color:#ccc;
   position:fixed;
   width:100%;
@@ -52,9 +52,107 @@ button:hover {
 }
 .splashPageBackground {
   height: 100%;
-  background-image: url("https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pixelstalk.net%2Fwp-content%2Fuploads%2F2016%2F07%2FArtsy-HD-Wallpaper-1.jpg&f=1&nofb=1")
+  /* background-image: url("https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pixelstalk.net%2Fwp-content%2Fuploads%2F2016%2F07%2FArtsy-HD-Wallpaper-1.jpg&f=1&nofb=1") */
+  background-image: url("../images/persistamp-splash.jpg");
+  z-index: 1;
 }
 
+.splashcontainer {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  border: 2px solid black;
+  /* background-color: black; */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  width: 1300px;
+  height: 720px;
+}
+
+.splashforms {
+  background-color: grey;
+}
+.instruction-screenshot {
+  /* object-fit: cover;
+  width: 100%;
+  max-height: 100%; */
+  /* width: 325px; */
+  /* max-height: 180px; */
+  object-fit: cover;
+  width: 100%;
+  box-sizing: border-box;
+}
+.instructionscontainer {
+  /* border: 4px solid red; */
+  grid-column: 1 / 4;
+  grid-row: 1 / 5;
+}
+
+.instruction-1-numarrow {
+  display: grid;
+  /* border: 4px solid black; */
+  grid-column: 1 / 2;
+  grid-row: 1;
+}
+
+.instruction-1-text {
+  display: grid;
+  border: 4px solid yellow;
+  grid-column: 2 / 3;
+  grid-row: 1;
+}
+.instruction-1-image {
+  display: grid;
+  /* border: 4px solid red; */
+  grid-column: 3 / 4;
+  grid-row: 1;
+}
+
+.instruction-2-text {
+  display: grid;
+  border: 4px solid yellow;
+  grid-column: 1 / 2;
+  grid-row: 2;
+}
+.instruction-2-image {
+  display: grid;
+  border: 4px solid red;
+  grid-column: 2 / 3;
+  grid-row: 2;
+}
+.instruction-2-numarrow {
+  display: grid;
+  border: 4px solid black;
+  grid-column: 3 / 4;
+  grid-row: 2;
+}
+.instruction-3-text {
+  display: grid;
+  border: 4px solid yellow;
+  grid-column: 2 / 3;
+  grid-row: 3;
+}
+.instruction-3-image {
+  display: grid;
+  border: 4px solid red;
+  grid-column: 3 / 4;
+  grid-row: 3;
+}
+.instruction-3-numarrow {
+  display: grid;
+  border: 4px solid black;
+  grid-column: 1 / 2;
+  grid-row: 3;
+}
+
+.instructionNumber {
+  font-size: 60px;
+  color: black;
+}
 .active {
   color: white;
   transform: rotate(20deg);
@@ -66,6 +164,82 @@ ul {
 }
 ul > li {
   margin-left: 0;
+}
+
+.about-card_a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 150px;
+  height: 70px;
+}
+.about-card_icon {
+  color: lavender;
+}
+.about-card_icon:hover {
+  color: lightseagreen;
+}
+
+.grey-icon {
+  color: grey;
+}
+
+.AboutPage {
+  height: 84vh;
+}
+
+.about-card_footer {
+  width: 95px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.footer-users {
+  display: flex;
+  width: 1000px;
+  margin: 0 auto;
+  justify-content: space-around;
+}
+.footer {
+  position: relative;
+  background-color: black;
+  width: 100%;
+  height: 120px;
+  bottom: 0;
+
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-header {
+  position: relative;
+  top: 10px;
+  left: 20px;
+}
+
+.footer-user_name {
+  text-align: center;
+}
+
+.footer-mira {
+  color: lightskyblue;
+}
+.footer-brian {
+  color: lightgreen;
+}
+.footer-david {
+  color: yellow;
+}
+.footer-eric {
+  color: salmon;
+}
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
 }
 
 /* a. Fix item editing - infinity bugs */
