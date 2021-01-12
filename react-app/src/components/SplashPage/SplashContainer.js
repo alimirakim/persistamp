@@ -22,9 +22,14 @@ export default function SplashContainer ({auth, setAuth, setUser}) {
 
     return (<>
     <div className="splashPageBackground overlay">
+    </div>
         <div className="splashcontainer">
+            <div className="splashTitle">
+                <div className="splashHeader">
+                    Persistamp
+                </div>
+            </div>
             <div className="demoButton-container">
-                {/* <button onClick={onDemoLogin} className="btn">Demo Login</button> */}
                 <img onClick={onDemoLogin} className="demoButton" alt="try me" src={demoButton} />
             </div>
             <InstructionsContainer />
@@ -35,6 +40,5 @@ export default function SplashContainer ({auth, setAuth, setUser}) {
                 </div>
             </div>
         </div>
-    </div>
     </>)
 }

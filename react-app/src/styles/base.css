@@ -41,27 +41,28 @@ button:hover {
 }
 
 .overlay{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: -1;
 }
+
 .splashPageBackground {
   display: flex;
   justify-content: center;
   width: 100%;
   padding: 40px;
-  position: relative;
-  height: 100vh;
+  object-fit: cover;
   /* background-image: url("https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pixelstalk.net%2Fwp-content%2Fuploads%2F2016%2F07%2FArtsy-HD-Wallpaper-1.jpg&f=1&nofb=1") */
   background-image: url("../images/persistamp-splash.jpg");
-  z-index: 1;
 }
 
 .splashcontainer {
   margin: 0 auto;
+  position: relative;
   top: 40px;
-  /* position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%); */
   align-content: center;
   justify-content: space-evenly;
   background-color: #191427;
@@ -105,16 +106,16 @@ button:hover {
 }
 
 .demoButton-container {
-  /* display: grid;
-  grid-column: 3/4;
-  grid-row: 2;
-  justify-content: flex-end; */
-  /* align-items: center; */
-  position: relative;
-  top: 45px;
-  left: 720px;
+  display: grid;
+  grid-column: 2 / 4;
+  grid-row: 1;
+  justify-content: center;
+  align-items: flex-end;
 }
 .demoButton {
+  position: relative;
+  top: 30px;
+  left: 140px;
   height: 110px;
   transform: rotate(25deg);
 
@@ -153,6 +154,9 @@ button:hover {
   grid-row: 1;
   margin: 0 auto;
   padding: 10px;
+
+}
+.splashHeader {
   font-size: 50px;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }

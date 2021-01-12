@@ -58,7 +58,11 @@ const SignUpForm = ({auth, setAuth, setUser}) => {
     <Button className='signUpButton'onClick={handleClickOpen} color="secondary" variant="contained">
       Sign up
     </Button>
-    <Dialog open={open} onClose={handleClose}>
+    <Dialog open={open} onClose={handleClose}
+          PaperProps={{
+            style: { backgroundColor: "#FFD1D6"}
+          }}
+    >
       <DialogTitle id="form-dialog-title">Make an account</DialogTitle>
 
       <ErrorMessages errors={errors} />
