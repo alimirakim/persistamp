@@ -71,7 +71,7 @@ const renderErrors = (errors) => {
       <div>
           {renderErrors(errors)}
       </div>
-      <DialogContent className='signUpForm'>
+      <DialogContent className='orm'>
         <TextField
           autoFocus
           defaultValue={first_name}
