@@ -32,7 +32,7 @@ export default function RewardShop() {
   if (!program || !rewards) return null
   // Add/remove points
   return (
-    <main style={{ color: program.color }}>
+    <main className="rewardShop-container" style={{ color: program.color }}>
 
       <BackButton path="/" color={program.color} />
 
@@ -44,7 +44,7 @@ export default function RewardShop() {
         <h2>Your Points: <span style={{ fontSize: "3rem" }}>{program.points} <i className={`fas fa-${program.icon}`}></i></span></h2>
 
         <button onClick={toggleCreate}>Add Reward</button>
-        
+
           <RewardForm open={openCreate} handleClose={toggleCreate} />
 
         <div style={{ display: "flex", justifyContent: "space-around" }}>

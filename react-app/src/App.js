@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import SplashContainer from './components/SplashPage/SplashContainer';
 import NavBar from "./components/NavBar";
-import Footer from './components/Footer';
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/UserPage";
-
+import Footer from "./components/Footer";
 import UserContext from './context/UserContext'
 import OptionsContext from './context/OptionsContext'
 import { ProgramBoardContextProvider } from "./context/ProgramBoardContext"
