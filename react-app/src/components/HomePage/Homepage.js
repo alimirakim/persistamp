@@ -6,10 +6,12 @@ import UserProfileCard from './UserProfileCard'
 import ProgramBoard from './ProgramBoard'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
 
-export default function Homepage({user}) {
+export default function Homepage({ user }) {
   const { dispatchSetAll } = useContext(ProgramBoardContext)
 
+  console.log("user", user)
   useEffect(() => {
+    if (!user.errors) {
       (async () => {
         const res = await fetch(`/api/users/${user.id}`, { headers: { 'Content-Type': 'application/json' } })
         const content = await res.json();
@@ -20,6 +22,7 @@ export default function Homepage({user}) {
           stamps: content.stamps_data,
         })
       })()
+    }
   }, [])
 
 

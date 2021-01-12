@@ -12,7 +12,6 @@ export default function LoginForm({ auth, setAuth, setUser }) {
   const [password, setPassword] = useState("");
   const [open, setOpen] = React.useState(false);
 
-  console.log("setUser", setUser)
   const onLogin = async (e) => {
     e.preventDefault();
     const res = await fetch('/api/auth/login', {
@@ -22,6 +21,7 @@ export default function LoginForm({ auth, setAuth, setUser }) {
     })
     const user = await res.json()
 
+    console.log("login user", user)
     if (!user.errors) {
       setAuth(true)
       setUser(user)
@@ -37,7 +37,7 @@ export default function LoginForm({ auth, setAuth, setUser }) {
       body: JSON.stringify({ email: "demo@gmail.com", password: "password" })
     })
     const user = await res.json()
-    console.log("redirect", user)
+    console.log("demo user", user)
     if (!user.errors) {
       setAuth(true)
       setUser(user)

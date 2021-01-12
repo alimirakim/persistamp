@@ -4,6 +4,7 @@ import UserContext from '../../context/UserContext'
 
 export default function UserProfileCard() {
   const user = useContext(UserContext)
+  const birthday = user.birthday ? new Date(user.birthday).toLocaleString('en-EN', { year: 'numeric', month: 'long', day: 'numeric' }) : "N/A"
   
   if (!user) return null
 
@@ -22,7 +23,7 @@ export default function UserProfileCard() {
             <dt> <i className="fas fa-heart"></i> NICKNAME</dt>
             <dd>{user.username}</dd>
             <dt><i className="fas fa-birthday-cake"></i> D.O.B.</dt>
-            <dd><i className={`fas fa-birthday`}></i> {new Date(user.birthday).toLocaleString('en-EN', { year: 'numeric', month: 'long', day: 'numeric' })}</dd>
+            <dd><i className={`fas fa-birthday`}></i>{birthday}</dd>
             <dt> <i className="fas fa-envelope-square"></i> EMAIL</dt>
             <dd>{user.email}</dd>
           </div>

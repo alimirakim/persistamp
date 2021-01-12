@@ -31,7 +31,7 @@ export default function FormWrapper({
   const [iconId, setIconId] = useState(edit ? getIconId(icons, edit.icon) : getIconId(icons, defaultIcon))
   if (!UniqueInputs) UniqueInputs = () => (<></>)
   if (!resetUniqueInputs) resetUniqueInputs = () => console.log("")
-
+console.log("edit", edit)
   const onSubmit = async (e) => {
     e.preventDefault()
     const res = await fetch(path, {

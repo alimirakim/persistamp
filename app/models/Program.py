@@ -24,6 +24,7 @@ class Program(db.Model):
         return {
             "id": self.id,
             "title": self.title,
+            "description": self.description,
             "color": self.color.hex,
             "icon": self.icon.title,
             "created_at": self.created_at,

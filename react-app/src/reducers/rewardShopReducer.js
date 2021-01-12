@@ -48,6 +48,7 @@ export default function rewardShopReducer(state, action) {
     case REDEEM_REWARD:
       newState.redeemed[action.redeemed.id] = action.redeemed
       newState.program.points -= state.rewards[action.redeemed.reward_id].cost
+      newState.rewards[action.redeemed.reward_id].quantity -= 1
       return newState
     case DELETE_REDEEMED:
       delete newState.redeemed[action.redeemed.id]
