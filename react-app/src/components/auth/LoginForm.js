@@ -62,6 +62,7 @@ export default function LoginForm({ auth, setAuth, setUser }) {
       auth={auth}
       setAuth={setAuth}
     />
+    
     <div className="loginContainer">
       <div>
         <div>
@@ -106,8 +107,8 @@ export default function LoginForm({ auth, setAuth, setUser }) {
           </DialogContent>
         </Dialog>
 
-      {/* </div>
-    </div> */}
+      </div>
+    </div>
 
   </>);
 };

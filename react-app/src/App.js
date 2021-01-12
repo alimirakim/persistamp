@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import SplashContainer from './components/SplashPage/SplashContainer';
-// import LoginForm from "./components/auth/LoginForm";
+import LoginForm from "./components/auth/LoginForm";
 // import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
 import Footer from './components/Footer';
@@ -70,11 +70,8 @@ export default function App() {
 
           <Route path="/login" exact={true}>
             <div className="splashPageBackground overlay">
-<<<<<<< HEAD
               <LoginForm auth={auth} setAuth={setAuth} setUser={setUser} />
-=======
               <SplashContainer auth={auth} setAuth={setAuth}  />
->>>>>>> 3b4fb2d5832f045aa47cbb167447680843b0670d
             </div>
           </Route>
 
