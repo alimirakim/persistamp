@@ -1,8 +1,11 @@
 .ico-btn {
+  display: block;
   position: relative;
   color: #969696;
   border: 4px solid #969696;
   border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .ico-btn > i {

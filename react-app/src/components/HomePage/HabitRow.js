@@ -21,14 +21,10 @@ export default function HabitRow({ habit, program }) {
       <td style={{ display: "flex", width: "max-content" }}>
 
         <EditButton handleOpen={toggleEdit} />
-        {openEdit &&
-          <HabitEditForm open={openEdit} handleClose={toggleEdit} habit={habit} />
-        }
+        <HabitEditForm open={openEdit} handleClose={toggleEdit} habit={habit} />
 
         <DeleteButton handleOpen={toggleDelete} />
-        {openDelete &&
-          <HabitDeleteForm open={openDelete} handleClose={toggleDelete} habit={habit} />
-        }
+        <HabitDeleteForm open={openDelete} handleClose={toggleDelete} habit={habit} />
 
         <Link to={`/graphs/${habit.id}/memberships/${program.membership_id}`}>
           <div className="hbt-btn" style={{ backgroundColor: habit.color }}>

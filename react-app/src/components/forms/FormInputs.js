@@ -6,8 +6,20 @@ import {
 
 
 export function Icon(props) {
-  return <i className={`fas fa-${props.icon}`}></i> 
+  return <i className={`fas fa-${props.icon}`}></i>
 }
+
+
+export function getColorId(colors, hex) {
+  return Object.values(colors).find(c => c.hex == hex).id
+}
+
+
+export function getIconId(icons, title) {
+  console.log("get icon...", icons, title)
+  return Object.values(icons).find(i => i.title == title).id 
+}
+
 
 export function BackButton(path, color) {
   return (
@@ -85,41 +97,6 @@ export function AddDescription({ description, setDescription }) {
 }
 
 
-export function ChooseColor({ colors, color, setColor }) {
-  const updateColor = (e) => setColor(parseInt(e.target.value))
-  console.log("EDIT COLOR DEFAULT?", color)
-  return (<>
-    <InputLabel id="color">Color</InputLabel>
-    <Select
-      onChange={updateColor}
-      labelId="color"
-      value={color}
-    >
-      {colors.map((color) => (
-        <MenuItem key={color.id} value={color.id} style={{ backgroundColor: `${color.hex}` }} >
-          {color.title.split("-").join(" ")}
-        </MenuItem>
-      ))}
-    </Select>
-  </>)
-}
-
-export function ChooseIcon({ icons, icon, setIcon, color }) {
-  const updateIcon = (e) => setIcon(Number(e.target.value))
-  return (<>
-    <InputLabel id="icon">Icon</InputLabel>
-    <Select onChange={updateIcon} labelId="icon" value={icon}>
-      {icons.map((icon) => (
-        <MenuItem key={icon.id} value={icon.id} style={{ color }}>
-          <i className={`fas fa-${icon.title}`} style={{ color }}></i>
-          {icon.title.split("-").join(" ")}
-        </MenuItem>
-      ))}
-    </Select>
-  </>)
-}
-
-
 export function ChooseFrequency({ frequency, updateFrequency }) {
   return (
     <Select onChange={updateFrequency} label="frequency" value={frequency}>
@@ -188,17 +165,46 @@ export function ChooseCost({ cost, setCost }) {
 }
 
 export function UpdateFirstname({ firstname, setFirstname }) {
-  const updateName = (e) => setFirstname(e.target.value)
+  const updateName = (e) => {
+    setFirstname(e.target.value)
+  }
 
-  return (<>
-    <TextField label="First Name" type="text" fullWidth onChange={updateName} defaultValue={firstname} />
-  </>)
+  return (
+    <TextField
+      label="First Name"
+      type="text"
+      onChange={updateName}
+      defaultValue={firstname}
+    />
+  )
 }
 
 export function UpdateLastname({ lastname, setLastname }) {
   const updateName = (e) => setLastname(e.target.value)
 
-  return (<>
-    <TextField label="Last Name" type="text" fullWidth onChange={updateName} defaultValue={lastname} />
-  </>)
+  return (
+    <TextField
+      label="Last Name"
+      type="text"
+      onChange={updateName}
+      defaultValue={lastname}
+    />
+  )
+}
+
+export function UpdateBirthday({ birthday, setBirthday }) {
+  const updateBirthday = (e) => {
+    setBirthday(e.target.value)
+    console.log("birthday", e.target.value)
+  }
+
+  return (
+    <TextField
+      label="Birthday"
+      type="date"
+      defaultValue={birthday}
+      onChange={updateBirthday}
+      InputLabelProps={{ shrink: true }}
+    />
+  )
 }

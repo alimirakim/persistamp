@@ -51,14 +51,14 @@ class User(db.Model, UserMixin):
                 habit_ids.append(habit.id)
                 for stamp in habit.stamps:
                     stamp_ids.append(stamp.id)
-      
+
         return {
           "id": self.id,
           "username": self.username,
           "email": self.email,
           "first_name": self.first_name,
           "last_name": self.last_name,
-          "birthday": self.birthday,
+          "birthday": self.birthday.strftime('%Y-%m-%d'),
           "color": self.color.hex,
           "icon": self.icon.title,
           "program_ids": program_ids,

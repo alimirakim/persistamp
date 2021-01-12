@@ -6,6 +6,8 @@ import DeleteForm from './DeleteForm'
 export default function ProgramDeleteForm({ open, handleClose, program }) {
   const { dispatchDeleteProgram } = useContext(ProgramBoardContext)
 
+  if (!open) return null
+  
   return (
     <DeleteForm
       itemType="program"

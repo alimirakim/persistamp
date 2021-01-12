@@ -6,8 +6,8 @@ import FormWrapper from './FormWrapper'
 export default function ProgramForm({ open, handleClose }) {
   const { dispatchCreateProgram } = useContext(ProgramBoardContext)
 
-  const uniqueInputs = () => (<></>)
-
+  if (!open) return null
+  
   return (
     <FormWrapper
       type="program"
@@ -15,7 +15,8 @@ export default function ProgramForm({ open, handleClose }) {
       open={open}
       handleClose={handleClose}
       dispatcher={dispatchCreateProgram}
-      uniqueInputs={uniqueInputs}
+      defaultColor="#808080"
+      defaultIcon="calendar-alt"
     />
   )
 }

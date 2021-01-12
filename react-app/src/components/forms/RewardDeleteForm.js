@@ -2,9 +2,12 @@ import React, { useContext } from 'react'
 import DeleteForm from '../forms/DeleteForm'
 import RewardShopContext from '../../context/RewardShopContext'
 
+
 export default function RewardDeleteForm({ open, handleClose, reward }) {
-const { dispatchDeleteReward } = useContext(RewardShopContext)
-  
+  const { dispatchDeleteReward } = useContext(RewardShopContext)
+
+  if (!open) return null
+
   return (
     <DeleteForm
       itemType="reward"

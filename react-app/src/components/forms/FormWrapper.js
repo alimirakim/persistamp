@@ -2,10 +2,11 @@ import React, { useState, useContext } from 'react'
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core'
 import UserContext from '../../context/UserContext';
 import OptionsContext from '../../context/OptionsContext'
-import { ActionOrCancelButtons, AddTitle, AddDescription } from './FormInputs'
+import { ActionOrCancelButtons, AddTitle, AddDescription, getColorId, getIconId } from './FormInputs'
 import ColorInput from '../mylib/ColorInput'
 import IconInput from '../mylib/IconInput'
 import ErrorMessages from '../mylib/ErrorMessages'
+
 
 export default function FormWrapper({
   type,
@@ -14,49 +15,49 @@ export default function FormWrapper({
   handleClose,
   dispatcher,
   uniqueContent,
+  resetUniqueInputs,
   uniqueInputs: UniqueInputs,
+  defaultColor,
+  defaultIcon,
   edit,
 }) {
-  const { user } = useContext(UserContext)
+  const user = useContext(UserContext)
   const { colors, icons } = useContext(OptionsContext)
 
   const [errors, setErrors] = useState([])
   const [title, setTitle] = useState(edit ? edit.title : "")
   const [description, setDescription] = useState(edit ? edit.description : "")
-  const [color, setColor] = useState(edit ? Object.values(colors).find(c => c.hex = edit.color).id : 1)
-  const [icon, setIcon] = useState(edit ? Object.values(icons).find(i => i.title = edit.icon).id : 1)
-  const [openIcons, setOpenIcons] = useState(false)
-
-  const toggleIcons = () => setOpenIcons(!openIcons)
+  const [colorId, setColorId] = useState(edit ? getColorId(colors, edit.color) : getColorId(colors, defaultColor))
+  const [iconId, setIconId] = useState(edit ? getIconId(icons, edit.icon) : getIconId(icons, defaultIcon))
+  if (!UniqueInputs) UniqueInputs = () => (<></>)
+  if (!resetUniqueInputs) resetUniqueInputs = () => console.log("")
 
   const onSubmit = async (e) => {
     e.preventDefault()
-    console.log("uniqueContent", uniqueContent)
     const res = await fetch(path, {
       method: edit ? "PATCH" : "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        title, description, color, icon, userId: user.id, ...uniqueContent
+        title, description, color: colorId, icon: iconId, userId: user.id, ...uniqueContent
       })
     })
     const content = await res.json()
-    console.log("form res", content)
     if (content.errors) {
       setErrors(content.errors)
     } else {
       handleClose()
       dispatcher(content)
-      // setErrors([])
-      // setTitle("")
-      // setDescription("")
-      // setColor(1)
-      // setIcon(1)
-      // setOpenIcons(false)
+      setErrors([])
+      if (!edit) {
+        setTitle("")
+        setDescription("")
+        setColorId(getColorId(colors, defaultColor))
+        setIconId(getIconId(icons, defaultIcon))
+        resetUniqueInputs()
+      }
     }
   }
 
-
-  if (!colors || !icon) return null
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">{edit ? `Edit "${edit.title}" ${type} details` : `Add a new ${type}.`}</DialogTitle>
@@ -66,9 +67,9 @@ export default function FormWrapper({
       <DialogContent>
         <AddTitle title={title} setTitle={setTitle} />
         <AddDescription description={description} setDescription={setDescription} />
-        <ColorInput icon={icons[icon].title} colors={colors} value={color} setValue={setColor} toggleIcons={toggleIcons} />
-        <IconInput open={openIcons} color={colors[color].hex} icons={icons} value={icon} setValue={setIcon} />
         <UniqueInputs />
+        <IconInput color={colors[colorId].hex} icons={icons} value={iconId} setValue={setIconId} />
+        <ColorInput icon={icons[iconId].title} colors={colors} value={colorId} setValue={setColorId} />
         <ActionOrCancelButtons handleClose={handleClose} onAction={onSubmit} action={edit ? "Save" : "Create"} />
       </DialogContent>
 

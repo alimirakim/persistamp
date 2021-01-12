@@ -103,7 +103,7 @@ with app.app_context():
                   hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[1],
                   icon=icons[0],
-                  birthday=datetime(1991, 6, 27)
+                  birthday=date(1991, 6, 27)
     )
     dyclee = User(username="dyclee",
                   first_name="David",
@@ -111,7 +111,7 @@ with app.app_context():
                   email="fakedavid@gmail.com",
                   hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",                  color=colors[2],
                   icon=icons[0],
-                  birthday=datetime(1994, 8, 18)
+                  birthday=date(1994, 8, 18)
     )
     yn = User(username="yn",
                   first_name="Yegres",
@@ -128,7 +128,7 @@ with app.app_context():
                   hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[6],
                   icon=icons[0],
-                  birthday=datetime(1993, 4, 4)
+                  birthday=date(1993, 4, 4)
     )
     aly = User(username="Aly Cat",
                   first_name="Aly",
@@ -137,7 +137,7 @@ with app.app_context():
                   hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[7],
                   icon=icons[0],
-                  birthday=datetime(1994, 3, 3)
+                  birthday=date(1994, 3, 3)
     )
     sophie = User(username="sophie",
                   first_name="Sophia",
@@ -146,7 +146,7 @@ with app.app_context():
                   hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[8],
                   icon=icons[0],
-                  birthday=datetime(1995, 2, 2)
+                  birthday=date(1995, 2, 2)
     )
     ashe = User(username="ashen",
                   first_name="Ashe",
@@ -163,13 +163,14 @@ with app.app_context():
                   hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
                   color=colors[10],
                   icon=icons[0],
-                  birthday=datetime(1989, 11, 19),
+                  birthday=date(1989, 11, 19),
     )
     demo = User(username="TheDemoUser1",
                   first_name="Demo",
                   last_name="User",
                   email="demo@gmail.com",
                   hashed_password="pbkdf2:sha256:150000$vCX0hKgt$29bfb9894101cb9b426a40b4f4d7c4f22011aca3eb2494fc66235fe81e74762c",
+                  birthday=date(1990, 12, 25),
                   color=colors[10],
                   icon=icons[0],
     )
@@ -184,21 +185,21 @@ with app.app_context():
                         color=colors[0],
                         creator_id=9,
                         icon_id=28,
-                        created_at=datetime(2019, 12, 1),
+                        created_at=date(2019, 12, 1),
     )
     program_two = Program(title="Social",
                         description="family and friends",
                         color=colors[22],
                         creator_id=9,
                         icon_id=8,
-                        created_at=datetime(2019, 12, 15),
+                        created_at=date(2019, 12, 15),
     )
     program_three = Program(title="Chores and errands",
                         description="just do it",
                         color=colors[11],
                         creator_id=9,
                         icon_id=6,
-                        created_at=datetime(2019, 12, 31),
+                        created_at=date(2019, 12, 31),
     )
     program_mom = Program(title="Sophia and Mom",
                         description="",

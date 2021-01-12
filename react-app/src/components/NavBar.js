@@ -1,13 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import LogoutButton from './auth/LogoutButton';
 import UserContext from '../context/UserContext';
 import UserSettings from './forms/UserSettings'
 import { logout } from "../services/auth";
 import turtle from '../images/turtle.svg'
 
-export default function NavBar({ auth, setAuth, user }) {
-  // const [isLoggedIn, setIsLoggedIn] = useState(auth)
+export default function NavBar({ auth, setAuth, setUser }) {
+  const user = useContext(UserContext)
   const [settingsOpen, setSettingsOpen] = useState(false)
 
   const onLogout = async (e) => {
@@ -43,7 +42,8 @@ export default function NavBar({ auth, setAuth, user }) {
       </button>
       </nav>
 
-      <UserSettings settingsOpen={settingsOpen} handleSettingsClose={handleSettingsClose} />
+      <UserSettings open={settingsOpen} handleClose={handleSettingsClose} setUser={setUser} />
+      
     </>)
   } else {
     return (<>

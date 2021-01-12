@@ -22,7 +22,7 @@ export default function ProgramCard({ program }) {
 
   return (
     <li key={program.id}>
-      <table className="board" style={{ color: program.color }}>
+      <table className="board th-dark-gr" style={{ color: program.color }}>
 
         <thead>
           <tr key={program.id} style={{ color: program.color }}>
@@ -31,26 +31,16 @@ export default function ProgramCard({ program }) {
                 <div style={{ display: "flex" }}>
 
                   <EditButton handleOpen={toggleEdit} />
-                  {openEdit &&
                     <ProgramEditForm open={openEdit} handleClose={toggleEdit} program={program} />
-                  }
 
                   <DeleteButton handleOpen={toggleDelete} />
-                  {openDelete &&
                     <ProgramDeleteForm open={openDelete} handleClose={toggleDelete} program={program} />
-                  }
 
                   <h3 className="program-title">
                     <i className={`fas fa-${program.icon}`}></i> {program.title}
                   </h3>
                   <button onClick={toggleCreate}>Add Habit</button>
-                  {openCreate &&
-                    <HabitForm
-                      open={openCreate}
-                      handleClose={toggleCreate}
-                      pid={program.id}
-                    />
-                  }
+                    <HabitForm open={openCreate} handleClose={toggleCreate} pid={program.id} />
                 </div>
                 <RewardShopButton program={program} />
               </div>

@@ -20,13 +20,9 @@ export default function RewardCard({ program, reward }) {
 
   return (
     <article className="rsc th-shadow" style={{ backgroundColor: reward.color }}>
-      {openEdit &&
+    
         <RewardEditForm open={openEdit} handleClose={toggleEdit} reward={reward} />
-      }
-
-      {openDelete &&
         <RewardDeleteForm open={openDelete} handleClose={toggleDelete} reward={reward} />
-      }
 
       <div style={{ display: "flex", borderBottom: "1px rgba(0,0,0,0.2) solid" }}>
         <EditButton handleOpen={toggleEdit} />
@@ -45,9 +41,7 @@ export default function RewardCard({ program, reward }) {
       <button onClick={toggleRedeem} className="rsp-btn" disabled={insufficientPoints}>
         <span style={insufficientPointsStyle}>Redeem (Cost: <Icon icon={reward.icon} /> {reward.cost})</span>
       </button>
-      {toggleRedeem &&
         <RedeemForm open={openRedeem} handleClose={toggleRedeem} reward={reward} mid={mid} />
-      }
     </article>
   )
 }

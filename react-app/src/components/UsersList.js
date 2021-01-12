@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
-import UserContext from '../context/UserContext';
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-function UsersList() {
+export default function UsersList() {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -29,5 +28,3 @@ function UsersList() {
     </>
   );
 }
-
-export default UsersList;

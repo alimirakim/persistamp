@@ -16,6 +16,8 @@ export default function RedeemForm({ open, handleClose, reward, mid }) {
     handleClose()
   }
 
+  if (!open) return null
+  
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Redeem Reward: "{reward.title}"</DialogTitle>

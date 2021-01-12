@@ -5,7 +5,7 @@ import {ChooseFrequency} from './FormInputs'
 
 
 export default function HabitForm({ open, handleClose, pid }) {
-  const { dispatchCreateHabit } = useContext(ProgramBoardContext)
+  const { programs, dispatchCreateHabit } = useContext(ProgramBoardContext)
   const [frequency, setFrequency] = useState(7)
   const updateFrequency = (e) => setFrequency(e.target.value)
 
@@ -13,6 +13,10 @@ export default function HabitForm({ open, handleClose, pid }) {
     <ChooseFrequency frequency={frequency} updateFrequency={updateFrequency} />
   )
 
+  const resetUniqueInputs = (e) => setFrequency(7)
+  
+  if (!open) return null
+  
   return (
     <FormWrapper
       type="habit"
@@ -22,6 +26,9 @@ export default function HabitForm({ open, handleClose, pid }) {
       dispatcher={dispatchCreateHabit}
       uniqueContent={{frequency}}
       uniqueInputs={uniqueInputs}
+      resetUniqueIniputs={resetUniqueInputs}
+      defaultColor={programs[pid].color}
+      defaultIcon="check-circle"
     />
   )
 }

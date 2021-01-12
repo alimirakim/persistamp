@@ -80,7 +80,9 @@ def user_programs(uid):
 @user_routes.route("/settings", methods=['PUT'])
 @login_required
 def update_user():
+    print("\nreq", request.data)
     form = UserForm()
+    print("\nupdated", form.data)
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate():
@@ -93,6 +95,5 @@ def update_user():
         user.icon_id = form.data['icon']
         db.session.commit()
 
-        newUser = queryUserFullData(user.id)
-        return jsonify(newUser)
+        return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400

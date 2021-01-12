@@ -75,7 +75,7 @@ const renderErrors = (errors) => {
           id="first_name"
           label="First name"
           type="text"
-          fullWidth
+        
           onChange={updateFirstName}
           required
         />
@@ -86,7 +86,6 @@ const renderErrors = (errors) => {
           id="last_name"
           label="Last name"
           type="text"
-          fullWidth
           onChange={updateLastName}
           required
         />

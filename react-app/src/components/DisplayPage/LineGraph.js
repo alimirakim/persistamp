@@ -9,7 +9,7 @@ function LineGraph({habit}) {
     const [toggleTime, setToggleTime] = useState("Weekly")
     const [xAxis, setXAxis] = useState("Week")
     const { hid, mid } = useParams()
-    // const {user} = useContext(UserContext)
+    // const user = useContext(UserContext)
 
     useEffect(() => {
         (async () => {

@@ -12,9 +12,8 @@ export default function ProgramBoard() {
   return (
     <article className="lo-main-center habit-board">
       <button onClick={toggleCreate}>Add Program</button>
-      {openCreate &&
-        <ProgramForm open={openCreate} handleClose={toggleCreate} />
-      }
+
+      <ProgramForm open={openCreate} handleClose={toggleCreate} />
 
       <ul style={{ display: "flex", flexDirection: "column-reverse" }}>
         {Object.values(programs).map(program => (

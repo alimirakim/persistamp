@@ -15,12 +15,8 @@ auth_routes = Blueprint('auth', __name__)
 def authenticate():
     """Authenticates a user"""
     if current_user.is_authenticated:
-        # user_data = queryUserFullData(current_user.id)
-        # print("\nUSER WITH MEMBERS")
-        # pprint(user_data)
-        content = queryUserFullData(current_user.id)
-        print("user data", content)
-        return content
+        user = current_user.to_dict()
+        return user
     return {'errors': ['Unauthorized']}, 401
 
 
@@ -36,7 +32,7 @@ def login():
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
         # res.set_cookie('uid_cookie', str(user.id))
-        return queryUserFullData(user.id)
+        return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -79,7 +75,7 @@ def sign_up():
         # res = make_response(jsonify(user_schema.dump(user)))
         # res.set_cookie("uid_cookie", str(user.id))
 
-        return queryUserFullData(user.id)
+        return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}
 
 

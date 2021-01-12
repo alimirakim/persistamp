@@ -14,8 +14,11 @@ import ProgramBoardContext from "../../context/ProgramBoardContext"
 export default function StampBox({ day, mid, hid }) {
   const { dispatchStampDay, dispatchUnstampDay, stamps, habits, } = useContext(ProgramBoardContext)
   const [stampStatus, setStampStatus] = useState("")
+  const method = stampStatus === "stamped" ? "delete" : "post"
+  const icon = stampStatus ? habits[hid].icon : "times"
+  const color = stampStatus === "stamped" ? habits[hid].color : "rgb(100,100,100,0.5)"
   const stampPath = `/api/stamps/${habits[hid].id}/programs/${habits[hid].program_id}/memberships/${mid}/days/${day[1]}`
-
+  
   useEffect(() => {
     // console.log("stampy habit", habits[hid].stamp_ids.length, habits[hid].frequency, habits[hid])
     const s = habits[hid].stamp_ids.find(sid => stamps[sid].date === day[1])
@@ -39,44 +42,14 @@ export default function StampBox({ day, mid, hid }) {
     }
   }
 
-  // const checkCompleted = () => {
-  //   const frequency = habit.frequency
-  //   const stamps = Object.values(dailies).filter(stamp => stamp.membership === mid && stamp.habit === habit.id)
-  //   if (stamps.length >= frequency) return true
-  //   else return false
-  // }
 
-  if (stampStatus === "stamped") {
-    return (
-      <td className="stamp" style={{ color: habits[hid].color }}>
-        <form method="POST" onSubmit={onStamp("delete")}>
-          <button className="stamp" type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
-            <i className={`fas fa-${habits[hid].icon}`} style={{ color: habits[hid].color }} ></i>
-          </button>
-        </form>
-      </td>
-    )
-
-  } else if (stampStatus === "fulfilled") {
-    return (
-      <td className="stamp" style={{ color: habits[hid].color }}>
-        <form method="POST" onSubmit={onStamp("post")}>
-          <button className="stamp" type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
-            <i className={`fas fa-${habits[hid].icon}`} style={{ color: "rgb(100,100,100,0.5)" }} ></i>
-          </button>
-        </form>
-      </td>
-    )
-
-  } else {
-    return (
-      <td className="stamp" style={{ color: habits[hid].color }}>
-        <form method="POST" onSubmit={onStamp("post")}>
-          <button className="stamp" type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
-            <i className={`fas fa-times`} style={{ color: "rgb(100,100,100,0.5)" }} ></i>
-          </button>
-        </form>
-      </td>
-    )
-  }
+  return (
+    <td className="stamp" style={{ color: habits[hid].color }}>
+      <form method="POST" onSubmit={onStamp(method)}>
+        <button className="stamp" type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: 0 }}>
+          <i className={`fas fa-${icon}`} style={{ color }} ></i>
+        </button>
+      </form>
+    </td>
+  )
 }

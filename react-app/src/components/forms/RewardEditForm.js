@@ -16,6 +16,8 @@ export default function RewardEditForm({ open, handleClose, reward }) {
     <ChooseQuantity quantity={quantity} setQuantity={setQuantity} />
   </>)
 
+if (!open) return null
+
   return (
     <FormWrapper
       type="reward"

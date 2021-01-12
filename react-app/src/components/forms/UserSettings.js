@@ -1,66 +1,70 @@
+
+
 import React, { useState, useContext } from "react";
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import updateUser from '../../services/user';
 import UserContext from '../../context/UserContext'
-import { editUser } from '../../reducers/userReducer'
 import OptionsContext from '../../context/OptionsContext'
-import { 
-  ActionOrCancelButtons, 
-  SetUsername, 
-  ChooseColor, 
-  ChooseIcon, 
-  UpdateFirstname, 
-  UpdateLastname 
+import {
+  ActionOrCancelButtons,
+  SetUsername,
+  UpdateFirstname,
+  UpdateLastname,
+  UpdateBirthday,
 } from '../forms/FormInputs'
+import ColorInput from '../mylib/ColorInput'
+import IconInput from '../mylib/IconInput'
+import ErrorMessages from '../mylib/ErrorMessages'
 
-export default function UserSettings({ settingsOpen, handleSettingsClose }) {
-  const { user, setUser } = useContext(UserContext)
-  const [color, setColor] = useState(user.color)
-  const [icon, setIcon] = useState(user.icon)
+
+export default function UserSettings({ open, handleClose, setUser }) {
+  const user = useContext(UserContext)
+  const { colors, icons } = useContext(OptionsContext)
+  const [colorId, setColorId] = useState(colors ? Object.values(colors).find(c => c.hex === user.color).id : "")
+  const [iconId, setIconId] = useState(icons ? Object.values(icons).find(i => i.title === user.icon).id : "")
   const [errors, setErrors] = useState([])
   const [firstname, setFirstname] = useState(user.first_name)
   const [lastname, setLastname] = useState(user.last_name)
   const [username, setUsername] = useState(user.username)
-  const { colors, icons } = useContext(OptionsContext)
+  const [birthday, setBirthday] = useState(user.birthday)
+  const [openIcons, setOpenIcons] = useState(false)
+
+  const toggleIcons = () => setOpenIcons(!openIcons)
 
   const onUpdate = async (e) => {
     e.preventDefault()
-    const updatedUser = await updateUser(username, firstname, lastname, color, icon)
+    const res = await fetch("/api/users/settings", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, firstname, lastname, birthday, color: colorId, icon: iconId, }),
+    })
+    const updatedUser = await res.json()
     if (!updatedUser.errors) {
       setUser(updatedUser)
-      handleSettingsClose()
+      handleClose()
     } else {
       setErrors(updatedUser.errors)
     }
   }
 
-  const renderErrors = (errors) => {
-    if (errors) {
-      return errors.map(error => {
-        console.log(error)
-        return <div className='material-error'>{error}</div>
-      })
-    }
-  }
-
-  if (!user) return null;
+  if (!open) return null
+  
   return (
+    <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <DialogTitle id="form-dialog-title">User Settings</DialogTitle>
 
-    <Dialog open={settingsOpen} onClose={handleSettingsClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">Edit User Settings</DialogTitle>
-      <div>
-        {renderErrors(errors)}
-      </div>
+      <ErrorMessages errors={errors} />
+
       <DialogContent>
         <SetUsername username={username} setUsername={setUsername} />
-        <UpdateFirstname firstname={firstname} setFirstname={setFirstname} />
+        <UpdateFirstname firstame={firstname} setFirstname={setFirstname} />
         <UpdateLastname lastname={lastname} setLastname={setLastname} />
-        <ChooseColor colors={colors} color={color} setColor={setColor} />
-        <ChooseIcon icons={icons} icon={icon} setIcon={setIcon} />
-        <ActionOrCancelButtons handleClose={handleSettingsClose} onAction={onUpdate} action={"Update"} />
+        <UpdateBirthday birthday={birthday} setBirthday={setBirthday} />
+        <IconInput open={openIcons} color={colors[colorId].hex} icons={icons} value={iconId} setValue={setIconId} />
+        <ColorInput icon={icons[iconId].title} colors={colors} value={colorId} setValue={setColorId} toggleIcons={toggleIcons} />
+        <ActionOrCancelButtons handleClose={handleClose} onAction={onUpdate} action={"Update"} />
       </DialogContent>
     </Dialog>
   )

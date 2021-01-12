@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 
 // IMPORTANT Repeat values causes confusion to input!! Remove all repeats
-export default function IconInput({ open, color, value, setValue, icons }) {
+export default function IconInput({ color, value, setValue, icons }) {
+  const [open, setOpen] = useState(false)
 
+  const toggleOpen = (e) => setOpen(!open)
   const handleChange = (e) => {
-    console.log("e.target.value", e.target.value)
     setValue(e.target.value)
+    toggleOpen()
   }
 
   if (!icons) icons = {
@@ -636,37 +638,42 @@ export default function IconInput({ open, color, value, setValue, icons }) {
 
   }
 
-  if (!open) return null
-  console.log("color for icon", color)
-  return (<section className="pop rbc th-dark-con lo-scrollbox-sml" style={{ maxWidth: "20rem", backgroundColor: "rgb(50,50,50)" }}>
+  return (<>
 
-    {Object.values(icons).map((icon, i) => (<section key={i}>
-  
-      {/* <h4 className="th-sleek">{category}</h4> */}
+    <button onClick={toggleOpen} type="button" className="ico-btn">
+      <i className="fas fa-question lo-center"></i>
+    </button>
 
-      <div>
-        <label key={i} className="rbc-con">
-          <span  style={{ display: "none" }}>{icon.title}</span>
+    {open &&
+      <section className="pop rbc th-dark-con lo-scrollbox-sml" style={{ maxWidth: "20rem", backgroundColor: "rgb(50,50,50)" }}>
 
-          <input
-            type="radio"
-            value={icon.id}
-            checked={value === icon.id}
-            name="radio-button-image"
-            className="rbc-input"
-            onChange={handleChange}
-          />
+        {Object.values(icons).map((icon, i) => (<section key={i}>
+          {/* <h4 className="th-sleek">{category}</h4> */}
+          <div>
+            <label key={i} className="rbc-con">
+              <span style={{ display: "none" }}>{icon.title}</span>
 
-          <span className="rbc-box rbc-image">
-            <i
-              className={`fas fa-${icon.title} rbc-checkback lo-center`}
-              style={{ color: color, position: "absolute" }}
-            >
-            </i>
-          </span>
-        </label>
-      </div>
+              <input
+                type="radio"
+                value={icon.id}
+                checked={value === icon.id}
+                name="radio-button-image"
+                className="rbc-input"
+                onChange={handleChange}
+              />
 
-    </section>))}
-  </section>)
+              <span className="rbc-box rbc-image">
+                <i
+                  className={`fas fa-${icon.title} rbc-checkback lo-center`}
+                  style={{ color: color, position: "absolute" }}
+                >
+                </i>
+              </span>
+            </label>
+          </div>
+
+        </section>))}
+      </section>
+    }
+  </>)
 }

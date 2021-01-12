@@ -6,8 +6,8 @@ import FormWrapper from './FormWrapper'
 export default function ProgramEditForm({ open, handleClose, program }) {
   const { dispatchEditProgram } = useContext(ProgramBoardContext)
 
-  const uniqueInputs = () => (<></>)
-
+  if (!open) return null
+  
   return (
     <FormWrapper
       type="program"
@@ -15,7 +15,6 @@ export default function ProgramEditForm({ open, handleClose, program }) {
       open={open}
       handleClose={handleClose}
       dispatcher={dispatchEditProgram}
-      uniqueInputs={uniqueInputs}
       edit={program}
     />
   )
