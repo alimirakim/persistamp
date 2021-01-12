@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../services/auth';
-import { FormControl, TextField } from '@material-ui/core';
+import { FormControl, TextField, Button } from '@material-ui/core';
 import { ActionOrCancelButtons } from '../forms/FormInputs';
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core'
 
+import { setUser } from "../../context/reducers";
 
-const SignUpForm = ({open, setOpen, auth, setAuth, setUser, handleClickOpen, handleClose}) => {
+const SignUpForm = ({auth, setAuth}) => {
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [birthday, setBirthday] = useState("");
@@ -14,11 +15,13 @@ const SignUpForm = ({open, setOpen, auth, setAuth, setUser, handleClickOpen, han
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-  // const [open, setOpen] = React.useState(true);
+
+  const [open, setOpen] = React.useState(false);
   const [errors, setErrors] = useState([])
 
-  // const handleClickOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false)
+
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false)
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -61,7 +64,9 @@ const renderErrors = (errors) => {
   if (auth) return <Redirect to="/" />
 
   return (<>
-    {/* <button onClick={handleClickOpen}>Sign Up</button> */}
+    <Button onClick={handleClickOpen} color="primary">
+      Sign up
+    </Button>
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle id="form-dialog-title">Make an account</DialogTitle>
       <div>

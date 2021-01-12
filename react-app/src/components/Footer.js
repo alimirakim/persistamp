@@ -54,7 +54,11 @@ const renderUser = (user) => {
     </>)
 }
 
-export default function Footer () {
+export default function Footer ({auth}) {
+    // console.log("AUTH IN FOOTER", auth)
+    if (!auth) {
+        return null;
+    }
     return <>
         <div className="footer">
             <div className="footer-container">

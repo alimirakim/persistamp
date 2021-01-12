@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useReducer } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import LoginForm from "./components/auth/LoginForm";
+import SplashContainer from './components/SplashPage/SplashContainer';
+// import LoginForm from "./components/auth/LoginForm";
 // import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
 import Footer from './components/Footer';
@@ -114,7 +115,7 @@ function App() {
 
           <Route path="/login" exact={true}>
             <div className="splashPageBackground overlay">
-              <LoginForm auth={auth} setAuth={setAuth} loadUserData={loadUserData} />
+              <SplashContainer auth={auth} setAuth={setAuth} loadUserData={loadUserData} />
             </div>
           </Route>
 
@@ -146,7 +147,7 @@ function App() {
             </ProtectedRoute>
           </ProgramBoardContext.Provider>
 
-          <Footer />
+          <Footer auth={auth}/>
 
         </OptionsContext.Provider>
       </UserContext.Provider>
