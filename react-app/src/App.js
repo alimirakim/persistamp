@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import SplashContainer from './components/SplashPage/SplashContainer';
-import LoginForm from "./components/auth/LoginForm";
-// import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
 import Footer from './components/Footer';
 import ProtectedRoute from "./components/auth/ProtectedRoute";
@@ -37,9 +35,11 @@ export default function App() {
       const res = await fetch('/api/auth/', {
         headers: { 'Content-Type': 'application/json' }
       })
-      const user_data = await res.json();
-      setUser(user_data)
-      setAuth(true)
+      const user_data = await res.json()
+      if (!user_data.errors) {
+        setUser(user_data)
+        setAuth(true)
+      }
 
       const { colors_data, icons_data } = await fetch(`/api/options`).then(res => res.json())
       setColors(colors_data)
@@ -102,7 +102,7 @@ export default function App() {
             </ProtectedRoute>
           </RewardShopContextProvider>
 
-          <Footer auth={auth}/>
+          <Footer auth={auth} />
 
         </OptionsContext.Provider>
       </UserContext.Provider>

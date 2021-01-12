@@ -17,7 +17,7 @@ export function getColorId(colors, hex) {
 
 export function getIconId(icons, title) {
   console.log("get icon...", icons, title)
-  return Object.values(icons).find(i => i.title == title).id 
+  return Object.values(icons).find(i => i.title == title).id
 }
 
 
@@ -98,17 +98,18 @@ export function AddDescription({ description, setDescription }) {
 
 
 export function ChooseFrequency({ frequency, updateFrequency }) {
-  return (
-    <Select onChange={updateFrequency} label="frequency" value={frequency}>
-      <MenuItem value={1}>1 days</MenuItem>
-      <MenuItem value={2}>2 days</MenuItem>
-      <MenuItem value={3}>3 days</MenuItem>
-      <MenuItem value={4}>4 days</MenuItem>
-      <MenuItem value={5}>5 days</MenuItem>
-      <MenuItem value={6}>6 days</MenuItem>
-      <MenuItem value={7}>7 days</MenuItem>
-    </Select>
-  )
+  return (<>
+    <InputLabel id="frequency">Frequency</InputLabel>
+      <Select onChange={updateFrequency} id="frequency" value={frequency} style={{margin: "0.5rem 0"}}>
+        <MenuItem value={1}>1 days</MenuItem>
+        <MenuItem value={2}>2 days</MenuItem>
+        <MenuItem value={3}>3 days</MenuItem>
+        <MenuItem value={4}>4 days</MenuItem>
+        <MenuItem value={5}>5 days</MenuItem>
+        <MenuItem value={6}>6 days</MenuItem>
+        <MenuItem value={7}>7 days</MenuItem>
+      </Select>
+ </> )
 }
 
 export function SetUsername({ username, setUsername }) {
