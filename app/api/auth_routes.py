@@ -27,6 +27,8 @@ def login():
     # Get the csrf_token from the request cookie and put it into the
     # form manually to validate_on_submit can be used
     form['csrf_token'].data = request.cookies['csrf_token']
+    print("\nform", form.data)
+    
     if form.validate_on_submit():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
@@ -51,6 +53,9 @@ def sign_up():
     print("\nform", form.data)
     if form.validate():
         print("\nform", form.data)
+        birthday = None
+        if form.data['birthday']:
+            birthday = form.data['birthday']
         # Create user, default program, and default membership records
         user = User(
             username=form.data['username'],
@@ -58,7 +63,7 @@ def sign_up():
             password=form.data['password'],
             first_name=form.data['first_name'],
             last_name=form.data['last_name'],
-            birthday=form.data['birthday'],
+            birthday=birthday,
         )
         program = Program(title=f"{form.data['username']}'s Habits",
                           creator=user,)
