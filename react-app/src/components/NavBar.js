@@ -21,7 +21,7 @@ export default function NavBar({ auth, setAuth, setUser }) {
     return (<>
       <nav className="stickers">
         <NavLink to='/' className="sticker sticker_logo-link" activeClassName="active">
-          <span>Home</span>
+          <span style={{transform: "rotate(-20deg)", color: "rgb(250,75,100)"}}>Home</span>
           <img className="sticker_logo" src={turtle} alt="Persistamp Logo: a red turtle stamp" />
         </NavLink>
         <NavLink to="/messages" className="sticker sticker_messages" activeClassName="active">

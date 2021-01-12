@@ -49,7 +49,7 @@ export default function RewardCard({ program, reward, redeemCount }) {
         {/* <dd>{reward.cost} <i className={`fas fa-${reward.icon}`}></i></dd> */}
       </dl>
       <button onClick={toggleRedeem} className="rsp-btn" disabled={disabled}>
-        <span style={disabledStyle}>Redeem: <i className={`fas fa-lg fa-${reward.icon}`}></i> {reward.cost}</span>
+        <span style={disabledStyle}>Redeem: <i className={`fas fa-lg fa-${reward.icon}`} style={{color: reward.color}}>&nbsp;{reward.cost}</i></span>
       </button>
       <RedeemForm open={openRedeem} handleClose={toggleRedeem} reward={reward} mid={mid} />
     </article>

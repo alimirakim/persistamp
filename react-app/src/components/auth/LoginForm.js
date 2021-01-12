@@ -25,6 +25,7 @@ export default function LoginForm({ auth, setAuth, setUser }) {
     if (!user.errors) {
       setAuth(true)
       setUser(user)
+      setOpen(false)
     }
     else setErrors(user.errors)
   }
@@ -37,7 +38,6 @@ export default function LoginForm({ auth, setAuth, setUser }) {
       body: JSON.stringify({ email: "demo@gmail.com", password: "password" })
     })
     const user = await res.json()
-    console.log("demo user", user)
     if (!user.errors) {
       setAuth(true)
       setUser(user)
@@ -50,22 +50,22 @@ export default function LoginForm({ auth, setAuth, setUser }) {
   const updateEmail = (e) => setEmail(e.target.value);
   const updatePassword = (e) => setPassword(e.target.value);
 
-  console.log("auth", auth)
   if (auth) return <Redirect to="/" />
 
   return (<>
     {/* <h2 className="loginHeader">Persistamp</h2> */}
     <Button onClick={handleClickOpen} color="primary">
       Log in
-        </Button>
+    </Button>
+        
     <button onClick={onDemoLogin} className="btn">Demo Login</button>
+    
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle id="form-dialog-title">Log in</DialogTitle>
-      {/* <div>
-            {renderErrors}
-          </div> */}
       <DialogContent className='loginForm'>
+      
         <ErrorMessages errors={errors} />
+        
         <TextField
           autoFocus
           defaultValue={email}

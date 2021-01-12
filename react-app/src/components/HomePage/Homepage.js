@@ -5,8 +5,10 @@ import UserProfileCard from './UserProfileCard'
 // import ProgramForm from '../forms/ProgramForm'
 import ProgramBoard from './ProgramBoard'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
+import UserContext from '../../context/UserContext'
 
-export default function Homepage({ user }) {
+export default function Homepage() {
+  const user = useContext(UserContext)
   const { dispatchSetAll } = useContext(ProgramBoardContext)
 
   console.log("user", user)
@@ -23,7 +25,7 @@ export default function Homepage({ user }) {
         })
       })()
     }
-  }, [])
+  }, [user])
 
 
 
