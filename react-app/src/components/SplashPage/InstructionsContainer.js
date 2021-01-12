@@ -1,7 +1,7 @@
 import React from 'react';
 import {InstructionBox} from './InstructionBox';
 
-import instruction1 from '../../images/persistamp-instruction1.PNG';
+import instruction1 from '../../images/persistamp-instruction1-resize.PNG';
 
 const instructions = [
     {

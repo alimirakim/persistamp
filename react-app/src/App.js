@@ -65,16 +65,12 @@ export default function App() {
   // useEffect(() => console.log("habits", pb.habits), [pb.habits])
   // useEffect(() => console.log("stamps", pb.stamps), [pb.stamps])
 
-<<<<<<< HEAD
   if (!loaded) {
     return (<>
       <LoadingPage />
     </>)
   }
 
-=======
-  if (!loaded) return null
->>>>>>> main
   return (
     <BrowserRouter>
       <UserContext.Provider value={{ user }}>
@@ -84,11 +80,7 @@ export default function App() {
 
           <Route path="/login" exact={true}>
             <div className="splashPageBackground overlay">
-<<<<<<< HEAD
-              <SplashContainer auth={auth} setAuth={setAuth} loadUserData={loadUserData} />
-=======
-              <LoginForm auth={auth} setAuth={setAuth} />
->>>>>>> main
+              <SplashContainer auth={auth} setAuth={setAuth}  />
             </div>
           </Route>
 

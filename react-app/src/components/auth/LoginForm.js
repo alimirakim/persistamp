@@ -17,15 +17,19 @@ const LoginForm = ({ auth, setAuth, loadUserData }) => {
   const onLogin = async (e) => {
     e.preventDefault();
     const content = await login(email, password)
-    if (!content.errors) loadUserData(content)
-    else setErrors(content.errors)
+    if (content.errors) {
+      setErrors(content.errors)
+
+    }
   }
 
   const onDemoLogin = async (e) => {
     e.preventDefault();
     const content = await login("demo@gmail.com", "password")
-    if (!content.errors) loadUserData(content)
-    else setErrors(content.errors)
+    if (content.errors) {
+      setErrors(content.errors)
+
+    }
   }
 
   const handleClickOpen = () => setOpen(true);

@@ -19,7 +19,6 @@ def program_habits(pid):
 
 
 # TESTED Functions
-<<<<<<< HEAD
 # @habit_routes.route("/<int:hid>")
 @habit_routes.route("/<int:hid>/memberships/<int:mid>")
 def habit_details(hid, mid):
@@ -31,13 +30,6 @@ def habit_details(hid, mid):
     habitWProgram["program"] = program
     return habitWProgram
     # return habit.to_dict_for_user(current_user)
-=======
-@habit_routes.route("/<int:hid>")
-def habit_details(hid):
-    """Get a habit's details for a user, including recent history."""
-    habit = Habit.query.get(hid)
-    return habit.to_dict_for_user_details(current_user)
->>>>>>> main
 
 
 @habit_routes.route("/edit/<int:hid>", methods=["PATCH"])
