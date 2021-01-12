@@ -8,7 +8,7 @@ export default function UserProfileCard() {
   if (!user) return null
   return (
     <>
-      <article className="card-dark" style={{ color: user.color, boxShadow: `8px 8px 0 ${user.color}` }}>
+      <article className="card th-dark-gr" style={{ color: user.color, boxShadow: `8px 8px 0 ${user.color}` }}>
 
         <dl className="card-data">
           <dt className="card-name-label"><i className="fas fa-address-card"></i> NAME</dt>

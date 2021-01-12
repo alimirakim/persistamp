@@ -5,6 +5,7 @@ from app.models import db, Program, User, Membership
 from app.schemas import program_schema, user_schema, color_schema, icon_schema
 from app.forms import ProgramForm
 from app.utils import queryUserFullData, validation_errors_to_error_messages
+from pprint import pprint
 
 program_routes = Blueprint("programs", __name__, url_prefix="/programs")
 
@@ -26,7 +27,7 @@ def create_program():
 
     if form.validate():
         program = Program(
-            program=form.data["title"],
+            title=form.data["title"],
             description=form.data['description'],
             color_id=form.data['color'],
             icon_id=form.data["icon"],
@@ -41,14 +42,10 @@ def create_program():
         db.session.add(membership)
         db.session.commit()
 
-        program_data = program_schema.dump(program)
-        program_data["color"] = color_schema.dump(program.color)
-        program_data["icon"] = icon_schema.dump(program.icon)
-        program_data["creator"] = user_schema.dump(program.creator)
-        
-        updated_user = queryUserFullData(current_user.id)
-        
-        return jsonify(program=program_data, updated_user=updated_user)
+        # programs_data, habits_data, stamps_data, user_data, past_week = queryUserFullData(current_user.id)
+        print("\nprogram...")
+        pprint(program)
+        return program.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 

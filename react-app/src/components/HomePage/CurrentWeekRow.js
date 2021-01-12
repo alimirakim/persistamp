@@ -1,21 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import ProgramBoardProvider from '../../context/ProgramBoardContext'
-import HabitForm from '../forms/HabitForm'
 
 
-export default function CurrentWeekRow({ program, dispatchHabits }) {
+export default function CurrentWeekRow({ program }) {
   const { week } = useContext(ProgramBoardProvider)
+
 
   return (
     <tr>
-      <th>
-        <HabitForm 
-        pid={program.id} 
-        program={program} 
-        dispatchHabits={dispatchHabits} 
-        />
-      </th>
+      <th>Habits</th>
 
       {week.map((day, i) => (
         <th key={day}>

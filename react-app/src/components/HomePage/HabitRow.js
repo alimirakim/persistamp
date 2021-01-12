@@ -2,15 +2,12 @@ import React, { useState, useContext, useEffect } from "react";
 import { Link } from 'react-router-dom'
 
 import ProgramBoardContext from '../../context/ProgramBoardContext'
-// import HabitContext from '../../context/HabitContext'
 import HabitEditForm from '../forms/HabitEditForm'
 import HabitDeleteForm from '../forms/HabitDeleteForm'
 import StampBox from './StampBox'
 import { EditButton, DeleteButton } from '../forms/FormInputs'
 
 
-// Though dailies is updating, habit's dailies list is not.
-// Too many sources of truth.
 export default function HabitRow({ habit, program }) {
   const { week } = useContext(ProgramBoardContext)
   const [openEdit, setOpenEdit] = useState(false)

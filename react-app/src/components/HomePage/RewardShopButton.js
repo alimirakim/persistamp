@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 
 
 export default function RewardShopButton({ program }) {
-  // const {stamps} = useContext()
-  
  
   return (
     <Link to={`/programs/${program.id}/memberships/${program.membership_id}/rewards`}>

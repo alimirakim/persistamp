@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import ProgramBoardContext from "../../context/ProgramBoardContext"
-import { stampDay, unstampDay } from "../../context/reducers"
+
 
 // TODO How to optimize the rerenders here????
 // Create a user slice of state. In that slice, have user's memberships, habits,
@@ -12,41 +12,30 @@ import { stampDay, unstampDay } from "../../context/reducers"
 // straight from the source
 
 export default function StampBox({ day, mid, hid }) {
-  const {
-    stamps,
-    habits,
-    dispatchStamps,
-    dispatchHabits,
-    dispatchPrograms
-  } = useContext(ProgramBoardContext)
-  const habit = habits[hid]
+  const { dispatchStampDay, dispatchUnstampDay, stamps, habits, } = useContext(ProgramBoardContext)
   const [stampStatus, setStampStatus] = useState("")
-  const stampPath = `/api/stamps/${habit.id}/programs/${habit.program_id}/memberships/${mid}/days/${day[1]}`
+  const stampPath = `/api/stamps/${habits[hid].id}/programs/${habits[hid].program_id}/memberships/${mid}/days/${day[1]}`
 
   useEffect(() => {
-    const s = habit.stamp_ids.find(sid => stamps[sid].date === day[1])
+    // console.log("stampy habit", habits[hid].stamp_ids.length, habits[hid].frequency, habits[hid])
+    const s = habits[hid].stamp_ids.find(sid => stamps[sid].date === day[1])
     let status = ""
     if (s) status = "stamped"
-    else if (habit.stamp_ids.length >= habit.frequency) status = "fulfilled"
+    else if (habits[hid].stamp_ids.length >= Number(habits[hid].frequency)) status = "fulfilled"
     setStampStatus(status)
-  }, [habits])
+  }, [habits[hid].stamp_ids])
 
   const onStamp = (method) => async (ev) => {
     ev.preventDefault()
+    console.log("preStamp", habits[hid])
     const res = await fetch(stampPath, { method })
     const stamp = await res.json()
     if (method === "post") {
-      dispatchStamps(stampDay(stamp))
-      dispatchHabits(stampDay(stamp))
-      
-      console.log("onStamp", stampStatus)
-      dispatchPrograms(stampDay(stamp))
-      // setStamp("stamped")
+      dispatchStampDay(stamp)
+      setStampStatus("stamped")
     } else if (method === "delete") {
-      dispatchStamps(unstampDay(stamp))
-      dispatchHabits(unstampDay(stamp))
-      dispatchPrograms(unstampDay(stamp))
-      // setStamp("")
+      dispatchUnstampDay(stamp)
+      setStampStatus("")
     }
   }
 
@@ -59,10 +48,10 @@ export default function StampBox({ day, mid, hid }) {
 
   if (stampStatus === "stamped") {
     return (
-      <td className="stamp" style={{ color: habit.color }}>
+      <td className="stamp" style={{ color: habits[hid].color }}>
         <form method="POST" onSubmit={onStamp("delete")}>
           <button className="stamp" type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
-            <i className={`fas fa-${habit.icon}`} style={{ color: habit.color }} ></i>
+            <i className={`fas fa-${habits[hid].icon}`} style={{ color: habits[hid].color }} ></i>
           </button>
         </form>
       </td>
@@ -70,10 +59,10 @@ export default function StampBox({ day, mid, hid }) {
 
   } else if (stampStatus === "fulfilled") {
     return (
-      <td className="stamp" style={{ color: habit.color }}>
+      <td className="stamp" style={{ color: habits[hid].color }}>
         <form method="POST" onSubmit={onStamp("post")}>
           <button className="stamp" type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
-            <i className={`fas fa-${habit.icon}`} style={{ color: "rgb(100,100,100,0.5)" }} ></i>
+            <i className={`fas fa-${habits[hid].icon}`} style={{ color: "rgb(100,100,100,0.5)" }} ></i>
           </button>
         </form>
       </td>
@@ -81,7 +70,7 @@ export default function StampBox({ day, mid, hid }) {
 
   } else {
     return (
-      <td className="stamp" style={{ color: habit.color }}>
+      <td className="stamp" style={{ color: habits[hid].color }}>
         <form method="POST" onSubmit={onStamp("post")}>
           <button className="stamp" type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: "0" }}>
             <i className={`fas fa-times`} style={{ color: "rgb(100,100,100,0.5)" }} ></i>

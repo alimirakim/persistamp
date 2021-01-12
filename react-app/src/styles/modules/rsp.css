@@ -1,0 +1,90 @@
+/* Reward Shop Page */
+
+.rsp > h1 {
+  font-size: 3rem;
+  margin: 2rem;
+}
+
+.rsp-title {
+  border-bottom: 10px double;
+  margin: 0 1rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+
+.rsp {
+  display: flex; 
+  flex-direction: column; 
+  align-content: center; 
+  align-items: center;
+}
+
+.rsp-ul {
+  display: flex;
+  flex-direction: column-reverse;
+  
+}
+
+.rsp-btn {
+  opacity: 0.5;
+  background-color: rgba(255,255,255);
+  border-radius: 1rem;
+  border-width: 0;
+  margin: auto;
+  width: 100%;
+  height: 2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+.rsp-btn:hover:enabled, rsp-btn:active:enabled {
+  opacity: 1;
+}
+
+/* reward shop card */
+.rsc {
+  padding: 1rem;
+  margin: 1rem;
+}
+
+/* redeemed reward receipt */
+.rrr {
+  position: relative;
+  margin: 2rem 1rem;
+  padding: 1rem;
+  color: black;
+  background-color: rgb(240,240,250);
+  
+}
+
+.rrr:before {
+  background: 
+    linear-gradient(-45deg, rgb(240,240,250) 1rem, transparent 0), 
+    linear-gradient(45deg, rgb(240,240,250) 1rem, transparent 0);
+  background-position: left-bottom;
+  background-repeat: repeat-x;
+  background-size: 32px 32px;
+  content: " ";
+  display: block;
+  position: absolute;
+  top: -1rem;
+  left: 0px;
+  width: 100%;
+  height: 32px;
+}
+
+.rrr:after {
+  background: 
+    linear-gradient(135deg,rgb(240,240,250) 1rem, transparent 0), 
+    linear-gradient(-135deg, rgb(240,240,250) 1rem, transparent 0);
+  background-position: left-bottom;
+  background-repeat: repeat-x;
+  background-size: 32px 32px;
+  content: " ";
+  display: block;
+  position: absolute;
+  bottom: -1rem;
+  right: 0;
+  width: 100%;
+  height: 32px;
+}

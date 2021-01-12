@@ -14,7 +14,7 @@ class RewardForm(FlaskForm):
     icon = SelectField(validators=[DataRequired()], 
                         choices=range(1, len(icons)+1), 
                         default=4)
-    submit = SubmitField()
+    cost = IntegerField(default=7)
     limit = IntegerField(default=-1)
     quantity = IntegerField(default=1)
     submit = SubmitField()

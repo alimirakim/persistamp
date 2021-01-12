@@ -19,6 +19,7 @@ def program_habits(pid):
 
 
 # TESTED Functions
+<<<<<<< HEAD
 # @habit_routes.route("/<int:hid>")
 @habit_routes.route("/<int:hid>/memberships/<int:mid>")
 def habit_details(hid, mid):
@@ -30,6 +31,13 @@ def habit_details(hid, mid):
     habitWProgram["program"] = program
     return habitWProgram
     # return habit.to_dict_for_user(current_user)
+=======
+@habit_routes.route("/<int:hid>")
+def habit_details(hid):
+    """Get a habit's details for a user, including recent history."""
+    habit = Habit.query.get(hid)
+    return habit.to_dict_for_user_details(current_user)
+>>>>>>> main
 
 
 @habit_routes.route("/edit/<int:hid>", methods=["PATCH"])
@@ -77,6 +85,6 @@ def create_habit(pid):
         )
         db.session.add(habit)
         db.session.commit()
-        habit = Habit.query.get(newHabit.id)
-        return newHabit.to_dict_for_user(current_user)
+        habit = Habit.query.get(habit.id)
+        return habit.to_dict_for_user(current_user)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400

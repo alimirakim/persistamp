@@ -1,16 +1,10 @@
-import React, { useState, useContext } from 'react'
-import { Dialog, DialogTitle, DialogContent } from '@material-ui/core'
-import UserContext from '../../context/UserContext'
+import React, { useContext } from 'react'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
-import OptionsContext from '../../context/OptionsContext'
-import { createProgram, editProgram, deleteProgram } from '../../context/reducers'
-import { ActionOrCancelButtons, AddTitle, AddDescription, ChooseColor, ChooseIcon } from './FormInputs'
 import FormWrapper from './FormWrapper'
 
 
-
 export default function ProgramForm({ open, handleClose }) {
-  const { dispatchPrograms } = useContext(ProgramBoardContext)
+  const { dispatchCreateProgram } = useContext(ProgramBoardContext)
 
   const uniqueInputs = () => (<></>)
 
@@ -20,12 +14,11 @@ export default function ProgramForm({ open, handleClose }) {
       path={`/api/programs/create`}
       open={open}
       handleClose={handleClose}
-      dispatcher={dispatchPrograms}
-      actionCreator={createProgram}
-      // uniqueContent={}
+      dispatcher={dispatchCreateProgram}
       uniqueInputs={uniqueInputs}
     />
   )
+<<<<<<< HEAD
 }
 
 
@@ -201,3 +194,6 @@ export default function ProgramForm({ open, handleClose }) {
 //   )
 
 // }
+=======
+}
+>>>>>>> main

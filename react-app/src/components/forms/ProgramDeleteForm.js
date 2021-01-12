@@ -1,11 +1,10 @@
 import React, { useContext } from 'react'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
-import { deleteProgram } from '../../context/reducers'
 import DeleteForm from './DeleteForm'
 
 
 export default function ProgramDeleteForm({ open, handleClose, program }) {
-  const { dispatchHabits } = useContext(ProgramBoardContext)
+  const { dispatchDeleteProgram } = useContext(ProgramBoardContext)
 
   return (
     <DeleteForm
@@ -14,8 +13,7 @@ export default function ProgramDeleteForm({ open, handleClose, program }) {
       open={open}
       handleClose={handleClose}
       item={program}
-      dispatcher={dispatchHabits}
-      actionCreator={deleteProgram}
+      dispatcher={dispatchDeleteProgram}
     />
   )
 }

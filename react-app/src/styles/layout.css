@@ -117,7 +117,6 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
   box-shadow: 15px 15px 20px rgba(0,0,0,0.5);
   border-width: 10px;
   /* background: linear-gradient(135deg, rgba(0,0,0,1), rgba(55,55,55,1)); */
-  background: linear-gradient(-45deg, rgba(0,0,0,1), rgba(25,25,25,1));
 }
 
 .points {
@@ -173,11 +172,10 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
   padding: 1rem;
   width: max-content;
 }
-.card-dark {
+.card {
   display: flex;
   margin: 1rem;
   border-radius: 10px;
-  background: black;
   /* background: linear-gradient(360deg, rgba(220,222,226,1) 0%,  rgba(255,255,255,1) 100%); */
   padding: 1rem;
   width: max-content;
