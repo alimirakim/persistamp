@@ -52,17 +52,21 @@ class User(db.Model, UserMixin):
                 for stamp in habit.stamps:
                     stamp_ids.append(stamp.id)
 
+        birthday = None
+        if self.birthday:
+            birthday = self.birthday.strftime('%Y-%m-%d')
+
         return {
-          "id": self.id,
-          "username": self.username,
-          "email": self.email,
-          "first_name": self.first_name,
-          "last_name": self.last_name,
-          "birthday": self.birthday.strftime('%Y-%m-%d'),
-          "color": self.color.hex,
-          "icon": self.icon.title,
-          "program_ids": program_ids,
-          # "membership_ids": [m.id for m in self.memberships],
-          # "memberships": {m.id:m.to_dict() for m in self.memberships},
-          "redeemed_ids": [r.id for r in self.redeemed],
+            "id": self.id,
+            "username": self.username,
+            "email": self.email,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "birthday": birthday,
+            "color": self.color.hex,
+            "icon": self.icon.title,
+            "program_ids": program_ids,
+            # "membership_ids": [m.id for m in self.memberships],
+            # "memberships": {m.id:m.to_dict() for m in self.memberships},
+            "redeemed_ids": [r.id for r in self.redeemed],
         }

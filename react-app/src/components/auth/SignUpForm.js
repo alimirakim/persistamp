@@ -5,9 +5,8 @@ import { FormControl, TextField, Button } from '@material-ui/core';
 import { ActionOrCancelButtons } from '../forms/FormInputs';
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core'
 
-import { setUser } from "../../reducers/userReducer";
 
-const SignUpForm = ({auth, setAuth}) => {
+const SignUpForm = ({auth, setAuth, setUser}) => {
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [birthday, setBirthday] = useState("");
