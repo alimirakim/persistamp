@@ -46,7 +46,12 @@ function LineGraph({habit}) {
         <>
             <div className="lineGraphContainer">
                 <h3 className="lineGraphHeader" style={{color:"#ccc", fontFamily:"Arial"}}>Line Graph</h3>
-                <button className="lineGraphToggle" onClick={handleClick}>{toggleTime}</button>
+                {/* <button className="lineGraphToggle" onClick={handleClick}>{toggleTime}</button> */}
+                {/* <label for="toggle-select">Choose an interval</label> */}
+                <select onChange={handleClick} name="toggleInterval" id="toggle-select">
+                    <option value="Weekly">Week</option>
+                    <option value="Monthly">Month</option>
+                </select>
                 <LineChart width={700} height={400} data={dataPoints.data} margin={{ bottom: 15, left:25}}>
                     <Line strokeWidth={3}type="monotone" dataKey="stamps" dot={{ strokeWidth: 2}}stroke={habit.color} />
                     <CartesianGrid stroke="#ccc" strokeDasharray="5 5"/>

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import LoginForm from "./components/auth/LoginForm";
+import SplashContainer from './components/SplashPage/SplashContainer';
+// import LoginForm from "./components/auth/LoginForm";
 // import SignUpForm from "./components/auth/SignUpForm";
 import NavBar from "./components/NavBar";
+import Footer from './components/Footer';
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/UserPage";
@@ -16,6 +18,7 @@ import AboutCard from './components/AboutCard'
 import HabitDisplay from './components/DisplayPage/HabitDisplay'
 import RewardShop from './components/RewardPage/RewardShop'
 import Homepage from './components/HomePage/Homepage'
+import LoadingPage from './components/LoadingPage'
 
 import './styles/index.css'
 
@@ -49,8 +52,11 @@ export default function App() {
   //   if (user && colors && icons) setLoaded(true)
   // }, [user])
 
-  if (!loaded) return null
-  console.log("user", user)
+  if (!loaded) {
+    return (<>
+      <LoadingPage />
+    </>)
+  }
 
   return (
     <BrowserRouter>
@@ -64,7 +70,11 @@ export default function App() {
 
           <Route path="/login" exact={true}>
             <div className="splashPageBackground overlay">
+<<<<<<< HEAD
               <LoginForm auth={auth} setAuth={setAuth} setUser={setUser} />
+=======
+              <SplashContainer auth={auth} setAuth={setAuth}  />
+>>>>>>> 3b4fb2d5832f045aa47cbb167447680843b0670d
             </div>
           </Route>
 
@@ -95,6 +105,8 @@ export default function App() {
               <RewardShop />
             </ProtectedRoute>
           </RewardShopContextProvider>
+
+          <Footer auth={auth}/>
 
         </OptionsContext.Provider>
       </UserContext.Provider>
