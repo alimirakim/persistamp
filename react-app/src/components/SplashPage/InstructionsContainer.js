@@ -33,6 +33,9 @@ const instructions = [
 
 export default function InstructionsContainer () {
     return (<>
+            <div className="splashTitle">
+                Persistamp
+            </div>
             {instructions.map((obj) => {
                 return (<>
                     <InstructionBox  obj={obj} />

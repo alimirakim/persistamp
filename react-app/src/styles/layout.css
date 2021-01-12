@@ -347,14 +347,13 @@ nav.stickers {
 }
 
 .lineGraphContainer {
-    /* position: relative;
-    width: 650px;
-    left: 95px; */
-    margin: 15px;
+    /* padding: 15px; */
+    margin: 30px;
 }
 .lineGraphHeader {
     position: relative;
     text-align: center;
+    font-size: 22px;
 }
 /* .lineGraphToggle {
     position: relative;
@@ -363,7 +362,7 @@ nav.stickers {
 } */
 .displayPage {
     position: relative;
-    left:50px;
+    left:100px;
 }
 .displayFormat {
     display: flex;
@@ -380,10 +379,8 @@ nav.stickers {
 .habitDetailContainer {
     position: relative;
     margin: 20px;
-    /* display: flex;
-    flex-direction: row; */
     width:100%;
-    /* left:20px; */
+    padding-left: 25px;
   }
   .habitDetail__title {
     font-size: 30px;
@@ -404,7 +401,7 @@ nav.stickers {
 
   }
   .habitDetail__table {
-    /* border: 1px solid; */
+    /* margin: 20px; */
     table-layout: fixed;
     width: 700px;
   }
@@ -423,28 +420,27 @@ nav.stickers {
 }
 .heatMapContainer {
     position: relative;
-    top: 50px;
+    align-self: center;
+    padding-bottom: 40px;
     left: 60px;
-    width:500px;
+    width:400px;
 }
 .heatMapHeader {
     position: relative;
     margin: 12px;
-    left: 100px;
+    left: 90px;
+    font-size: 22px;
 }
 .calendarContainer {
     width: 650px;
     height: 400px;
 }
 
-.calendarLabel {
-    color: "#ccc"
-}
 
 .statContainer {
     position: relative;
     width: 650px;
-    left: 95px;
+    left: 120px;
     /* margin: 25px; */
 }
 /* .statGroup {
@@ -456,6 +452,10 @@ nav.stickers {
     position: relative;
     text-align: center;
     right: 50px;
+    font-size: 22px;
+    padding-bottom: 10px;
+    /* display: flex;
+    justify-content: center; */
 }
 
 .color-scale-stamped {
