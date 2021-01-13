@@ -16,18 +16,13 @@ body {
     font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif
     /* background-image: url("https://www.freevector.com/uploads/vector/preview/1469/FreeVector-Splash-Swoosh-Background-Image.jpg") */
 }
-table, tr, th, td {
-  /* border-radius: 0.3rem; */
-  margin: 1rem;
-  /* border: 1px solid rgb(100,100,100,0.5); */
-  padding: 0.2rem;
-  text-align: center;
-  border-spacing: 0.5rem;
-}
 
-td, th {
-  width: 0.5rem;
-  height: 1rem;
+
+table {
+  margin: 0;
+  padding: 1rem;
+  text-align: center;
+  border-spacing: 0.2rem;
 }
 
 a {

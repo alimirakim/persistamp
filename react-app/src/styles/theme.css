@@ -17,13 +17,13 @@ Naming convention: start with `th-`. EXAMPLE: th-bg-primary */
   position: relative;
 }
 .th-card-shadow:before, .th-card-shadow:after {
-  z-index: -2;
+  z-index: -1;
   position: absolute;
   content: "";
-  bottom: 2rem;
+  top: 80%;
+  bottom: 1rem;
   left: 2rem;
   width: 50%;
-  top: 80%;
   background: black;
 
   -webkit-box-shadow: 0 2rem 2rem black;
@@ -34,14 +34,14 @@ Naming convention: start with `th-`. EXAMPLE: th-bg-primary */
   -moz-transform: rotate(-3deg);
   -o-transform: rotate(-3deg);
   -ms-transform: rotate(-3deg);
-  transform: rotate(-3deg);
+  transform: rotate(-5deg);
 }
 .th-card-shadow:after {
   -webkit-transform: rotate(3deg);
   -moz-transform: rotate(3deg);
   -o-transform: rotate(3deg);
   -ms-transform: rotate(3deg);
-  transform: rotate(3deg);
+  transform: rotate(5deg);
   right: 2rem;
   left: auto;
 }

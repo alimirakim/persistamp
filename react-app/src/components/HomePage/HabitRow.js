@@ -1,11 +1,11 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from 'react-router-dom'
 
 import ProgramBoardContext from '../../context/ProgramBoardContext'
 import HabitEditForm from '../forms/HabitEditForm'
 import HabitDeleteForm from '../forms/HabitDeleteForm'
 import StampBox from './StampBox'
-import { EditButton, DeleteButton } from '../forms/FormInputs'
+import { MiniEditButton, MiniDeleteButton } from '../forms/FormInputs'
 
 
 export default function HabitRow({ habit, program }) {
@@ -16,21 +16,27 @@ export default function HabitRow({ habit, program }) {
   const toggleEdit = (e) => setOpenEdit(!openEdit)
   const toggleDelete = (e) => setOpenDelete(!openDelete)
 
-  return (
-    <tr key={habit.id} style={{ color: habit.color }}>
-      <td style={{ display: "flex", width: "max-content" }}>
+  return (<>
 
-        <EditButton handleOpen={toggleEdit} />
-        <HabitEditForm open={openEdit} handleClose={toggleEdit} habit={habit} />
+    <HabitEditForm open={openEdit} handleClose={toggleEdit} habit={habit} />
+    <HabitDeleteForm open={openDelete} handleClose={toggleDelete} habit={habit} />
 
-        <DeleteButton handleOpen={toggleDelete} />
-        <HabitDeleteForm open={openDelete} handleClose={toggleDelete} habit={habit} />
+    <tr key={habit.id} className="habit-row">
+      <td className="habit-btns">
 
-        <Link to={`/graphs/${habit.id}/memberships/${program.membership_id}`}>
-          <div className="hbt-btn" style={{ backgroundColor: habit.color }}>
-            <i className={`fas fa-${habit.icon}`}></i> {habit.title}
-          </div>
-        </Link>
+        {/* <MiniDeleteButton handleOpen={toggleDelete} /> */}
+        <div className="habit-btns">
+          <MiniEditButton handleOpen={toggleEdit} />
+          <Link to={`/graphs/${habit.id}/memberships/${program.membership_id}`}>
+            <div className="habit-btn">
+              &nbsp;&nbsp;&nbsp;
+            <i className={`fas fa-${habit.icon}`} style={{ color: habit.color }}></i>
+              <span className="habit-title">
+                &nbsp;{habit.title}
+              </span>
+            </div>
+          </Link>
+        </div>
       </td>
       {week.map(day => {
         return <StampBox key={day}
@@ -39,5 +45,6 @@ export default function HabitRow({ habit, program }) {
           mid={program.membership_id}
         />
       })}
-    </tr>)
+    </tr>
+  </>)
 }

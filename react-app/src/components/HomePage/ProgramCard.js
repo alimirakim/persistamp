@@ -7,7 +7,7 @@ import RewardPoints from "./RewardPoints";
 import CurrentWeekRow from "./CurrentWeekRow";
 import HabitRow from './HabitRow'
 import HabitForm from '../forms/HabitForm'
-import { AddButton, RewardShopButton, EditButton, DeleteButton } from '../forms/FormInputs'
+import { AddButton, EditButton, DeleteButton } from '../forms/FormInputs'
 
 
 export default function ProgramCard({ program }) {
@@ -27,56 +27,56 @@ export default function ProgramCard({ program }) {
       <ProgramEditForm open={openEdit} handleClose={toggleEdit} program={program} />
       <ProgramDeleteForm open={openDelete} handleClose={toggleDelete} program={program} />
       <HabitForm open={openCreate} handleClose={toggleCreate} pid={program.id} />
+      <div className="th-card-shadow">
+        <article className="pbc" style={{ background: `linear-gradient(-45deg, rgb(20,10,0) -100%, ${program.color}, rgb(255,255,255) 200%` }}>
+          <i className={`pbc-bg-ico fas fa-10x fa-${program.icon}`}></i>
 
-      <article className="pbc th-card-shadow" style={{ background: `linear-gradient(-45deg, rgb(20,10,0) -100%, ${program.color}, rgb(255,255,255) 200%` }}>
-      <i className={`pbc-points-ico fas fa-5x fa-${program.icon}`}></i>
+          <header className="pbc-hdr">
+            <div className="pbc-title-con">
+              <h3 className="pbc-title">{program.title}</h3>
 
-        <header className="pbc-hdr">
-          <div className="pbc-title-con">
-            <h3 className="pbc-title">{program.title}</h3>
-
-            <div className="pbc-hr lo-row-center">
-              <div className="line left" />
-              <div className="pbc-ico">
-                <i className={`lo-center fas fa-xs fa-${program.icon}`} />
+              <div className="pbc-hr lo-row-center">
+                <div className="line left" />
+                <div className="pbc-ico">
+                  <i className={`lo-center fas fa-xs fa-${program.icon}`} />
+                </div>
+                <div className="line right" />
               </div>
-              <div className="line right" />
+
+              {program.description && <>
+                <blockquote className="pbc-desc">{program.description}</blockquote>
+              </>}
             </div>
 
-            {program.description && <>
-              <blockquote className="pbc-desc">{program.description}</blockquote>
-            </>}
+            <RewardPoints program={program} />
+
+            {/* interactive buttons */}
+            <div className="pbc-btns">
+              <AddButton handleOpen={toggleCreate} />
+              <EditButton handleOpen={toggleEdit} />
+              <DeleteButton handleOpen={toggleDelete} />
+            </div>
+
+          </header>
+
+          <div className="pbc-body">
+            <table>
+              <thead>
+                {/* TODO Where is dispatchHabits?  */}
+                <CurrentWeekRow program={program} />
+              </thead>
+
+              <tbody>
+                {/* style={{display: "flex", flexDirection: "column-reverse"}}> */}
+                {program.habit_ids.map(hid => (
+                  <HabitRow key={hid} habit={habits[hid]} program={program} />
+                ))
+                }
+              </tbody>
+            </table>
           </div>
-
-          <RewardPoints program={program} />
-
-          {/* interactive buttons */}
-          <div className="pbc-btns">
-            <AddButton handleOpen={toggleCreate} />
-            <RewardShopButton path={rewardShopPath} />
-            <EditButton handleOpen={toggleEdit} />
-            <DeleteButton handleOpen={toggleDelete} />
-          </div>
-
-        </header>
-
-        <div className="pbc-body">
-          <table>
-            <thead>
-              {/* TODO Where is dispatchHabits?  */}
-              <CurrentWeekRow program={program} />
-            </thead>
-
-            <tbody>
-              {/* style={{display: "flex", flexDirection: "column-reverse"}}> */}
-              {program.habit_ids.map(hid => (
-                <HabitRow key={hid} habit={habits[hid]} program={program} />
-              ))
-              }
-            </tbody>
-          </table>
-        </div>
-      </article>
+        </article>
+      </div>
     </li>
   )
 }

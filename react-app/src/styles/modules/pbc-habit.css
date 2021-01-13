@@ -1,0 +1,54 @@
+
+.hbt-btn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: rgba(0,0,0,0.7);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  height: max-content;
+  width: 100%;
+}
+
+div.hbt-btn:hover {
+  border-radius: 1rem;
+  color: rgb(0,0,0);
+  /* padding: 0.7rem; */
+}
+
+.habit-row {
+  position:relative;
+  max-height: 10px;
+  overflow: hidden;
+  
+}
+
+.habit-btns {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  width: 100%;
+  max-width: 12rem;
+  overflow: hidden;
+}
+
+.habit-title {
+  color: whitesmoke;
+}
+
+.habit-link:hover {
+  background-color: rgba(0,0,0,0.2);
+}
+
+.habit-btn {
+  margin: 0;
+  padding: 0.2rem 0.5rem;
+  border-radius: 10px;
+  max-height: 2rem;
+  white-space: nowrap;
+}
+
+.habit-btn:hover {
+  background: rgba(0,0,0,0.2);
+}

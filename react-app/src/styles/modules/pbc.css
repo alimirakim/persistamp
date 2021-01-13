@@ -1,5 +1,32 @@
 /* Program Board Card */
 
+
+.pbc-habit-btns {
+  width: 100%;
+}
+
+.stamp-spot {
+  transition: none;
+  border: 2px solid rgba(0,0,0,0.2);
+  border-radius: 50%;
+  padding: 0;
+}
+.stamp {
+  position: relative;
+  margin: 3px;
+  border-radius: 50%;
+  border: 0;
+  height: 2rem;
+  width: 2rem;
+  font-size: 1rem;
+  transform-origin: bottom right;
+  background-color: rgba(255,250,250,0.8);
+  outline: none;
+}
+.stamp:active {
+  background: white;
+}
+
 .pbc {
   /* background-image: url("./Paper-02.png"); */
   position: relative;
@@ -8,7 +35,6 @@
   box-shadow: 0 0rem 2rem rgba(0,0,0,0.5);
   border-width: 10px;
   margin: 1.5rem;
-  /* background: linear-gradient(135deg, rgba(0,0,0,1), rgba(55,55,55,1)); */
   overflow: hidden;
 }
 
@@ -19,7 +45,6 @@
   justify-content: space-between;
 }
 
-
 /* card body */
 .pbc-body {
   position: relative;
@@ -27,13 +52,23 @@
   background-color: rgba(0,0,0,0.5);
 }
 
+
+.pbc-bg-ico {
+  position: absolute;
+  bottom: -1rem;
+  left: -1rem;
+  transform: rotate(20deg);
+  color: rgba(20,10,0, 0.2);
+  overflow: hidden;
+}
+
+
 .pbc-hdr {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 3.5rem;
-
 }
 
 /* program title */
@@ -53,10 +88,6 @@
   letter-spacing: 0.1rem;
 /* top: 50%; */
 /* left: 50%; */
-}
-
-table {
-  margin: 0;
 }
 
 
@@ -81,8 +112,8 @@ table {
 /* custom divider */
 .line {
   border-top: 1px solid;
-  width: 20%;
-  margin: 0 30%;
+  width: 15%;
+  margin: 0 35%;
   opacity: 0.7;
 }
 .left {
@@ -105,47 +136,38 @@ table {
 
 /* action buttons  */
 .pbc-btns {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s linear, opacity 0.2s linear;
   position: absolute;
   display: flex;
   top: 0.5rem;
-  left: 1rem;
+  left: 0.5rem;
 }
 .pbc-btns > * {
-  margin: 0.2rem;
+  margin: 0 0.5rem 0 0;
 }
 
-/* reward points */
-.pbc-points {
-  position: absolute;
-  top: 0.2rem;
-  right: 2rem;
+.pbc:hover .pbc-btns {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+.mini-ico-btn {
+  z-index:1;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 5px; 
+  border: 0;
   color: rgba(20,10,0,0.8);
-}
-.pbc-points > h4 {
-  margin: 0.1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05rem;
-  font-size: 0.8rem;
+  background-color: rgba(255,255,255,0);
 }
 
-.pbc-points > .point-box {
-  z-index: 1;
-  padding: 0 0.5rem;
-  border: 5px rgba(255,255,255,0.1) solid;
+.mini-ico-btn:hover {
   background-color: rgba(255,255,255,0.5);
-  /* text-align: right; */
-  letter-spacing: 0.1rem;
-  font: bold 1rem Calibri;
+  
 }
-
-.pbc-points-ico {
-  position: absolute;
-  top: 1.5rem;
-  right: -0.5rem;
-  transform: rotate(20deg);
-  color: rgba(20,10,0, 0.5);
-}
-
 
 .ico-btn {
   width: 2.2rem;
@@ -153,7 +175,7 @@ table {
   border-radius: 10px; 
   border: 0;
   color: rgba(20,10,0,0.8);
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255,255,255,0.7);
 }
 
 .ico-btn:hover, .ico-btn:active {

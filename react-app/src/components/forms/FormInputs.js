@@ -74,6 +74,25 @@ export function DeleteButton({ handleOpen }) {
 }
 
 
+export function MiniEditButton({ handleOpen }) {
+  return (
+    <button className="mini-ico-btn" onClick={handleOpen}>
+      <i className={`fas fa-sm fa-pencil-alt`}></i>
+    </button>
+  )
+}
+
+
+export function MiniDeleteButton({ handleOpen }) {
+  return (
+    <button className="mini-ico-btn" onClick={handleOpen}>
+      <i className={`fas fa-sm fa-eraser`}></i>
+    </button>
+  )
+}
+
+
+
 export function ActionOrCancelButtons({ handleClose, onAction, action }) {
   return (
     <DialogActions>

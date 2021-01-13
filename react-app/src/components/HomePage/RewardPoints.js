@@ -1,19 +1,20 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from 'react-router-dom'
+import { RewardShopButton } from '../forms/FormInputs'
 
 
 export default function RewardPoints({ program }) {
   const rewardShopPath = `/programs/${program.id}/memberships/${program.membership_id}/rewards`
 
   return (<>
-      <i className={`pbc-points-ico fas fa-5x fa-${program.icon}`}></i>
-    <Link to={rewardShopPath}>
-      <section className="pbc-points">
-        <h4>Reward Points</h4>
+    <div className="pbc-points">
+      <section className="pbc-point-info">
+        <h4 className="point-title">Reward Points</h4>
         <div className="point-box">
           {program.points}
         </div>
       </section>
-    </Link>
+      <RewardShopButton path={rewardShopPath} />
+    </div>
   </>)
 }

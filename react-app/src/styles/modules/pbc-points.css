@@ -1,0 +1,38 @@
+/* reward points */
+
+.pbc-points {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: right;
+  color: rgba(20,10,0,0.8);
+}
+
+.pbc-point-info {
+  margin: 0 0.5rem;
+}
+
+.point-title {
+  margin: 0 0 0.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05rem;
+  font-weight: bold;
+  font-size: 0.6rem;
+}
+
+.point-box {
+  z-index: 1;
+  padding: 0;
+  border: 3px rgba(255,255,255,0.1) solid;
+  background-color: rgba(255,255,255,0.5);
+  /* text-align: right; */
+  letter-spacing: 0.1rem;
+  font: bold 0.8rem Calibri;
+}
+
+.point-shop-btn {
+  margin: 0.5rem;
+}

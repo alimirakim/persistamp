@@ -14,16 +14,25 @@ import ProgramBoardContext from "../../context/ProgramBoardContext"
 export default function StampBox({ day, mid, hid }) {
   const { dispatchStampDay, dispatchUnstampDay, stamps, habits, } = useContext(ProgramBoardContext)
   const [stampStatus, setStampStatus] = useState("")
+  const [transform, setTransform] = useState("0")
   const method = stampStatus === "stamped" ? "delete" : "post"
-  const icon = stampStatus ? habits[hid].icon : "times"
-  const color = stampStatus === "stamped" ? habits[hid].color : "rgb(100,100,100,0.5)"
+  const icon = stampStatus === "stamped" ? habits[hid].icon : stampStatus === "fulfilled" ? "check" : "times"
+  const color = stampStatus === "stamped" ? habits[hid].color : "rgb(100,100,100,0.3)"
+  const stampId = habits[hid].stamp_ids.find(sid => stamps[sid].date === day[1])
   const stampPath = `/api/stamps/${habits[hid].id}/programs/${habits[hid].program_id}/memberships/${mid}/days/${day[1]}`
-  
+
+
   useEffect(() => {
-    const s = habits[hid].stamp_ids.find(sid => stamps[sid].date === day[1])
+    if (stampId) setTransform(Math.floor(Math.random() * Math.floor(360)))
+  }, [])
+
+  useEffect(() => {
     let status = ""
-    if (s) status = "stamped"
-    else if (habits[hid].stamp_ids.length >= Number(habits[hid].frequency)) status = "fulfilled"
+    if (stampId) {
+      status = "stamped"
+    } else if (habits[hid].stamp_ids.length >= Number(habits[hid].frequency)) {
+      status = "fulfilled"
+    }
     setStampStatus(status)
   }, [habits[hid].stamp_ids])
 
@@ -32,20 +41,21 @@ export default function StampBox({ day, mid, hid }) {
     const res = await fetch(stampPath, { method })
     const stamp = await res.json()
     if (method === "post") {
+      setTransform(Math.floor(Math.random() * Math.floor(360)))
       dispatchStampDay(stamp)
       setStampStatus("stamped")
     } else if (method === "delete") {
+      setTransform("0")
       dispatchUnstampDay(stamp)
       setStampStatus("")
     }
   }
 
-
   return (
-    <td className="stamp" style={{ color: habits[hid].color }}>
-      <form method="POST" onSubmit={onStamp(method)}>
-        <button className="stamp" type="submit" style={{ backgroundColor: "rgba(0,0,0,0)", borderWidth: 0 }}>
-          <i className={`fas fa-${icon}`} style={{ color }} ></i>
+    <td style={{ color: habits[hid].color, transform: `rotate(${transform}deg)`,}}>
+      <form method="POST" onSubmit={onStamp(method)} className="stamp-spot" >
+        <button className="stamp" type="submit">
+          <i className={`lo-center fas fa-lg fa-${icon}`} style={{ color }} ></i>
         </button>
       </form>
     </td>
