@@ -640,12 +640,18 @@ export default function IconInput({ color, value, setValue, icons }) {
 
   return (<>
 
-    <button onClick={toggleOpen} type="button" className="ico-btn">
+    <button
+      onClick={toggleOpen}
+      type="button"
+      className={`ico ${open ? "is-focused" : ""}`}
+      style={{ position: "relative" }}
+    >
       <i className="fas fa-question lo-center"></i>
     </button>
 
     {open &&
-      <section className="pop rbc th-dark-con lo-scrollbox-sml" style={{ maxWidth: "20rem", backgroundColor: "rgb(50,50,50)" }}>
+      <section className={`pop rbc th-dark-con lo-scrollbox-sml`}
+        style={{ marginLeft: "2rem", maxWidth: "20rem", backgroundColor: "rgb(50,50,50)" }}>
 
         {Object.values(icons).map((icon, i) => (<section key={i}>
           {/* <h4 className="th-sleek">{category}</h4> */}

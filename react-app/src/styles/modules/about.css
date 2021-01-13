@@ -1,0 +1,50 @@
+
+
+.AboutHeader {
+  font-size: 40px;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+}
+
+.AboutContainer{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin: 0 auto;
+  width: 800px;
+  height: 380px;
+}
+.AboutCardContainer {
+  display: flex;
+  flex-direction: row;
+  border: 2px solid black;
+  padding: 22px;
+  margin: 15px;
+  justify-content: space-between;
+  width: 350px;
+}
+
+.AboutCardDetailsContainer {
+  display: flex;
+  flex-direction: column;
+}
+.AboutCardImageContainer {
+  max-height: 85px;
+}
+.AboutCardImageContainer img{
+  height: 85px;
+}
+.AboutCardContainer h3 {
+  margin-top: 0px;
+  margin-bottom: 5px;
+  padding: 0px;
+}
+.AboutCardContainer p {
+  margin: 0px;
+  padding: 0px;
+}
+
+.about-img {
+  border-radius: 50px;
+}

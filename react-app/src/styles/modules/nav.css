@@ -1,0 +1,97 @@
+/* main navigation bar */
+
+nav.stickers {
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+align-items: baseline;  
+  z-index: 1;
+  height: 3rem;
+  padding-right: 1rem;
+  background: linear-gradient(270deg, rgba(0,0,0,0.8), rgba(0,0,0,0))
+}
+
+.sticker {
+  display: flex;
+  flex-direction: column;
+  width: 1rem;
+  height: 1rem;
+  margin: 0.5rem 1rem;
+  border-width: 0;
+  background-color: rgba(0,0,0,0);
+  align-items: center;
+  font: bold 0.7rem Cambria;
+}
+
+.sticker:hover {
+  color: white;
+  transform: rotate(20deg);
+}
+
+.sticker > i {
+  font-size: 1rem;
+  margin-top: 0.1rem;
+}
+
+.logo {
+  /* background-image: url("/icons/turtle.svg"); */
+  width: 1.2rem;
+  height: 1.2rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.sticker_home {
+  color: goldenrod;
+}
+.sticker_logo::before {
+  color: crimson;
+  content: ".";
+}
+.sticker_logo:hover::before {
+  color: white;
+  content: "Home";
+}
+.sticker_logo:hover {
+  transform: scale(1.5);
+}
+
+.sticker_messages {
+  color: goldenrod;
+}
+.sticker_messages::before {
+  content: ".";
+}
+.sticker_messages:hover::before {
+  content: "Program";
+}
+
+.sticker_settings {
+  color: cadetblue;
+}
+.sticker_settings::before {
+  content: ".";
+}
+.sticker_settings:hover::before {
+  content: "Settings";
+}
+
+.sticker_about {
+  color: cornflowerblue;
+}
+.sticker_about::before {
+  content: ".";
+}
+.sticker_about:hover::before {
+  content: "About";
+}
+
+.sticker_logout {
+  color: violet;
+}
+.sticker_logout::before {
+  content: ".";
+}
+.sticker_logout:hover::before {
+  content: "Logout";
+}

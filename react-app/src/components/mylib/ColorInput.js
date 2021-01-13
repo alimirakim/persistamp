@@ -15,7 +15,7 @@ export default function ColorInput({ icon, value, setValue, colors }) {
   }
 
   return (
-    <section className="rbc">
+    <section className="rbc" style={{flexDirection: "column"}}>
       {Object.values(colors).map((color, i) => (
         <label key={i} className="rbc-con">
           <span style={{ display: "none" }}>{color.title}</span>

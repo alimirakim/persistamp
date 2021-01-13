@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link } from 'react-router-dom'
+import { Link, Redirect} from 'react-router-dom'
 
 import ProgramBoardContext from '../../context/ProgramBoardContext'
 import HabitEditForm from '../forms/HabitEditForm'
@@ -18,24 +18,23 @@ export default function HabitRow({ habit, program }) {
 
   return (<>
 
-    <HabitEditForm open={openEdit} handleClose={toggleEdit} habit={habit} />
+    <HabitEditForm open={openEdit} handleClose={toggleEdit} habit={habit}  handleOpenDelete={toggleDelete} />
     <HabitDeleteForm open={openDelete} handleClose={toggleDelete} habit={habit} />
 
     <tr key={habit.id} className="habit-row">
-      <td className="habit-btns">
-
+      <td className="habit">
         {/* <MiniDeleteButton handleOpen={toggleDelete} /> */}
         <div className="habit-btns">
           <MiniEditButton handleOpen={toggleEdit} />
-          <Link to={`/graphs/${habit.id}/memberships/${program.membership_id}`}>
+              &nbsp;
+            <Link style={{width: "100%"}} to={`/graphs/${habit.id}/memberships/${program.membership_id}`}>
             <div className="habit-btn">
-              &nbsp;&nbsp;&nbsp;
-            <i className={`fas fa-${habit.icon}`} style={{ color: habit.color }}></i>
+              <i className={`fas fa-${habit.icon}`} style={{ color: habit.color }}></i>
               <span className="habit-title">
                 &nbsp;{habit.title}
               </span>
-            </div>
-          </Link>
+          </div>
+            </Link>
         </div>
       </td>
       {week.map(day => {

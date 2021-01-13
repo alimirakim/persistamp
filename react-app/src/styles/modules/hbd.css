@@ -1,4 +1,4 @@
-/* .hbd habit board */
+/* habit board */
 
 .hbd {
   display: flex;
@@ -21,18 +21,4 @@
   margin-bottom: 2rem; 
   margin-top: 5rem; 
   font-size: 2rem;
-}
-
-.hbt-btn {
-  color: rgba(0,0,0,0.7);
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  height: max-content;
-  width: 100%;
-}
-
-div.hbt-btn:hover {
-  border-radius: 1rem;
-  color: rgb(0,0,0);
-  /* padding: 0.7rem; */
 }

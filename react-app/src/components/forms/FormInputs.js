@@ -77,7 +77,7 @@ export function DeleteButton({ handleOpen }) {
 export function MiniEditButton({ handleOpen }) {
   return (
     <button className="mini-ico-btn" onClick={handleOpen}>
-      <i className={`fas fa-sm fa-pencil-alt`}></i>
+      <i className={`fas fa-pencil-alt`}></i>
     </button>
   )
 }
@@ -86,7 +86,7 @@ export function MiniEditButton({ handleOpen }) {
 export function MiniDeleteButton({ handleOpen }) {
   return (
     <button className="mini-ico-btn" onClick={handleOpen}>
-      <i className={`fas fa-sm fa-eraser`}></i>
+      <i className={`fas fa-eraser`}></i>
     </button>
   )
 }
@@ -143,7 +143,7 @@ export function AddDescription({ description, setDescription }) {
 
 
 export function ChooseFrequency({ frequency, updateFrequency }) {
-  return (<>
+  return (<div>
     <InputLabel id="frequency">Frequency</InputLabel>
     <Select onChange={updateFrequency} id="frequency" value={frequency} style={{ margin: "0.5rem 0" }}>
       <MenuItem value={1}>1 days</MenuItem>
@@ -154,7 +154,7 @@ export function ChooseFrequency({ frequency, updateFrequency }) {
       <MenuItem value={6}>6 days</MenuItem>
       <MenuItem value={7}>7 days</MenuItem>
     </Select>
-  </>)
+  </div>)
 }
 
 export function SetUsername({ username, setUsername }) {

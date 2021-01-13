@@ -1,0 +1,22 @@
+/* program board card - stamp */
+
+.stamp-spot {
+  border: 2px solid rgba(0,0,0,0.2);
+  border-radius: 50%;
+  padding: 0;
+}
+.stamp {
+  position: relative;
+  margin: 3px;
+  border-radius: 50%;
+  border: 0;
+  height: 2rem;
+  width: 2rem;
+  font-size: 1rem;
+  transform-origin: bottom right;
+  background-color: rgba(255,250,250,0.8);
+  outline: none;
+}
+.stamp:active {
+  background: white;
+}

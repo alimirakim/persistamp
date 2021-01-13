@@ -30,11 +30,9 @@ export default function Homepage() {
   if (!user) return null;
   return (<main>
     <div className="hbd">
-      <h1>Persistamp</h1>
       <UserProfileCard user={user} />
+      <ProgramBoard />
     </div>
-
-    <ProgramBoard />
   </main>
   )
 }

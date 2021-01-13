@@ -52,7 +52,7 @@ export default function StampBox({ day, mid, hid }) {
   }
 
   return (
-    <td style={{ color: habits[hid].color, transform: `rotate(${transform}deg)`,}}>
+    <td style={{ color: habits[hid].color, transform: `rotate(${transform}deg)`, transition: "none"}}>
       <form method="POST" onSubmit={onStamp(method)} className="stamp-spot" >
         <button className="stamp" type="submit">
           <i className={`lo-center fas fa-lg fa-${icon}`} style={{ color }} ></i>

@@ -5,6 +5,11 @@ and font or adding drop shadows to certain modules.
 
 Naming convention: start with `th-`. EXAMPLE: th-bg-primary */
 
+.cam {
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  margin: 0;
+}
+
 .th-dark-gr {
   background: linear-gradient(-45deg, rgba(0,0,0,1), rgba(25,25,25,1));
 }
@@ -44,4 +49,8 @@ Naming convention: start with `th-`. EXAMPLE: th-bg-primary */
   transform: rotate(5deg);
   right: 2rem;
   left: auto;
+}
+
+.th-thin-under {
+  border-bottom: 1px solid;
 }
