@@ -20,13 +20,7 @@ export default function NavStamps({ auth, setAuth, setUser }) {
   if (auth && user) {
     return (<>
       <nav className="stamps">
-        {/* <NavLink to='/' className="nav-stamp stamp_logo" activeClassName="active"> */}
-        <div>
-          {/* <img className="logo" src={turtle} alt="Persistamp Logo: a red turtle stamp" /> */}
-          {/* Home */}
-        </div>
-        {/* </NavLink> */}
-        <NavLink to="/messages" className="nav-stamp stamp_messages" activeClassName="active">
+        <NavLink to="/messages" className="nav-stamp stamp_program" activeClassName="active">
           <i className="fas fa-stamp">  Create Program</i>
         </NavLink>
         <button onClick={handleSettingsOpen} className="nav-stamp stamp_settings" activeClassName="active">

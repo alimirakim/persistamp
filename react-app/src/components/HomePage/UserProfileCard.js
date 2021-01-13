@@ -7,7 +7,6 @@ export default function UserProfileCard({ auth, setAuth, setUser }) {
   const birthday = user.birthday ? new Date(user.birthday).toLocaleString('en-EN', { year: 'numeric', month: 'long', day: 'numeric' }) : "N/A"
 
   if (!user) return null
-
   return (
     <article className="idc th-dark-gr th-card-shadow" style={{ color: user.color }}>
       <div className="th-border ">

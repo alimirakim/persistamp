@@ -38,6 +38,10 @@ align-items: flex-start;
   transform: scale(1.5);
 }
 
+.stamp_program {
+  color: rgb(200,50,60);
+}
+
 .stamp_messages {
   color: goldenrod;
 }

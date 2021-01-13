@@ -8,6 +8,7 @@
   flex-direction: column;
   padding: 0.5rem ;
   width: 30rem;
+  box-shadow: 0 0.5rem 15px rgba(0,0,0,0.5);
 }
 
 .idc-data {
