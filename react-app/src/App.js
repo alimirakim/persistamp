@@ -26,6 +26,8 @@ export default function App() {
   const [colors, setColors] = useState("")
   const [icons, setIcons] = useState("")
 
+  const [isPrivate, setIsPrivate] = useState(true);
+
   // const updateUser = (user) => dispatchPB(resetPrograms())
 
   // When the page loads, load the user. Do only once!!
@@ -63,7 +65,12 @@ export default function App() {
       <UserContext.Provider value={user}>
         <OptionsContext.Provider value={{ colors, icons }}>
 
-          <ProtectedRoute path="/" auth={auth}>
+          <Route path="/graphs/:hid/memberships/:mid" auth={auth} exact={true}>
+            <NavBar auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
+            <HabitDisplay auth={auth} isPrivate={isPrivate} setIsPrivate={setIsPrivate}/>
+          </Route>
+
+          <ProtectedRoute path="/" auth={auth} exact={true} >
             <NavBar auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
           </ProtectedRoute>
 
@@ -72,6 +79,7 @@ export default function App() {
           </Route>
 
           <Route path="/about" exact={true}>
+            <NavBar auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
             <AboutCard />
           </Route>
 
@@ -83,10 +91,6 @@ export default function App() {
             <User />
           </ProtectedRoute>
 
-          <ProtectedRoute path="/graphs/:hid/memberships/:mid" auth={auth}>
-            <HabitDisplay />
-          </ProtectedRoute>
-
           <ProgramBoardContextProvider>
             <ProtectedRoute path="/" exact={true} auth={auth}>
               <Homepage auth={auth} setAuth={setAuth} setUser={setUser} />
@@ -94,7 +98,8 @@ export default function App() {
           </ProgramBoardContextProvider>
 
           <RewardShopContextProvider>
-            <ProtectedRoute path="/programs/:pid/memberships/:mid/rewards" exact={true} auth={auth}>
+            <ProtectedRoute isPrivate={isPrivate} path="/programs/:pid/memberships/:mid/rewards" exact={true} auth={auth}>
+              <NavBar auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
               <RewardShop />
             </ProtectedRoute>
           </RewardShopContextProvider>

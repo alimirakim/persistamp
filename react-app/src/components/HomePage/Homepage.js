@@ -26,6 +26,8 @@ export default function Homepage({auth, setAuth, setUser}) {
     }
   }, [user])
 
+
+  if (!user) return null;
   return (<main>
     <div className="hbd">
       <UserProfileCard auth={auth} setAuth={setAuth} setUser={setUser}/>

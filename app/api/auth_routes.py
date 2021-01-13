@@ -17,7 +17,7 @@ def authenticate():
     if current_user.is_authenticated:
         user = current_user.to_dict()
         return user
-    return {'errors': ['Unauthorized']}, 401
+    return {'errors': ['Unauthorized']}
 
 
 @auth_routes.route('/login', methods=['POST'])
@@ -28,7 +28,7 @@ def login():
     # form manually to validate_on_submit can be used
     form['csrf_token'].data = request.cookies['csrf_token']
     print("\nform", form.data)
-    
+
     if form.validate_on_submit():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()

@@ -1,3 +1,15 @@
+.privatePage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.habitHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .lineGraphLabels {
   font-family: Arial, Helvetica, sans-serif;
 }
