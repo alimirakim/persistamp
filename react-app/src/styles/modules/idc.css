@@ -1,50 +1,86 @@
 /* ID Card */
 
-.card {
+.idc {
+  position: relative;
   display: flex;
   margin: 1rem;
-  border-radius: 10px;
-  background-color: whitesmoke;
-  /* background-image: url("./Cardboard_light.jpg"); */
-  /* background: linear-gradient(360deg, rgba(120,110,150,1) 0%,  rgba(200,200,2100,1) 100%); */
-  padding: 1rem;
-  width: max-content;
+  /* border-radius: 1rem; */
+  flex-direction: column;
+  padding: 0.5rem ;
+  width: 30rem;
 }
 
-.card-data {
-  font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif
+.idc-data {
+  width: 100%;
+  float: right;
+  text-align: right;
+  margin: 0;
 }
 
-.card-data > dt {
-  font: bolder 0.8rem Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+.idc-label {
+  /* display: inline; */
+  font-size: 0.5rem;
+  margin: 0;
 }
-.card-data > dd {
-  margin-left: 0;
-  margin-bottom: 0.5rem;
-  font-style: italic;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 
+.idc-name {
+  font: 2rem Roboto;
+  letter-spacing: 0.2rem;
+  padding-bottom: 0.2rem;
+  border-bottom: 3px solid;
+  font-variant: small-caps;
 }
-dt.card-name-label {
-  display: inline;
-  font-size: 1.2rem;
+
+.th-border {
+  width: 100%;
+  height: 95%;
+  border: 1px rgba(100,80,60,0.8) solid;
+  padding: 0.5rem;
 }
-dd.card-name {
+
+.th-metal {
+  font-size: 72px;
+  background: -webkit-linear-gradient(#b9b18e 60%, #543 70%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-border-fill-color: transparent;
+  /* color: #543; */
+}
+
+.th-metal-shade {
+  position: relative;
+  margin: -21px 0 0;
+  padding: 0;
+  display: block;
+  background: #111;
+  width: 100%;
+  height: 1rem;
+  opacity: 0.3;
+}
+
+
+
+.idc-last {
+  font-weight: bold;
+}
+
+dd {
   display: inline-block;
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  margin-left: 1rem;
+  font-size: 1rem;
+  /* font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; */
+  font-style: italic;
+  margin: 0;
 }
-.card-body {
-  display: flex;
-}
-
 
 .avi {
-  font-size: 5rem;
-  float: left;
-  margin-right: 2rem;
-  padding: 1rem;
-  border-radius: 20px;
-  border: 6px double;
+  font-size: 2rem;
+  margin-right: 0.5rem;
+  /* float: right; */
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  color: rgba(30,20,0,0.9);
+}
+
+.idc-line {
+  /* display: flex; */
 }

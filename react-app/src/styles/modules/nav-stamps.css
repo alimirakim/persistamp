@@ -1,0 +1,54 @@
+
+/* main navigation bar */
+
+nav.stamps {
+  /* position: fixed; */
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+align-items: flex-start;
+}
+
+.nav-stamp {
+  height: 1rem;
+  
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  background-color: rgba(0,0,0,0);
+  font: bold 0.7rem Cambria;
+}
+
+.nav-stamp:hover {
+  color: white;
+}
+
+.nav-stamp > i {
+  margin-top: 0.1rem;
+}
+
+.logo {
+  /* background-image: url("/icons/turtle.svg"); */
+  width: 1.2rem;
+  height: 1.2rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.sticker_logo:hover {
+  transform: scale(1.5);
+}
+
+.stamp_messages {
+  color: goldenrod;
+}
+.stamp_settings > i {
+  color: cadetblue;
+  padding: 0;
+}
+
+.stamp_about > i {
+  color: cornflowerblue;
+}
+.stamp_logout > i {
+  color: violet;
+}

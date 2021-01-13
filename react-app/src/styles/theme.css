@@ -11,7 +11,7 @@ Naming convention: start with `th-`. EXAMPLE: th-bg-primary */
 }
 
 .th-dark-gr {
-  background: linear-gradient(-45deg, rgba(0,0,0,1), rgba(25,25,25,1));
+  background: linear-gradient(-45deg, rgba(0,0,0,1), rgba(50,50,50,1));
 }
 
 .th-shadow {

@@ -29,7 +29,7 @@ export default function HabitRow({ habit, program }) {
               &nbsp;
             <Link style={{width: "100%"}} to={`/graphs/${habit.id}/memberships/${program.membership_id}`}>
             <div className="habit-btn">
-              <i className={`fas fa-${habit.icon}`} style={{ color: habit.color }}></i>
+              <i className={`habit-ico fas fa-${habit.icon}`} style={{ color: habit.color }}></i>
               <span className="habit-title">
                 &nbsp;{habit.title}
               </span>

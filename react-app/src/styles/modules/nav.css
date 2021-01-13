@@ -1,11 +1,11 @@
 /* main navigation bar */
 
 nav.stickers {
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   right: 0;
   display: flex;
-align-items: baseline;  
+  align-items: baseline;  
   z-index: 1;
   height: 3rem;
   padding-right: 1rem;

@@ -7,7 +7,7 @@ import ProgramBoard from './ProgramBoard'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
 import UserContext from '../../context/UserContext'
 
-export default function Homepage() {
+export default function Homepage({auth, setAuth, setUser}) {
   const user = useContext(UserContext)
   const { dispatchSetAll } = useContext(ProgramBoardContext)
 
@@ -28,7 +28,7 @@ export default function Homepage() {
 
   return (<main>
     <div className="hbd">
-      <UserProfileCard user={user} />
+      <UserProfileCard auth={auth} setAuth={setAuth} setUser={setUser}/>
       <ProgramBoard />
     </div>
   </main>

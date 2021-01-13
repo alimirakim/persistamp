@@ -79,6 +79,7 @@ function AboutCard() {
       <aside>
       <h2>Attributions</h2>
       <a href='https://www.freepik.com/photos/background'>Background photo created by denamorado - www.freepik.com</a>
+      <a href='https://www.freepik.com/vectors/background'>Background vector created by BiZkettE1 - www.freepik.com</a>
       </aside>
       
     </div>

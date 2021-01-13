@@ -89,7 +89,7 @@ export default function App() {
 
           <ProgramBoardContextProvider>
             <ProtectedRoute path="/" exact={true} auth={auth}>
-              <Homepage />
+              <Homepage auth={auth} setAuth={setAuth} setUser={setUser} />
             </ProtectedRoute>
           </ProgramBoardContextProvider>
 

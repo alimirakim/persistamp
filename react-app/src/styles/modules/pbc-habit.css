@@ -37,8 +37,15 @@ div.hbt-btn:hover {
   overflow: hidden;
 }
 
+.habit-ico {
+  width: 1.2rem;
+}
+
 .habit-title {
   color: whitesmoke;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-variant: small-caps;
+  font-size: 0.8rem;
 }
 
 .habit-link:hover {
