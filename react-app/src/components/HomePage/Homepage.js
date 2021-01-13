@@ -26,6 +26,8 @@ export default function Homepage() {
     }
   }, [user])
 
+
+  if (!user) return null;
   return (<main>
     <div className="hbd">
       <UserProfileCard user={user} />

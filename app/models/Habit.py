@@ -8,6 +8,7 @@ class Habit(db.Model):
     title = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(250))
     frequency = db.Column(db.String(7), nullable=False, default="7")
+    private = db.Column(db.Boolean, nullable=False, default=True)
     color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)
     icon_id = db.Column(db.Integer, db.ForeignKey("icons.id"), nullable=False, default=3)
     program_id = db.Column(db.Integer, db.ForeignKey("programs.id"))
@@ -19,8 +20,8 @@ class Habit(db.Model):
     color = db.relationship("Color", backref="habits")
     program = db.relationship("Program", back_populates="habits")
     creator = db.relationship("User", back_populates="created_habits")
-    stamps = db.relationship("Stamp", 
-        back_populates="habit", 
+    stamps = db.relationship("Stamp",
+        back_populates="habit",
         order_by="Stamp.date",
         cascade="all, delete-orphan")
 
@@ -35,6 +36,7 @@ class Habit(db.Model):
             "icon": self.icon.title,
             "program_id": self.program_id,
             "created_at": self.created_at,
+            "private": self.private,
         }
 
     def week_stamps_for_user(self, user):
@@ -49,7 +51,7 @@ class Habit(db.Model):
             if stamp.membership_id in membership_ids and stamp.date <= past_week[0] and stamp.date >= past_week[6]:
                 stamp_ids.append(stamp.id)
         return stamp_ids
-        
+
     def all_stamps_for_user(self, user):
         """Return the full history of this habit's stamps for the User"""
         membership_ids = [m.id for m in user.memberships]
@@ -63,7 +65,7 @@ class Habit(db.Model):
         """Return dict of Habit, including past week's stamps for User."""
         stamp_ids = self.week_stamps_for_user(user)
         return {**self.to_dict(), "stamp_ids": stamp_ids}
-    
+
     def to_dict_for_user_details(self, user):
         """Return dict of Habit, including past week's stamps for User."""
         stamp_ids = self.all_stamps_for_user(user)
