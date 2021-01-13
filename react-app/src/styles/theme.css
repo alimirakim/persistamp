@@ -10,6 +10,62 @@ Naming convention: start with `th-`. EXAMPLE: th-bg-primary */
   margin: 0;
 }
 
+.th-border-thin {
+  border: 1px solid;
+}
+
+.th-border {
+  width: 100%;
+  height: 95%;
+  border: 2px rgba(100,80,60,0.8) solid;
+  padding: 0.5rem;
+  
+}
+
+.th-border-gr {
+  border-image-slice: 1;
+}
+
+
+.th-hr-gr-fade-left {
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right,rgba(255,255,255,0), #b9b18e 50%, #865 80% );
+}
+
+.th-border-metal {
+  border-image-source: linear-gradient(0deg,#865  20%,  #b9b18e 40%, #b9b18e 60%,  #865 80%);
+}
+
+.th-metal-light {
+  background: linear-gradient(#b9b18e 75%, #865 85%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-border-fill-color: transparent;
+  /* color: #543; */
+}
+
+.th-metal {
+  background: linear-gradient(#b9b18e 50%, #865 60%, #b9b18e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-border-fill-color: transparent;
+  /* color: #543; */
+}
+
+
+.th-metal-shade {
+  position: relative;
+  margin: -21px 0 0;
+  padding: 0;
+  display: block;
+  background: #111;
+  width: 100%;
+  height: 1rem;
+  opacity: 0.3;
+}
+
+
 .th-dark-gr {
   background: linear-gradient(-45deg, rgba(0,0,0,1), rgba(50,50,50,1));
 }

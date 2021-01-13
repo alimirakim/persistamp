@@ -6,18 +6,30 @@
 @import url("theme.css");
 
 /* modules */
+@import url("modules/splash.css");
 @import url("modules/about.css");
 @import url("modules/display.css");
+/* id card */
 @import url("modules/idc.css");
-@import url("modules/pbc-stamp.css");
+/* footer */
+@import url("modules/ftr.css");
+/* habit board */
 @import url("modules/hbd.css");
+/* radio box circles */
 @import url("modules/rbc.css");
+/* reward shop page */
 @import url("modules/rsp.css");
+/* week row */
 @import url("modules/wkr.css");
+/* button  */
 @import url("modules/btn.css");
+/* Top navbar */
 @import url("modules/nav.css");
+/* Homepage navbar */
 @import url("modules/nav-stamps.css");
+/* program board card */
 @import url("modules/pbc.css");
 @import url("modules/pbc-hr.css");
 @import url("modules/pbc-habit.css");
 @import url("modules/pbc-points.css");
+@import url("modules/pbc-stamp.css");

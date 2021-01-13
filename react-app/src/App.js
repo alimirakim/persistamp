@@ -70,10 +70,6 @@ export default function App() {
             <HabitDisplay auth={auth} isPrivate={isPrivate} setIsPrivate={setIsPrivate}/>
           </Route>
 
-          <ProtectedRoute path="/" auth={auth} exact={true} >
-            <NavBar auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
-          </ProtectedRoute>
-
           <Route path="/login" exact={true}>
             <SplashContainer auth={auth} setAuth={setAuth} setUser={setUser} />
           </Route>

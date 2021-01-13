@@ -1,0 +1,49 @@
+/* site footer */
+
+.footer-users {
+  display: flex;
+  width: 1000px;
+  margin: 0 auto;
+  justify-content: space-around;
+}
+
+.footer {
+  background-color: black;
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+  height: 120px;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-header {
+  position: relative;
+  top: 10px;
+  left: 20px;
+}
+
+.footer-user_name {
+  text-align: center;
+}
+
+.footer-mira {
+  color: lightskyblue;
+}
+.footer-brian {
+  color: lightgreen;
+}
+.footer-david {
+  color: yellow;
+}
+.footer-eric {
+  color: salmon;
+}
+.footer-links {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}

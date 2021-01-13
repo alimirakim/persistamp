@@ -1,40 +1,62 @@
 import React, { useState, useContext } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import UserSettings from './forms/UserSettings'
 import { logout } from "../services/auth";
-import turtle from '../images/turtle.svg'
+import ProgramForm from './forms/ProgramForm'
+
+
 
 export default function NavStamps({ auth, setAuth, setUser }) {
   const user = useContext(UserContext)
-  const [settingsOpen, setSettingsOpen] = useState(false)
+  const [openSettings, setOpenSettings] = useState(false)
+  const [openCreate, setOpenCreate] = useState(false)
 
   const onLogout = async (e) => {
     await logout();
     setAuth(false);
   };
 
-  const handleSettingsOpen = () => setSettingsOpen(true)
-  const handleSettingsClose = () => setSettingsOpen(false)
+  const toggleCreate = (e) => setOpenCreate(!openCreate)
+  const toggleSettings = () => setOpenSettings(!openSettings)
 
   if (auth && user) {
     return (<>
+    
+      <ProgramForm open={openCreate} handleClose={toggleCreate} />
+      
       <nav className="stamps">
-        <NavLink to="/messages" className="nav-stamp stamp_program" activeClassName="active">
-          <i className="fas fa-stamp">  Create Program</i>
-        </NavLink>
-        <button onClick={handleSettingsOpen} className="nav-stamp stamp_settings" activeClassName="active">
-          <i className="fas fa-id-card">  User Settings</i>
+        
+        
+        <button onClick={toggleCreate} className=" nav-stamp stamp_program" activeClassName="active">
+        <div className="th-metal-light stamp-title">+Program</div>
+          <i className="lo-center fas fa-2x fa-stamp" />
         </button>
+        
+        <button onClick={toggleSettings} className=" nav-stamp stamp_messages" activeClassName="active">
+        <div className="th-metal-light stamp-title">Messages</div>
+          <i className="lo-center fas fa-2x fa-envelope" />
+        </button>
+        
+        <button onClick={toggleSettings} className=" nav-stamp stamp_settings" activeClassName="active">
+        <div className="th-metal-light stamp-title">Settings</div>
+          <i className="lo-center fas fa-2x fa-id-card" />
+        </button>
+        
         <NavLink to="/about" className="nav-stamp stamp_about" activeClassName="active">
-          <i className="fas fa-info-circle">   About</i>
+        
+        <div className="th-metal-light stamp-title">About</div>
+          <i className="lo-center fas fa-2x fa-info-circle" />
         </NavLink>
-        <button onClick={onLogout} className="nav-stamp stamp_logout" activeClassName="active">
-          <i className="fas fa-door-open">  Logout</i>
+        
+        <button onClick={onLogout} className=" nav-stamp stamp_logout" activeClassName="active">
+        <div className="th-metal-light stamp-title">Logout</div>
+          <i className="lo-center fas fa-2x fa-door-open" />
         </button>
+        
       </nav>
 
-      <UserSettings open={settingsOpen} handleClose={handleSettingsClose} user={user} setUser={setUser} />
+      <UserSettings open={openSettings} handleClose={toggleSettings} user={user} setUser={setUser} />
 
     </>)
   } else {

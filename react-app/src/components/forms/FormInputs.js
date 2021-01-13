@@ -244,6 +244,7 @@ export function UpdateBirthday({ birthday, setBirthday }) {
   }
 
   return (
+    <div>
     <TextField
       label="Birthday"
       type="date"
@@ -251,5 +252,6 @@ export function UpdateBirthday({ birthday, setBirthday }) {
       onChange={updateBirthday}
       InputLabelProps={{ shrink: true }}
     />
+    </div>
   )
 }

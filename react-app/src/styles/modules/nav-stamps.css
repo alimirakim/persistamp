@@ -4,28 +4,43 @@
 nav.stamps {
   /* position: fixed; */
   display: flex;
-  flex-direction: column;
   width: 100%;
-align-items: flex-start;
+  align-items: center;
+  justify-content: space-around;
+  padding: 1rem 1.5rem;
 }
 
 .nav-stamp {
-  height: 1rem;
-  
+  position: relative;
+  height: 2.5rem;
+  width: 2.5rem;
   margin: 0;
   padding: 0;
-  border-width: 0;
-  background-color: rgba(0,0,0,0);
+  color: gray;
+  border-width: 3px;
+  background: linear-gradient(0deg, #b9b18e, white);
   font: bold 0.7rem Cambria;
+  transition: none;
+  background-clip: padding-box;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  text-align: center;
+}
+.nav-stamp:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  margin: -3px;
+  border-radius: inherit;
+  background: linear-gradient(to bottom, #b9b18e 40%, #865 80%);
 }
 
-.nav-stamp:hover {
-  color: white;
-}
 
-.nav-stamp > i {
-  margin-top: 0.1rem;
-}
+
 
 .logo {
   /* background-image: url("/icons/turtle.svg"); */
@@ -34,25 +49,42 @@ align-items: flex-start;
   transition: transform 0.2s ease-in-out;
 }
 
-.sticker_logo:hover {
-  transform: scale(1.5);
+.nav-stamp > i {
+  transition: none;
 }
 
-.stamp_program {
+.nav-stamp:hover > i, .nav-stamp > i:focus {
+  transform: scale(1.2);
+  transform-origin: 300% 300%;
+  background: linear-gradient(#b9b18e 50%, #865 60%, #b9b18e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-border-fill-color: transparent;
+}
+
+.stamp_program,.stamp_program:focus {
   color: rgb(200,50,60);
 }
 
-.stamp_messages {
+.stamp_messages, .stamp_messages:focus {
   color: goldenrod;
 }
-.stamp_settings > i {
+.stamp_settings, .stamp_settings:focus {
   color: cadetblue;
   padding: 0;
 }
 
-.stamp_about > i {
+.stamp_about, .stamp_about:focus {
   color: cornflowerblue;
 }
-.stamp_logout > i {
-  color: violet;
+.stamp_logout, stamp_logout:focus {
+  color: rebeccapurple;
+}
+
+.stamp-title {
+  position: absolute;
+  bottom: -1rem;
+  width: 100%;
+  font-size: 0.5rem;
+  
 }

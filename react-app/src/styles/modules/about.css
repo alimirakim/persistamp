@@ -48,3 +48,31 @@
 .about-img {
   border-radius: 50px;
 }
+
+.about-card_a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 150px;
+  height: 70px;
+}
+.about-card_icon {
+  color: lavender;
+}
+.about-card_icon:hover {
+  color: lightseagreen;
+}
+
+.grey-icon {
+  color: grey;
+}
+
+.AboutPage {
+  height: 84vh;
+}
+
+.about-card_footer {
+  width: 110px;
+  padding: 13px;
+  border-radius: 10px;
+}
