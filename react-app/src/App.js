@@ -94,7 +94,7 @@ export default function App() {
           </ProgramBoardContextProvider>
 
           <RewardShopContextProvider>
-            <ProtectedRoute isPrivate={isPrivate} path="/programs/:pid/memberships/:mid/rewards" exact={true} auth={auth}>
+            <ProtectedRoute path="/programs/:pid/memberships/:mid/rewards" exact={true} auth={auth}>
               <NavBar auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
               <RewardShop />
             </ProtectedRoute>
