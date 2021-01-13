@@ -6,11 +6,17 @@
 @import url("theme.css");
 
 /* modules */
+@import url("modules/about.css");
+@import url("modules/display.css");
+@import url("modules/idc.css");
+@import url("modules/pbc-stamp.css");
 @import url("modules/hbd.css");
-@import url("modules/rsb.css");
 @import url("modules/rbc.css");
 @import url("modules/rsp.css");
 @import url("modules/wkr.css");
+@import url("modules/btn.css");
+@import url("modules/nav.css");
 @import url("modules/pbc.css");
+@import url("modules/pbc-hr.css");
 @import url("modules/pbc-habit.css");
 @import url("modules/pbc-points.css");

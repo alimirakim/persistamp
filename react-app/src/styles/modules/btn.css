@@ -1,0 +1,58 @@
+
+.del-btn {
+  position: absolute;
+  bottom: 0.8rem;
+  left: 0.8rem;
+  border-radius: 5px;
+  border: none;
+  padding: 0.5rem;
+  color: rgb(70,70,200);
+  font-family: Roboto;
+  text-transform: uppercase;
+  font: bold 1rem Roboto, sans-serif;
+  background: none;
+}
+.del-btn:hover {
+  background: rgba(0,0,200,0.02);
+}
+
+.mini-ico-btn {
+  z-index:1;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 5px; 
+  border: 0;
+  color: rgba(20,10,0,0.8);
+  background-color: rgba(255,255,255,0);
+}
+
+.mini-ico-btn:hover {
+  background-color: rgba(255,255,255,0.5);
+  
+}
+
+.ico-btn {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 10px; 
+  border: 0;
+  color: rgba(20,10,0,0.8);
+  background-color: rgba(255,255,255,0.7);
+}
+
+.ico-btn:hover, .ico-btn:active {
+  color: rgba(20,10,0,1);
+  background-color: rgba(255,255,255,1);
+}
+
+.ico {
+  border-radius: 50%;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 5px lightgray solid;
+  float: left;
+  transition: none;
+}
+.ico:hover {
+  color: gray;
+}

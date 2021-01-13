@@ -1,3 +1,4 @@
+/* program board card - habit row */
 
 .hbt-btn {
   display: flex;
@@ -21,6 +22,9 @@ div.hbt-btn:hover {
   max-height: 10px;
   overflow: hidden;
   
+}
+.habit-header {
+  width: 100%;
 }
 
 .habit-btns {
@@ -47,6 +51,7 @@ div.hbt-btn:hover {
   border-radius: 10px;
   max-height: 2rem;
   white-space: nowrap;
+  width: 100%;
 }
 
 .habit-btn:hover {

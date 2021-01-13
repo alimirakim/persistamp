@@ -68,6 +68,7 @@ export default function FormWrapper({
         <AddTitle title={title} setTitle={setTitle} />
         <AddDescription description={description} setDescription={setDescription} />
         <UniqueInputs />
+        
         <IconInput color={colors[colorId].hex} icons={icons} value={iconId} setValue={setIconId} />
         <ColorInput icon={icons[iconId].title} colors={colors} value={colorId} setValue={setColorId} />
         <ActionOrCancelButtons handleClose={handleClose} onAction={onSubmit} action={edit ? "Save" : "Create"} />

@@ -26,15 +26,11 @@ export default function Homepage() {
     }
   }, [user])
 
-
-
   return (<main>
     <div className="hbd">
-      <h1>Persistamp</h1>
       <UserProfileCard user={user} />
+      <ProgramBoard />
     </div>
-
-    <ProgramBoard />
   </main>
   )
 }

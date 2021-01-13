@@ -1,0 +1,115 @@
+.lineGraphLabels {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.lineGraphContainer {
+  /* padding: 15px; */
+  margin: 30px;
+}
+.lineGraphHeader {
+  position: relative;
+  text-align: center;
+  font-size: 22px;
+}
+/* .lineGraphToggle {
+  position: relative;
+  left: 640px;
+  outline: 1px solid #ccc;
+} */
+.displayPage {
+  position: relative;
+  left:100px;
+}
+.displayFormat {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* z-index: -1; */
+
+}
+.habitFormat {
+  display: flex;
+  flex-direction: column;
+}
+
+.habitDetailContainer {
+  position: relative;
+  margin: 20px;
+  width:100%;
+  padding-left: 25px;
+}
+.habitDetail__title {
+  font-size: 30px;
+  position: relative;
+  left: 40px;
+  margin: 20px;
+}
+.habitDetail__items {
+  margin: 10px;
+}
+.habitDetail__name {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.habitDetail__description {
+  position: relative;
+
+}
+.habitDetail__table {
+  /* margin: 20px; */
+  table-layout: fixed;
+  width: 700px;
+}
+.habitDetail-border {
+    border: 1px solid;
+
+  }
+.habitDetail__cell {
+/* border: 1px solid; */
+  width: 25%;
+}
+#toggle-select {
+background-color: black;
+position: relative;
+left: 630px;
+}
+.heatMapContainer {
+  position: relative;
+  align-self: center;
+  padding-bottom: 40px;
+  left: 60px;
+  width:400px;
+}
+.heatMapHeader {
+  position: relative;
+  margin: 12px;
+  left: 90px;
+  font-size: 22px;
+}
+.calendarContainer {
+  width: 650px;
+  height: 400px;
+}
+
+
+.statContainer {
+  position: relative;
+  width: 650px;
+  left: 120px;
+  /* margin: 25px; */
+}
+/* .statGroup {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+} */
+.statOverview {
+  position: relative;
+  text-align: center;
+  right: 50px;
+  font-size: 22px;
+  padding-bottom: 10px;
+  /* display: flex;
+  justify-content: center; */
+}

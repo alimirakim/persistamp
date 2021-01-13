@@ -8,7 +8,7 @@ export default function CurrentWeekRow() {
 
   return (
     <tr>
-      <th className="pbc-title th-thin-under">
+      <th className="pbc-title habit-header th-thin-under">
       
       Habits
       </th>

@@ -1,31 +1,6 @@
+
 /* Program Board Card */
 
-
-.pbc-habit-btns {
-  width: 100%;
-}
-
-.stamp-spot {
-  transition: none;
-  border: 2px solid rgba(0,0,0,0.2);
-  border-radius: 50%;
-  padding: 0;
-}
-.stamp {
-  position: relative;
-  margin: 3px;
-  border-radius: 50%;
-  border: 0;
-  height: 2rem;
-  width: 2rem;
-  font-size: 1rem;
-  transform-origin: bottom right;
-  background-color: rgba(255,250,250,0.8);
-  outline: none;
-}
-.stamp:active {
-  background: white;
-}
 
 .pbc {
   /* background-image: url("./Paper-02.png"); */
@@ -38,40 +13,26 @@
   overflow: hidden;
 }
 
-.program {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-
-/* card body */
+/* body screen */
 .pbc-body {
   position: relative;
   color: whitesmoke;
   background-color: rgba(0,0,0,0.5);
 }
 
-
+/* background icon image */
 .pbc-bg-ico {
   position: absolute;
   bottom: -1rem;
   left: -1rem;
   transform: rotate(20deg);
-  color: rgba(20,10,0, 0.2);
+  color: rgba(20,10,0, 0.1);
   overflow: hidden;
 }
 
 
-.pbc-hdr {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 3.5rem;
-}
 
-/* program title */
+/* program heading */
 .pbc-title-con {
   display: flex;
   flex-direction: column;
@@ -81,15 +42,11 @@
 }
 
 .pbc-title {
-  /* position: absolute; */
   margin: 0;
   font: 1rem Cambria;
   text-transform: uppercase;
   letter-spacing: 0.1rem;
-/* top: 50%; */
-/* left: 50%; */
 }
-
 
 /* description */
 .pbc-desc {
@@ -98,40 +55,6 @@
 }
 .pbc-desc:before, .pbc-desc:after {
   content: '"';
-}
-
-.th-thin-under {
-  border-bottom: 1px solid;
-  
-}
-
-.pbc-hr {
-  margin: 0 50%;
-  
-}
-/* custom divider */
-.line {
-  border-top: 1px solid;
-  width: 15%;
-  margin: 0 35%;
-  opacity: 0.7;
-}
-.left {
-  margin-right: 0.5rem;
-}
-.right {
-  margin-left: 0.5rem;
-}
-.pbc-ico {
-  position: relative;
-  width: 1rem;
-  height: 1rem;
-  border-radius: 0.75rem;
-  /* background-color: rgb(240,250,250); */
-  font-size: 0.5rem;
-}
-.pbc-ico > i {
-  position: absolute;
 }
 
 /* action buttons  */
@@ -148,46 +71,8 @@
   margin: 0 0.5rem 0 0;
 }
 
+/* only show activity btns when hovering on card */
 .pbc:hover .pbc-btns {
   visibility: visible;
   opacity: 1;
-}
-
-
-.mini-ico-btn {
-  z-index:1;
-  width: 1rem;
-  height: 1rem;
-  border-radius: 5px; 
-  border: 0;
-  color: rgba(20,10,0,0.8);
-  background-color: rgba(255,255,255,0);
-}
-
-.mini-ico-btn:hover {
-  background-color: rgba(255,255,255,0.5);
-  
-}
-
-.ico-btn {
-  width: 2.2rem;
-  height: 2.2rem;
-  border-radius: 10px; 
-  border: 0;
-  color: rgba(20,10,0,0.8);
-  background-color: rgba(255,255,255,0.7);
-}
-
-.ico-btn:hover, .ico-btn:active {
-  color: rgba(20,10,0,1);
-  background-color: rgba(255,255,255,1);
-}
-
-
-
-
-.lo-row-center {
-  display: flex;
-  align-items: center;
-  width: 100%;
 }

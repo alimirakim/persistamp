@@ -20,25 +20,20 @@ export default function NavBar({ auth, setAuth, setUser }) {
   if (auth && user) {
     return (<>
       <nav className="stickers">
-        <NavLink to='/' className="sticker sticker_logo-link" activeClassName="active">
-          <span style={{transform: "rotate(-20deg)", color: "rgb(250,75,100)"}}>Home</span>
-          <img className="sticker_logo" src={turtle} alt="Persistamp Logo: a red turtle stamp" />
+        <NavLink to='/' className="sticker sticker_logo" activeClassName="active">
+          <img className="logo" src={turtle} alt="Persistamp Logo: a red turtle stamp" />
         </NavLink>
         <NavLink to="/messages" className="sticker sticker_messages" activeClassName="active">
-          <i className="fas fa-envelope"></i>
-          <span>Messages</span>
+          <i className="fas fa-stamp"></i>
         </NavLink>
         <button onClick={handleSettingsOpen} className="sticker sticker_settings" activeClassName="active">
           <i className="fas fa-id-card"></i>
-          <span>Settings</span>
         </button>
         <NavLink to="/about" className="sticker sticker_about" activeClassName="active">
           <i className="fas fa-info-circle"></i>
-        About
       </NavLink>
         <button onClick={onLogout} className="sticker sticker_logout" activeClassName="active">
           <i className="fas fa-door-open"></i>
-        Logout
       </button>
       </nav>
 

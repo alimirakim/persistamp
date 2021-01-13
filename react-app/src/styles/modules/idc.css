@@ -1,0 +1,50 @@
+/* ID Card */
+
+.card {
+  display: flex;
+  margin: 1rem;
+  border-radius: 10px;
+  background-color: whitesmoke;
+  /* background-image: url("./Cardboard_light.jpg"); */
+  /* background: linear-gradient(360deg, rgba(120,110,150,1) 0%,  rgba(200,200,2100,1) 100%); */
+  padding: 1rem;
+  width: max-content;
+}
+
+.card-data {
+  font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif
+}
+
+.card-data > dt {
+  font: bolder 0.8rem Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+}
+.card-data > dd {
+  margin-left: 0;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
+dt.card-name-label {
+  display: inline;
+  font-size: 1.2rem;
+}
+dd.card-name {
+  display: inline-block;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+}
+.card-body {
+  display: flex;
+}
+
+
+.avi {
+  font-size: 5rem;
+  float: left;
+  margin-right: 2rem;
+  padding: 1rem;
+  border-radius: 20px;
+  border: 6px double;
+}
