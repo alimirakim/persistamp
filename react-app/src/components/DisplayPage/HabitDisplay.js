@@ -38,6 +38,7 @@ export default function HabitDisplay({auth, isPrivate, setIsPrivate}) {
   }, [habit, mid, hid, isPrivate])
 
   const handleToggle = async (e) => {
+    if (!auth) return;
     const res = await fetch(`/api/habits/${hid}/switchPrivacy`)
     const newHabit = await res.json();
     // console.log("NEW HABIT", newHabit)
@@ -62,9 +63,13 @@ export default function HabitDisplay({auth, isPrivate, setIsPrivate}) {
             <div className="displayFormat">
               <div className="habitFormat">
                 <div className="habitDetailContainer">
+                  {auth ?
                   <Link to={`/`}>
                     <i className={`fas fa-chevron-circle-left`} style={{ color: habit.color }}></i>
                   </Link>
+                  :
+                  <i className={`fas fa-chevron-circle-left`} style={{ color: habit.color }}></i>
+                  }
                   {/* <br/> */}
                   <div className="habitHeader">
                     <h1 style={{ fontSize: "4rem" }} className={`cam habitDetail__title`}>
