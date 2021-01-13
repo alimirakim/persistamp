@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, Link, useHistory } from 'react-router-dom';
 import UserContext from '../context/UserContext';
 import UserSettings from './forms/UserSettings'
 import { logout } from "../services/auth";
@@ -9,9 +9,11 @@ export default function NavBar({ auth, setAuth, setUser }) {
   const user = useContext(UserContext)
   const [settingsOpen, setSettingsOpen] = useState(false)
 
+  const history = useHistory();
   const onLogout = async (e) => {
     await logout();
     setAuth(false);
+    return history.push('/login');
   };
 
   const handleSettingsOpen = () => setSettingsOpen(true)
@@ -43,7 +45,7 @@ export default function NavBar({ auth, setAuth, setUser }) {
       </nav>
 
       <UserSettings open={settingsOpen} handleClose={handleSettingsClose} user={user} setUser={setUser} />
-      
+
     </>)
   } else {
     return (<>

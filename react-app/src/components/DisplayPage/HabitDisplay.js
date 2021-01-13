@@ -9,23 +9,51 @@ import LineGraph from './LineGraph'
 import CalendarMap from './CalendarMap';
 import HabitStatOverview from './HabitStatOverview';
 
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
-export default function HabitDisplay() {
+
+export default function HabitDisplay({auth, isPrivate, setIsPrivate}) {
   const { hid, mid } = useParams()
   const [habit, setHabit] = useState("")
 
+  // const [isPrivate, setIsPrivate] = useState(true);
+
   useEffect(() => {
+    // let isMounted = true;
     if (!habit) {
       (async () => {
         const res = await fetch(`/api/habits/${hid}/memberships/${mid}`)
         const habit = await res.json()
-        setHabit(habit)
+        // console.log("THIS?", habit, isMounted)
+        // if (isMounted) {
+          setHabit(habit)
+          setIsPrivate(habit.private)
+          // console.log("REACHING THIS?", habit)
+        // }
       })()
+      // return () => { isMounted = false};
     }
-  }, [habit])
+  }, [habit, mid, hid, isPrivate])
 
-  if (!habit) return null
-  // console.log("HABIT", habit);
+  const handleToggle = async (e) => {
+    const res = await fetch(`/api/habits/${hid}/switchPrivacy`)
+    const newHabit = await res.json();
+    // console.log("NEW HABIT", newHabit)
+    setHabit(newHabit);
+    setIsPrivate(newHabit.private);
+  }
+  // console.log("HITTING BEFORE CHECKS?", habit)
+  if (!habit) return null;
+  // console.log("HITTING BETWEEN CHECKS?")
+  if (habit.private && !auth) {
+    return (<>
+      <h1>This page is private</h1>
+    </>)
+  };
+  // console.log("HITTING AFTER?")
+
   return (
     <HabitContext.Provider value={habit}>
       <main>
@@ -38,10 +66,25 @@ export default function HabitDisplay() {
                     <i className={`fas fa-chevron-circle-left`} style={{ color: habit.color }}></i>
                   </Link>
                   {/* <br/> */}
-                  <h1 style={{ fontSize: "4rem" }} className={`cam habitDetail__title`}>
-                    <i className={`fas fa-${habit.icon}`}></i>
-                    &nbsp;{habit.title}
-                  </h1>
+                  <div className="habitHeader">
+                    <h1 style={{ fontSize: "4rem" }} className={`cam habitDetail__title`}>
+                      <i className={`fas fa-${habit.icon}`}></i>
+                      &nbsp;{habit.title}
+                    </h1>
+                    <FormGroup row>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={isPrivate}
+                            onChange={handleToggle}
+                            name="togglePrivacy"
+                            color="secondary"
+                          />
+                        }
+                        label="Private"
+                      />
+                    </FormGroup>
+                  </div>
                   <table className="habitDetail__table">
                     <thead>
                       <tr>

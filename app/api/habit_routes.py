@@ -24,12 +24,26 @@ def program_habits(pid):
 def habit_details(hid, mid):
     """Get a habit's details for a user, including recent history."""
     habit = Habit.query.get(hid)
-    print("HABIT", habit.to_dict())
     program = program_schema.dump(Program.query.get(habit.to_dict()["program_id"]))
     habitWProgram = habit.to_dict()
     habitWProgram["program"] = program
     return habitWProgram
     # return habit.to_dict_for_user(current_user)
+
+
+@habit_routes.route("/<int:hid>/switchPrivacy")
+def switchPrivacy(hid):
+    habit = Habit.query.get(hid)
+    program = program_schema.dump(Program.query.get(habit.to_dict()["program_id"]))
+
+    if habit.private:
+        habit.private = False
+    else:
+        habit.private = True
+    db.session.commit()
+    newHabit = habit.to_dict()
+    newHabit["program"] = program
+    return newHabit
 
 
 @habit_routes.route("/edit/<int:hid>", methods=["PATCH"])

@@ -318,6 +318,13 @@ nav.stickers {
     color: black;
 }
 
+.privatePage {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .lineGraphLabels {
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -329,6 +336,7 @@ nav.stickers {
 .lineGraphHeader {
     position: relative;
     text-align: center;
+    left: 12px;
     font-size: 22px;
 }
 /* .lineGraphToggle {
@@ -357,6 +365,11 @@ nav.stickers {
     margin: 20px;
     width:100%;
     padding-left: 25px;
+  }
+  .habitHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
   .habitDetail__title {
     font-size: 30px;
