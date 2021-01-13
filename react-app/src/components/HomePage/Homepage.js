@@ -27,7 +27,7 @@ export default function Homepage() {
   }, [user])
 
 
-
+  if (!user) return null;
   return (<main>
     <div className="hbd">
       <h1>Persistamp</h1>
