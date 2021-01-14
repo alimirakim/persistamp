@@ -1,6 +1,7 @@
 /* habit board */
 .hbd {
-  max-width: min-content;
+  /* max-width: min-content; */
+  width: 100%;
 }
 
 main {
@@ -10,16 +11,40 @@ main {
 }
 
 .hbd > h1 {
-  font-size: 3rem; 
-  margin-top: 1rem; 
-  margin-bottom: 0; 
-  font-family: Cambria; 
+  font-size: 3rem;
+  margin-top: 1rem;
+  margin-bottom: 0;
+  font-family: Cambria;
   font-style: italic;
 }
 
 .hbd > h2 {
-  
-  margin-bottom: 2rem; 
-  margin-top: 5rem; 
+
+  margin-bottom: 2rem;
+  margin-top: 5rem;
   font-size: 2rem;
+}
+.programBoards-container > li {
+  /* width: min-content; */
+}
+.programBoards-container {
+  display: grid;
+  width: 100%;
+  /* width: min-content; */
+  justify-content: center;
+  align-items: stretch;
+  justify-items: stretch;
+  grid-auto-columns: auto;
+  grid-template-columns: repeat(auto-fill, minmax(35rem, min-content));
+  /* grid-template-columns: 1fr repeat( auto-fill, minmax(35rem, 1fr)); */
+  grid-gap: 1rem;
+  /* grid-auto-rows: 1fr;
+  grid-auto-columns: 1fr; */
+  /* padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%; */
 }
