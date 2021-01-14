@@ -1,4 +1,4 @@
-# Team SBADE - Habit Tracker Productivity App
+# Persistamp - Habit Tracker Productivity App
 
 **Team:** Alicia M Kim, David Lee, Eric Lyda, Brian Wang, Scrum Leader Sergey Gridin
 
