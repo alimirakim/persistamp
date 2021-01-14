@@ -18,7 +18,8 @@ export default function NavStamps({ auth, setAuth, setUser }) {
   };
 
   const toggleCreate = (e) => setOpenCreate(!openCreate)
-  const toggleSettings = () => setOpenSettings(!openSettings)
+  const toggleSettings = (e) => setOpenSettings(!openSettings)
+  const showPlaceholder = (e) => window.alert("Under Construction! :B Thank you for your interest!")
 
   if (auth && user) {
     return (<>
@@ -33,7 +34,7 @@ export default function NavStamps({ auth, setAuth, setUser }) {
           <i className="lo-center fas fa-2x fa-stamp" />
         </button>
         
-        <button onClick={toggleSettings} className=" nav-stamp stamp_messages" activeClassName="active">
+        <button onClick={showPlaceholder} className=" nav-stamp stamp_messages" activeClassName="active">
         <div className="th-metal-light stamp-title">Messages</div>
           <i className="lo-center fas fa-2x fa-envelope" />
         </button>

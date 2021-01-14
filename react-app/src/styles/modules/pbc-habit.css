@@ -11,7 +11,7 @@
   width: 100%;
 }
 
-div.hbt-btn:hover {
+div.hbt-btn:hover, div.hbt-btn:active, div.hbt-btn:focus {
   border-radius: 1rem;
   color: rgb(0,0,0);
   /* padding: 0.7rem; */

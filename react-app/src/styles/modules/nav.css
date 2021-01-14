@@ -1,7 +1,7 @@
 /* main navigation bar */
 
 nav.stickers {
-  /* position: fixed; */
+  position: absolute;
   top: 0;
   right: 0;
   display: flex;
@@ -9,7 +9,7 @@ nav.stickers {
   z-index: 1;
   height: 3rem;
   padding-right: 1rem;
-  background: linear-gradient(270deg, rgba(0,0,0,0.8), rgba(0,0,0,0))
+  background: linear-gradient(to left, rgba(0,0,0,0.8), rgba(0,0,0,0))
 }
 
 .sticker {
@@ -62,8 +62,8 @@ nav.stickers {
 .sticker_messages::before {
   content: ".";
 }
-.sticker_messages:hover::before {
-  content: "Program";
+.sticker_messages:hover::before,.sticker_messages.active:before  {
+  content: "Messages";
 }
 
 .sticker_settings {
@@ -72,7 +72,7 @@ nav.stickers {
 .sticker_settings::before {
   content: ".";
 }
-.sticker_settings:hover::before {
+.sticker_settings:hover::before, .sticker_settings.active:before {
   content: "Settings";
 }
 
@@ -82,7 +82,7 @@ nav.stickers {
 .sticker_about::before {
   content: ".";
 }
-.sticker_about:hover::before {
+.sticker_about:hover::before, .sticker_about.active:before {
   content: "About";
 }
 

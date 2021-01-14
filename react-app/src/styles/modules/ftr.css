@@ -2,48 +2,90 @@
 
 .footer-users {
   display: flex;
-  width: 1000px;
-  margin: 0 auto;
-  justify-content: space-around;
+  width: 100%;
+  margin: 0.5rem auto;
+  justify-content: center;
+}
+.footer-user {
+  margin: 0 2rem;
+  width: 10%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .footer {
-  background-color: black;
+  color: lightgray;
+  background-color: rgba(0,0,0,0.5);
   width: 100%;
   bottom: 0;
   position: absolute;
   height: 120px;
+  opacity: 0.8;
 }
 
 .footer-container {
+  position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .footer-header {
-  position: relative;
-  top: 10px;
-  left: 20px;
+  top: 1rem;
+  font-size: 0.5rem;
+  width: 85%;
+  padding: 0.2rem;
+  text-align: center;
+  opacity: 0.5;
 }
 
 .footer-user_name {
+  border-bottom: 1px solid;
+  padding: 0.1rem 1rem;
   text-align: center;
+  font-size: 0.7rem;
+  white-space: nowrap;
 }
 
+
 .footer-mira {
-  color: lightskyblue;
+  color: salmon;
+}
+.footer-david {
+  color: khaki;
+}
+.footer-david ~ .footer-links > a:hover {
+  color: khaki;
 }
 .footer-brian {
   color: lightgreen;
 }
-.footer-david {
-  color: yellow;
+.footer-brian ~ .footer-links > a:hover {
+  color: lightgreen;
 }
 .footer-eric {
-  color: salmon;
+  color: lightskyblue;
+}
+.footer-eric ~ .footer-links > a:hover {
+  color: lightskyblue;
 }
 .footer-links {
   display: flex;
-  justify-content: space-between;
-  padding: 5px;
+  justify-content: center;
+  max-width: 8rem;
+  margin: 0.2rem 0;
+  width: 100%;
+}
+.footer-links > a {
+  padding: 0 0.6rem;
+}
+
+.footer_icon {
+  color: lightgray;
+}
+
+.footer-mira ~ .footer-links > a:hover {
+  color: salmon;
+  opacity: 1;
 }

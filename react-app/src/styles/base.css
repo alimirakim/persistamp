@@ -11,7 +11,7 @@ body {
     /* background-image: url("../images/wooden-background-bw.jpg"); */
     background-size: cover;
     height: 100%;
-    
+    margin: 0;
     background: linear-gradient(to bottom, rgb(55, 50, 70) 0%, rgb(20,20,30) 100%);
     background-color: seashell;
     font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif
@@ -51,6 +51,8 @@ button:hover {
 ul {
   list-style-type: none;
   list-style-position: inside;
+  margin: 0;
+  padding: 0;
 }
 ul > li {
   margin-left: 0;

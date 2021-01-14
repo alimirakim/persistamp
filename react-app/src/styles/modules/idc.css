@@ -7,8 +7,9 @@
   margin: 1rem 0 0;
   /* border-radius: 1rem; */
   flex-direction: column;
-  padding: 0.5rem ;
-  width: 30rem;
+  padding: 0.5rem;
+  max-width: 25rem;
+  min-width: 20rem;
   box-shadow: 0 0.5rem 15px rgba(0,0,0,0.5);
   transform: rotate(-10deg);
 }

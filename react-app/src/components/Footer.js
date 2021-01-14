@@ -8,18 +8,18 @@ let users = [
         shortname : "mira",
     },
     {
-        name: "Brian Wang",
-        email: "brbwang@gmail.com",
-        links: ["https://www.github.com/Awodfkai", "https://www.linkedin.com/in/brian-wang-902373163"],
-        shortname : "brian",
-        //   image: brian,
-    },
-    {
         name: "David Lee",
         email: "dyclee@umich.com",
         links: ["https://www.github.com/dyclee", "https://www.linkedin.com/in/daveyclee"],
         shortname : "david",
         //   image: david,
+    },
+    {
+        name: "Brian Wang",
+        email: "brbwang@gmail.com",
+        links: ["https://www.github.com/Awodfkai", "https://www.linkedin.com/in/brian-wang-902373163"],
+        shortname : "brian",
+        //   image: brian,
     },
     {
         name: "Eric Lyda",
@@ -31,22 +31,22 @@ let users = [
 
 const renderUser = (user) => {
     return (
-        <div key={user.shortname} className="about-card_footer">
-            <div className={`footer-user_name footer-${user.shortname}`}>{user.name}</div>
+        <div key={user.shortname} className="footer-user">
+            <div className={`th-clean-name footer-user_name footer-${user.shortname}`}>{user.name}</div>
             <div className="footer-links">
-                <a className="about-card_icon" href={`mailto:${user.email}`}>
-                    <i className="fas fa-envelope fa-1x"></i>
+                <a className="footer_icon" href={`mailto:${user.email}`}>
+                    <i className="fas fa-xs fa-envelope "></i>
                 </a>
-                <a className="about-card_icon" target='_blank' href={user.links[0]}>
-                    <i className="fab fa-github fa-1x"></i>
+                <a className="footer_icon" target='_blank' href={user.links[0]}>
+                    <i className="fab fa-xs fa-github "></i>
                 </a>
                 {user.links[1] ?
-                    <a className="about-card_icon" target='_blank' href={user.links[1]}>
-                    <i className="fab fa-linkedin-in fa-1x"></i>
+                    <a className="footer_icon" target='_blank' href={user.links[1]}>
+                    <i className="fab fa-xs fa-linkedin-in"></i>
                     </a>
                     :
-                    <a className="about-card_icon" >
-                    <i className="fab fa-linkedin-in fa-1x grey-icon"></i>
+                    <a className="footer_icon" >
+                    <i className="fab fa-xs fa-linkedin-in grey-icon"></i>
                     </a>
                 }
             </div>
@@ -61,8 +61,8 @@ export default function Footer ({auth}) {
     return <>
         <div className="footer">
             <div className="footer-container">
-                <div className="footer-header">
-                    Developed by:
+                <div className="th-cap-title footer-header">
+                    Developed by
                 </div>
                 <div className="footer-users">
                     {users.map((user) => {

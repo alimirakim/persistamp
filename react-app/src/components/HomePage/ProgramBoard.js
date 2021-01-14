@@ -9,7 +9,7 @@ export default function ProgramBoard() {
   return (
     <article>
 
-      <ul style={{ display: "flex", flexDirection: "column-reverse" }}>
+      <ul>
         {Object.values(programs).map(program => (
           <ProgramCard key={program.id} program={program} />
         ))}

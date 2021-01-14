@@ -1,11 +1,12 @@
 /* habit board */
-
 .hbd {
+  max-width: min-content;
+}
+
+main {
   display: flex;
   flex-direction: column;
-  align-content: center; 
   align-items: center;
-  justify-content: center;
 }
 
 .hbd > h1 {

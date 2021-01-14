@@ -10,13 +10,32 @@ Naming convention: start with `th-`. EXAMPLE: th-bg-primary */
   margin: 0;
 }
 
+
+.th-cap-title {
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.th-clean-name {
+  font-variant: small-caps;
+  letter-spacing: 0.1rem;
+  font-family: Roboto, Calibri, sans-serif;
+}
+
+.th-fancy-name {
+  font-variant: small-caps;
+  letter-spacing: 0.1rem;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
 .th-border-thin {
   border: 1px solid;
 }
 
 .th-border {
   width: 100%;
-  height: 95%;
+  height: 100%;
   border: 2px rgba(100,80,60,0.8) solid;
   padding: 0.5rem;
   
@@ -32,6 +51,13 @@ Naming convention: start with `th-`. EXAMPLE: th-bg-primary */
   height: 3px;
   background: linear-gradient(to right,rgba(255,255,255,0), #b9b18e 50%, #865 80% );
 }
+.th-hr-gr-fade-right {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to left,rgba(255,255,255,0), #b9b18e 50%, #865 80% );
+}
+
+
 
 .th-border-metal {
   border-image-source: linear-gradient(0deg,#865  20%,  #b9b18e 40%, #b9b18e 60%,  #865 80%);

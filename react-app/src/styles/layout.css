@@ -18,10 +18,6 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
   z-index: -1;
 }
 
-.active {
-  color: white;
-  transform: rotate(20deg);
-}
 
 
 .pop {

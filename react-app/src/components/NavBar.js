@@ -26,7 +26,7 @@ export default function NavBar({ auth, setAuth, setUser }) {
           <img className="logo" src={turtle} alt="Persistamp Logo: a red turtle stamp" />
         </NavLink>
         <NavLink to="/messages" className="sticker sticker_messages" activeClassName="active">
-          <i className="fas fa-stamp"></i>
+          <i className="fas fa-envelope"></i>
         </NavLink>
         <button onClick={handleSettingsOpen} className="sticker sticker_settings" activeClassName="active">
           <i className="fas fa-id-card"></i>

@@ -63,13 +63,7 @@ export default function HabitDisplay({auth, isPrivate, setIsPrivate}) {
             <div className="displayFormat">
               <div className="habitFormat">
                 <div className="habitDetailContainer">
-                  {auth ?
-                  <Link to={`/`}>
-                    <i className={`fas fa-chevron-circle-left`} style={{ color: habit.color }}></i>
-                  </Link>
-                  :
-                  <i className={`fas fa-chevron-circle-left`} style={{ color: habit.color }}></i>
-                  }
+
                   {/* <br/> */}
                   <div className="habitHeader">
                     <h1 style={{ fontSize: "4rem" }} className={`cam habitDetail__title`}>
@@ -104,7 +98,7 @@ export default function HabitDisplay({auth, isPrivate, setIsPrivate}) {
                       <tr>
                         <td className="habitDetail__cell habitDetail-border">{habit.description}</td>
                         <td className="habitDetail__cell habitDetail-border">{habit.program.title}</td>
-                        <td className="habitDetail__cell habitDetail-border"><i className={`fas fa-${habit.icon}`} /></td>
+                        <td className="habitDetail__cell habitDetail-border"><i className={`fas fa-2x fa-${habit.icon}`} /></td>
                         <td className="habitDetail__cell habitDetail-border">{habit.frequency} Days</td>
                         <td className="habitDetail__cell habitDetail-border">{new Date(habit.created_at).toLocaleString()}</td>
                       </tr>

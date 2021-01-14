@@ -5,7 +5,6 @@ import RewardShopContext from '../../context/RewardShopContext'
 import Rewards from './Rewards'
 import RedeemedRewardsHistory from './RedeemedRewardsHistory'
 import RewardForm from '../forms/RewardForm'
-import { BackButton } from '../forms/FormInputs'
 
 
 export default function RewardShop() {
@@ -30,8 +29,6 @@ export default function RewardShop() {
   // Add/remove points
   return (
     <main className="rewardShop-container" style={{ color: program.color }}>
-
-      <BackButton path="/" color={program.color} />
 
       <div className="rsp">
         <h1 className="cam">

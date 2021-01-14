@@ -7,15 +7,15 @@ import mira from '../images/mira-linkedin.jpg'
 function AboutCard() {
   const renderLinks = (user) => {
     return (<>
-      <div className="about-card_a">
-        <a className="about-card_icon" href={`mailto:${user.email}`}>
+      <div className=" about-card_a">
+        <a className="th-metal about-card_icon" href={`mailto:${user.email}`}>
           <i className="fas fa-envelope fa-2x"></i>
         </a>
-        <a className="about-card_icon" target='_blank' href={user.links[0]}>
+        <a className="th-metal about-card_icon" target='_blank' href={user.links[0]}>
           <i className="fab fa-github fa-2x"></i>
         </a>
         {user.links[1] ?
-          <a className="about-card_icon" target='_blank' href={user.links[1]}>
+          <a className="th-metal about-card_icon" target='_blank' href={user.links[1]}>
             <i className="fab fa-linkedin-in fa-2x"></i>
           </a>
           :
@@ -27,9 +27,9 @@ function AboutCard() {
 
   const renderImage = (user) => {
     if (user.image) {
-      return <img className="about-img"  src={user.image} alt="profile portrait" />
+      return <img className="about-img lo-center" src={user.image} alt="profile portrait" />
     } else {
-      return <img className="about-img" src={blankPic} alt="profile portrait" />
+      return <img className="about-img lo-center" src={blankPic} alt="profile portrait" />
     }
   }
   let users = [
@@ -59,29 +59,38 @@ function AboutCard() {
   ];
   return (<main>
     <div className="AboutPage">
-      <div className="AboutHeader">About Us</div>
+      <div className="AboutHeader th-cap-title th-metal">About Us</div>
       <div className="AboutContainer">
         {users.map(user => {
-            return (
-              <div key={user.name[0]} className="AboutCardContainer" style={{ backgroundColor: "black", color: "black" }}>
-                <div className="AboutCardDetailsContainer">
-                  <h3 style={{ color: "white"}}>{user.name}</h3>
+          return (
+            <div key={user.name[0]} 
+            className="th-border-thin th-border-gr th-border-metal th-dark-gr th-shadow AboutCardContainer" style={{ backgroundColor: "black", color: "black" }}>
+              <div className="th-border th-border-gr th-border-metal">
+                <div className="about-img-border">
+                  <div className="AboutCardImageContainer">
+                    {renderImage(user)}
+                  </div>
+                </div>
+                <div className=" AboutCardDetailsContainer">
+                  <h3 className="th-metal th-fancy-name">{user.name}</h3>
+                  <div className="th-hr-gr-fade-right"/>
                   {renderLinks(user)}
                 </div>
-                <div className="AboutCardImageContainer">
-                  {renderImage(user)}
-                </div>
               </div>
-            )
-          })
+
+            </div>
+          )
+        })
         }
       </div>
-      <aside>
-      <h2>Attributions</h2>
-      <a href='https://www.freepik.com/photos/background'>Background photo created by denamorado - www.freepik.com</a>
-      <a href='https://www.freepik.com/vectors/background'>Background vector created by BiZkettE1 - www.freepik.com</a>
+      <aside className="about-attrib th-shadow">
+        <h2 className="th-cap-title">&nbsp;&nbsp;Attributions</h2>
+        <ul>
+          <li><a href='https://www.freepik.com/photos/background'>Background photo created by denamorado - www.freepik.com</a></li>
+          <li><a href='https://www.freepik.com/vectors/background'>Background vector created by BiZkettE1 - www.freepik.com</a></li>
+        </ul>
       </aside>
-      
+
     </div>
   </main>)
 }

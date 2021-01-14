@@ -29,8 +29,8 @@ export default function Homepage({auth, setAuth, setUser}) {
 
   if (!user) return null;
   return (<main>
-      <UserProfileCard auth={auth} setAuth={setAuth} setUser={setUser}/>
     <div className="hbd">
+      <UserProfileCard auth={auth} setAuth={setAuth} setUser={setUser}/>
       <ProgramBoard />
     </div>
   </main>

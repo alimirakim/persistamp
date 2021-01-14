@@ -7,6 +7,7 @@
   padding: 15px;
 }
 
+
 .AboutContainer{
   display: flex;
   flex-wrap: wrap;
@@ -16,25 +17,54 @@
   height: 380px;
 }
 .AboutCardContainer {
+  position: relative;
   display: flex;
   flex-direction: row;
-  border: 2px solid black;
-  padding: 22px;
+  /* border: 2px solid black; */
+  padding: 0.5rem;
   margin: 15px;
   justify-content: space-between;
   width: 350px;
+  height: max-content;
 }
 
 .AboutCardDetailsContainer {
   display: flex;
   flex-direction: column;
 }
-.AboutCardImageContainer {
-  max-height: 85px;
-}
+
 .AboutCardImageContainer img{
-  height: 85px;
+  height: 5rem;
 }
+
+.about-img-border {
+  float: right;
+  position: relative;
+  height: 5rem;
+  width: 5rem;
+  margin: 0.5rem;
+  padding: 0;
+  border-width: 3px;
+  background-clip: padding-box;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  opacity: 0.99;
+}
+
+
+.about-img-border:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  margin: -5px;
+  border-radius: inherit;
+  background: linear-gradient(to bottom, #b9b18e 40%, #865 80%);
+}
+
 .AboutCardContainer h3 {
   margin-top: 0px;
   margin-bottom: 5px;
@@ -50,29 +80,47 @@
 }
 
 .about-card_a {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 150px;
-  height: 70px;
 }
 .about-card_icon {
   color: lavender;
 }
 .about-card_icon:hover {
-  color: lightseagreen;
+  /* color: lightseagreen; */
+  transform: scale(1.2);
 }
 
 .grey-icon {
   color: grey;
 }
 
-.AboutPage {
-  height: 84vh;
+.about-attrib {
+  max-width: 20rem;
+  margin: 3rem 0;
+  padding: 0.5rem 1rem 0.5rem 0;
+  background: linear-gradient(45deg, #888, #ddd);
+  color: #222;
+  font-size: 0.8rem;
+  opacity: 0.rem;
 }
 
-.about-card_footer {
-  width: 110px;
-  padding: 13px;
-  border-radius: 10px;
+.about-attrib > ul > li {
+  list-style: square;
+}
+
+.about-attrib a {
+  color: #333;
+}
+
+.about-attrib a:hover {
+  color: #888;
+}
+.about-attrib h2 {
+  border-bottom: 1px solid;
 }
