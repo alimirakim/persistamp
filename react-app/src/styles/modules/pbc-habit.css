@@ -47,16 +47,32 @@ div.hbt-btn:hover, div.hbt-btn:active, div.hbt-btn:focus {
   font-variant: small-caps;
   font-size: 0.8rem;
 }
+.habit-freq {
+  top: -0.2rem;
+  left: 1.5rem;
+  position: absolute;
+  font: 0.4rem Roboto;
+  color: rgba(255,255,255,0.5);
+  text-transform: lowercase;
+  letter-spacing: 0.1rem;
+}
 
 .habit-link:hover {
   background-color: rgba(0,0,0,0.2);
 }
 
+.lo-center-y {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
 .habit-btn {
+  position: relative;
   margin: 0;
   padding: 0.2rem 0.5rem;
   border-radius: 10px;
-  max-height: 2rem;
+  height: 2.5rem;
   white-space: nowrap;
   width: 100%;
 }

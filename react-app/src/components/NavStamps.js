@@ -4,29 +4,25 @@ import UserContext from '../context/UserContext';
 import UserSettings from './forms/UserSettings'
 import { logout } from "../services/auth";
 import ProgramForm from './forms/ProgramForm'
-
+import turtle from '../images/turtle.svg'
 
 
 export default function NavStamps({ auth, setAuth, setUser }) {
   const user = useContext(UserContext)
   const [openSettings, setOpenSettings] = useState(false)
   const [openCreate, setOpenCreate] = useState(false)
-
-  // const onLogout = async (e) => {
-  //   await logout();
-  //   setAuth(false);
-  // };
   const history = useHistory();
+  console.log("history", history)
+  
   const onLogout = async (e) => {
-    // console.log("hitting this?")
     await logout();
     setAuth(false);
-    return history.push('/login');
+    return history.push('/');
   };
 
   const toggleCreate = (e) => setOpenCreate(!openCreate)
   const toggleSettings = (e) => setOpenSettings(!openSettings)
-  const showPlaceholder = (e) => window.alert("Under Construction! :B Thank you for your interest!")
+  const showPlaceholder = (e) => window.alert("Message for our Lovely Guest\nUnder Construction! :B Thank you for your visit!\n\nCheck out Persistamp's GitHub page!\nhttps://github.com/alimirakim/persistamp")
 
   if (auth && user) {
     return (<>
@@ -35,11 +31,18 @@ export default function NavStamps({ auth, setAuth, setUser }) {
 
       <nav className="stamps">
 
-
+{history.location.pathname === "/" &&
         <button onClick={toggleCreate} className=" nav-stamp stamp_program" activeClassName="active">
         <div className="th-metal-light stamp-title">+Program</div>
           <i className="lo-center fas fa-2x fa-stamp" />
         </button>
+}
+{history.location.pathname !== "/" &&
+        <NavLink to="/" onClick={toggleCreate} className=" nav-stamp stamp_logo" activeClassName="active">
+        <div className="th-metal-light stamp-title">Home</div>
+          <img className="lo-center logo" src={turtle} alt="Persistamp Logo: a red turtle stamp" />
+        </NavLink>
+}
         
         <button onClick={showPlaceholder} className=" nav-stamp stamp_messages" activeClassName="active">
         <div className="th-metal-light stamp-title">Messages</div>
@@ -70,7 +73,7 @@ export default function NavStamps({ auth, setAuth, setUser }) {
   } else {
     return (<>
       {/* <nav className="nav-stamps">
-        <NavLink to='/login' className="nav-stamp nav-stamp_logo-link" activeClassName="active">
+        <NavLink to='/' className="nav-stamp nav-stamp_logo-link" activeClassName="active">
           <img className="nav-stamp_logo" src={turtle} alt="Persistamp Logo: a red turtle stamp" />
         </NavLink>
       </nav> */}

@@ -24,10 +24,10 @@ export default function ProgramCard({ program }) {
   return (
     <li key={program.id}>
 
-      <ProgramEditForm open={openEdit} handleClose={toggleEdit} program={program} />
+      <ProgramEditForm open={openEdit} handleClose={toggleEdit} program={program}  handleOpenDelete={toggleDelete} />
       <ProgramDeleteForm open={openDelete} handleClose={toggleDelete} program={program} />
       <HabitForm open={openCreate} handleClose={toggleCreate} pid={program.id} />
-      {/* <div className="th-card-shadow"> */}
+      <div className="th-card-shadow">
         <article className="pbc" style={{ background: `linear-gradient(-45deg, rgb(20,10,0) -100%, ${program.color}, rgb(255,255,255) 200%` }}>
           <i className={`pbc-bg-ico fas fa-10x fa-${program.icon}`}></i>
 
@@ -53,8 +53,7 @@ export default function ProgramCard({ program }) {
             {/* interactive buttons */}
             <div className="pbc-btns">
               <AddButton handleOpen={toggleCreate} />
-              <EditButton handleOpen={toggleEdit} />
-              <DeleteButton handleOpen={toggleDelete} />
+              <EditButton handleOpen={toggleEdit}/>
             </div>
 
           </header>
@@ -62,7 +61,6 @@ export default function ProgramCard({ program }) {
           <div className="pbc-body">
             <table>
               <thead>
-                {/* TODO Where is dispatchHabits?  */}
                 <CurrentWeekRow program={program} />
               </thead>
 
@@ -76,7 +74,7 @@ export default function ProgramCard({ program }) {
             </table>
           </div>
         </article>
-      {/* </div> */}
+      </div>
     </li>
   )
 }

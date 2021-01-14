@@ -20,7 +20,9 @@ export default function SplashContainer({ auth, setAuth, setUser }) {
     }
   }
 
-  return (<>
+  if (auth) return null;
+  
+  return (<main>
     <div className="splashPageBackground overlay">
     </div>
     <div className="splashforms">
@@ -40,5 +42,5 @@ export default function SplashContainer({ auth, setAuth, setUser }) {
       </div>
       <InstructionsContainer />
     </div>
-  </>)
+  </main>)
 }

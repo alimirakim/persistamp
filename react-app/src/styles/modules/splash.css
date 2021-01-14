@@ -6,12 +6,14 @@
   object-fit: cover;
   /* background-image: url("https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pixelstalk.net%2Fwp-content%2Fuploads%2F2016%2F07%2FArtsy-HD-Wallpaper-1.jpg&f=1&nofb=1") */
   background-image: url("../../images/persistamp-splash.jpg");
+  background-image: url("../../images/wooden-background.jpg");
 }
 
 .splashcontainer {
   margin: 0 auto;
   position: relative;
   width: 100%;
+  
   top: 0;
   /* align-content: center; */
   /* justify-content: space-evenly; */
@@ -19,8 +21,8 @@
   grid-gap: 1rem;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 8rem 1fr 1fr 1fr;
-  background-color: rgba(0,0,0,0.7);
-  padding: 0 0 2rem 1rem;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0));
+  padding: 0 5rem 2rem 5rem;
 }
 
 .splashforms {
@@ -47,7 +49,7 @@
   width: 100%;
   box-sizing: border-box;
   box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
-  border: 1px solid rgba(0,0,0,0.5);
+  border: 1px solid white;
 }
 .instructionscontainer {
   /* border: 4px solid red; */
@@ -66,19 +68,13 @@
 } */
 
 .instructionText {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5rem;
+  font-size: 1.5em;
   font-family:  Courgette, "Patrick Hand SC", "Comic Neue", serif, Meddon;
   text-align: center;
-  padding: 1rem;
+  padding: 0;
 }
 
 .instructionContent {
-  position: relative;
-  display: flex;
-  /* border: 5px solid darkred; */
   border-radius: 15px;
 }
 
@@ -95,13 +91,12 @@ text-shadow: 3px 3px 2px rgba(0,0,0,0.8);
   position: relative;
   margin: 0;
   font-size: 5rem;
-  /* color: #c35; */
   color: white;
   font-family: "Berkshire Swash", "Merienda One", Courgette, Meddon;
 }
 .demoButton {
   position: absolute;
-  top: -3rem;
+  top: -2rem;
   left: -5rem;
   height: 110px;
   transform: rotate(25deg);
@@ -112,23 +107,25 @@ text-shadow: 3px 3px 2px rgba(0,0,0,0.8);
 }
 
 
+
 /* instructions and screenshots */
-.instruction-1-text {
-  background-color: lavenderblush;
+.spl-instruct {
+  position: relative;
   border-radius: 15px;
+  background-color: beige;
+  overflow: hidden;
+}
+
+.instruction-1-text {
   grid-column: 2 / 3;
   grid-row: 2;
 }
 .instruction-1-image {
-  display: grid;
-  /* border: 4px solid red; */
   grid-column: 1 / 2;
   grid-row: 2;
 }
 
 .instruction-2-text {
-  background-color: lavenderblush;
-  border-radius: 15px;
   grid-column: 1 / 2;
   grid-row: 3;
 }
@@ -138,8 +135,6 @@ text-shadow: 3px 3px 2px rgba(0,0,0,0.8);
 }
 
 .instruction-3-text {
-  background-color: lavenderblush;
-  border-radius: 15px;
   grid-column: 2 / 3;
   grid-row: 4;
 }
@@ -165,6 +160,7 @@ text-shadow: 3px 3px 2px rgba(0,0,0,0.8);
 
 instruction-3-image > img {
   border-radius: 0;
+  border: 1px black solid;
 }
 
 .instruction-4-image {
@@ -184,22 +180,23 @@ instruction-3-image > img {
 .splash-num {
   position: absolute;
   border-radius: 50%;
-  height: 2.5rem;
-  width: 2.5rem;
+  height: 3rem;
+  width: 3rem;
   color: white;
-  font: bold 2rem Roboto;
-  top: -0.5rem;
+  font: 2rem Courgette, Meddon;
+  top: 0.5rem;
 }
 
 .num-1{
   background-color: darkgoldenrod;
-  left: -0.8rem;
+  left: 0.5rem;
 }
 .num-2 {
   background-color: cadetblue;
-  right: -0.8rem;
+  right: 0.5rem;
+  top: 0.5rem;
 }
 .num-3 {
   background-color: cornflowerblue;
-  left: -0.8rem;
+  left: 0.5rem;
 }

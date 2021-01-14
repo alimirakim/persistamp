@@ -26,8 +26,8 @@
 /* background icon image */
 .pbc-bg-ico {
   position: absolute;
-  bottom: -1rem;
-  left: -1rem;
+  bottom: 0;
+  left: 1rem;
   transform: rotate(20deg);
   color: rgba(20,10,0, 0.1);
   overflow: hidden;

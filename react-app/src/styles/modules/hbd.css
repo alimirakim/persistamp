@@ -24,11 +24,9 @@ main {
   margin-top: 5rem;
   font-size: 2rem;
 }
-.programBoards-container > li {
-  /* width: min-content; */
-}
+
 .programBoards-container {
-  
+  margin-top: 1rem;
   display: grid;
   width: 100%;
   /* width: min-content; */

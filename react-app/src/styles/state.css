@@ -4,8 +4,3 @@
   background-color: black;
   outline: none;
 }
-
-.active {
-  color: white;
-  transform: rotate(20deg);
-}

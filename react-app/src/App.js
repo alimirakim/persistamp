@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import SplashContainer from './components/SplashPage/SplashContainer';
-import NavBar from "./components/NavBar";
-import ProtectedRoute from "./components/auth/ProtectedRoute";
-import UsersList from "./components/UsersList";
-import User from "./components/UserPage";
+import UserProfileCard from "./components/HomePage/UserProfileCard";
+// import UsersList from "./components/UsersList";
+// import User from "./components/UserPage";
 import Footer from "./components/Footer";
 import UserContext from './context/UserContext'
 import OptionsContext from './context/OptionsContext'
@@ -25,7 +24,6 @@ export default function App() {
   const [loaded, setLoaded] = useState(false)
   const [colors, setColors] = useState("")
   const [icons, setIcons] = useState("")
-
   const [isPrivate, setIsPrivate] = useState(true);
 
   // const updateUser = (user) => dispatchPB(resetPrograms())
@@ -44,20 +42,15 @@ export default function App() {
 
       const { colors_data, icons_data } = await fetch(`/api/options`).then(res => res.json())
       setColors(colors_data)
+      console.log("color count", colors_data)
+      console.log("icon count", icons_data)
       setIcons(icons_data)
       setLoaded(true)
     })()
   }, [])
+  useEffect(()=>console.log(icons), [icons])
 
-  // useEffect(() => {
-  //   if (user && colors && icons) setLoaded(true)
-  // }, [user])
-
-  if (!loaded) {
-    return (<>
-      <LoadingPage />
-    </>)
-  }
+  if (!loaded) <LoadingPage />
 
   return (
     <BrowserRouter>
@@ -66,26 +59,26 @@ export default function App() {
         <OptionsContext.Provider value={{ colors, icons }}>
 
           <Route path="/graphs/:hid/memberships/:mid" auth={auth} exact={true}>
-            <NavBar auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
+            <UserProfileCard auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
             <HabitDisplay auth={auth} isPrivate={isPrivate} setIsPrivate={setIsPrivate}/>
           </Route>
 
-          <Route path="/login" exact={true}>
+          <Route path="/" exact={true}>
             <SplashContainer auth={auth} setAuth={setAuth} setUser={setUser} />
           </Route>
 
           <Route path="/about" exact={true}>
-            <NavBar auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
+            <UserProfileCard auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
             <AboutCard />
           </Route>
 
-          <Route path="/users" exact={true} auth={auth}>
+          {/* <Route path="/users" exact={true} auth={auth}>
             <UsersList />
           </Route>
 
           <Route path="/users/:uid" exact={true} auth={auth}>
             <User />
-          </Route>
+          </Route> */}
 
           <ProgramBoardContextProvider>
             <Route path="/" exact={true} auth={auth}>
@@ -95,12 +88,12 @@ export default function App() {
 
           <RewardShopContextProvider>
             <Route path="/programs/:pid/memberships/:mid/rewards" exact={true} auth={auth}>
-              <NavBar auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
+              <UserProfileCard auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
               <RewardShop auth={auth} />
             </Route>
           </RewardShopContextProvider>
 
-          <Footer auth={auth} />
+          <Footer />
 
         </OptionsContext.Provider>
       </UserContext.Provider>

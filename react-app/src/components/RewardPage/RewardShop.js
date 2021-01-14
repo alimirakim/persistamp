@@ -8,7 +8,7 @@ import RedeemedRewardsHistory from './RedeemedRewardsHistory'
 import RewardForm from '../forms/RewardForm'
 
 
-export default function RewardShop({auth}) {
+export default function RewardShop({ auth }) {
   const { pid } = useParams()
   const { program, rewards, redeemed, dispatchSetAll } = useContext(RewardShopContext)
   const [openCreate, setOpenCreate] = useState(false)
@@ -26,11 +26,7 @@ export default function RewardShop({auth}) {
     })()
   }, [])
 
-  if (!auth) {
-    return (<>
-      <PrivatePage />
-    </>)
-  };
+  if (!auth) <PrivatePage />
 
   if (!program || !rewards) return null
   // Add/remove points
@@ -44,9 +40,9 @@ export default function RewardShop({auth}) {
 
         <h2>Your Points: <span style={{ fontSize: "3rem" }}>{program.points} <i className={`fas fa-${program.icon}`}></i></span></h2>
 
-        <button onClick={toggleCreate} style={{color: "rgba(0,0,0,0.5)", backgroundColor: program.color, font: "bold uppercase 1.5rem Roboto", border: "none", borderRadius: "5px"}}>Add Reward</button>
+        <button onClick={toggleCreate} style={{ color: "rgba(0,0,0,0.5)", backgroundColor: program.color, font: "bold uppercase 1.5rem Roboto", border: "none", borderRadius: "5px" }}>Add Reward</button>
 
-          <RewardForm open={openCreate} handleClose={toggleCreate} />
+        <RewardForm open={openCreate} handleClose={toggleCreate} />
 
         <div style={{ display: "flex", justifyContent: "space-around" }}>
 

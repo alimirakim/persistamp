@@ -49,11 +49,7 @@ export default function HabitDisplay({auth, isPrivate, setIsPrivate}) {
   // console.log("HITTING BEFORE CHECKS?", habit)
   if (!habit) return null;
   // console.log("HITTING BETWEEN CHECKS?")
-  if (habit.private && !auth) {
-    return (<>
-      <PrivatePage />
-    </>)
-  };
+  if (habit.private && !auth) return <PrivatePage />
   // console.log("HITTING AFTER?")
 
   return (

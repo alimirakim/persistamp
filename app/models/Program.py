@@ -5,7 +5,7 @@ from datetime import datetime
 class Program(db.Model):
     __tablename__ = "programs"
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50), nullable=False)
+    title = db.Column(db.String(25), nullable=False)
     description = db.Column(db.String(250))
     icon_id = db.Column(db.Integer, db.ForeignKey("icons.id"), nullable=False, default=2)
     color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)

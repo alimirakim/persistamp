@@ -37,6 +37,16 @@ export function IconButton({ onClick, icon }) {
   )
 }
 
+export function DeleteButton({ switchForms }) {
+  return (
+    <div>
+      <button onClick={switchForms} className="del-btn">
+        <i className="fas fa-eraser" /> Delete
+      </button>
+    </div>
+  )
+}
+
 export function AddButton({ handleOpen }) {
   return (
     <button className="ico-btn" onClick={handleOpen}>
@@ -65,13 +75,6 @@ export function EditButton({ handleOpen }) {
 }
 
 
-export function DeleteButton({ handleOpen }) {
-  return (
-    <button className="ico-btn" onClick={handleOpen}>
-      <i className={`fas fa-2x fa-eraser`}></i>
-    </button>
-  )
-}
 
 
 export function MiniEditButton({ handleOpen }) {
@@ -146,7 +149,7 @@ export function ChooseFrequency({ frequency, updateFrequency }) {
   return (<div>
     <InputLabel id="frequency">Frequency</InputLabel>
     <Select onChange={updateFrequency} id="frequency" value={frequency} style={{ margin: "0.5rem 0" }}>
-      <MenuItem value={1}>1 days</MenuItem>
+      <MenuItem value={1}>1 day</MenuItem>
       <MenuItem value={2}>2 days</MenuItem>
       <MenuItem value={3}>3 days</MenuItem>
       <MenuItem value={4}>4 days</MenuItem>
@@ -245,13 +248,13 @@ export function UpdateBirthday({ birthday, setBirthday }) {
 
   return (
     <div>
-    <TextField
-      label="Birthday"
-      type="date"
-      defaultValue={birthday}
-      onChange={updateBirthday}
-      InputLabelProps={{ shrink: true }}
-    />
+      <TextField
+        label="Birthday"
+        type="date"
+        defaultValue={birthday}
+        onChange={updateBirthday}
+        InputLabelProps={{ shrink: true }}
+      />
     </div>
   )
 }

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import RewardEditForm from '../forms/RewardEditForm'
 import RewardDeleteForm from '../forms/RewardDeleteForm'
 import RedeemForm from '../forms/RedeemForm'
-import { Icon, EditButton, DeleteButton } from '../forms/FormInputs'
+import { EditButton } from '../forms/FormInputs'
 
 
 export default function RewardCard({ program, reward, redeemCount }) {
@@ -31,12 +31,11 @@ export default function RewardCard({ program, reward, redeemCount }) {
   return (
     <article className="rsc th-shadow" style={{ backgroundColor: reward.color }}>
 
-      <RewardEditForm open={openEdit} handleClose={toggleEdit} reward={reward} />
+      <RewardEditForm open={openEdit} handleClose={toggleEdit} reward={reward} handleOpenDelete={toggleDelete} />
       <RewardDeleteForm open={openDelete} handleClose={toggleDelete} reward={reward} />
 
       <div style={{ display: "flex", borderBottom: "1px rgba(0,0,0,0.2) solid" }}>
         <EditButton handleOpen={toggleEdit} />
-        <DeleteButton handleOpen={toggleDelete} />
         <h3>{reward.title}</h3>
       </div>
       <blockquote>{reward.description ? `"${reward.description}"` : ""}</blockquote>

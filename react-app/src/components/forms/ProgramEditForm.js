@@ -1,11 +1,20 @@
 import React, { useContext } from 'react'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
 import FormWrapper from './FormWrapper'
+import { DeleteButton } from './FormInputs'
 
 
-export default function ProgramEditForm({ open, handleClose, program }) {
+export default function ProgramEditForm({ open, handleClose, program, handleOpenDelete }) {
   const { dispatchEditProgram } = useContext(ProgramBoardContext)
 
+  const switchForms = (e) => {
+    console.log("what is you", handleOpenDelete)
+    handleClose()
+    handleOpenDelete()
+  }
+  
+  const uniqueInputs = () => (<DeleteButton switchForms={switchForms} />)
+  
   if (!open) return null
   
   return (
@@ -15,6 +24,7 @@ export default function ProgramEditForm({ open, handleClose, program }) {
       open={open}
       handleClose={handleClose}
       dispatcher={dispatchEditProgram}
+      uniqueInputs={uniqueInputs}
       edit={program}
     />
   )

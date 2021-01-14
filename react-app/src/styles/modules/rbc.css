@@ -2,6 +2,10 @@
 
 /* MODULE radio-box-circles */
 .rbc {
+  /* position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0; */
   display: grid;
   grid-template-columns: repeat(auto-fill, 1.5rem);
   grid-auto-columns: 1.5rem;
@@ -9,6 +13,18 @@
   grid-gap: 0.2rem;
   justify-content: center;
   align-content: center;
+}
+
+.rbc-icon-con {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  background-color: rgb(50,50,50);
+  max-height: 100%;
+  border-radius: 0;
+  align-content: start;
+  width: 20rem;
 }
 
 /* radio-box-circle container (label) */

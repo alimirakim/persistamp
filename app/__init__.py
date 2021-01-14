@@ -80,7 +80,6 @@ def inject_csrf_token(response):
 def react_root(path):
     print("path:", path)
     if path == 'favicon.ico':
-        print("\n\n\nFAVICON FAVICON FAVICON FOUND\n")
         return app.send_static_file('favicon.ico')
     return app.send_static_file('index.html')
 
@@ -90,6 +89,7 @@ def options():
     """Return color and stamp options from database"""
     colors = Color.query.all()
     icons = Icon.query.all()
+    icons_data = {}
     return jsonify(
         colors_data={c.id:c.to_dict() for c in colors},
         icons_data={i.id:i.to_dict() for i in icons})

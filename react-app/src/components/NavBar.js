@@ -11,7 +11,6 @@ export default function NavBar({ auth, setAuth, setUser }) {
 
   const history = useHistory();
   const onLogout = async (e) => {
-    // console.log("hitting this?")
     await logout();
     setAuth(false);
     return history.push('/login');
@@ -19,7 +18,6 @@ export default function NavBar({ auth, setAuth, setUser }) {
 
   const handleSettingsOpen = () => setSettingsOpen(true)
   const handleSettingsClose = () => setSettingsOpen(false)
-  const showPlaceholder = (e) => window.alert("Under Construction! :B Thank you for your interest!")
 
   if (auth && user) {
     return (<>
@@ -27,9 +25,9 @@ export default function NavBar({ auth, setAuth, setUser }) {
         <NavLink to='/' className="sticker sticker_logo" activeClassName="active">
           <img className="logo" src={turtle} alt="Persistamp Logo: a red turtle stamp" />
         </NavLink>
-        <button onClick={showPlaceholder} className="sticker sticker_messages" activeClassName="active">
-          <i className="fas fa-envelope"></i>
-        </button>
+        <NavLink to="/messages" className="sticker sticker_messages" activeClassName="active">
+          <i className="fas fa-stamp"></i>
+        </NavLink>
         <button onClick={handleSettingsOpen} className="sticker sticker_settings" activeClassName="active">
           <i className="fas fa-id-card"></i>
         </button>

@@ -7,7 +7,7 @@ import { DeleteButton, ChooseFrequency } from './FormInputs'
 export default function HabitEditForm({ open, handleClose, habit, handleOpenDelete }) {
   const { dispatchEditHabit } = useContext(ProgramBoardContext)
   const [frequency, setFrequency] = useState(habit.frequency)
-  
+
   const updateFrequency = (e) => setFrequency(e.target.value)
   const switchForms = (e) => {
     handleClose()
@@ -16,14 +16,12 @@ export default function HabitEditForm({ open, handleClose, habit, handleOpenDele
 
   const uniqueInputs = () => (<>
     <ChooseFrequency frequency={frequency} updateFrequency={updateFrequency} />
-    <div><button onClick={switchForms} className="del-btn">
-    <i className="fas fa-eraser"/> Delete
-    </button></div>
-    
+    <DeleteButton switchForms={switchForms} />
+
   </>)
 
   if (!open) return null
-  
+
   return (
     <FormWrapper
       type="habit"
@@ -31,7 +29,7 @@ export default function HabitEditForm({ open, handleClose, habit, handleOpenDele
       open={open}
       handleClose={handleClose}
       dispatcher={dispatchEditHabit}
-      uniqueContent={{frequency}}
+      uniqueContent={{ frequency }}
       uniqueInputs={uniqueInputs}
       edit={habit}
     />

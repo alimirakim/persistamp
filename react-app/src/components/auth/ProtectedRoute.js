@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core';
 
 const ProtectedRoute = props => {
   if (!props.auth) {
-    return <Redirect to="/login"/>
+    return <Redirect to="/"/>
   }
 
   return (
@@ -20,7 +20,7 @@ const ProtectedRoute = props => {
   //   return (<>
   //     <div className="privatePage">
   //       <h1>This page is private</h1>
-  //       <Link to='/login'>
+  //       <Link to='/'>
   //         <Button variant="contained" color="secondary">
   //             Return
   //         </Button>

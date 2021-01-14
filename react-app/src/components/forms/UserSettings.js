@@ -21,6 +21,7 @@ import ErrorMessages from '../mylib/ErrorMessages'
 
 export default function UserSettings({ open, handleClose, user, setUser }) {
   const { colors, icons } = useContext(OptionsContext)
+  const context = useContext(OptionsContext)
   const [colorId, setColorId] = useState("")
   const [iconId, setIconId] = useState("")
   const [errors, setErrors] = useState([])
@@ -33,12 +34,13 @@ export default function UserSettings({ open, handleClose, user, setUser }) {
   const toggleIcons = () => setOpenIcons(!openIcons)
   
   useEffect(() => {
-    if (!user.errors) {
+    if (!user.errors && colors && icons) {
+      console.log("context", context)
+      console.log("user settings", user, "colors", colors, "icons", icons)
       setColorId(Object.values(colors).find(c => c.hex === user.color).id)
       setIconId(Object.values(icons).find(i => i.title === user.icon).id)
     }
-  }, [user])
-  
+  }, [user, colors, icons])
 
   const onUpdate = async (e) => {
     e.preventDefault()
@@ -57,6 +59,7 @@ export default function UserSettings({ open, handleClose, user, setUser }) {
   }
 
   if (!open) return null
+  console.log("setting colors", colorId, colors)
   
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

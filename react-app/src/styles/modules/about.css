@@ -1,6 +1,7 @@
 
 
 .AboutHeader {
+  margin: -6rem auto 0;
   font-size: 40px;
   display: flex;
   justify-content: center;
@@ -9,10 +10,10 @@
 
 
 .AboutContainer{
+  
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
-  margin: 0 auto;
   width: 800px;
   height: 380px;
 }

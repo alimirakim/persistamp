@@ -8,11 +8,11 @@ it probably belongs here. */
 }
 
 body {
-    /* background-image: url("../images/wooden-background-bw.jpg"); */
+    background-image: url("../images/wooden-background.jpg");
     background-size: cover;
     height: 100%;
     margin: 0;
-    background: linear-gradient(to bottom, rgb(55, 50, 70) 0%, rgb(20,20,30) 100%);
+    /* background: linear-gradient(to bottom, rgb(55, 50, 70) 0%, rgb(20,20,30) 100%); */
     background-color: seashell;
     font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif
     /* background-image: url("https://www.freevector.com/uploads/vector/preview/1469/FreeVector-Splash-Swoosh-Background-Image.jpg") */

@@ -7,7 +7,7 @@ nav.stamps {
   width: 100%;
   align-items: center;
   justify-content: space-around;
-  padding: 0.5rem 1.5rem 1rem;
+  padding: 1rem 1.5rem;
 }
 
 .nav-stamp {
@@ -46,14 +46,13 @@ nav.stamps {
   /* background-image: url("/icons/turtle.svg"); */
   width: 1.2rem;
   height: 1.2rem;
-  transition: transform 0.2s ease-in-out;
 }
 
-.nav-stamp > i {
+.nav-stamp > i,.nav-stamp > img {
   transition: none;
 }
 
-.nav-stamp:hover > i, .nav-stamp > i:focus {
+.nav-stamp:hover > i, .active > i {
   transform: scale(1.2);
   transform-origin: 300% 300%;
   background: linear-gradient(#b9b18e 50%, #865 60%, #b9b18e 100%);
@@ -62,22 +61,27 @@ nav.stamps {
   -webkit-border-fill-color: transparent;
 }
 
-.stamp_program,.stamp_program:focus {
+.nav-stamp:hover > img, .nav-stamp > img:focus {
+  transform-origin: top left;
+  transform: scale(1.5) translate(-50%, -50%);
+}
+
+.stamp_program {
   color: rgb(200,50,60);
 }
 
-.stamp_messages, .stamp_messages:focus {
+.stamp_messages {
   color: goldenrod;
 }
-.stamp_settings, .stamp_settings:focus {
+.stamp_settings {
   color: cadetblue;
   padding: 0;
 }
 
-.stamp_about, .stamp_about:focus {
+.stamp_about {
   color: cornflowerblue;
 }
-.stamp_logout, stamp_logout:focus {
+.stamp_logout {
   color: rebeccapurple;
 }
 

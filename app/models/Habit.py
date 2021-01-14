@@ -5,7 +5,7 @@ from pprint import pprint
 class Habit(db.Model):
     __tablename__ = "habits"
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(50), nullable=False)
+    title = db.Column(db.String(25), nullable=False)
     description = db.Column(db.String(250))
     frequency = db.Column(db.String(7), nullable=False, default="7")
     private = db.Column(db.Boolean, nullable=False, default=False)
