@@ -58,7 +58,6 @@ function AboutCard() {
     },
   ];
   return (<main>
-    <div className="AboutPage">
       <div className="AboutHeader th-cap-title th-metal">About Us</div>
       <div className="AboutContainer">
         {users.map(user => {
@@ -91,7 +90,6 @@ function AboutCard() {
         </ul>
       </aside>
 
-    </div>
   </main>)
 }
 

@@ -28,9 +28,11 @@ main {
   /* width: min-content; */
 }
 .programBoards-container {
+  
   display: grid;
   width: 100%;
   /* width: min-content; */
+  grid-auto-flow: dense;
   justify-content: center;
   align-items: stretch;
   justify-items: stretch;
@@ -38,6 +40,7 @@ main {
   grid-template-columns: repeat(auto-fill, minmax(35rem, min-content));
   /* grid-template-columns: 1fr repeat( auto-fill, minmax(35rem, 1fr)); */
   grid-gap: 1rem;
+  margin-bottom: 5rem;
   /* grid-auto-rows: 1fr;
   grid-auto-columns: 1fr; */
   /* padding: 20px;

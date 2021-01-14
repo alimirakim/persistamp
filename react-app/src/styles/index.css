@@ -1,8 +1,12 @@
 
 
+/* Styles on actual element, like h1, a */
 @import url("base.css");
+/* Generic layout modifiers */
 @import url("layout.css");
+/* Changing state */
 @import url("state.css");
+/* Styling, looks, etc */
 @import url("theme.css");
 
 /* modules */

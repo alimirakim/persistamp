@@ -101,17 +101,19 @@
 }
 
 .about-attrib {
-  max-width: 20rem;
+  position: absolute;
+  bottom: 5rem;
+  max-width: 100%;
   margin: 3rem 0;
-  padding: 0.5rem 1rem 0.5rem 0;
+  padding: 0.5rem 1rem;
   background: linear-gradient(45deg, #888, #ddd);
   color: #222;
   font-size: 0.8rem;
   opacity: 0.rem;
+  text-align: center;
 }
-
-.about-attrib > ul > li {
-  list-style: square;
+.about-attrib > h2 {
+  margin: 0;
 }
 
 .about-attrib a {
