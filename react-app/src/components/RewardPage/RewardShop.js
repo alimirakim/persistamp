@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 
+import PrivatePage from '../PrivatePage'
 import RewardShopContext from '../../context/RewardShopContext'
 import Rewards from './Rewards'
 import RedeemedRewardsHistory from './RedeemedRewardsHistory'
@@ -8,7 +9,7 @@ import RewardForm from '../forms/RewardForm'
 import { BackButton } from '../forms/FormInputs'
 
 
-export default function RewardShop() {
+export default function RewardShop({auth}) {
   const { pid } = useParams()
   const { program, rewards, redeemed, dispatchSetAll } = useContext(RewardShopContext)
   const [openCreate, setOpenCreate] = useState(false)
@@ -25,6 +26,12 @@ export default function RewardShop() {
       // const { rewards_data, redeemed_data } = await fetch(`/api/rewards/programs/${pid}/users/${user.id}`).then(res => res.json())
     })()
   }, [])
+
+  if (!auth) {
+    return (<>
+      <PrivatePage />
+    </>)
+  };
 
   if (!program || !rewards) return null
   // Add/remove points
