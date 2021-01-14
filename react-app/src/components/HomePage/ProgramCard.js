@@ -27,7 +27,7 @@ export default function ProgramCard({ program }) {
       <ProgramEditForm open={openEdit} handleClose={toggleEdit} program={program} />
       <ProgramDeleteForm open={openDelete} handleClose={toggleDelete} program={program} />
       <HabitForm open={openCreate} handleClose={toggleCreate} pid={program.id} />
-      <div className="th-card-shadow">
+      {/* <div className="th-card-shadow"> */}
         <article className="pbc" style={{ background: `linear-gradient(-45deg, rgb(20,10,0) -100%, ${program.color}, rgb(255,255,255) 200%` }}>
           <i className={`pbc-bg-ico fas fa-10x fa-${program.icon}`}></i>
 
@@ -76,7 +76,7 @@ export default function ProgramCard({ program }) {
             </table>
           </div>
         </article>
-      </div>
+      {/* </div> */}
     </li>
   )
 }
