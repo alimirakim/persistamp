@@ -11,6 +11,7 @@ export default function NavBar({ auth, setAuth, setUser }) {
 
   const history = useHistory();
   const onLogout = async (e) => {
+    // console.log("hitting this?")
     await logout();
     setAuth(false);
     return history.push('/login');

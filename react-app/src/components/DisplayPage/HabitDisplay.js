@@ -8,6 +8,7 @@ import HabitContext from '../../context/HabitContext'
 import LineGraph from './LineGraph'
 import CalendarMap from './CalendarMap';
 import HabitStatOverview from './HabitStatOverview';
+import PrivatePage from '../PrivatePage';
 
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -50,7 +51,7 @@ export default function HabitDisplay({auth, isPrivate, setIsPrivate}) {
   // console.log("HITTING BETWEEN CHECKS?")
   if (habit.private && !auth) {
     return (<>
-      <h1>This page is private</h1>
+      <PrivatePage />
     </>)
   };
   // console.log("HITTING AFTER?")

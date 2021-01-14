@@ -79,25 +79,25 @@ export default function App() {
             <AboutCard />
           </Route>
 
-          <ProtectedRoute path="/users" exact={true} auth={auth}>
+          <Route path="/users" exact={true} auth={auth}>
             <UsersList />
-          </ProtectedRoute>
+          </Route>
 
-          <ProtectedRoute path="/users/:uid" exact={true} auth={auth}>
+          <Route path="/users/:uid" exact={true} auth={auth}>
             <User />
-          </ProtectedRoute>
+          </Route>
 
           <ProgramBoardContextProvider>
-            <ProtectedRoute path="/" exact={true} auth={auth}>
+            <Route path="/" exact={true} auth={auth}>
               <Homepage auth={auth} setAuth={setAuth} setUser={setUser} />
-            </ProtectedRoute>
+            </Route>
           </ProgramBoardContextProvider>
 
           <RewardShopContextProvider>
-            <ProtectedRoute isPrivate={isPrivate} path="/programs/:pid/memberships/:mid/rewards" exact={true} auth={auth}>
+            <Route path="/programs/:pid/memberships/:mid/rewards" exact={true} auth={auth}>
               <NavBar auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
-              <RewardShop />
-            </ProtectedRoute>
+              <RewardShop auth={auth} />
+            </Route>
           </RewardShopContextProvider>
 
           <Footer auth={auth} />
