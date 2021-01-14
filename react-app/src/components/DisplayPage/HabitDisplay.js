@@ -71,19 +71,23 @@ export default function HabitDisplay({auth, isPrivate, setIsPrivate}) {
                       <i className={`fas fa-${habit.icon}`}></i>
                       &nbsp;{habit.title}
                     </h1>
-                    <FormGroup row>
-                      <FormControlLabel
-                        control={
-                          <Switch
-                            checked={isPrivate}
-                            onChange={handleToggle}
-                            name="togglePrivacy"
-                            color="secondary"
-                          />
-                        }
-                        label="Private"
-                      />
-                    </FormGroup>
+                    {auth ?
+                      <FormGroup row>
+                        <FormControlLabel
+                          control={
+                            <Switch
+                              checked={isPrivate}
+                              onChange={handleToggle}
+                              name="togglePrivacy"
+                              color="secondary"
+                            />
+                          }
+                          label="Private"
+                        />
+                      </FormGroup>
+                    :
+                    <></>
+                    }
                   </div>
                   <table className="habitDetail__table">
                     <thead>
