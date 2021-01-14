@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, session, request, make_response
 from sqlalchemy.orm import joinedload
 from flask_login import current_user, login_user, logout_user, login_required
 from http import cookies
-from app.models import db, User, Program, Membership
+from app.models import db, User, Program, Habit, Membership
 from app.forms import LoginForm, SignUpForm
 from app.schemas import user_schema, membership_schema
 from app.utils import dump_data_list, queryUserFullData, validation_errors_to_error_messages
@@ -65,14 +65,19 @@ def sign_up():
             last_name=form.data['last_name'],
             birthday=birthday,
         )
-        program = Program(title=f"{form.data['username']}'s Habits",
+        program = Program(title="My Habits",
                           creator=user,)
+        habit = Habit(title="Smile :)",
+            description="Keep up your good habits! You can do it!",
+            program = program,
+            creator=user)
         membership = Membership(program=program,
                             member=user,
                             stamper=user,)
         db.session.add(user)
         db.session.add(program)
         db.session.add(membership)
+        db.session.add(habit)
         db.session.commit()
 
         login_user(user)

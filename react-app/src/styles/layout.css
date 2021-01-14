@@ -18,7 +18,13 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
   z-index: -1;
 }
 
-
+.lo-row {
+  display: flex;
+  justify-content: space-around;
+}
+.lo-third {
+  width: 30%;
+}
 
 .pop {
   z-index: 100;

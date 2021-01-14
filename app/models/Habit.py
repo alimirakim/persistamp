@@ -8,7 +8,7 @@ class Habit(db.Model):
     title = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(250))
     frequency = db.Column(db.String(7), nullable=False, default="7")
-    private = db.Column(db.Boolean, nullable=False, default=True)
+    private = db.Column(db.Boolean, nullable=False, default=False)
     color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)
     icon_id = db.Column(db.Integer, db.ForeignKey("icons.id"), nullable=False, default=3)
     program_id = db.Column(db.Integer, db.ForeignKey("programs.id"))

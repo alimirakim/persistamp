@@ -12,11 +12,11 @@ export default function RewardForm({ open, handleClose }) {
   const [limit, setLimit] = useState(-1)
   const [quantity, setQuantity] = useState(-1)
 
-  const uniqueInputs = () => (<>
+  const uniqueInputs = () => (<div className="lo-row">
     <ChooseCost cost={cost} setCost={setCost} />
     <ChooseLimit limit={limit} setLimit={setLimit} />
     <ChooseQuantity quantity={quantity} setQuantity={setQuantity} />
-  </>)
+  </div>)
   
   const resetUniqueInputs = (e) => {
     setCost(7)

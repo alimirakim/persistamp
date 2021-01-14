@@ -176,38 +176,38 @@ export function SetUsername({ username, setUsername }) {
 export function ChooseLimit({ limit, setLimit }) {
   const updateLimit = (e) => setLimit(e.target.value)
 
-  return (<>
+  return (<div>
     <InputLabel id="limit">Limit per Member</InputLabel>
     <Select onChange={updateLimit} label="limit" value={limit}>
       <MenuItem value={-1}>--</MenuItem>
       {[...Array(10).keys()].map(i => (<MenuItem value={i + 1}>{i + 1}</MenuItem>))}
     </Select>
-  </>)
+  </div>)
 }
 
 
 export function ChooseQuantity({ quantity, setQuantity }) {
   const updateQuantity = (e) => setQuantity(e.target.value)
 
-  return (<>
+  return (<div>
     <InputLabel id="quantity">Quantity</InputLabel>
     <Select onChange={updateQuantity} label="quantity" value={quantity}>
       <MenuItem value={-1}>--</MenuItem>
       {[...Array(101).keys()].map(i => (<MenuItem value={i + 1}>{i + 1}</MenuItem>))}
     </Select>
-  </>)
+  </div>)
 }
 
 
 export function ChooseCost({ cost, setCost }) {
   const updateCost = (e) => setCost(e.target.value)
 
-  return (<>
+  return (<div>
     <InputLabel id="cost">Cost</InputLabel>
-    <Select style={{ width: "500px" }} onChange={updateCost} label="cost" value={cost}>
-      {[...Array(365).keys()].map(i => (<MenuItem value={i + 1}>{i + 1}</MenuItem>))}
+    <Select onChange={updateCost} label="cost" value={cost}>
+      {[...Array(100).keys()].map(i => (<MenuItem value={i + 1}>{i + 1}</MenuItem>))}
     </Select>
-  </>)
+  </div>)
 }
 
 export function UpdateFirstname({ firstname, setFirstname }) {

@@ -19,6 +19,7 @@ export default function NavBar({ auth, setAuth, setUser }) {
 
   const handleSettingsOpen = () => setSettingsOpen(true)
   const handleSettingsClose = () => setSettingsOpen(false)
+  const showPlaceholder = (e) => window.alert("Under Construction! :B Thank you for your interest!")
 
   if (auth && user) {
     return (<>
@@ -26,9 +27,9 @@ export default function NavBar({ auth, setAuth, setUser }) {
         <NavLink to='/' className="sticker sticker_logo" activeClassName="active">
           <img className="logo" src={turtle} alt="Persistamp Logo: a red turtle stamp" />
         </NavLink>
-        <NavLink to="/messages" className="sticker sticker_messages" activeClassName="active">
+        <button onClick={showPlaceholder} className="sticker sticker_messages" activeClassName="active">
           <i className="fas fa-envelope"></i>
-        </NavLink>
+        </button>
         <button onClick={handleSettingsOpen} className="sticker sticker_settings" activeClassName="active">
           <i className="fas fa-id-card"></i>
         </button>

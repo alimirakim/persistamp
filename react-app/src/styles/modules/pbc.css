@@ -41,10 +41,13 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin: 0.5rem;
+  padding: 0.5rem;
 }
 
 .pbc-title {
+  max-width: 50%;
+  overflow: hidden;
+  white-space: nowrap;
   margin: 0;
   font: 1rem Cambria;
   text-transform: uppercase;
@@ -55,6 +58,8 @@
 .pbc-desc {
   margin: 0;
   font: italic 0.8rem Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-align: center;
+  
 }
 .pbc-desc:before, .pbc-desc:after {
   content: '"';

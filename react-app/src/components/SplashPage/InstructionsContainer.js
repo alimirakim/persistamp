@@ -15,7 +15,7 @@ const instructions = [
     },
     {
         number: 2,
-        text: "Stamp your progress and earn points.",
+        text: "Stamp to track your progress and earn points.",
         image: instruction2,
     },
     {
