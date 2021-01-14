@@ -44,7 +44,7 @@ export default function RewardShop({auth}) {
 
         <h2>Your Points: <span style={{ fontSize: "3rem" }}>{program.points} <i className={`fas fa-${program.icon}`}></i></span></h2>
 
-        <button onClick={toggleCreate}>Add Reward</button>
+        <button onClick={toggleCreate} style={{color: "rgba(0,0,0,0.5)", backgroundColor: program.color, font: "bold uppercase 1.5rem Roboto", border: "none", borderRadius: "5px"}}>Add Reward</button>
 
           <RewardForm open={openCreate} handleClose={toggleCreate} />
 

@@ -31,7 +31,7 @@ export default function SplashContainer({ auth, setAuth, setUser }) {
     </div>
     <div className="splashcontainer">
       <div className="splashTitle">
-        <div className="th-cap-title splashHeader">
+        <div className="splashHeader">
           Persistamp
           <img onClick={onDemoLogin} className="demoButton" alt="try me" src={demoButton} />
         </div>

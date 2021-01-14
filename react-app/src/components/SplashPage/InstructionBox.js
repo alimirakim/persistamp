@@ -11,7 +11,7 @@ export const InstructionBox = ({obj}) => {
                 <div className={`splash-num num-${obj.number}`}>
                 <span className="lo-center num">{obj.number}</span>
                 </div>
-                <div className='instructionText'>
+                <div className=' instructionText'>
                     {obj.text}
                 </div>
             </div>

@@ -1,33 +1,27 @@
 import React from 'react';
 import {InstructionBox} from './InstructionBox';
 
-import instruction1 from '../../images/persistamp-instruction1.PNG';
-import instruction2 from '../../images/persistamp-instruction2.PNG';
-import instruction3 from '../../images/persistamp-instruction3.PNG';
-import instruction4 from '../../images/persistamp-instruction4.PNG';
+import instruction1 from '../../images/sc1.PNG';
+import instruction2 from '../../images/sc5.PNG';
+import instruction3 from '../../images/sc4.PNG';
+import instruction4 from '../../images/sc3.PNG';
 
-import numberOne from '../../images/number1.png';
-import numberTwo from '../../images/number2.png';
-import numberThree from '../../images/number3.png';
 
 const instructions = [
     {
         number: 1,
-        text: "Customize your own programs and habits.",
+        text: "Create your habit goals and categories.",
         image: instruction1,
-        numberIcon: numberOne,
     },
     {
         number: 2,
-        text: "Follow your progress and earn points.",
+        text: "Stamp your progress and earn points.",
         image: instruction2,
-        numberIcon: numberTwo,
     },
     {
         number: 3,
-        text: "Buy rewards at your custom shop.",
+        text: "Create rewards for your Shop to redeem them with points!",
         image: instruction3,
-        numberIcon: numberThree,
     },
 ]
 
