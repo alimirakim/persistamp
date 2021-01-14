@@ -205,13 +205,13 @@ instruction-3-image > img {
 
 .num-1{
   background-color: darkgoldenrod;
-  left: -1rem;
+  left: -0.8rem;
 }
 .num-2 {
   background-color: cadetblue;
-  right: -1rem;
+  right: -0.8rem;
 }
 .num-3 {
   background-color: cornflowerblue;
-  left: -1rem;
+  left: -0.8rem;
 }
