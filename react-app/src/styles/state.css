@@ -4,3 +4,7 @@
   background-color: black;
   outline: none;
 }
+
+.is-in-debt {
+  color: red;
+}

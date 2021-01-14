@@ -37,7 +37,7 @@ export default function RewardForm({ open, handleClose }) {
       uniqueInputs={uniqueInputs}
       resetUniqueInputs={resetUniqueInputs}
       defaultColor={program.color}
-      defaultIcon="award"
+      defaultIcon={program.icon}
     />
   )
 }

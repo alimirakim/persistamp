@@ -2,11 +2,21 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  /* padding: 40px; */
-  object-fit: cover;
-  /* background-image: url("https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.pixelstalk.net%2Fwp-content%2Fuploads%2F2016%2F07%2FArtsy-HD-Wallpaper-1.jpg&f=1&nofb=1") */
-  background-image: url("../../images/persistamp-splash.jpg");
-  background-image: url("../../images/wooden-background.jpg");
+  /* background-image: url("../../images/bgs/persistamp-splash.jpg");
+  background-image: url("../../images/bgs/wooden-background.jpg");
+  background-image: url("../../images/bgs/wooden-background.jpg");
+  background-image: url("../../images/bgs/03.jpg");
+  background-image: url("../../images/bgs/6.jpg");
+  background-image: url("../../images/bgs/painted_metal.jpg"); */
+  /* background-image: url("../../images/bgs/Wood-Walnut.jpg"); */
+  /* background-image: url("../../images/bgs/Wood1.jpg"); */
+  /* background-image: url("../../images/bgs/Wood2.jpg"); */
+    /* background-size: cover; */
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0));
+    
+    /* background-image: url("../../images/bgs/Texture2.png"); */
+    /* background-image: url("../../images/bgs/seamless04.png"); */
+    /* background-size: repeat; */
 }
 
 .splashcontainer {
@@ -21,7 +31,6 @@
   grid-gap: 1rem;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 8rem 1fr 1fr 1fr;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0));
   padding: 0 5rem 2rem 5rem;
 }
 
@@ -36,9 +45,14 @@
 }
 
 .splashButtons {
+  z-index: 1;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: flex-start;
+  width: 10rem;
 }
 
 .instruction-screenshot {
@@ -49,7 +63,7 @@
   width: 100%;
   box-sizing: border-box;
   box-shadow: 5px 5px 5px rgba(0,0,0,0.5);
-  border: 1px solid white;
+  /* border: 1px solid white; */
 }
 .instructionscontainer {
   /* border: 4px solid red; */
@@ -96,8 +110,8 @@ text-shadow: 3px 3px 2px rgba(0,0,0,0.8);
 }
 .demoButton {
   position: absolute;
-  top: -2rem;
-  left: -5rem;
+  top: 0rem;
+  left: -6rem;
   height: 110px;
   transform: rotate(25deg);
 }
@@ -112,7 +126,7 @@ text-shadow: 3px 3px 2px rgba(0,0,0,0.8);
 .spl-instruct {
   position: relative;
   border-radius: 15px;
-  background-color: beige;
+  background-color: whitesmoke;
   overflow: hidden;
 }
 

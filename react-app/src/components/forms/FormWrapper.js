@@ -23,7 +23,6 @@ export default function FormWrapper({
 }) {
   const user = useContext(UserContext)
   const { colors, icons } = useContext(OptionsContext)
-
   const [errors, setErrors] = useState([])
   const [title, setTitle] = useState(edit ? edit.title : "")
   const [description, setDescription] = useState(edit ? edit.description : "")

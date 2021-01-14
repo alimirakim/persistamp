@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link, Redirect} from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
 import ProgramBoardContext from '../../context/ProgramBoardContext'
 import HabitEditForm from '../forms/HabitEditForm'
@@ -18,7 +18,7 @@ export default function HabitRow({ habit, program }) {
 
   return (<>
 
-    <HabitEditForm open={openEdit} handleClose={toggleEdit} habit={habit}  handleOpenDelete={toggleDelete} />
+    <HabitEditForm open={openEdit} handleClose={toggleEdit} habit={habit} handleOpenDelete={toggleDelete} />
     <HabitDeleteForm open={openDelete} handleClose={toggleDelete} habit={habit} />
 
     <tr key={habit.id} className="habit-row">
@@ -27,17 +27,17 @@ export default function HabitRow({ habit, program }) {
         <div className="habit-btns">
           <MiniEditButton handleOpen={toggleEdit} />
               &nbsp;
-            <Link style={{width: "100%"}} to={`/graphs/${habit.id}/memberships/${program.membership_id}`}>
+            <Link style={{ width: "100%" }} to={`/graphs/${habit.id}/memberships/${program.membership_id}`}>
             <div className="habit-btn">
-            <div className="lo-center-y">
-              <i className={`habit-ico fas fa-${habit.icon}`} style={{ color: habit.color }}></i>
-              <span className="habit-title">
-              <small className="habit-freq">{habit.frequency} / week</small>
+              <div className="lo-center-y">
+                <i className={`habit-ico fas fa-${habit.icon}`} style={{color: "white"}}></i>
+                <span className="habit-title">
+                  <small className="habit-freq">{habit.frequency} / week</small>
                 &nbsp;{habit.title}
-              </span>
+                </span>
               </div>
-          </div>
-            </Link>
+            </div>
+          </Link>
         </div>
       </td>
       {week.map(day => {

@@ -41,7 +41,7 @@ def queryUserFullData(uid):
 
     print("\nuser data?")
     # pprint(programs)
-    pprint(habits)
+    # pprint(habits)
     # pprint(stamps)
     return jsonify(
         programs_data=programs, 

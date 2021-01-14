@@ -90,6 +90,12 @@ def options():
     colors = Color.query.all()
     icons = Icon.query.all()
     icons_data = {}
+    for icon in icons:
+        if icon.type in icons_data.keys():
+            icons_data[icon.type].append({icon.id: icon.to_dict()})
+        else:
+            icons_data[icon.type] = [{icon.id: icon.to_dict()}]
+    print("\nicons", icons_data)
     return jsonify(
         colors_data={c.id:c.to_dict() for c in colors},
-        icons_data={i.id:i.to_dict() for i in icons})
+        icons_data=icons_data)

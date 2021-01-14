@@ -1,8 +1,8 @@
 import React from "react";
-import blankPic from "../images/blank-profile-pic.png"
-import david from '../images/david-linkedin.jpg'
-import brian from '../images/brian-linkedin.jpg'
-import mira from '../images/mira-linkedin.jpg'
+import blankPic from "../images/profiles/blank-profile-pic.png"
+import david from '../images/profiles/david-linkedin.jpg'
+import brian from '../images/profiles/brian-linkedin.jpg'
+import mira from '../images/profiles/mira-linkedin.jpg'
 
 function AboutCard() {
   const renderLinks = (user) => {
@@ -58,7 +58,7 @@ function AboutCard() {
     },
   ];
   return (<main>
-      <div className="AboutHeader th-cap-title th-metal">About Us</div>
+      {/* <div className="AboutHeader th-cap-title th-metal">About Us</div> */}
       <div className="AboutContainer">
         {users.map(user => {
           return (

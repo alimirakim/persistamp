@@ -28,7 +28,7 @@ export default function HabitForm({ open, handleClose, pid }) {
       uniqueInputs={uniqueInputs}
       resetUniqueIniputs={resetUniqueInputs}
       defaultColor={programs[pid].color}
-      defaultIcon="check-circle"
+      defaultIcon={programs[pid].icon}
     />
   )
 }

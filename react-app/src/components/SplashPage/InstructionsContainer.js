@@ -1,10 +1,10 @@
 import React from 'react';
 import { InstructionBox } from './InstructionBox';
 
-import instruction1 from '../../images/sc1.PNG';
-import instruction2 from '../../images/sc5.PNG';
-import instruction3 from '../../images/sc4.PNG';
-import instruction4 from '../../images/sc3.PNG';
+import instruction1 from '../../images/screenshots/sc1.PNG';
+import instruction2 from '../../images/screenshots/sc5.PNG';
+import instruction3 from '../../images/screenshots/sc4.PNG';
+import instruction4 from '../../images/screenshots/sc3.PNG';
 
 
 const instructions = [

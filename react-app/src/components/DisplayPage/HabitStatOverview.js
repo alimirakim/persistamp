@@ -33,7 +33,7 @@ export default function HabitStatOverview ({ habit }) {
 
     return (
         <>
-            <ChakraProvider theme={customTheme}>
+            {/* <ChakraProvider theme={customTheme}> */}
                 <div className="statContainer">
                     <h3 className="statOverview" style={{color:"#FFFFFF", fontFamily:"Arial"}}>Statistics</h3>
                         <StatGroup className="statGroup">
@@ -62,7 +62,7 @@ export default function HabitStatOverview ({ habit }) {
                             </Stat>
                         </StatGroup>
                 </div>
-            </ChakraProvider>
+            {/* </ChakraProvider> */}
         </>
     )
 }

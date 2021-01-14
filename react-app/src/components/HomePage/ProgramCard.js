@@ -15,7 +15,6 @@ export default function ProgramCard({ program }) {
   const [openCreate, setOpenCreate] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
-  const rewardShopPath = `/programs/${program.id}/memberships/${program.membership_id}/rewards`
 
   const toggleCreate = (e) => setOpenCreate(!openCreate)
   const toggleEdit = (e) => setOpenEdit(!openEdit)

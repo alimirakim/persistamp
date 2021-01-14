@@ -1,16 +1,12 @@
 
 /* Program Board Card */
 
-
-
 .pbc {
-  /* background-image: url("./Paper-02.png"); */
   position: relative;
   color: rgba(20,10,0,0.8);
   border-radius: 1rem;
-  box-shadow: 0 0rem 2rem rgba(0,0,0,0.5);
+  /* box-shadow: 0 0rem 2rem rgba(0,0,0,0.5); */
   border-width: 10px;
-  /* margin: 1rem 0; */
   overflow: hidden;
   min-width: min-content;
   /* transform: scale(0.5) */
