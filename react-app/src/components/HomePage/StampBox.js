@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import ProgramBoardContext from "../../context/ProgramBoardContext"
+import OptionsContext from '../../context/OptionsContext'
 
 
 // TODO How to optimize the rerenders here????
@@ -12,14 +13,15 @@ import ProgramBoardContext from "../../context/ProgramBoardContext"
 // straight from the source
 
 export default function StampBox({ day, mid, hid }) {
+  const {colors, icons} = useContext(OptionsContext)
   const { dispatchStampDay, dispatchUnstampDay, stamps, habits, } = useContext(ProgramBoardContext)
   const [stampStatus, setStampStatus] = useState("")
   const [transform, setTransform] = useState("0")
   const method = stampStatus === "stamped" ? "delete" : "post"
-  const icon = stampStatus === "stamped" ? habits[hid].icon : stampStatus === "fulfilled" ? "check" : "times"
-  const color = stampStatus === "stamped" ? habits[hid].color : "rgb(100,100,100,0.5)"
-  const stampId = habits[hid].stamp_ids.find(sid => stamps[sid].date === day[1])
-  const stampPath = `/api/stamps/${habits[hid].id}/programs/${habits[hid].program_id}/memberships/${mid}/days/${day[1]}`
+  const icon = stampStatus === "stamped" ? icons[habits[hid].iid].title : stampStatus === "fulfilled" ? "check" : "times"
+  const color = stampStatus === "stamped" ? colors[habits[hid].cid].hex : "rgb(255,255,255,0.2)"
+  const stampId = habits[hid].sids.find(sid => stamps[sid].date === day[1])
+  const stampPath = `/api/stamps/${habits[hid].id}/programs/${habits[hid].pid}/memberships/${mid}/days/${day[1]}`
 
 
   useEffect(() => {
@@ -30,11 +32,11 @@ export default function StampBox({ day, mid, hid }) {
     let status = ""
     if (stampId) {
       status = "stamped"
-    } else if (habits[hid].stamp_ids.length >= Number(habits[hid].frequency)) {
+    } else if (habits[hid].sids.length >= Number(habits[hid].frequency)) {
       status = "fulfilled"
     }
     setStampStatus(status)
-  }, [habits[hid].stamp_ids])
+  }, [habits[hid].sids])
 
   const onStamp = (method) => async (ev) => {
     ev.preventDefault()
@@ -52,7 +54,7 @@ export default function StampBox({ day, mid, hid }) {
   }
 
   return (
-    <td style={{ color: habits[hid].color, transform: `rotate(${transform}deg)`, transition: "none"}}>
+    <td style={{ color: colors[habits[hid].cid].hex, transform: `rotate(${transform}deg)`, transition: "none"}}>
       <form method="POST" onSubmit={onStamp(method)} className="stamp-spot" >
         <button className="stamp" type="submit">
           <i className={`lo-center fas fa-lg fa-${icon}`} style={{ color }} ></i>

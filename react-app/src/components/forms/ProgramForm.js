@@ -1,10 +1,12 @@
 import React, { useContext } from 'react'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
+import UserContext from '../../context/UserContext'
 import FormWrapper from './FormWrapper'
 
 
 export default function ProgramForm({ open, handleClose }) {
   const { dispatchCreateProgram } = useContext(ProgramBoardContext)
+  const user = useContext(UserContext)
 
   if (!open) return null
   
@@ -15,8 +17,8 @@ export default function ProgramForm({ open, handleClose }) {
       open={open}
       handleClose={handleClose}
       dispatcher={dispatchCreateProgram}
-      defaultColor="#808080"
-      defaultIcon="calendar-alt"
+      defaultColorId={user.cid}
+      defaultIconId={user.iid}
     />
   )
 }

@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Link } from 'react-router-dom'
+import OptionsContext from '../../context/OptionsContext'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
 import ProgramEditForm from '../forms/ProgramEditForm'
 import ProgramDeleteForm from '../forms/ProgramDeleteForm'
@@ -7,10 +7,11 @@ import RewardPoints from "./RewardPoints";
 import CurrentWeekRow from "./CurrentWeekRow";
 import HabitRow from './HabitRow'
 import HabitForm from '../forms/HabitForm'
-import { AddButton, EditButton, DeleteButton } from '../forms/FormInputs'
+import { AddButton, EditButton } from '../forms/FormInputs'
 
 
 export default function ProgramCard({ program }) {
+  const {colors, icons} = useContext(OptionsContext)
   const { habits } = useContext(ProgramBoardContext)
   const [openCreate, setOpenCreate] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
@@ -25,10 +26,10 @@ export default function ProgramCard({ program }) {
 
       <ProgramEditForm open={openEdit} handleClose={toggleEdit} program={program}  handleOpenDelete={toggleDelete} />
       <ProgramDeleteForm open={openDelete} handleClose={toggleDelete} program={program} />
-      <HabitForm open={openCreate} handleClose={toggleCreate} pid={program.id} />
+      <HabitForm open={openCreate} handleClose={toggleCreate} pid={program.id} cid={program.cid} iid={program.iid} />
       <div className="th-card-shadow">
-        <article className="pbc" style={{ background: `linear-gradient(-45deg, rgb(20,10,0) -100%, ${program.color}, rgb(255,255,255) 200%` }}>
-          <i className={`pbc-bg-ico fas fa-10x fa-${program.icon}`}></i>
+        <article className="pbc" style={{ background: `linear-gradient(-45deg, rgb(20,10,0) -100%, ${colors[program.cid].hex}, rgb(255,255,255) 200%` }}>
+          <i className={`pbc-bg-ico fas fa-10x fa-${icons[program.iid].title}`}></i>
 
           <header className="pbc-hdr">
             <div className="pbc-title-con">
@@ -37,7 +38,7 @@ export default function ProgramCard({ program }) {
               <div className="pbc-hr lo-row-center">
                 <div className="line left" />
                 <div className="pbc-ico">
-                  <i className={`lo-center fas fa-xs fa-${program.icon}`} />
+                  <i className={`lo-center fas fa-xs fa-${icons[program.iid].title}`} />
                 </div>
                 <div className="line right" />
               </div>
@@ -65,7 +66,7 @@ export default function ProgramCard({ program }) {
 
               <tbody>
                 {/* style={{display: "flex", flexDirection: "column-reverse"}}> */}
-                {program.habit_ids.map(hid => (
+                {program.hids.map(hid => (
                   <HabitRow key={hid} habit={habits[hid]} program={program} />
                 ))
                 }

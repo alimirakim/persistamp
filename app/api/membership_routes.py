@@ -60,7 +60,7 @@ def membership_habit(mid, hid):
 # def change_stamper(mid, uid):
 #     """Change a member's stamper."""
 #     membership = Membership.query.filter(Membership.id == mid).one()
-#     membership.iconer_id = uid
+#     membership.stamper_id = uid
 #     db.session.commit()
 #     return jsonify(membership_schema.dump(membership))
 
@@ -69,5 +69,5 @@ def membership_habit(mid, hid):
 # def remove_stamper():
 #     """Unassign a stamper from a member."""
 #     membership = Membership.query.filter(Membership.id == mid).one()
-#     membership.iconer_id = membership.member_id
+#     membership.stamper_id = membership.member_id
 #     return jsonify(membership_schema.dump(membership))

@@ -14,8 +14,8 @@ stamp_routes = Blueprint("stamps", __name__, url_prefix="/stamps")
 @stamp_routes.route("/habits/<int:hid>")
 def habit_stamps_full(hid):
     """Get all daily stamps for current user, full history."""
-    stamps = Stamp.query.filter(Stamp.user_id == current_user.id) \
-      .filter(Stamp.habit_id == hid).all()
+    stamps = Stamp.query.filter(Stamp.uid == current_user.id) \
+      .filter(Stamp.hid == hid).all()
     
     return jsonify(stamps=[stamp_schema.dump(stamp) for stamp in stamps])
 
@@ -36,7 +36,7 @@ def current_week():
     past_week_days = [day.strftime('%A')[0:3] for day in past_week]
     past_week_dates = [date.strftime('%Y-%m-%d') for date in past_week]
     stamps = Stamp.query.filter(
-        Stamp.user_id == current_user.id, \
+        Stamp.uid == current_user.id, \
         Stamp.date <= past_week_dates[0], \
         Stamp.date >= past_week_dates[6]).all()
     return jsonify(days=past_week_days, dates=past_week_dates, stamps=[stamp.to_dict() for stamp in stamps])
@@ -78,7 +78,6 @@ def stamp_day(pid, mid, hid, day):
             Stamp.habit_id == hid,  \
             Stamp.membership_id == mid, \
             Stamp.date == day).one()
-        print("\ndelete stamp")
         print(stamp)
         db.session.delete(stamp)
         membership.points -= 1

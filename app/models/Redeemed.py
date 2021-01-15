@@ -16,7 +16,7 @@ class Redeemed(db.Model):
         """Return dict of Redeemed"""
         return {
             "id": self.id,
-            "user_id": self.user_id,
-            "reward_id": self.reward_id,
+            "uid": self.user_id,
+            "rew_id": self.reward_id,
             "redeemed_at": self.redeemed_at.strftime("%Y-%m-%d %H:%M"),
         }

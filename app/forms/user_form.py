@@ -13,10 +13,10 @@ class UserForm(FlaskForm):
     firstname = StringField(default="N/A")
     lastname = StringField(default="N/A")
     birthday = StringField()
-    color = SelectField(validators=[DataRequired()], 
+    cid = SelectField(validators=[DataRequired()], 
                         choices=range(1, len(colors)+1), 
-                        default=1)
-    icon = SelectField(validators=[DataRequired()], 
+                        default=8)
+    iid = SelectField(validators=[DataRequired()], 
                         choices=range(1, len(icons)+1), 
-                        default=1)
+                        default=473)
     submit = SubmitField()

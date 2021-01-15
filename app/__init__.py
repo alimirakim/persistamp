@@ -89,13 +89,11 @@ def options():
     """Return color and stamp options from database"""
     colors = Color.query.all()
     icons = Icon.query.all()
-    icons_data = {}
+    icon_types = []
     for icon in icons:
-        if icon.type in icons_data.keys():
-            icons_data[icon.type].append({icon.id: icon.to_dict()})
-        else:
-            icons_data[icon.type] = [{icon.id: icon.to_dict()}]
-    print("\nicons", icons_data)
+        if icon.type not in icon_types:
+            icon_types.append(icon.type)
     return jsonify(
         colors_data={c.id:c.to_dict() for c in colors},
-        icons_data=icons_data)
+        icons_data={i.id:i.to_dict() for i in icons},
+        icon_types=icon_types,)

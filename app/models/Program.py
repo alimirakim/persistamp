@@ -25,11 +25,11 @@ class Program(db.Model):
             "id": self.id,
             "title": self.title,
             "description": self.description,
-            "color": self.color.hex,
-            "icon": self.icon.title,
+            "cid": self.color.id,
+            "iid": self.icon.id,
             "created_at": self.created_at,
-            "membership_ids": [m.id for m in self.memberships],
-            "habit_ids": [h.id for h in self.habits],
+            "mids": [m.id for m in self.memberships],
+            "hids": [h.id for h in self.habits],
         }
     
     def get_mids(self):

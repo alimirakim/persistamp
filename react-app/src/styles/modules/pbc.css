@@ -11,7 +11,6 @@
   min-width: min-content;
   /* transform: scale(0.5) */
 }
-.test {width: 100%}
 /* body screen */
 .pbc-body {
   position: relative;
@@ -63,20 +62,33 @@
 
 /* action buttons  */
 .pbc-btns {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0.3s linear, opacity 0.2s linear;
   position: absolute;
   display: flex;
   top: 0.5rem;
   left: 0.5rem;
 }
+
+.pbc-btns, .pbc .mini-ico-btn {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0.3s linear, opacity 0.2s linear;
+}
+
 .pbc-btns > * {
   margin: 0 0.5rem 0 0;
 }
 
 /* only show activity btns when hovering on card */
-.pbc:hover .pbc-btns, .pbc:focus .pbc-btns {
+.pbc:hover .pbc-btns, 
+.pbc:focus .pbc-btns,
+.habit:hover .mini-ico-btn,
+.habit:focus .mini-ico-btn
+ {
   visibility: visible;
   opacity: 1;
+  border:rgba(20,10,0, 0.1)
+}
+
+.habit-btn-con {
+  width: 100%;
 }

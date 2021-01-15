@@ -5,30 +5,6 @@ import {
 } from '@material-ui/core'
 
 
-export function Icon(props) {
-  return <i className={`fas fa-${props.icon}`}></i>
-}
-
-
-export function getColorId(colors, hex) {
-  return Object.values(colors).find(c => c.hex == hex).id
-}
-
-
-export function getIconId(icons, title) {
-  return Object.values(icons).find(i => i.title == title).id
-}
-
-
-export function BackButton(path, color) {
-  return (
-    <Link to={path}>
-      <i className={`fas fa-chevron-circle-left`} style={{ color }}></i>
-    </Link>
-  )
-}
-
-
 export function IconButton({ onClick, icon }) {
   return (
     <button className="ico-btn" onClick={onClick}>
@@ -75,12 +51,10 @@ export function EditButton({ handleOpen }) {
 }
 
 
-
-
 export function MiniEditButton({ handleOpen }) {
   return (
     <button className="mini-ico-btn" onClick={handleOpen}>
-      <i className={`fas fa-pencil-alt`}></i>
+      <i className={`lo-center fas fa-pencil-alt`}></i>
     </button>
   )
 }
@@ -89,11 +63,10 @@ export function MiniEditButton({ handleOpen }) {
 export function MiniDeleteButton({ handleOpen }) {
   return (
     <button className="mini-ico-btn" onClick={handleOpen}>
-      <i className={`fas fa-eraser`}></i>
+      <i className={`lo-center fas fa-eraser`}></i>
     </button>
   )
 }
-
 
 
 export function ActionOrCancelButtons({ handleClose, onAction, action }) {
@@ -123,6 +96,7 @@ export function AddTitle({ title, setTitle }) {
       fullWidth
       onChange={updateTitle}
       required
+      maxLength={25}
     />
   )
 }
@@ -132,7 +106,6 @@ export function AddDescription({ description, setDescription }) {
   const updateDescription = (e) => setDescription(e.target.value)
   return (
     <TextField
-      autoFocus
       value={description}
       margin="dense"
       id="description"
@@ -149,13 +122,13 @@ export function ChooseFrequency({ frequency, updateFrequency }) {
   return (<div>
     <InputLabel id="frequency">Frequency</InputLabel>
     <Select onChange={updateFrequency} id="frequency" value={frequency} style={{ margin: "0.5rem 0" }}>
-      <MenuItem value={1}>1 day</MenuItem>
-      <MenuItem value={2}>2 days</MenuItem>
-      <MenuItem value={3}>3 days</MenuItem>
-      <MenuItem value={4}>4 days</MenuItem>
-      <MenuItem value={5}>5 days</MenuItem>
-      <MenuItem value={6}>6 days</MenuItem>
-      <MenuItem value={7}>7 days</MenuItem>
+      <MenuItem value={1}>1 per week&nbsp;&nbsp;</MenuItem>
+      <MenuItem value={2}>2 per week&nbsp;&nbsp;</MenuItem>
+      <MenuItem value={3}>3 per week&nbsp;&nbsp;</MenuItem>
+      <MenuItem value={4}>4 per week&nbsp;&nbsp;</MenuItem>
+      <MenuItem value={5}>5 per week&nbsp;&nbsp;</MenuItem>
+      <MenuItem value={6}>6 per week&nbsp;&nbsp;</MenuItem>
+      <MenuItem value={7}>7 per week&nbsp;&nbsp;</MenuItem>
     </Select>
   </div>)
 }
@@ -181,10 +154,14 @@ export function ChooseLimit({ limit, setLimit }) {
 
   return (<div>
     <InputLabel id="limit">Limit per Member</InputLabel>
-    <Select onChange={updateLimit} label="limit" value={limit}>
-      <MenuItem value={-1}>--</MenuItem>
-      {[...Array(10).keys()].map(i => (<MenuItem value={i + 1}>{i + 1}</MenuItem>))}
-    </Select>
+    <TextField
+      onChange={updateLimit}
+      label="limit"
+      value={limit}
+      type="number"
+      InputProps={{ min: 1 }}
+    />
+
   </div>)
 }
 
@@ -194,10 +171,14 @@ export function ChooseQuantity({ quantity, setQuantity }) {
 
   return (<div>
     <InputLabel id="quantity">Quantity</InputLabel>
-    <Select onChange={updateQuantity} label="quantity" value={quantity}>
-      <MenuItem value={-1}>--</MenuItem>
-      {[...Array(101).keys()].map(i => (<MenuItem value={i + 1}>{i + 1}</MenuItem>))}
-    </Select>
+    <TextField
+      onChange={updateQuantity}
+      label="quantity"
+      value={quantity}
+      type="number"
+      InputProps={{ min: 0 }}
+    />
+
   </div>)
 }
 
@@ -207,9 +188,13 @@ export function ChooseCost({ cost, setCost }) {
 
   return (<div>
     <InputLabel id="cost">Cost</InputLabel>
-    <Select onChange={updateCost} label="cost" value={cost}>
-      {[...Array(100).keys()].map(i => (<MenuItem value={i + 1}>{i + 1}</MenuItem>))}
-    </Select>
+    <TextField
+      onChange={updateCost}
+      label="cost"
+      value={cost}
+      type="number"
+      InputProps={{ min: 1 }}
+    />
   </div>)
 }
 

@@ -18,6 +18,6 @@ class Stamp(db.Model):
             "id": self.id,
             "date": self.date.isoformat(),
             "status": self.status,
-            "habit_id": self.habit_id,
-            "membership_id": self.membership_id,
+            "hid": self.habit_id,
+            "mid": self.membership_id,
         }

@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 // import CalendarHeatmap from 'react-calendar-heatmap';
 // import ReactTooltip from 'react-tooltip';
 import 'react-calendar-heatmap/dist/styles.css';
 import HeatMap from 'react-heatmap-grid';
+import OptionsContext from '../../context/OptionsContext';
 
 
 export default function CalendarMap({ habit }) {
   const [calendarData, setCalendarData] = useState([])
+  const {colors, icons} = useContext(OptionsContext)
   const { hid, mid } = useParams()
   useEffect(() => {
     (async () => {
@@ -25,7 +27,7 @@ export default function CalendarMap({ habit }) {
   //     b: parseInt(result[3], 16)
   //   } : null;
   // }
-  // const habitRGB = hexToRgb(habit.color)
+  // const habitRGB = hexToRgb(habit.cid)
 
 
   if (!calendarData.yArr) return null;
@@ -55,10 +57,10 @@ export default function CalendarMap({ habit }) {
           xLabelsLocation="top"
           cellRender={(value) => {
             if (value === 100) {
-              return <i className={`fas fa-${habit.icon}`} style={{ color: habit.color }} ></i>
+              return <i className={`fas fa-${icons[habit.iid].title}`} style={{ color: colors[habit.cid].hex }} ></i>
             }
             // } else if (value === 99) {
-            //     return <i className={`fas fa-${habit.icon}`} style={{color: "#444"}} ></i>
+            //     return <i className={`fas fa-${icons[habit.iid].title}`} style={{color: "#444"}} ></i>
             // }
           }}
 

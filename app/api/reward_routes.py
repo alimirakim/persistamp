@@ -10,16 +10,6 @@ from pprint import pprint
 reward_routes = Blueprint("rewards", __name__, url_prefix="/rewards")
 
 
-@reward_routes.route("/<string:type>")
-def type_rewards(type):
-    """Get a list of all default-universal rewards, by type if specified."""
-    if type:
-        rewards = Reward.query.filter(Reward.type == type).all()
-    else:
-        rewards = Reward.query.filter(Reward.typ != 'custom').all()
-    return jsonify(dump_data_list(rewards, reward_schema))
-
-
 @reward_routes.route("/programs/<int:pid>")
 def program_and_rewards_and_redeemed(pid):
     """Get a list of a program's custom rewards."""
@@ -47,22 +37,24 @@ def create_reward(pid):
     form = RewardForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     
+    check_exists = lambda x: x if x else -1
+    print('exists', form.data)
     if form.validate():
         reward = Reward(title=form["title"].data,
                         type='custom',
                         description=form['description'].data,
-                        color_id=form['color'].data,
-                        icon_id=form["icon"].data,
+                        color_id=form['cid'].data,
+                        icon_id=form["iid"].data,
                         cost=form['cost'].data,
-                        limit_per_member=form['limit'].data,
-                        quantity=form['quantity'].data,
+                        limit_per_member=check_exists(form['limit'].data),
+                        quantity=check_exists(form['quantity'].data),
                         creator_id=request.json['userId'],
                         program_id=pid,)
         db.session.add(reward)
         db.session.commit()
             
         return reward.to_dict()
-    return {'errors': ['Failed to create reward']}, 400
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 
 @reward_routes.route("/<int:rid>/edit", methods=["PATCH"])
@@ -78,12 +70,12 @@ def edit_reward(rid):
         reward.cost = form["cost"].data
         reward.quantity = form["quantity"].data
         reward.limit_per_member = form["limit"].data
-        reward.color_id = form["color"].data
-        reward.icon_id = form["icon"].data
+        reward.color_id = form["cid"].data
+        reward.icon_id = form["iid"].data
         
         db.session.commit()
         return reward.to_dict()
-    return {'errors': ['Editing reward failed']}, 400
+    return {'errors':  validation_errors_to_error_messages(form.errors)}, 400
 
 
 @reward_routes.route("/<int:rid>/delete", methods=["DELETE"])

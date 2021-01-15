@@ -77,14 +77,14 @@ export default function programBoardReducer(state = {
       return newState.actions = action.habits
     case CREATE_HABIT:
       newState.habits[action.habit.id] = action.habit
-      // Add the habit id to its program habit_id list
-      newState.programs[action.habit.program_id].habit_ids = [...newState.programs[action.habit.program_id].habit_ids, action.habit.id]
+      // Add the habit id to its program hid list
+      newState.programs[action.habit.pid].hids = [...newState.programs[action.habit.pid].hids, action.habit.id]
       // Add the week's stamps for the habit
       return newState
     case DELETE_HABIT:
       // Delete week's stamps for habit
       delete newState.habits[action.habit.id]
-      newState.programs[action.habit.program_id].habit_ids = newState.programs[action.habit.program_id].habit_ids.filter(hid => hid !== action.habit.id)
+      newState.programs[action.habit.pid].hids = newState.programs[action.habit.pid].hids.filter(hid => hid !== action.habit.id)
       return newState
     case EDIT_HABIT:
       newState.habits[action.habit.id] = action.habit
@@ -94,18 +94,18 @@ export default function programBoardReducer(state = {
     // STAMPS
     case STAMP_DAY:
       // Add stamp id to habit id
-      newState.habits[action.stamp.habit_id].stamp_ids = [...newState.habits[action.stamp.habit_id].stamp_ids, action.stamp.id]
+      newState.habits[action.stamp.hid].sids = [...newState.habits[action.stamp.hid].sids, action.stamp.id]
       // Find program that includes membership id of the stamp
-      const stampedProgram = Object.values(state.programs).find(p => p.membership_ids.includes(action.stamp.membership_id))
+      const stampedProgram = Object.values(state.programs).find(p => p.mids.includes(action.stamp.mid))
       newState.programs[stampedProgram.id].points += 1
       newState.stamps[action.stamp.id] = action.stamp
       return newState
 
     case UNSTAMP_DAY:
       // Remove stamp id from habit id
-      newState.habits[action.stamp.habit_id].stamp_ids = newState.habits[action.stamp.habit_id].stamp_ids.filter(sid => sid !== action.stamp.id)
+      newState.habits[action.stamp.hid].sids = newState.habits[action.stamp.hid].sids.filter(sid => sid !== action.stamp.id)
       // Find program that includes membership id of the stamp
-      const unstampedProgram = Object.values(state.programs).find(program => program.membership_ids.includes(action.stamp.membership_id))
+      const unstampedProgram = Object.values(state.programs).find(program => program.mids.includes(action.stamp.mid))
       newState.programs[unstampedProgram.id].points -= 1
       delete newState.stamps[action.stamp.id]
       return newState

@@ -5,7 +5,6 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import UserContext from '../../context/UserContext'
 import OptionsContext from '../../context/OptionsContext'
 import {
   ActionOrCancelButtons,
@@ -32,13 +31,13 @@ export default function UserSettings({ open, handleClose, user, setUser }) {
   const [openIcons, setOpenIcons] = useState(false)
 
   const toggleIcons = () => setOpenIcons(!openIcons)
-  
+
   useEffect(() => {
     if (!user.errors && colors && icons) {
       console.log("context", context)
       console.log("user settings", user, "colors", colors, "icons", icons)
-      setColorId(Object.values(colors).find(c => c.hex === user.color).id)
-      setIconId(Object.values(icons).find(i => i.title === user.icon).id)
+      setColorId(user.cid)
+      setIconId(user.iid)
     }
   }, [user, colors, icons])
 
@@ -47,7 +46,9 @@ export default function UserSettings({ open, handleClose, user, setUser }) {
     const res = await fetch("/api/users/settings", {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, firstname, lastname, birthday, color: colorId, icon: iconId, }),
+      body: JSON.stringify(
+        { username, firstname, lastname, birthday, cid: colorId, iid: iconId }
+      ),
     })
     const updatedUser = await res.json()
     if (!updatedUser.errors) {
@@ -59,8 +60,7 @@ export default function UserSettings({ open, handleClose, user, setUser }) {
   }
 
   if (!open) return null
-  console.log("setting colors", colorId, colors)
-  
+
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">User Settings</DialogTitle>

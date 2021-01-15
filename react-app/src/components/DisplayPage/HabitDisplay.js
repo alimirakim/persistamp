@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
+import OptionsContext from '../../context/OptionsContext'
 import HabitContext from '../../context/HabitContext'
 
 // import HabitEditForm from '../forms/HabitEditForm'
@@ -18,6 +19,7 @@ import Switch from '@material-ui/core/Switch';
 export default function HabitDisplay({auth, isPrivate, setIsPrivate}) {
   const { hid, mid } = useParams()
   const [habit, setHabit] = useState("")
+  const {colors, icons} = useContext(OptionsContext)
 
   // const [isPrivate, setIsPrivate] = useState(true);
 
@@ -55,7 +57,7 @@ export default function HabitDisplay({auth, isPrivate, setIsPrivate}) {
   return (
     <HabitContext.Provider value={habit}>
       <main>
-        <article style={{ color: habit.color }}>
+        <article style={{ color: colors[habit.cid].hex }}>
           <div className="displayPage">
             <div className="displayFormat">
               <div className="habitFormat">
@@ -64,7 +66,7 @@ export default function HabitDisplay({auth, isPrivate, setIsPrivate}) {
                   {/* <br/> */}
                   <div className="habitHeader">
                     <h1 style={{ fontSize: "4rem" }} className={`cam habitDetail__title`}>
-                      <i className={`fas fa-${habit.icon}`}></i>
+                      <i className={`fas fa-${icons[habit.iid].title}`}></i>
                       &nbsp;{habit.title}
                     </h1>
                     {auth ?
@@ -99,7 +101,7 @@ export default function HabitDisplay({auth, isPrivate, setIsPrivate}) {
                       <tr>
                         <td className="habitDetail__cell habitDetail-border">{habit.description}</td>
                         <td className="habitDetail__cell habitDetail-border">{habit.program.title}</td>
-                        <td className="habitDetail__cell habitDetail-border"><i className={`fas fa-2x fa-${habit.icon}`} /></td>
+                        <td className="habitDetail__cell habitDetail-border"><i className={`fas fa-2x fa-${icons[habit.iid].title}`} /></td>
                         <td className="habitDetail__cell habitDetail-border">{habit.frequency} Days</td>
                         <td className="habitDetail__cell habitDetail-border">{new Date(habit.created_at).toLocaleString()}</td>
                       </tr>

@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core'
 import UserContext from '../../context/UserContext';
 import OptionsContext from '../../context/OptionsContext'
-import { ActionOrCancelButtons, AddTitle, AddDescription, getColorId, getIconId } from './FormInputs'
+import { ActionOrCancelButtons, AddTitle, AddDescription } from './FormInputs'
 import ColorInput from '../mylib/ColorInput'
 import IconInput from '../mylib/IconInput'
 import ErrorMessages from '../mylib/ErrorMessages'
@@ -17,8 +17,8 @@ export default function FormWrapper({
   uniqueContent,
   resetUniqueInputs,
   uniqueInputs: UniqueInputs,
-  defaultColor,
-  defaultIcon,
+  defaultColorId,
+  defaultIconId,
   edit,
 }) {
   const user = useContext(UserContext)
@@ -26,8 +26,8 @@ export default function FormWrapper({
   const [errors, setErrors] = useState([])
   const [title, setTitle] = useState(edit ? edit.title : "")
   const [description, setDescription] = useState(edit ? edit.description : "")
-  const [colorId, setColorId] = useState(edit ? getColorId(colors, edit.color) : getColorId(colors, defaultColor))
-  const [iconId, setIconId] = useState(edit ? getIconId(icons, edit.icon) : getIconId(icons, defaultIcon))
+  const [colorId, setColorId] = useState(edit ? edit.cid : defaultColorId)
+  const [iconId, setIconId] = useState(edit ? edit.iid : defaultIconId)
   if (!UniqueInputs) UniqueInputs = () => (<></>)
   if (!resetUniqueInputs) resetUniqueInputs = () => null
 
@@ -37,7 +37,7 @@ export default function FormWrapper({
       method: edit ? "PATCH" : "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        title, description, color: colorId, icon: iconId, userId: user.id, ...uniqueContent
+        title, description, cid: colorId, iid: iconId, userId: user.id, ...uniqueContent
       })
     })
     const content = await res.json()
@@ -50,16 +50,16 @@ export default function FormWrapper({
       if (!edit) {
         setTitle("")
         setDescription("")
-        setColorId(getColorId(colors, defaultColor))
-        setIconId(getIconId(icons, defaultIcon))
+        setColorId(defaultColorId)
+        setIconId(defaultIconId)
         resetUniqueInputs()
       }
     }
   }
-
+if (!colorId) return null
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">{edit ? `Edit "${edit.title}" ${type} details` : `Add a new ${type}.`}</DialogTitle>
+      <DialogTitle id="form-dialog-title">{edit ? `Edit ${type}: "${edit.title}"` : `Create a ${type}`}</DialogTitle>
 
       <ErrorMessages errors={errors} />
 

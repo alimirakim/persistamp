@@ -5,12 +5,12 @@ import { ChooseLimit, ChooseQuantity, ChooseCost } from '../forms/FormInputs'
 import RewardShopContext from '../../context/RewardShopContext'
 
 
-export default function RewardForm({ open, handleClose }) {
-  const { program, dispatchCreateReward } = useContext(RewardShopContext)
+export default function RewardForm({ open, handleClose, cid, iid }) {
+  const { dispatchCreateReward } = useContext(RewardShopContext)
   const { pid } = useParams()
-  const [cost, setCost] = useState(7)
-  const [limit, setLimit] = useState(-1)
-  const [quantity, setQuantity] = useState(-1)
+  const [cost, setCost] = useState(5)
+  const [limit, setLimit] = useState("")
+  const [quantity, setQuantity] = useState("")
 
   const uniqueInputs = () => (<div className="lo-row">
     <ChooseCost cost={cost} setCost={setCost} />
@@ -19,9 +19,9 @@ export default function RewardForm({ open, handleClose }) {
   </div>)
   
   const resetUniqueInputs = (e) => {
-    setCost(7)
-    setLimit(-1)
-    setQuantity(-1)
+    setCost(5)
+    setLimit("")
+    setQuantity("")
   }
 
   if (!open) return null
@@ -36,8 +36,8 @@ export default function RewardForm({ open, handleClose }) {
       uniqueContent={{ cost, limit, quantity }}
       uniqueInputs={uniqueInputs}
       resetUniqueInputs={resetUniqueInputs}
-      defaultColor={program.color}
-      defaultIcon={program.icon}
+      defaultColorId={cid}
+      defaultIconId={iid}
     />
   )
 }

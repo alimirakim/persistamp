@@ -41,16 +41,17 @@ export default function App() {
       }
 
       const { colors_data, icons_data } = await fetch(`/api/options`).then(res => res.json())
-      setColors(colors_data)
-      console.log("color count", colors_data)
-      console.log("icon count", icons_data)
+      // console.log("color count", colors_data)
+      // console.log("icon count", icons_data)
       setIcons(icons_data)
+      setColors(colors_data)
       setLoaded(true)
     })()
   }, [])
-  useEffect(()=>console.log(icons), [icons])
 
-  if (!loaded) <LoadingPage />
+  if (!loaded) return <LoadingPage />
+  
+  if (!colors || !icons) return null
 
   return (
     <BrowserRouter>

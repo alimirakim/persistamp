@@ -51,10 +51,8 @@ def user_programs(uid):
     stamps_data = {}
     
     for program in user_programs:
-        print("programs_data")
-        pprint(user["membership_ids"])
         program_mids = [m.id for m in program.memberships]
-        mid = next(m for m in program_mids if m in user["membership_ids"])
+        mid = next(m for m in program_mids if m in user["mids"])
         for habit in program.habits:
             habits_data[habit.id] = habit.to_dict()
             
@@ -91,8 +89,8 @@ def update_user():
         user.first_name = form.data['firstname']
         user.last_name = form.data['lastname']
         user.birthday = form.data['birthday']
-        user.color_id = form.data['color']
-        user.icon_id = form.data['icon']
+        user.color_id = form.data['cid']
+        user.icon_id = form.data['iid']
         db.session.commit()
 
         return user.to_dict()

@@ -1,44 +1,63 @@
 /* program board card - habit row */
 
-.hbt-btn {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  color: rgba(0,0,0,0.7);
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  height: max-content;
+.habit-row {
+  position:relative;
+}
+.habit-header {
   width: 100%;
+  border-radius: 20px;
 }
 
+.habit-btns {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  width: 100%;
+  /* max-width: 12rem; */
+
+}
+.habit-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  border-radius: 5px;
+  height: 2.5rem;
+  white-space: nowrap;
+  width: 100%;
+}
 div.hbt-btn:hover, div.hbt-btn:active, div.hbt-btn:focus {
   border-radius: 1rem;
   color: rgb(0,0,0);
   /* padding: 0.7rem; */
 }
-
-.habit-row {
-  position:relative;
-  max-height: 10px;
-  overflow: hidden;
-  
-}
-.habit-header {
-  width: 100%;
-}
-
-.habit-btns {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  text-align: left;
-  width: 100%;
-  max-width: 12rem;
-  overflow: hidden;
+.habit-btn:hover {
+  background: rgba(0,0,0,0.2);
 }
 
 .habit-ico {
-  width: 1.2rem;
+  opacity: 0.8;
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px dotted;
+  border-radius: 50%;
+  flex-shrink: 0;
+  flex-grow: 0;
+  margin-right: 0.5rem;
+  background: none;
+}
+.habit-ico:hover {
+  transform: scale(1.2);
+  transition: all 0.1s ease;
+  background-color: rgba(0,0,0,0.2);
+}
+.habit-ico:focus {
+  outline: none;
+}
+.habit-ico:active {
+  color:white;
+  border-width: 2px;
 }
 
 .habit-title {
@@ -46,15 +65,27 @@ div.hbt-btn:hover, div.hbt-btn:active, div.hbt-btn:focus {
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-variant: small-caps;
   font-size: 0.8rem;
+  line-height: 0;
+  padding: 0 0.2rem;
+  margin-left: 0.2rem;
+  overflow: hidden;
 }
 .habit-freq {
-  top: -0.2rem;
-  left: 1.5rem;
-  position: absolute;
-  font: 0.4rem Roboto;
+  /* top: 0.7rem; */
+  /* left: 2.5rem; */
+  /* position: absolute; */
   color: rgba(255,255,255,0.5);
+  font: 0.4rem Roboto;
   text-transform: lowercase;
   letter-spacing: 0.1rem;
+  padding-left: 0.1rem;
+  /* height: 0.5rem; */
+  /* line-height: 0rem; */
+}
+.habit-title-txt {
+  line-height: 0.7rem;
+  /* position: absolute; */
+  /* bottom: 0.5rem; */
 }
 
 .habit-link:hover {
@@ -65,18 +96,4 @@ div.hbt-btn:hover, div.hbt-btn:active, div.hbt-btn:focus {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-}
-
-.habit-btn {
-  position: relative;
-  margin: 0;
-  padding: 0.2rem 0.5rem;
-  border-radius: 10px;
-  height: 2.5rem;
-  white-space: nowrap;
-  width: 100%;
-}
-
-.habit-btn:hover {
-  background: rgba(0,0,0,0.2);
 }

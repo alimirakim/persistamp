@@ -7,12 +7,23 @@
   bottom: 0;
   left: 0; */
   display: grid;
-  grid-template-columns: repeat(auto-fill, 1.5rem);
-  grid-auto-columns: 1.5rem;
-  grid-auto-rows: 1.5rem;
+  grid-template-columns: repeat(auto-fill, 2.5rem);
+  grid-template-rows: repeat(auto-fill, 2.5rem);
   grid-gap: 0.2rem;
-  justify-content: center;
-  align-content: center;
+  /* justify-content: center; */
+  /* align-content: center; */
+  min-height: 10rem;
+  height: 15rem;
+}
+.rbc-cat {
+  color: white;
+  font-family: Roboto;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  margin: 1rem 0 0;
+  font: normal 0.7rem Roboto, Calibri, sans-serif;
+  padding: 0.2rem;
+  border-bottom: 1px solid white;
 }
 
 .rbc-icon-con {
@@ -25,6 +36,7 @@
   border-radius: 0;
   align-content: start;
   width: 20rem;
+  border-bottom: 1px solid white;
 }
 
 /* radio-box-circle container (label) */
@@ -45,8 +57,8 @@
 /* radio-box-circle (span), create custom radio-box */
 .rbc-box {
   position: absolute;
-  height: 1.5rem;
-  width: 1.5rem;
+  height: 2.5rem;
+  width: 2.5rem;
   transition: all 0.2s ease;
 }
 
@@ -62,16 +74,16 @@
 }
 
 .rbc-image {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   border-radius: 15%;
 }
 
 /* Styling for foreground-checkmark-indicator variant */
 /* Create hidden check-icon */
 .rbc-checkmark {
+  font-size: 1.5rem;
   position: absolute;
   opacity: 0;
-  font-size: 0.8rem;
 }
 
 /* ON CHECK: Show checkmark-icon */

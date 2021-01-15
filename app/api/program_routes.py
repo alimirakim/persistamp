@@ -29,8 +29,8 @@ def create_program():
         program = Program(
             title=form.data["title"],
             description=form.data['description'],
-            color_id=form.data['color'],
-            icon_id=form.data["icon"],
+            color_id=form.data['cid'],
+            icon_id=form.data["iid"],
             creator_id=request.json['userId'],
         )
         db.session.add(program)
@@ -60,8 +60,8 @@ def edit_program(pid):
         program = Program.query.options(joinedload(Program.color), joinedload(Program.icon), joinedload(Program.creator)).get(pid)
         program.title = form.data['title']
         program.description = form.data['description']
-        program.color_id = form.data['color']
-        program.icon_id = form.data["icon"]
+        program.color_id = form.data['cid']
+        program.icon_id = form.data["iid"]
         
         db.session.commit()
 

@@ -15,7 +15,7 @@ export default function Redeemed({ reward, redeem }) {
           {new Date(redeem.redeemed_at).toLocaleString(undefined, { timeStyle: "short" })}
         </dd>
         <dt>Cost:</dt>
-        <dd>{reward.cost} <i className={`fas fa-${reward.icon}`}></i></dd>
+        <dd>{reward.cost} Points</dd>
       </dl>
     </article>
   )

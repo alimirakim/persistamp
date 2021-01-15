@@ -25,8 +25,8 @@ class Membership(db.Model):
         
         return {
           "id": self.id,
-          "program_id": self.program_id,
-          "member_id": self.member_id,
+          "pid": self.program_id,
+          "mid": self.member_id,
           "stamper_id": self.stamper_id,
           "points": self.points,
           "joined_at": self.joined_at,
@@ -37,7 +37,7 @@ class Membership(db.Model):
     def to_dict_for_program(self):
         """Return info on stamper, points, and joined_at for a Program."""
         return {
-          "membership_id": self.id,
+          "mid": self.id,
           "stamper_id": self.stamper_id,
           "points": self.points,
           "joined_at": self.joined_at,

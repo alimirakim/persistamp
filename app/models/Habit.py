@@ -32,9 +32,9 @@ class Habit(db.Model):
             "title": self.title,
             "description": self.description,
             "frequency": self.frequency,
-            "color": self.color.hex,
-            "icon": self.icon.title,
-            "program_id": self.program_id,
+            "cid": self.color_id,
+            "iid": self.icon_id,
+            "pid": self.program_id,
             "created_at": self.created_at,
             "private": self.private,
         }
@@ -64,11 +64,11 @@ class Habit(db.Model):
     def to_dict_for_user(self, user):
         """Return dict of Habit, including past week's stamps for User."""
         stamp_ids = self.week_stamps_for_user(user)
-        return {**self.to_dict(), "stamp_ids": stamp_ids}
+        return {**self.to_dict(), "sids": stamp_ids}
 
     def to_dict_for_user_details(self, user):
         """Return dict of Habit, including past week's stamps for User."""
         stamp_ids = self.all_stamps_for_user(user)
         habit_dict = self.to_dict()
         habit_dict["program"] = self.program.to_dict()
-        return {**habit_dict, "stamp_ids": stamp_ids}
+        return {**habit_dict, "sids": stamp_ids}

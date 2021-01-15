@@ -1,12 +1,16 @@
 
-import React, { useEffect, useState, useContext, useReducer } from 'react'
+import React, { useContext, } from 'react'
+import {useParams} from 'react-router-dom'
 import { Dialog, DialogTitle, DialogContent } from '@material-ui/core'
 
 import RewardShopContext from '../../context/RewardShopContext'
 import { ActionOrCancelButtons } from './FormInputs'
+import OptionsContext from '../../context/OptionsContext'
 
 
-export default function RedeemForm({ open, handleClose, reward, mid }) {
+export default function RedeemForm({ open, handleClose, reward }) {
+  const {mid} = useParams()
+  const { colors, icons } = useContext(OptionsContext)
   const { dispatchRedeemReward } = useContext(RewardShopContext)
 
   const onRedeem = async () => {
@@ -17,7 +21,7 @@ export default function RedeemForm({ open, handleClose, reward, mid }) {
   }
 
   if (!open) return null
-  
+
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Redeem Reward: "{reward.title}"</DialogTitle>
@@ -29,7 +33,9 @@ export default function RedeemForm({ open, handleClose, reward, mid }) {
           <dt>Quantity Remaining:</dt>
           <dd>{reward.quantity > -1 ? reward.quantity : "--"}</dd>
           <dt>Cost:</dt>
-          <dd style={{color: reward.color}}><i className={`fas fa-2x fa-${reward.icon}`}></i> {reward.cost}</dd>
+          <dd style={{ color: colors[reward.cid].hex }}>
+            <i className={`fas fa-2x fa-${icons[reward.iid].hex}`}></i> {reward.cost}
+          </dd>
         </dl>
         <ActionOrCancelButtons handleClose={handleClose} onAction={onRedeem} action={"Redeem"} />
       </DialogContent>

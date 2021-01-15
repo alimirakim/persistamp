@@ -1,14 +1,16 @@
 import React, { useState, useContext } from "react";
 import { Link, Redirect } from 'react-router-dom'
 
+import OptionsContext from '../../context/OptionsContext'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
 import HabitEditForm from '../forms/HabitEditForm'
 import HabitDeleteForm from '../forms/HabitDeleteForm'
 import StampBox from './StampBox'
-import { MiniEditButton, MiniDeleteButton } from '../forms/FormInputs'
+import { MiniEditButton } from '../forms/FormInputs'
 
 
 export default function HabitRow({ habit, program }) {
+  const { colors, icons } = useContext(OptionsContext)
   const { week } = useContext(ProgramBoardContext)
   const [openEdit, setOpenEdit] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
@@ -24,18 +26,24 @@ export default function HabitRow({ habit, program }) {
     <tr key={habit.id} className="habit-row">
       <td className="habit">
         {/* <MiniDeleteButton handleOpen={toggleDelete} /> */}
+        {/* <MiniEditButton handleOpen={toggleEdit} /> */}
         <div className="habit-btns">
-          <MiniEditButton handleOpen={toggleEdit} />
-              &nbsp;
-            <Link style={{ width: "100%" }} to={`/graphs/${habit.id}/memberships/${program.membership_id}`}>
+
+          {/* habit icon */}
+          <button className="habit-ico" onClick={toggleEdit} style={{ color: colors[program.cid].hex }}>
+            <i className={`lo-center fas fa-${icons[habit.iid].title}`}></i>
+          </button>
+
+          <Link className="habit-btn-con" to={`/graphs/${habit.id}/memberships/${program.mid}`}>
             <div className="habit-btn">
-              <div className="lo-center-y">
-                <i className={`habit-ico fas fa-${habit.icon}`} style={{color: "white"}}></i>
-                <span className="habit-title">
-                  <small className="habit-freq">{habit.frequency} / week</small>
-                &nbsp;{habit.title}
-                </span>
-              </div>
+
+
+              {/* habit title */}
+              <span className="habit-title">
+                <small className="habit-freq"> {habit.frequency} / wk</small>
+                <div className="habit-title-txt">{habit.title}</div>
+              </span>
+
             </div>
           </Link>
         </div>
@@ -44,7 +52,7 @@ export default function HabitRow({ habit, program }) {
         return <StampBox key={day}
           day={day}
           hid={habit.id}
-          mid={program.membership_id}
+          mid={program.mid}
         />
       })}
     </tr>

@@ -10,7 +10,7 @@ export default function Rewards() {
       <h2 className="rsp-title">Redeem Rewards</h2>
       <ul className="rsp-ul">
         {Object.values(rewards).map(reward => {
-          const redeemCount = Object.values(redeemed).filter(r => r.reward_id === reward.id).length
+          const redeemCount = Object.values(redeemed).filter(r => r.rew_id === reward.id).length
           return (
             <li key={reward.id} style={{ color: "black" }}>
               <RewardCard

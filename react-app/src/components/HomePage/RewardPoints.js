@@ -4,7 +4,7 @@ import { RewardShopButton } from '../forms/FormInputs'
 
 
 export default function RewardPoints({ program }) {
-  const rewardShopPath = `/programs/${program.id}/memberships/${program.membership_id}/rewards`
+  const rewardShopPath = `/programs/${program.id}/memberships/${program.mid}/rewards`
   const isInDebt = program.points < 0 ? "is-in-debt" : ""
   
   return (<>

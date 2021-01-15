@@ -5,4 +5,10 @@
   text-transform: uppercase;
   font: 0.6rem Calibri;
   line-height: 0rem;
+  width: 2rem;
+}
+
+.day-box {
+  width: 2rem;
+  margin: 0 2px;
 }

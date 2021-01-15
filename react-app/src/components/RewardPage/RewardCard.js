@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useParams } from 'react-router-dom'
+import OptionsContext from '../../context/OptionsContext'
 import RewardEditForm from '../forms/RewardEditForm'
 import RewardDeleteForm from '../forms/RewardDeleteForm'
 import RedeemForm from '../forms/RedeemForm'
@@ -8,6 +9,7 @@ import { EditButton } from '../forms/FormInputs'
 
 export default function RewardCard({ program, reward, redeemCount }) {
   const { mid } = useParams()
+  const {colors, icons} = useContext(OptionsContext)
   const [openEdit, setOpenEdit] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
   const [openRedeem, setOpenRedeem] = useState(false)
@@ -29,7 +31,7 @@ export default function RewardCard({ program, reward, redeemCount }) {
 
 
   return (
-    <article className="rsc th-shadow" style={{ backgroundColor: reward.color }}>
+    <article className="rsc th-shadow" style={{ backgroundColor: colors[reward.cid].hex }}>
 
       <RewardEditForm open={openEdit} handleClose={toggleEdit} reward={reward} handleOpenDelete={toggleDelete} />
       <RewardDeleteForm open={openDelete} handleClose={toggleDelete} reward={reward} />
@@ -45,10 +47,10 @@ export default function RewardCard({ program, reward, redeemCount }) {
         <dt>Quantity Remaining:</dt>
         <dd>{reward.quantity > -1 ? reward.quantity : "--"}</dd>
         {/* <dt>Cost:</dt> */}
-        {/* <dd>{reward.cost} <i className={`fas fa-${reward.icon}`}></i></dd> */}
+        {/* <dd>{reward.cost} <i className={`fas fa-${icons[reward.iid].title}`}></i></dd> */}
       </dl>
       <button onClick={toggleRedeem} className="rsp-btn" disabled={disabled}>
-        <span style={disabledStyle}>Redeem: <i className={`fas fa-lg fa-${program.icon}`}>&nbsp;{reward.cost}</i></span>
+        <span style={disabledStyle}>Redeem: <i className={`fas fa-lg fa-${icons[program.iid].title}`}>&nbsp;{reward.cost}</i></span>
       </button>
       <RedeemForm open={openRedeem} handleClose={toggleRedeem} reward={reward} mid={mid} />
     </article>

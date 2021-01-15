@@ -4,16 +4,16 @@ import ProgramBoardContext from '../../context/ProgramBoardContext'
 import {ChooseFrequency} from './FormInputs'
 
 
-export default function HabitForm({ open, handleClose, pid }) {
-  const { programs, dispatchCreateHabit } = useContext(ProgramBoardContext)
-  const [frequency, setFrequency] = useState(7)
+export default function HabitForm({ open, handleClose, pid, cid, iid }) {
+  const { dispatchCreateHabit } = useContext(ProgramBoardContext)
+  const [frequency, setFrequency] = useState(1)
   const updateFrequency = (e) => setFrequency(e.target.value)
 
   const uniqueInputs = () => (
     <ChooseFrequency frequency={frequency} updateFrequency={updateFrequency} />
   )
 
-  const resetUniqueInputs = (e) => setFrequency(7)
+  const resetUniqueInputs = (e) => setFrequency(1)
   
   if (!open) return null
   
@@ -27,8 +27,8 @@ export default function HabitForm({ open, handleClose, pid }) {
       uniqueContent={{frequency}}
       uniqueInputs={uniqueInputs}
       resetUniqueIniputs={resetUniqueInputs}
-      defaultColor={programs[pid].color}
-      defaultIcon={programs[pid].icon}
+      defaultColorId={cid}
+      defaultIconId={iid}
     />
   )
 }

@@ -1,20 +1,44 @@
 import React, { useState } from 'react'
 
 
+
 // IMPORTANT Repeat values causes confusion to input!! Remove all repeats
 export default function IconInput({ color, value, setValue, icons }) {
   const [open, setOpen] = useState(false)
 
+  const types = {
+    "People": [],
+    "Nature": [],
+    "Food": [],
+    "Places": [],
+    "Transport": [],
+    "Health": [],
+    "Technology": [],
+    "Items": [],
+    "Clothing": [],
+    "Communication": [],
+    "Furniture": [],
+    "Commerce": [],
+    "Tools": [],
+    "Activities": [],
+    "Time & Weather": [],
+    "Symbols": [],
+    "Moods": [],
+  }
+  
+  
   const toggleOpen = (e) => setOpen(!open)
   const handleChange = (e) => {
     setValue(e.target.value)
     toggleOpen()
   }
+  
+  Object.values(icons).forEach(icon => types[icon.type].push(icon.id))
 
   if (!icons) return null
+  console.log("ico ico", icons)
 
   return (<>
-
     <button
       onClick={toggleOpen}
       type="button"
@@ -25,22 +49,21 @@ export default function IconInput({ color, value, setValue, icons }) {
     </button>
 
     {open &&
-      <section className={`pop rbc rbc-icon-con th-dark-con lo-scrollbox-sml`}>
+      <section className={`pop rbc-icon-con th-dark-con lo-scrollbox-sml`}>
 
-        {Object.keys(icons).map((type, i) => (
+        {Object.keys(types).map((type, i) => (
           <section key={i}>
             {/* <h4 className="th-sleek">{category}</h4> */}
-            <div>
-              <h4>{type}</h4>
-              <hr />
-              {Object.values(icons[type]).map((icon, j) => (
+              <h4 className="rbc-cat">{type}</h4>
+            <div className="rbc">
+              {types[type].map((iid, j) => (
                 <label key={j} className="rbc-con">
-                  <span style={{ display: "none" }}>{icon.title}</span>
+                  <span style={{ display: "none" }}>{iid.title}</span>
 
                   <input
                     type="radio"
-                    value={icon.id}
-                    checked={value === icon.id}
+                    value={iid}
+                    checked={value === iid}
                     name="radio-button-image"
                     className="rbc-input"
                     onChange={handleChange}
@@ -48,10 +71,9 @@ export default function IconInput({ color, value, setValue, icons }) {
 
                   <span className="rbc-box rbc-image">
                     <i
-                      className={`fas fa-${icon.title} rbc-checkback lo-center`}
+                      className={`fas fa-${icons[iid].title} rbc-checkback lo-center`}
                       style={{ color: color, position: "absolute" }}
-                    >
-                    </i>
+                    />
                   </span>
                 </label>
               ))}

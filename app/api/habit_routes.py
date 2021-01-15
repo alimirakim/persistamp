@@ -24,7 +24,7 @@ def program_habits(pid):
 def habit_details(hid, mid):
     """Get a habit's details for a user, including recent history."""
     habit = Habit.query.get(hid)
-    program = program_schema.dump(Program.query.get(habit.to_dict()["program_id"]))
+    program = program_schema.dump(Program.query.get(habit.to_dict()["pid"]))
     habitWProgram = habit.to_dict()
     habitWProgram["program"] = program
     return habitWProgram
@@ -34,7 +34,7 @@ def habit_details(hid, mid):
 @habit_routes.route("/<int:hid>/switchPrivacy")
 def switchPrivacy(hid):
     habit = Habit.query.get(hid)
-    program = program_schema.dump(Program.query.get(habit.to_dict()["program_id"]))
+    program = program_schema.dump(Program.query.get(habit.to_dict()["pid"]))
 
     if habit.private:
         habit.private = False
@@ -57,8 +57,8 @@ def edit_habit(hid):
         habit.title = form.data["title"]
         habit.description = form.data['description']
         habit.frequency = form.data['frequency']
-        habit.color_id = form.data['color']
-        habit.icon_id = form.data["icon"]
+        habit.color_id = form.data['cid']
+        habit.icon_id = form.data["iid"]
         db.session.commit()
 
         return habit.to_dict_for_user(current_user)
@@ -84,8 +84,8 @@ def create_habit(pid):
             title=form.data['title'],
             description=form.data['description'],
             frequency=str(form.data['frequency']),
-            color_id=form.data['color'],
-            icon_id=form.data["icon"],
+            color_id=form.data['cid'],
+            icon_id=form.data["iid"],
             creator_id=request.json['userId'],
             program_id=pid,
         )

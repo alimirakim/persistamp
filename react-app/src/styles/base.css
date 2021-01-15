@@ -6,8 +6,13 @@ it probably belongs here. */
   box-sizing: border-box;
   /* outline: 1px dashed gray; */
 }
+html {
 
+  overflow-y: scroll !important;
+}
 body {
+  padding: 0 !important;
+  /* overflow-x: scroll !important; */
     /* background-image: url("../images/bgs/wooden-background.jpg"); */
     /* background-image: url("../images/bgs/03.jpg"); */
     /* background-image: url("../images/bgs/6.jpg"); */
@@ -43,7 +48,7 @@ table {
   margin: 0;
   padding: 1rem;
   text-align: center;
-  border-spacing: 0.2rem;
+  /* border-spacing: 0.2rem; */
 }
 
 a {
