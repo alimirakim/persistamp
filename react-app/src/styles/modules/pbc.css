@@ -8,14 +8,18 @@
   /* box-shadow: 0 0rem 2rem rgba(0,0,0,0.5); */
   border-width: 10px;
   overflow: hidden;
-  min-width: min-content;
+  min-width: 25rem;
+  width: 100%;
   /* transform: scale(0.5) */
+  margin-bottom: 0.5rem;
 }
 /* body screen */
 .pbc-body {
   position: relative;
   color: whitesmoke;
   background-color: rgba(0,0,0,0.5);
+  width: 100%;
+  min-height: 7rem;
 }
 
 /* background icon image */
@@ -24,7 +28,7 @@
   bottom: 0;
   left: 1rem;
   transform: rotate(20deg);
-  color: rgba(20,10,0, 0.1);
+  color: rgba(0,0,0, 0.1);
   overflow: hidden;
 }
 
@@ -90,5 +94,8 @@
 }
 
 .habit-btn-con {
-  width: 100%;
+  /* display: flex; */
+  overflow: hidden;
+  flex: auto;
+  min-width: 0;
 }

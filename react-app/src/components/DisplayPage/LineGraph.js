@@ -4,12 +4,11 @@ import { useParams } from 'react-router-dom'
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Label, Tooltip } from 'recharts';
 import OptionsContext from '../../context/OptionsContext'
 
-function LineGraph({ habit }) {
+function LineGraph({ color }) {
   const [dataPoints, setDataPoints] = useState([])
   const [toggleTime, setToggleTime] = useState("Weekly")
   const [xAxis, setXAxis] = useState("Week")
   const { hid, mid } = useParams()
-  const { colors, icons } = useContext(OptionsContext)
   // const user = useContext(UserContext)
 
   useEffect(() => {
@@ -28,14 +27,14 @@ function LineGraph({ habit }) {
       const newObj = await updateRes.json();
       setDataPoints(newObj)
       setToggleTime("Weekly")
-      setXAxis("Month")
+      setXAxis("MONTH")
       return
     }
     const updateRes = await fetch(`/api/habit-details/${hid}/memberships/${mid}/graph/${toggleTime}`)
     const newObj = await updateRes.json();
     setDataPoints(newObj)
     setToggleTime("Monthly")
-    setXAxis("Week")
+    setXAxis("WEEK")
     return
   }
 
@@ -44,25 +43,40 @@ function LineGraph({ habit }) {
 
   return (
     <>
-      <div className="lineGraphContainer">
-        <h3 className="lineGraphHeader" style={{ color: "#FFFFFF", fontFamily: "Arial" }}>Line Graph</h3>
+      <div className="lineGraphContainer hdp-graph">
+        {/* <h3 className="lineGraphHeader hdp-subtitle">Line Graph</h3> */}
         {/* <button className="lineGraphToggle" onClick={handleClick}>{toggleTime}</button> */}
         {/* <label for="toggle-select">Choose an interval</label> */}
-        <select onChange={handleClick} name="toggleInterval" id="toggle-select">
-          <option value="Weekly">Week</option>
-          <option value="Monthly">Month</option>
+        <select className="hdp-graph-select" onChange={handleClick} name="toggleInterval" id="toggle-select">
+          <option value="Weekly">WEEK</option>
+          <option value="Monthly">MONTH</option>
         </select>
-        <LineChart width={700} height={400} data={dataPoints.data} margin={{ bottom: 15, left: 25 }}>
-          <Line strokeWidth={3} type="monotone" dataKey="stamps" dot={{ strokeWidth: 2 }} stroke={colors[habit.cid].hex} />
+        <LineChart width={700} height={400} data={dataPoints.data} 
+        margin={{ bottom: 15, left: 25 }}>
+          <Line strokeWidth={5} type="monotone" 
+          dataKey="stamps" dot={{ strokeWidth: 2 }} stroke={color} />
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
 
-          <XAxis className="lineGraphLabels" dataKey="dates" stroke={colors[habit.cid].hex}>
-            <Label stroke="#ccc" value={xAxis.split("").join(" ")} offset={0} position="bottom" />
+          <XAxis className="lineGraphLabels" dataKey="dates" stroke={color}>
+            <Label
+              stroke={color}
+              value={xAxis.split("").join(" ")}
+              offset={0}
+              position="bottom"
+            />
           </XAxis>
-          <YAxis label={{ font: "Arial", stroke: "#ccc", value: 'S t a m p   C o u n t', angle: -90, position: "left" }}
+          <YAxis
+            className="hdp-graph-label"
+            label={{
+              stroke: color,
+              border: NamedNodeMap,
+              value: 'S T A M P  C O U N T',
+              angle: -90,
+              position: "left"
+            }}
             domain={dataPoints.yDomain}
             ticks={dataPoints.ticks}
-            stroke={colors[habit.cid].hex}
+            stroke={color}
             className="lineGraphLabels" />
           <Tooltip />
         </LineChart>

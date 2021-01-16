@@ -36,7 +36,7 @@ export default function StampBox({ day, mid, hid }) {
       status = "fulfilled"
     }
     setStampStatus(status)
-  }, [habits[hid].sids])
+  }, [habits[hid].sids, icon])
 
   const onStamp = (method) => async (ev) => {
     ev.preventDefault()
@@ -57,7 +57,7 @@ export default function StampBox({ day, mid, hid }) {
     <td style={{ color: colors[habits[hid].cid].hex, transform: `rotate(${transform}deg)`, transition: "none"}}>
       <form method="POST" onSubmit={onStamp(method)} className="stamp-spot" >
         <button className="stamp" type="submit">
-          <i className={`lo-center fas fa-lg fa-${icon}`} style={{ color }} ></i>
+          <i className={`lo-center fas fa-${icon}`} style={{ color }} ></i>
         </button>
       </form>
     </td>

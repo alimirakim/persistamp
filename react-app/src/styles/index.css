@@ -37,3 +37,5 @@
 @import url("modules/pbc-habit.css");
 @import url("modules/pbc-points.css");
 @import url("modules/pbc-stamp.css");
+/* habit display page */
+@import url("modules/hdp.css");

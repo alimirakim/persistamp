@@ -1,0 +1,94 @@
+/* habit display page */
+.hdp-con {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.hdp-thead {
+  color: black;
+  background: white;
+  font: 0.8rem Cambria, "Merienda One", Courgette, serif;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+
+.hdp-title {
+  font-variant: small-caps;
+}
+.hdp-desc {
+  font: italic 0.8rem Calibri;
+  
+}
+.hdp-date, .hdp-freq {
+  font-family: monospace;
+}
+.hdp-table {
+  position: absolute;
+  top: 0;
+  right: 2rem;
+  color: white;
+}
+
+.hdp-stats {
+  text-transform: uppercase;
+}
+.hdp-subtitle {
+  color: white;
+  text-transform: uppercase;
+  font: bold 1.5rem monospace, Calibri;
+  letter-spacing: 0.2rem;
+  margin: 0;
+}
+.hdp-stats-label {
+  text-transform: uppercase;
+  font: bold 1rem Calibri;
+  letter-spacing: 0.1rem;
+  border-bottom: 1px solid;
+}
+
+.hdp-toggle {
+  float: right;
+  color: white;
+  font: bold 0.8rem monospace, Calibri, sans-serif;
+  /* text-transform: uppercase; */
+}
+
+.hdp-graph-select {
+  color: white;
+  text-transform: uppercase;
+  margin: 0.5rem 0;
+  padding: 0.2rem 0.5rem;
+  border-left: none;
+  border-right: none;
+  width: max-content;
+  margin-left: 4rem;
+}
+.hdp-stats-content {
+  text-align: left;
+  border: 1px dotted;
+}
+.hdp-graph-label {
+  text-transform: uppercase;
+  
+}
+
+.hdp-cal {
+  font: 1.5rem Cambri serif;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  text-align: left;
+  position: absolute;
+  top: 0;
+  margin-left: 3rem;
+}
+
+dd {
+  display: inline-block;
+  font-size: 1rem;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-style: italic;
+  margin: 0;
+}

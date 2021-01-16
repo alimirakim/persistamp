@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
-import SplashContainer from './components/SplashPage/SplashContainer';
-import UserProfileCard from "./components/HomePage/UserProfileCard";
-// import UsersList from "./components/UsersList";
-// import User from "./components/UserPage";
-import Footer from "./components/Footer";
+
+// contexts
 import UserContext from './context/UserContext'
 import OptionsContext from './context/OptionsContext'
 import { ProgramBoardContextProvider } from "./context/ProgramBoardContext"
 import { RewardShopContextProvider } from './context/RewardShopContext'
 
+// components
+import SplashContainer from './components/SplashPage/SplashContainer';
+import NavCard from "./components/nav/NavCard";
+import User from "./components/UserPage";
+import Footer from "./components/nav/Footer";
 import AboutCard from './components/AboutCard'
 import HabitDisplay from './components/DisplayPage/HabitDisplay'
 import RewardShop from './components/RewardPage/RewardShop'
 import Homepage from './components/HomePage/Homepage'
 import LoadingPage from './components/LoadingPage'
 
-import './styles/index.css'
 
 export default function App() {
   const [auth, setAuth] = useState(false)
@@ -50,7 +51,7 @@ export default function App() {
   }, [])
 
   if (!loaded) return <LoadingPage />
-  
+
   if (!colors || !icons) return null
 
   return (
@@ -59,40 +60,33 @@ export default function App() {
       <UserContext.Provider value={user}>
         <OptionsContext.Provider value={{ colors, icons }}>
 
-          <Route path="/graphs/:hid/memberships/:mid" auth={auth} exact={true}>
-            <UserProfileCard auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
-            <HabitDisplay auth={auth} isPrivate={isPrivate} setIsPrivate={setIsPrivate}/>
-          </Route>
-
           <Route path="/" exact={true}>
             <SplashContainer auth={auth} setAuth={setAuth} setUser={setUser} />
           </Route>
-
-          <Route path="/about" exact={true}>
-            <UserProfileCard auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
-            <AboutCard />
-          </Route>
-
-          {/* <Route path="/users" exact={true} auth={auth}>
-            <UsersList />
-          </Route>
-
-          <Route path="/users/:uid" exact={true} auth={auth}>
-            <User />
-          </Route> */}
 
           <ProgramBoardContextProvider>
             <Route path="/" exact={true} auth={auth}>
               <Homepage auth={auth} setAuth={setAuth} setUser={setUser} />
             </Route>
+
+            <Route path="/habits/:hid/memberships/:mid" auth={auth} exact={true}>
+              <HabitDisplay auth={auth} isPrivate={isPrivate} setIsPrivate={setIsPrivate} />
+            </Route>
           </ProgramBoardContextProvider>
 
-          <RewardShopContextProvider>
-            <Route path="/programs/:pid/memberships/:mid/rewards" exact={true} auth={auth}>
-              <UserProfileCard auth={auth} setAuth={setAuth} user={user} setUser={setUser} />
-              <RewardShop auth={auth} />
-            </Route>
-          </RewardShopContextProvider>
+            <RewardShopContextProvider>
+              <Route path="/programs/:pid/memberships/:mid/rewards" exact={true} auth={auth}>
+                <RewardShop auth={auth} />
+              </Route>
+            </RewardShopContextProvider>
+
+          <Route path="/about" exact={true}>
+            <AboutCard auth={auth} setAuth={setAuth} />
+          </Route>
+
+          <Route path="/users/:uid" exact={true} auth={auth}>
+            <User />
+          </Route>
 
           <Footer />
 

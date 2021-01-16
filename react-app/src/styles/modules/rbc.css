@@ -12,9 +12,12 @@
   grid-gap: 0.2rem;
   /* justify-content: center; */
   /* align-content: center; */
+}
+.rbc-col {
   min-height: 10rem;
   height: 15rem;
 }
+
 .rbc-cat {
   color: white;
   font-family: Roboto;

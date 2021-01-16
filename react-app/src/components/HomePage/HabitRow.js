@@ -6,7 +6,6 @@ import ProgramBoardContext from '../../context/ProgramBoardContext'
 import HabitEditForm from '../forms/HabitEditForm'
 import HabitDeleteForm from '../forms/HabitDeleteForm'
 import StampBox from './StampBox'
-import { MiniEditButton } from '../forms/FormInputs'
 
 
 export default function HabitRow({ habit, program }) {
@@ -14,36 +13,43 @@ export default function HabitRow({ habit, program }) {
   const { week } = useContext(ProgramBoardContext)
   const [openEdit, setOpenEdit] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
+  const { dispatchEditHabit, dispatchDeleteHabit } = useContext(ProgramBoardContext)
 
   const toggleEdit = (e) => setOpenEdit(!openEdit)
   const toggleDelete = (e) => setOpenDelete(!openDelete)
 
   return (<>
 
-    <HabitEditForm open={openEdit} handleClose={toggleEdit} habit={habit} handleOpenDelete={toggleDelete} />
-    <HabitDeleteForm open={openDelete} handleClose={toggleDelete} habit={habit} />
+    <HabitEditForm
+      open={openEdit}
+      handleClose={toggleEdit}
+      habit={habit}
+      handleOpenDelete={toggleDelete}
+      dispatcher={dispatchEditHabit}
+    />
+    <HabitDeleteForm
+      open={openDelete}
+      handleClose={toggleDelete}
+      habit={habit}
+      dispather={dispatchDeleteHabit}
+    />
 
     <tr key={habit.id} className="habit-row">
       <td className="habit">
-        {/* <MiniDeleteButton handleOpen={toggleDelete} /> */}
-        {/* <MiniEditButton handleOpen={toggleEdit} /> */}
         <div className="habit-btns">
 
           {/* habit icon */}
-          <button className="habit-ico" onClick={toggleEdit} style={{ color: colors[program.cid].hex }}>
-            <i className={`lo-center fas fa-${icons[habit.iid].title}`}></i>
+          <button className="habit-ico" onClick={toggleEdit} style={{ color: colors[habit.cid].hex }}>
+            <i className={`lo-center fas fa-${icons[habit.iid].title}`} data-fa-transform="shrink-6" data-fa-mask="fas fa-circle"></i>
           </button>
 
-          <Link className="habit-btn-con" to={`/graphs/${habit.id}/memberships/${program.mid}`}>
+          <Link className="habit-btn-con" to={`/habits/${habit.id}/memberships/${program.mid}`} style={{ color: colors[habit.cid].hex }}>
             <div className="habit-btn">
-
-
               {/* habit title */}
               <span className="habit-title">
                 <small className="habit-freq"> {habit.frequency} / wk</small>
                 <div className="habit-title-txt">{habit.title}</div>
               </span>
-
             </div>
           </Link>
         </div>

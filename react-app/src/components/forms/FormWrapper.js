@@ -44,6 +44,7 @@ export default function FormWrapper({
     if (content.errors) {
       setErrors(content.errors)
     } else {
+      // console.log("content", content)
       handleClose()
       dispatcher(content)
       setErrors([])
@@ -56,7 +57,9 @@ export default function FormWrapper({
       }
     }
   }
+  
 if (!colorId) return null
+
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">{edit ? `Edit ${type}: "${edit.title}"` : `Create a ${type}`}</DialogTitle>

@@ -1,10 +1,11 @@
 import React from "react";
+import NavCard from './nav/NavCard'
 import blankPic from "../images/profiles/blank-profile-pic.png"
 import david from '../images/profiles/david-linkedin.jpg'
 import brian from '../images/profiles/brian-linkedin.jpg'
 import mira from '../images/profiles/mira-linkedin.jpg'
 
-function AboutCard() {
+function AboutCard({auth, setAuth}) {
   const renderLinks = (user) => {
     return (<>
       <div className=" about-card_a">
@@ -57,13 +58,16 @@ function AboutCard() {
       links: ["https://www.github.com/ELyda95"],
     },
   ];
-  return (<main>
+  return (<>
+    <NavCard auth={auth} setAuth={setAuth} />
+
+    <main>
       {/* <div className="AboutHeader th-cap-title th-metal">About Us</div> */}
       <div className="AboutContainer">
         {users.map(user => {
           return (
-            <div key={user.name[0]} 
-            className="th-border-thin th-border-gr th-border-metal th-dark-gr th-shadow AboutCardContainer" style={{ backgroundColor: "black", color: "black" }}>
+            <div key={user.name[0]}
+              className="th-border-thin th-border-gr th-border-metal th-dark-gr th-shadow AboutCardContainer" style={{ backgroundColor: "black", color: "black" }}>
               <div className="th-border th-border-gr th-border-metal">
                 <div className="about-img-border">
                   <div className="AboutCardImageContainer">
@@ -72,7 +76,7 @@ function AboutCard() {
                 </div>
                 <div className=" AboutCardDetailsContainer">
                   <h3 className="th-metal th-fancy-name">{user.name}</h3>
-                  <div className="th-hr-gr-fade-right"/>
+                  <div className="th-hr-gr-fade-right" />
                   {renderLinks(user)}
                 </div>
               </div>
@@ -90,7 +94,8 @@ function AboutCard() {
         </ul>
       </aside>
 
-  </main>)
+    </main>
+  </>)
 }
 
 export default AboutCard

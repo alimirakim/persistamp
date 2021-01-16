@@ -8,11 +8,10 @@ export default function ProgramBoard() {
 
 
   return (
-    <article>
-    {/* <article> */}
+    <article style={{marginTop: "1rem", display: "flex", flexDirection: "column", alignItems: "center"}}>
 
       <ul className="programBoards-container">
-        {Object.values(programs).map(program => (
+        {Array.from(Object.values(programs)).reverse().map(program => (
           <ProgramCard key={program.id} program={program} />
         ))}
       </ul>

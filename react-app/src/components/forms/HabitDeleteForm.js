@@ -1,11 +1,10 @@
-import React, { useContext } from 'react'
+import React, {useContext} from 'react'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
 import DeleteForm from './DeleteForm'
 
 
-export default function HabitDeleteForm({ open, handleClose, habit }) {
-  const { dispatchDeleteHabit } = useContext(ProgramBoardContext)
-
+export default function HabitDeleteForm({ open, handleClose, habit}) {
+const {dispatchDeleteHabit} = useContext(ProgramBoardContext)
   if (!open) return null
   
   return (

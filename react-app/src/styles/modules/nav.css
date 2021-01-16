@@ -35,10 +35,9 @@ nav.stickers {
 }
 
 .logo {
-  /* background-image: url("/icons/turtle.svg"); */
-  width: 1.2rem;
-  height: 1.2rem;
-  transition: transform 0.2s ease-in-out;
+  /* width: 1.5rem;
+  height: 1.5rem;
+  transform: scale(1.2); */
 }
 
 .sticker_home {

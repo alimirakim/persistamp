@@ -7,6 +7,7 @@ import RewardShopContext from '../../context/RewardShopContext'
 import Rewards from './Rewards'
 import RedeemedRewardsHistory from './RedeemedRewardsHistory'
 import RewardForm from '../forms/RewardForm'
+import NavCard from '../nav/NavCard'
 
 
 export default function RewardShop({ auth }) {
@@ -31,32 +32,23 @@ export default function RewardShop({ auth }) {
   if (!auth) <PrivatePage />
 
   if (!program.title || !rewards) return null
-  console.log("reward program", program)
   
   // Add/remove points
-  return (
-    <main className="rewardShop-container" style={{ color: colors[program.cid].hex }}>
-
+  return (<>
+      <NavCard auth={auth} program={program} />
+      <main className="rewardShop-container" style={{ color: colors[program.cid].hex }}>
       <div className="rsp">
-        <h1 className="cam">
-          <i className={`fas fa-${icons[program.iid].title}`}></i> {program.title} Reward Shop
-          </h1>
-
-        <h2>Your Points: <span style={{ fontSize: "3rem" }}>{program.points} <i className={`fas fa-${icons[program.iid].title}`}></i></span></h2>
-
-        <button onClick={toggleCreate} style={{ color: "rgba(0,0,0,0.5)", backgroundColor: colors[program.cid].hex, font: "bold uppercase 1.5rem Roboto", border: "none", borderRadius: "5px" }}>Add Reward</button>
 
         <RewardForm open={openCreate} handleClose={toggleCreate} cid={program.cid} iid={program.iid} />
 
         <div style={{ display: "flex", justifyContent: "space-around" }}>
 
           <Rewards />
-
           <RedeemedRewardsHistory redeemed={redeemed} />
 
         </div>
       </div>
 
     </main>
-  )
+  </>)
 }

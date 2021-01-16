@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 
-
 // IMPORTANT Repeat values causes confusion to input!! Remove all repeats
 export default function IconInput({ color, value, setValue, icons }) {
   const [open, setOpen] = useState(false)
@@ -25,18 +24,15 @@ export default function IconInput({ color, value, setValue, icons }) {
     "Symbols": [],
     "Moods": [],
   }
-  
+  Object.values(icons).forEach(icon => types[icon.type].push(icon.id))
   
   const toggleOpen = (e) => setOpen(!open)
   const handleChange = (e) => {
     setValue(e.target.value)
     toggleOpen()
   }
-  
-  Object.values(icons).forEach(icon => types[icon.type].push(icon.id))
 
   if (!icons) return null
-  console.log("ico ico", icons)
 
   return (<>
     <button

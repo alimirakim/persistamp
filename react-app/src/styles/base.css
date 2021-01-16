@@ -2,7 +2,7 @@
 it probably belongs here. */
 
 * {
-  transition: all ease 0.2s;
+  transition: all 0.1s ease;
   box-sizing: border-box;
   /* outline: 1px dashed gray; */
 }
@@ -14,7 +14,7 @@ body {
   padding: 0 !important;
   /* overflow-x: scroll !important; */
     /* background-image: url("../images/bgs/wooden-background.jpg"); */
-    /* background-image: url("../images/bgs/03.jpg"); */
+    background-image: url("../images/bgs/03.jpg");
     /* background-image: url("../images/bgs/6.jpg"); */
     /* background-image: url("../images/bgs/black-marble-patterned-texture-background-marble-thailand-abstract-natural-marble-black-white-design.jpg"); */
     /* background-image: url("../images/bgs/black-marble.jpg"); */
@@ -22,10 +22,10 @@ body {
     /* background-image: url("../images/bgs/gray-marble-textured-background-design.jpg"); */
     /* background-image: url("../images/bgs/painted_metal.jpg"); */
     /* background-image: url("../images/bgs/Wood-Walnut.jpg"); */
-    background-image: url("../images/bgs/Wood1.jpg");
+    /* background-image: url("../images/bgs/Wood1.jpg"); */
     /* background-image: url("../images/bgs/Wood2.jpg"); */
     background-size: cover;
-    
+    background-color: rgba(0,0,0,0.5);
     /* background-image: url("../images/bgs/seamless04.png"); */
     /* background-size: repeat; */
     height: 100%;
@@ -46,7 +46,7 @@ main {
 
 table {
   margin: 0;
-  padding: 1rem;
+  padding: 0.5rem;
   text-align: center;
   /* border-spacing: 0.2rem; */
 }

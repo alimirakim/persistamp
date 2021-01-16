@@ -1,18 +1,31 @@
 import React, { useContext } from 'react'
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import OptionsContext from '../../context/OptionsContext'
+import ProgramBoardContext from '../../context/ProgramBoardContext';
 import UserContext from '../../context/UserContext'
-import NavStamps from '../NavStamps'
+import NavStamps from './NavStamps'
 
-export default function UserProfileCard({ auth, setAuth, setUser }) {
-  const history = useHistory();
-  const {colors, icons} = useContext(OptionsContext)
+export default function NavCard({ 
+    auth, 
+    setAuth, 
+    setUser, 
+    setHabit, 
+    habit, 
+    program 
+  }) {
+  const history = useHistory()
+  const { hid, pid } = useParams()
+  const { colors, icons } = useContext(OptionsContext)
+  const {habits} = useContext(ProgramBoardContext)
   const user = useContext(UserContext)
   const birthday = user.birthday ? new Date(user.birthday).toLocaleString('en-EN', { year: 'numeric', month: 'long', day: 'numeric' }) : "N/A"
+  const path = history.location.pathname.split("/")
+  console.log("habits", habits)
 
   if (!user) return null
+
   return (
-    <article className="th-border-thin th-border-gr th-border-metal idc th-dark-gr" style={{ color: colors[user.cid].hex }}>
+    <header className="th-border-thin th-border-gr th-border-metal idc th-dark-gr" style={{ color: colors[user.cid].hex }}>
       <div className="th-border th-border-metal th-border-gr">
         <dl className="idc-data">
 
@@ -21,29 +34,40 @@ export default function UserProfileCard({ auth, setAuth, setUser }) {
 
           <div className="idc-title idc-line th-metal">
             {/* <dt className="idc-label"><i className="fas fa-address-card"></i> NAME</dt> */}
-            <dd className="idc-name">
-            
+            <h1 className="idc-name">
+
               {history.location.pathname === "/" && <>
-              <span className="idc-first">{user.first_name}</span> <span className="idc-last">{user.last_name}</span>
+                <span className="idc-first">{user.first_name}</span> 
+                <span className="idc-last">{user.last_name}</span>
               </>}
-              
+
               {history.location.pathname === "/about" && <>
-              <span className="idc-first">About</span> <span className="idc-last">Us</span>
+                <span className="idc-first">About</span> 
+                <span className="idc-last">Us</span>
               </>}
-              
-              {history.location.pathname === "/graphs/:hid/memberships/:mid" && <>
-              <span className="idc-first">{user.username}'s</span> <span className="idc-last">History</span>
+
+              {habit && <>
+                <span className="idc-habit">{habit.title}</span> 
+                <div className="idc-hh">Habit History</div>
               </>}
-              
-              {history.location.pathname === "/programs/:pid/memberships/:mid/rewards" && <>
-              <span className="idc-first">'s</span> <span className="idc-last">Reward Shop</span>
+
+              {program && <>
+                <span className="idc-program">{program.title}</span>
+                | 
+                <span className="idc-rew">Reward Shop</span>
               </>}
-              
+
               {/* <span class="th-metal-shade">&nbsp;</span> */}
-            </dd>
+            </h1>
             <div className="th-hr-gr-fade-left" />
           </div>
 
+{program &&
+              <div className="idc-line th-metal-light">
+                <dt className="idc-label"> <i className={`fas fa-${icons[program.iid].title}`}></i> Points</dt>
+                <dd>{program.points}</dd>
+              </div>
+}
           {/* {history.location.pathname === "/" &&
             <div className="idc-details">
               <div className="idc-line th-metal-light">
@@ -61,8 +85,15 @@ export default function UserProfileCard({ auth, setAuth, setUser }) {
             </div>
           } */}
         </dl>
-        <NavStamps auth={auth} setAuth={setAuth} setUser={setUser} />
+        <NavStamps 
+        auth={auth} 
+        setAuth={setAuth} 
+        setUser={setUser} 
+        setHabit={setHabit}
+        habit={habit} 
+        program={program} 
+        />
       </div>
-    </article>
+    </header>
   )
 }

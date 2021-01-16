@@ -2,19 +2,23 @@
 
 .habit-row {
   position:relative;
+  
 }
 .habit-header {
-  width: 100%;
-  border-radius: 20px;
+  border-radius: 5px;
+  /* border-bottom: 1px dotted; */
+  /* border-top: 1px dotted; */
+  margin-bottom: 0.5rem;
+}
+
+.habit-none {
+  font: italic 1rem Cambria, Georgia, serif;
 }
 
 .habit-btns {
   display: flex;
   align-items: center;
   text-align: left;
-  width: 100%;
-  /* max-width: 12rem; */
-
 }
 .habit-btn {
   position: relative;
@@ -22,17 +26,19 @@
   align-items: center;
   margin: 0;
   border-radius: 5px;
-  height: 2.5rem;
+  height: 2rem;
   white-space: nowrap;
-  width: 100%;
+  /* min-width: 8rem; */
+  border-bottom: 1px dotted;
+  opacity: 0.8;
+  overflow: hidden;
+  flex: auto;
+  min-width: 0;
 }
-div.hbt-btn:hover, div.hbt-btn:active, div.hbt-btn:focus {
-  border-radius: 1rem;
-  color: rgb(0,0,0);
-  /* padding: 0.7rem; */
-}
+
 .habit-btn:hover {
   background: rgba(0,0,0,0.2);
+  opacity: 1;
 }
 
 .habit-ico {
@@ -42,8 +48,7 @@ div.hbt-btn:hover, div.hbt-btn:active, div.hbt-btn:focus {
   height: 1.5rem;
   border: 1px dotted;
   border-radius: 50%;
-  flex-shrink: 0;
-  flex-grow: 0;
+  flex: none;
   margin-right: 0.5rem;
   background: none;
 }
@@ -51,24 +56,26 @@ div.hbt-btn:hover, div.hbt-btn:active, div.hbt-btn:focus {
   transform: scale(1.2);
   transition: all 0.1s ease;
   background-color: rgba(0,0,0,0.2);
+  border: 2px solid;
 }
 .habit-ico:focus {
   outline: none;
 }
 .habit-ico:active {
   color:white;
-  border-width: 2px;
 }
 
 .habit-title {
   color: whitesmoke;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: Calibri, Roboto, Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-variant: small-caps;
-  font-size: 0.8rem;
+  font-size: 1rem;
   line-height: 0;
-  padding: 0 0.2rem;
+  padding: 0 0.2rem 0.5rem;
   margin-left: 0.2rem;
   overflow: hidden;
+  flex: auto;
+  min-width: 0;
 }
 .habit-freq {
   /* top: 0.7rem; */
@@ -86,6 +93,9 @@ div.hbt-btn:hover, div.hbt-btn:active, div.hbt-btn:focus {
   line-height: 0.7rem;
   /* position: absolute; */
   /* bottom: 0.5rem; */
+  overflow: hidden;
+  flex: auto;
+  min-width: 0;
 }
 
 .habit-link:hover {
@@ -97,3 +107,4 @@ div.hbt-btn:hover, div.hbt-btn:active, div.hbt-btn:focus {
   top: 50%;
   transform: translateY(-50%);
 }
+* { min-width: 0; min-height: 0; }

@@ -23,7 +23,7 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
   justify-content: space-around;
 }
 .lo-third {
-  width: 30%;
+  width: 25%;
 }
 
 .pop {

@@ -1,8 +1,8 @@
 import React, { useState, useContext } from 'react';
 import { NavLink, Link, useHistory } from 'react-router-dom';
-import UserContext from '../context/UserContext';
-import UserSettings from './forms/UserSettings'
-import { logout } from "../services/auth";
+import UserContext from '../../context/UserContext';
+import UserSettings from '../forms/UserSettings'
+import { logout } from "../../services/auth";
 import turtle from '../images/turtle.svg'
 
 export default function NavBar({ auth, setAuth, setUser }) {

@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react'
 // OUR COMPONENTS
-import UserProfileCard from './UserProfileCard'
+import NavCard from '../nav/NavCard'
 import ProgramBoard from './ProgramBoard'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
 import UserContext from '../../context/UserContext'
 
-export default function Homepage({auth, setAuth, setUser}) {
+export default function Homepage({ auth, setAuth, setUser }) {
   const user = useContext(UserContext)
   const { dispatchSetAll } = useContext(ProgramBoardContext)
 
@@ -26,11 +26,12 @@ export default function Homepage({auth, setAuth, setUser}) {
 
   if (!auth) return null
   if (!user) return null;
-  
+
   return (<main>
     <div className="hbd">
-      <UserProfileCard auth={auth} setAuth={setAuth} setUser={setUser}/>
+      <NavCard auth={auth} setAuth={setAuth} setUser={setUser} />
       <ProgramBoard />
+      
     </div>
   </main>
   )

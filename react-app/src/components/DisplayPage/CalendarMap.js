@@ -11,6 +11,8 @@ export default function CalendarMap({ habit }) {
   const [calendarData, setCalendarData] = useState([])
   const {colors, icons} = useContext(OptionsContext)
   const { hid, mid } = useParams()
+  const color = habit.cid === 32 ? "white" : colors[habit.cid].hex
+  
   useEffect(() => {
     (async () => {
       let dataFetch = await fetch(`/api/habit-details/${hid}/calendar/${mid}`)
@@ -35,7 +37,7 @@ export default function CalendarMap({ habit }) {
   return (
     <>
       <div className="heatMapContainer">
-        <h3 className="heatMapHeader" style={{ color: "#FFFFFF", fontFamily: "Arial" }}>Calendar</h3>
+        <h3 className="heatMapHeader hdp-cal">Calendar</h3>
         <HeatMap
           xLabels={calendarData.xLabels}
           yLabels={calendarData.yLabels}
@@ -49,15 +51,15 @@ export default function CalendarMap({ habit }) {
               return {}
             }
             return {
-              background: `#000`,
-              fontSize: "11.5px",
+              background: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8))`,
+              fontSize: "12px",
               // color:`#000`
             }
           }}
           xLabelsLocation="top"
           cellRender={(value) => {
             if (value === 100) {
-              return <i className={`fas fa-${icons[habit.iid].title}`} style={{ color: colors[habit.cid].hex }} ></i>
+              return <i className={`fas fa-${icons[habit.iid].title}`} style={{ color }} ></i>
             }
             // } else if (value === 99) {
             //     return <i className={`fas fa-${icons[habit.iid].title}`} style={{color: "#444"}} ></i>

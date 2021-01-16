@@ -115,6 +115,7 @@ text-shadow: 3px 3px 2px rgba(0,0,0,0.8);
   left: -6rem;
   height: 110px;
   transform: rotate(25deg);
+  cursor: pointer;
 }
 .demoButton:hover {
   cursor: pointer;

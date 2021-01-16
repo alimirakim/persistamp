@@ -36,14 +36,11 @@
   font-variant: small-caps;
 }
 
-
-
-
 .idc-last {
   font-weight: bold;
 }
 
-dd {
+.idc-dd {
   display: inline-block;
   font-size: 0.8rem;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
