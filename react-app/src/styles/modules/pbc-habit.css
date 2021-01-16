@@ -11,9 +11,6 @@
   margin-bottom: 0.5rem;
 }
 
-.habit-none {
-  font: italic 1rem Cambria, Georgia, serif;
-}
 
 .habit-btns {
   display: flex;
@@ -101,10 +98,3 @@
 .habit-link:hover {
   background-color: rgba(0,0,0,0.2);
 }
-
-.lo-center-y {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
-* { min-width: 0; min-height: 0; }

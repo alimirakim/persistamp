@@ -89,7 +89,7 @@ const SignUpForm = ({auth, setAuth, setUser}) => {
           onChange={updateLastName}
           required
         />
-        <TextField
+        {/* <TextField
           id="birthday"
           label="Birthday"
           type="date"
@@ -98,7 +98,7 @@ const SignUpForm = ({auth, setAuth, setUser}) => {
           InputLabelProps={{
             shrink: true,
           }}
-        />
+        /> */}
           <TextField
             autoFocus
             defaultValue={username}

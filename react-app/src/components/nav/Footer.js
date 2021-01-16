@@ -21,12 +21,12 @@ let users = [
     shortname: "brian",
     //   image: brian,
   },
-  {
-    name: "Eric Lyda",
-    email: "lydaeric@gmail.com",
-    links: ["https://www.github.com/ELyda95"],
-    shortname: "eric",
-  },
+  // {
+  //   name: "Eric Lyda",
+  //   email: "lydaeric@gmail.com",
+  //   links: ["https://www.github.com/ELyda95"],
+  //   shortname: "eric",
+  // },
 ];
 
 const renderUser = (user) => {

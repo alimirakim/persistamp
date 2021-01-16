@@ -29,7 +29,8 @@
 }
 
 .idc-name {
-  padding-left: 3rem;
+  margin: 0;
+  text-align: right;
   font: 2rem Roboto;
   letter-spacing: 0.2rem;
   padding-bottom: 0.2rem;

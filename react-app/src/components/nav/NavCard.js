@@ -5,27 +5,61 @@ import ProgramBoardContext from '../../context/ProgramBoardContext';
 import UserContext from '../../context/UserContext'
 import NavStamps from './NavStamps'
 
-export default function NavCard({ 
-    auth, 
-    setAuth, 
-    setUser, 
-    setHabit, 
-    habit, 
-    program 
-  }) {
+export default function NavCard({
+  auth,
+  setAuth,
+  setUser,
+  habit,
+  program,
+  title,
+}) {
   const history = useHistory()
   const { hid, pid } = useParams()
   const { colors, icons } = useContext(OptionsContext)
-  const {habits} = useContext(ProgramBoardContext)
+  const { habits } = useContext(ProgramBoardContext)
   const user = useContext(UserContext)
   const birthday = user.birthday ? new Date(user.birthday).toLocaleString('en-EN', { year: 'numeric', month: 'long', day: 'numeric' }) : "N/A"
   const path = history.location.pathname.split("/")
   console.log("habits", habits)
 
-  if (!user) return null
+  if (!user) return (
+    <header
+      className="th-border-thin th-border-gr th-border-metal idc th-dark-gr"
+    >
+      <div className="th-border th-border-metal th-border-gr">
 
-  return (
-    <header className="th-border-thin th-border-gr th-border-metal idc th-dark-gr" style={{ color: colors[user.cid].hex }}>
+        <div className="idc-title idc-line th-metal">
+          <h1 className="idc-name">
+
+            {title && <>
+              <span className="idc-first">{title.first}</span>
+              <div className="th-hr-gr-fade-left" />
+              <span className="idc-last">{title.last}</span>
+            </>}
+
+            {history.location.pathname === "/about" && <>
+              <span className="idc-first">About</span>
+              <span className="idc-last">Us</span>
+              <div className="th-hr-gr-fade-left" />
+            </>}
+          </h1>
+        </div>
+        <NavStamps
+          auth={auth}
+          setAuth={setAuth}
+          setUser={setUser}
+          habit={habit}
+          program={program}
+        />
+      </div>
+    </header>
+  )
+
+  else return (
+    <header
+      className="th-border-thin th-border-gr th-border-metal idc th-dark-gr"
+      style={{ color: colors[user.cid].hex }}
+    >
       <div className="th-border th-border-metal th-border-gr">
         <dl className="idc-data">
 
@@ -37,37 +71,39 @@ export default function NavCard({
             <h1 className="idc-name">
 
               {history.location.pathname === "/" && <>
-                <span className="idc-first">{user.first_name}</span> 
+                <span className="idc-first">{user.first_name}</span>
+                <div className="th-hr-gr-fade-left" />
                 <span className="idc-last">{user.last_name}</span>
               </>}
 
               {history.location.pathname === "/about" && <>
-                <span className="idc-first">About</span> 
+                <span className="idc-first">About</span>
                 <span className="idc-last">Us</span>
+                <div className="th-hr-gr-fade-left" />
               </>}
 
               {habit && <>
-                <span className="idc-habit">{habit.title}</span> 
                 <div className="idc-hh">Habit History</div>
+                <div className="th-hr-gr-fade-left" />
+                <span className="idc-habit idc-last">{habit.title}</span>
               </>}
 
               {program && <>
-                <span className="idc-program">{program.title}</span>
-                | 
-                <span className="idc-rew">Reward Shop</span>
+                <span className="idc-program idc-first">{program.title}</span>
+                <div className="th-hr-gr-fade-left" />
+                <div className="idc-rew idc-last">Reward Shop</div>
               </>}
 
               {/* <span class="th-metal-shade">&nbsp;</span> */}
             </h1>
-            <div className="th-hr-gr-fade-left" />
           </div>
 
-{program &&
-              <div className="idc-line th-metal-light">
-                <dt className="idc-label"> <i className={`fas fa-${icons[program.iid].title}`}></i> Points</dt>
-                <dd>{program.points}</dd>
-              </div>
-}
+          {program &&
+            <div className="idc-line th-metal-light">
+              <dt className="idc-label"> <i className={`fas fa-${icons[program.iid].title}`}></i> Points</dt>
+              <dd>{program.points}</dd>
+            </div>
+          }
           {/* {history.location.pathname === "/" &&
             <div className="idc-details">
               <div className="idc-line th-metal-light">
@@ -85,13 +121,12 @@ export default function NavCard({
             </div>
           } */}
         </dl>
-        <NavStamps 
-        auth={auth} 
-        setAuth={setAuth} 
-        setUser={setUser} 
-        setHabit={setHabit}
-        habit={habit} 
-        program={program} 
+        <NavStamps
+          auth={auth}
+          setAuth={setAuth}
+          setUser={setUser}
+          habit={habit}
+          program={program}
         />
       </div>
     </header>

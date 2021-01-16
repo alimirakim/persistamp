@@ -17,9 +17,10 @@
 
 .day-box {
   margin-bottom: 1rem;
-  letter-spacing: 0.05rem;
   /* font-size: 0.8rem; */
   /* font-weight: bold; */
   font-family: monospace;
 }
-/* line-height: 0rem; */
+.day-num {
+  font-size: 0.5rem;
+}

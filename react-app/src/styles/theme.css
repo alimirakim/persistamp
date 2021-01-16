@@ -5,11 +5,14 @@ and font or adding drop shadows to certain modules.
 
 Naming convention: start with `th-`. EXAMPLE: th-bg-primary */
 
-.cam {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  margin: 0;
+.th-txt-shadow {
+  text-shadow: 2px 2px 2px black;
 }
 
+.msg-none {
+  font: italic 1.2rem Cambria, Georgia, serif;
+  color: white;
+}
 
 .th-cap-title {
   text-transform: uppercase;

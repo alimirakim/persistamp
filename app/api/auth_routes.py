@@ -63,13 +63,19 @@ def sign_up():
             first_name=form.data['first_name'],
             last_name=form.data['last_name'],
             birthday=birthday,
+            color_id=8,
+            icon_id=473,
         )
         program = Program(title="My Habits",
-                          creator=user,)
+                          creator=user,
+                          color_id=8,
+                          icon_id=473)
         habit = Habit(title="Smile :)",
             description="Keep up your good habits! You can do it!",
             program = program,
-            creator=user)
+            creator=user,
+            color_id=8,
+            icon_id=473)
         membership = Membership(program=program,
                             member=user,
                             stamper=user,)

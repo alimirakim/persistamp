@@ -4,7 +4,9 @@ it probably belongs here. */
 * {
   transition: all 0.1s ease;
   box-sizing: border-box;
-  /* outline: 1px dashed gray; */
+    /* outline: 1px dashed gray; */
+    /* min-width: 0;  */
+    /* min-height: 0; */
 }
 html {
 

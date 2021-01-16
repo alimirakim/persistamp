@@ -24,11 +24,15 @@ def program_habits(pid):
 def habit_details(hid, mid):
     """Get a habit's details for a user, including recent history."""
     habit = Habit.query.get(hid)
-    program = program_schema.dump(Program.query.get(habit.to_dict()["pid"]))
-    habitWProgram = habit.to_dict()
-    habitWProgram["program"] = program
-    return habitWProgram
-    # return habit.to_dict_for_user(current_user)
+    member = Membership.query.get(mid).member
+    # program = program_schema.dump(Program.query.get(habit.to_dict()["pid"]))
+    # habitWProgram = habit.to_dict()
+    # habitWProgram["program"] = program
+    # return habitWProgram
+    if habit:
+        print("\nmember", member)
+        return habit.to_dict_for_user_details(member)
+    return {'errors': ['User not found'] }, 404
 
 
 @habit_routes.route("/<int:hid>/switchPrivacy")

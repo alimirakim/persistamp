@@ -4,11 +4,6 @@ grids, floats, margins and padding, positioning, display types.
 
 Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
 
-
-* {
-  /* outline: 1px dashed gray; */
-}
-
 .overlay{
   position: fixed;
   width: 100%;
@@ -73,6 +68,17 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.lo-center-y {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.lo-center-x {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 
 /* Small box container */
 .lo-scrollbox-sml {

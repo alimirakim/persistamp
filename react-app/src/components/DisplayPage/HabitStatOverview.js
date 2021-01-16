@@ -30,9 +30,10 @@ export default function HabitStatOverview({ habit }) {
     <>
       {/* <ChakraProvider theme={customTheme}> */}
       <div className="statContainer hdp-stats">
-        {/* <h3 className="statOverview hdp-subtitle">
-        Statistics
-        </h3> */}
+        <h2 className="statOverview hdp-cal" style={{margin: "1rem 0 0", fontSize: "2.5rem", color: "white"}}>
+        {/* "{habit.title}" */}
+        Habit History
+        </h2>
         <StatGroup className="statGroup ">
           <Stat>
             <StatLabel className="hdp-stats-label">Score</StatLabel>

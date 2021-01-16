@@ -43,26 +43,34 @@ function LineGraph({ color }) {
 
   return (
     <>
-      <div className="lineGraphContainer hdp-graph">
         {/* <h3 className="lineGraphHeader hdp-subtitle">Line Graph</h3> */}
         {/* <button className="lineGraphToggle" onClick={handleClick}>{toggleTime}</button> */}
         {/* <label for="toggle-select">Choose an interval</label> */}
-        <select className="hdp-graph-select" onChange={handleClick} name="toggleInterval" id="toggle-select">
-          <option value="Weekly">WEEK</option>
-          <option value="Monthly">MONTH</option>
-        </select>
-        <LineChart width={700} height={400} data={dataPoints.data} 
-        margin={{ bottom: 15, left: 25 }}>
+
+        <LineChart padding={0} margin={0} width={600} height={400} data={dataPoints.data} >
           <Line strokeWidth={5} type="monotone" 
-          dataKey="stamps" dot={{ strokeWidth: 2 }} stroke={color} />
+          dataKey="stamps" dot={{ strokeWidth: 3, fill: "black" }} stroke={color} />
           <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
 
-          <XAxis className="lineGraphLabels" dataKey="dates" stroke={color}>
+          <XAxis 
+          className="lineGraphLabels" 
+          dataKey="dates" 
+          stroke={color}
+          label={{
+              stroke: color,
+              border: NamedNodeMap,
+              value: 'WEEK',
+              textShadow: "2px 2px 2px black",
+              margin: "1rem",
+            }}
+          >
             <Label
               stroke={color}
               value={xAxis.split("").join(" ")}
               offset={0}
               position="bottom"
+              textShadow="2px 2px 2px black"
+              
             />
           </XAxis>
           <YAxis
@@ -72,7 +80,9 @@ function LineGraph({ color }) {
               border: NamedNodeMap,
               value: 'S T A M P  C O U N T',
               angle: -90,
-              position: "left"
+              margin: "1rem",
+              // position: "left",
+              textShadow: "2px 2px 2px black",
             }}
             domain={dataPoints.yDomain}
             ticks={dataPoints.ticks}
@@ -80,7 +90,6 @@ function LineGraph({ color }) {
             className="lineGraphLabels" />
           <Tooltip />
         </LineChart>
-      </div>
     </>
   )
 }

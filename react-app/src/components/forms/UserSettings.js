@@ -34,8 +34,6 @@ export default function UserSettings({ open, handleClose, user, setUser }) {
 
   useEffect(() => {
     if (!user.errors && colors && icons) {
-      console.log("context", context)
-      console.log("user settings", user, "colors", colors, "icons", icons)
       setColorId(user.cid)
       setIconId(user.iid)
     }
@@ -58,6 +56,15 @@ export default function UserSettings({ open, handleClose, user, setUser }) {
       setErrors(updatedUser.errors)
     }
   }
+  
+  const checkKeyPress = (e) => {
+    console.log("enter", e.key)
+    if (e.key === "Enter") {
+      onUpdate(e)
+    } else if (e.key === "Esc") {
+      handleClose()
+    }
+  }
 
   if (!open) return null
 
@@ -68,7 +75,7 @@ export default function UserSettings({ open, handleClose, user, setUser }) {
       <ErrorMessages errors={errors} />
 
       <DialogContent>
-        <SetUsername username={username} setUsername={setUsername} />
+        <SetUsername username={username} setUsername={setUsername} checkKeyPress={checkKeyPress} />
         <UpdateFirstname firstname={firstname} setFirstname={setFirstname} />
         <UpdateLastname lastname={lastname} setLastname={setLastname} />
         <UpdateBirthday birthday={birthday} setBirthday={setBirthday} />

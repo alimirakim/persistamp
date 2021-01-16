@@ -3,7 +3,7 @@ import React, { createContext, useReducer } from 'react';
 import programBoardReducer, {
   setAll, setWeek,
   setPrograms, createProgram, editProgram, deleteProgram,
-  setHabits, createHabit, editHabit, deleteHabit,
+  setHabits, addHabit, createHabit, editHabit, deleteHabit,
   setStamps, stampDay, unstampDay,
 } from '../reducers/programBoardReducer'
 
@@ -24,6 +24,7 @@ export function ProgramBoardContextProvider(props) {
   const dispatchDeleteProgram = program => dispatch(deleteProgram(program))
 
   const dispatchSetHabits = habits => dispatch(setHabits(habits))
+  const dispatchAddHabit = habit => dispatch(addHabit(habit))
   const dispatchCreateHabit = habit => dispatch(createHabit(habit))
   const dispatchEditHabit = habit => dispatch(editHabit(habit))
   const dispatchDeleteHabit = habit => dispatch(deleteHabit(habit))
@@ -44,6 +45,7 @@ export function ProgramBoardContextProvider(props) {
     dispatchEditProgram,
     dispatchDeleteProgram,
     dispatchSetHabits,
+    dispatchAddHabit,
     dispatchCreateHabit,
     dispatchEditHabit,
     dispatchDeleteHabit,

@@ -33,13 +33,18 @@ export default function NavBar({ auth, setAuth, setUser }) {
         </button>
         <NavLink to="/about" className="sticker sticker_about" activeClassName="active">
           <i className="fas fa-info-circle"></i>
-      </NavLink>
+        </NavLink>
         <button onClick={onLogout} className="sticker sticker_logout" activeClassName="active">
           <i className="fas fa-door-open"></i>
-      </button>
+        </button>
       </nav>
 
-      <UserSettings open={settingsOpen} handleClose={handleSettingsClose} user={user} setUser={setUser} />
+      <UserSettings
+        open={settingsOpen}
+        handleClose={handleSettingsClose}
+        user={user}
+        setUser={setUser}
+      />
 
     </>)
   } else {

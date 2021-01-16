@@ -10,21 +10,6 @@ main {
   align-items: center;
 }
 
-.hbd > h1 {
-  font-size: 3rem;
-  margin-top: 1rem;
-  margin-bottom: 0;
-  font-family: Cambria;
-  font-style: italic;
-}
-
-.hbd > h2 {
-
-  margin-bottom: 2rem;
-  margin-top: 5rem;
-  font-size: 2rem;
-}
-
 li {
   break-inside: avoid-column;
   /* width: min-content; */

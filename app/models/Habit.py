@@ -37,6 +37,7 @@ class Habit(db.Model):
             "pid": self.program_id,
             "created_at": self.created_at,
             "private": self.private,
+            "program_title": self.program.title,
         }
 
     def week_stamps_for_user(self, user):
@@ -71,4 +72,4 @@ class Habit(db.Model):
         stamp_ids = self.all_stamps_for_user(user)
         habit_dict = self.to_dict()
         habit_dict["program"] = self.program.to_dict()
-        return {**habit_dict, "sids": stamp_ids}
+        return {**habit_dict, "sids": stamp_ids, "username": user.username}

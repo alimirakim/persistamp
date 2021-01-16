@@ -5,7 +5,7 @@ import david from '../images/profiles/david-linkedin.jpg'
 import brian from '../images/profiles/brian-linkedin.jpg'
 import mira from '../images/profiles/mira-linkedin.jpg'
 
-function AboutCard({auth, setAuth}) {
+function AboutCard({ auth, setAuth }) {
   const renderLinks = (user) => {
     return (<>
       <div className=" about-card_a">
@@ -20,7 +20,7 @@ function AboutCard({auth, setAuth}) {
             <i className="fab fa-linkedin-in fa-2x"></i>
           </a>
           :
-          <i className="fab fa-linkedin-in fa-2x grey-icon"></i>
+          <i />
         }
       </div>
     </>)
@@ -28,9 +28,15 @@ function AboutCard({auth, setAuth}) {
 
   const renderImage = (user) => {
     if (user.image) {
-      return <img className="about-img lo-center" src={user.image} alt="profile portrait" />
+      return (
+        <div className="about-img-border">
+          <div className="AboutCardImageContainer">
+            <img className="about-img lo-center" src={user.image} alt="profile portrait" />
+          </div>
+        </div>
+      )
     } else {
-      return <img className="about-img lo-center" src={blankPic} alt="profile portrait" />
+      return  <div style={{height: "5rem", float: "right"}} />
     }
   }
   let users = [
@@ -41,22 +47,22 @@ function AboutCard({auth, setAuth}) {
       image: mira,
     },
     {
-      name: "Brian Wang",
-      email: "brbwang@gmail.com",
-      links: ["https://www.github.com/Awodfkai", "https://www.linkedin.com/in/brian-wang-902373163"],
-      image: brian,
-    },
-    {
       name: "David Lee",
       email: "dyclee@umich.com",
       links: ["https://www.github.com/dyclee", "https://www.linkedin.com/in/daveyclee"],
       image: david,
     },
     {
-      name: "Eric Lyda",
-      email: "lydaeric@gmail.com",
-      links: ["https://www.github.com/ELyda95"],
+      name: "Brian Wang",
+      email: "brbwang@gmail.com",
+      links: ["https://www.github.com/Awodfkai", "https://www.linkedin.com/in/brian-wang-902373163"],
+      image: brian,
     },
+    // {
+    //   name: "Eric Lyda",
+    //   email: "lydaeric@gmail.com",
+    //   links: ["https://www.github.com/ELyda95"],
+    // },
   ];
   return (<>
     <NavCard auth={auth} setAuth={setAuth} />
@@ -69,11 +75,7 @@ function AboutCard({auth, setAuth}) {
             <div key={user.name[0]}
               className="th-border-thin th-border-gr th-border-metal th-dark-gr th-shadow AboutCardContainer" style={{ backgroundColor: "black", color: "black" }}>
               <div className="th-border th-border-gr th-border-metal">
-                <div className="about-img-border">
-                  <div className="AboutCardImageContainer">
-                    {renderImage(user)}
-                  </div>
-                </div>
+                {renderImage(user)}
                 <div className=" AboutCardDetailsContainer">
                   <h3 className="th-metal th-fancy-name">{user.name}</h3>
                   <div className="th-hr-gr-fade-right" />

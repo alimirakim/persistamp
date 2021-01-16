@@ -128,14 +128,17 @@ def getCalendarData(hid, mid):
     # print("GETTING SUNDAY============================", startDate)
     stampDates = []
     values = []
-    stamps = Stamp.query.filter(Stamp.habit_id == hid, Stamp.membership_id == mid, Stamp.date >= startDate, Stamp.date <= endDate).all()
+    stamps = Stamp.query.filter(Stamp.habit_id == hid, \
+        Stamp.membership_id == mid, \
+        Stamp.date >= startDate, \
+        Stamp.date <= endDate).all()
 
     for each in stamps:
         stampdata = stamp_schema.dump(each)
         values.append({ "date": stampdata["date"]})
         stampDates.append(stampdata["date"])
 
-    xLabels = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
+    xLabels = ["S", "M", "T", "W", "T", "F", "S"]
     yLabels = []
     yLabels.append(startObj.strftime("%b"))
     yArr = [[]]
@@ -143,11 +146,12 @@ def getCalendarData(hid, mid):
     yArrIndex = 0
 
     while startObj <= current_date:
+        print("\nday", startObj.strftime("%d"))
         if startObj.strftime("%Y-%m-%d") in stampDates:
-            yArr[yArrIndex].append(100)
+            yArr[yArrIndex].append({"val": 100, "day": startObj.strftime("%d")})
             # dateVals[yArrIndex].append(startObj.strftime("%d").lstrip("0").replace(" 0", " "))
         else:
-            yArr[yArrIndex].append(0)
+            yArr[yArrIndex].append({"val": 99, "day": startObj.strftime("%d")})
             # dateVals[yArrIndex].append(startObj.strftime("%d").lstrip("0").replace(" 0", " "))
 
         if len(yArr[yArrIndex]) == 7:
@@ -167,8 +171,8 @@ def getCalendarData(hid, mid):
         yLabels.pop(-1)
         if int(date.today().strftime("%d").lstrip("0").replace(" 0", " ")) < 8:
             yLabels.append(date.today().strftime("%b"))
-        else:
-            yLabels.append(date.today().strftime("%d").lstrip("0").replace(" 0", " "))
+        # else:
+            # yLabels.append(date.today().strftime("%d").lstrip("0").replace(" 0", " "))
 
     # print("XLABELS SWITCH", xLabels)
     # print("YLABELS SWITCH", yLabels)

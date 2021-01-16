@@ -9,10 +9,10 @@ import OptionsContext from '../../context/OptionsContext';
 
 export default function CalendarMap({ habit }) {
   const [calendarData, setCalendarData] = useState([])
-  const {colors, icons} = useContext(OptionsContext)
+  const { colors, icons } = useContext(OptionsContext)
   const { hid, mid } = useParams()
   const color = habit.cid === 32 ? "white" : colors[habit.cid].hex
-  
+
   useEffect(() => {
     (async () => {
       let dataFetch = await fetch(`/api/habit-details/${hid}/calendar/${mid}`)
@@ -47,23 +47,33 @@ export default function CalendarMap({ habit }) {
           squares
           height={30}
           cellStyle={(background, value, min, max, data, x, y) => {
-            if (value === 99) {
-              return {}
-            }
-            return {
-              background: `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8))`,
-              fontSize: "12px",
-              // color:`#000`
+            if (value.val == 99) {
+              return {
+                // background: "black",
+                background: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8))`,
+                fontSize: "12px",
+              }
+            } else {
+              return {
+                // background: "black",
+                background: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8))`,
+                // background: `${color}`,
+                fontSize: "12px",
+                // textShadow: "0 0 0",
+                // border: "1px dotted",
+                // color:`#000`
+              }
             }
           }}
           xLabelsLocation="top"
           cellRender={(value) => {
-            if (value === 100) {
+            const day = value.day
+            if (value.val === 100) {
               return <i className={`fas fa-${icons[habit.iid].title}`} style={{ color }} ></i>
+              // return <i className={`fas fa-${icons[habit.iid].title}`} style={{ color: "black" }} ></i>
+            } else {
+              return <i style={{ color: "#555" }} >{day}</i>
             }
-            // } else if (value === 99) {
-            //     return <i className={`fas fa-${icons[habit.iid].title}`} style={{color: "#444"}} ></i>
-            // }
           }}
 
         />

@@ -81,7 +81,7 @@ function HabitsOrMessage({ program, habits }) {
     )
   } else {
     return (
-      <p className="habit-none lo-center">This program has no habits yet.</p>
+      <p className="msg-none lo-center">This program has no habits yet.</p>
     )
   }
 }

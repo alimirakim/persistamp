@@ -29,6 +29,7 @@ export default function Homepage({ auth, setAuth, setUser }) {
 
   return (<main>
     <div className="hbd">
+    <h1 className="persistamp ">Persistamp</h1>
       <NavCard auth={auth} setAuth={setAuth} setUser={setUser} />
       <ProgramBoard />
       

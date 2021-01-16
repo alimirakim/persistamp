@@ -9,7 +9,6 @@ import { RewardShopContextProvider } from './context/RewardShopContext'
 
 // components
 import SplashContainer from './components/SplashPage/SplashContainer';
-import NavCard from "./components/nav/NavCard";
 import User from "./components/UserPage";
 import Footer from "./components/nav/Footer";
 import AboutCard from './components/AboutCard'
@@ -70,13 +69,13 @@ export default function App() {
             </Route>
 
             <Route path="/habits/:hid/memberships/:mid" auth={auth} exact={true}>
-              <HabitDisplay auth={auth} isPrivate={isPrivate} setIsPrivate={setIsPrivate} />
+              <HabitDisplay auth={auth} setAuth={setAuth}  isPrivate={isPrivate} setIsPrivate={setIsPrivate} />
             </Route>
           </ProgramBoardContextProvider>
 
             <RewardShopContextProvider>
               <Route path="/programs/:pid/memberships/:mid/rewards" exact={true} auth={auth}>
-                <RewardShop auth={auth} />
+                <RewardShop auth={auth} setAuth={setAuth} />
               </Route>
             </RewardShopContextProvider>
 
@@ -85,7 +84,7 @@ export default function App() {
           </Route>
 
           <Route path="/users/:uid" exact={true} auth={auth}>
-            <User />
+            <User auth={auth} setAuth={setAuth} />
           </Route>
 
           <Footer />

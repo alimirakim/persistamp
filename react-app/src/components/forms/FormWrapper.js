@@ -58,6 +58,15 @@ export default function FormWrapper({
     }
   }
   
+  const checkKeyPress = (e) => {
+    console.log("enter", e.key)
+    if (e.key === "Enter") {
+      onSubmit(e)
+    } else if (e.key === "Esc") {
+      handleClose()
+    }
+  }
+  
 if (!colorId) return null
 
   return (
@@ -67,7 +76,7 @@ if (!colorId) return null
       <ErrorMessages errors={errors} />
 
       <DialogContent>
-        <AddTitle title={title} setTitle={setTitle} />
+        <AddTitle title={title} setTitle={setTitle} checkKeyPress={checkKeyPress} />
         <AddDescription description={description} setDescription={setDescription} />
         <UniqueInputs />
         

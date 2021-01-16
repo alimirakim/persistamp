@@ -12,6 +12,7 @@ export const LEAVE_PROGRAM = 'LEAVE PROGRAM'
 export const RESET_PROGRAMS = 'RESET PROGRAMS'
 
 export const GET_USER_HABITS = 'GET USER HABITS'
+export const ADD_HABIT = 'ADD HABIT'
 export const CREATE_HABIT = 'CREATE HABIT'
 export const DELETE_HABIT = 'DELETE HABIT'
 export const EDIT_HABIT = 'EDIT HABIT'
@@ -35,6 +36,7 @@ export const deleteProgram = (program) => ({ type: DELETE_PROGRAM, program })
 export const resetPrograms = () => ({ type: RESET_PROGRAMS })
 
 export const setHabits = (habits) => ({ type: GET_USER_HABITS, habits })
+export const addHabit = (habit) => ({ type: ADD_HABIT, habit })
 export const createHabit = (habit) => ({ type: CREATE_HABIT, habit })
 export const editHabit = (habit) => ({ type: EDIT_HABIT, habit })
 export const deleteHabit = (habit) => ({ type: DELETE_HABIT, habit })
@@ -66,7 +68,6 @@ export default function programBoardReducer(state = {
     case DELETE_PROGRAM:
       // delete stamps, then habits, then program
       delete newState.programs[action.program.id]
-
       return newState
     case EDIT_PROGRAM:
       newState.programs[action.program.id] = action.program
@@ -75,6 +76,9 @@ export default function programBoardReducer(state = {
     // HABITS      
     case GET_USER_HABITS:
       return newState.actions = action.habits
+    case ADD_HABIT:
+        newState.habits[action.habit.id] = action.habit
+        return newState
     case CREATE_HABIT:
       newState.habits[action.habit.id] = action.habit
       // Add the habit id to its program hid list

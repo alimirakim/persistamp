@@ -40,6 +40,7 @@ export default function StampBox({ day, mid, hid }) {
 
   const onStamp = (method) => async (ev) => {
     ev.preventDefault()
+    console.log("time", new Date())
     const res = await fetch(stampPath, { method })
     const stamp = await res.json()
     if (method === "post") {

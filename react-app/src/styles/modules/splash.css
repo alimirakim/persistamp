@@ -92,6 +92,17 @@
   border-radius: 15px;
 }
 
+.persistamp {
+  position: absolute;
+  top: 1rem;
+  right: 2rem;
+  margin: 0;
+  font-size: 5rem;
+  color: white;
+  font-family: "Berkshire Swash", "Merienda One", Courgette, Meddon;
+  text-shadow: 3px 3px 2px rgba(0,0,0,0.8);
+  font-weight: normal;
+}
 
 /* header */
 .splashTitle {
@@ -99,15 +110,11 @@
   grid-row: 1;
   margin: 0 auto;
   padding: 10px;
-text-shadow: 3px 3px 2px rgba(0,0,0,0.8);
 }
 .splashHeader {
   position: relative;
-  margin: 0;
-  font-size: 5rem;
-  color: white;
-  font-family: "Berkshire Swash", "Merienda One", Courgette, Meddon;
 }
+
 .demoButton {
   z-index: 1;
   position: absolute;

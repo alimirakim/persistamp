@@ -27,6 +27,7 @@ const instructions = [
 
 export default function InstructionsContainer() {
   return (<>
+
     {instructions.map((obj) => {
       return <InstructionBox key={obj.number} obj={obj} />
     })}

@@ -17,7 +17,7 @@
 
 .lineGraphContainer {
   /* padding: 15px; */
-  margin: 30px;
+  /* margin: 30px; */
 }
 .lineGraphHeader {
   position: relative;
@@ -31,6 +31,7 @@
 } */
 .displayPage {
   position: relative;
+  height: 100%;
   /* left:100px; */
 }
 .displayFormat {
@@ -42,8 +43,9 @@
 
 }
 .habitFormat {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
+  align-content: flex-end; */
 }
 
 .habitDetailContainer {
@@ -73,7 +75,7 @@
 .habitDetail__table {
   /* margin: 20px; */
   table-layout: fixed;
-  width: 700px;
+  width: 600px;
 }
 .habitDetail-border {
     /* border: 1px solid; */
@@ -97,6 +99,7 @@ position: relative;
   /* padding-bottom: 40px;
   left: 60px; */
   /* width:400px; */
+  padding-left: 1rem;
 }
 .heatMapHeader {
   position: relative;
@@ -113,7 +116,7 @@ position: relative;
 .statContainer {
   position: relative;
   width: 650px;
-  left: 120px;
+  /* left: 120px; */
   /* margin: 25px; */
 }
 /* .statGroup {

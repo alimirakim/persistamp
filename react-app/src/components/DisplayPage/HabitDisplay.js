@@ -22,41 +22,24 @@ export default function HabitDisplay({ auth, setAuth, setUser, isPrivate, setIsP
   const history = useHistory()
   const { hid, mid } = useParams()
   const user = useContext(UserContext)
-  const { habits, programs, dispatchSetAll, dispatchCreateHabit, dispatchEditHabit } = useContext(ProgramBoardContext)
+  const { habits, programs, dispatchSetAll, dispatchAddHabit, dispatchEditHabit } = useContext(ProgramBoardContext)
   const habit = habits[hid]
   const { colors, icons } = useContext(OptionsContext)
 
-
   useEffect(() => {
-    if (!habit) {
+    if (!habit && programs) {
       (async () => {
         const res = await fetch(`/api/habits/${hid}/memberships/${mid}`)
         const fetchedHabit = await res.json()
-        if (fetchedHabit.pid && programs[fetchedHabit.pid]) {
-          dispatchCreateHabit(fetchedHabit)
-          setIsPrivate(fetchedHabit.private)
-        } else {
+        if (!fetchedHabit) {
           return history.push('/')
+        } else if (fetchedHabit.pid) {
+          dispatchAddHabit(fetchedHabit)
+          setIsPrivate(fetchedHabit.private)
         }
       })()
     }
-  }, [habit, mid, hid, isPrivate])
-
-  // Making sure to get all user's data if not retrieved already
-  useEffect(() => {
-    if (auth && !habits) {
-      (async () => {
-        const res = await fetch(`/api/users/${user.id}`, { headers: { 'Content-Type': 'application/json' } })
-        const content = await res.json();
-        dispatchSetAll({
-          week: content.past_week,
-          programs: content.programs_data,
-          habits: content.habits_data,
-          stamps: content.stamps_data,
-        })
-      })()
-    }
-  }, [user])
+  }, [habit, programs, mid, hid, isPrivate])
 
   const handleToggle = async (e) => {
     if (!auth) return;
@@ -69,6 +52,7 @@ export default function HabitDisplay({ auth, setAuth, setUser, isPrivate, setIsP
   if (!habit) return null
   if (habit.private && !auth) return <PrivatePage />
   const color = habit.cid === 32 ? "white" : colors[habit.cid].hex
+  const title = {first: habit.username, last: `"${habit.title}"`}
 
   return (<>
     <NavCard
@@ -76,11 +60,15 @@ export default function HabitDisplay({ auth, setAuth, setUser, isPrivate, setIsP
       setAuth={setAuth}
       setUser={setUser}
       habit={habit}
+      title={title}
     />
 
     <main>
-      {auth &&
+
+      <HabitTable habit={habit} color={color} icon={icons[habit.iid].title} />
+      {auth && <>
         <FormGroup className="hdp-toggle" row>
+          <div style={{ width: "100vw" }} />
           <FormControlLabel
             control={
               <Switch
@@ -93,15 +81,16 @@ export default function HabitDisplay({ auth, setAuth, setUser, isPrivate, setIsP
             label="Private"
           />
         </FormGroup>
-      }
+      </>}
 
-      <HabitTable habit={habit} color={color} icon={icons[habit.iid].title} />
 
       <article className="hdp-con" style={{ color }}>
+
         <div className="displayPage">
           <div className="displayFormat">
             <div className="habitFormat">
-            
+
+
               {/* <div className="habitDetailContainer"> */}
               {/* <br/> */}
               {/* <div className="habitHeader"> */}
@@ -112,7 +101,7 @@ export default function HabitDisplay({ auth, setAuth, setUser, isPrivate, setIsP
                     </h1> */}
               {/* </div> */}
               {/* </div> */}
-              
+
               <HabitStatOverview habit={habit} />
               <LineGraph color={color} />
             </div>

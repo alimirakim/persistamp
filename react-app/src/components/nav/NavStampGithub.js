@@ -7,6 +7,7 @@ export default function NavStampMessages({toggleMessage}) {
     <a href="https://github.com/alimirakim/persistamp"
       className="nav-stamp stamp_program"
       activeClassName="active"
+      target="_blank"
     >
       <div className="th-metal-light stamp-title">
       GitHub

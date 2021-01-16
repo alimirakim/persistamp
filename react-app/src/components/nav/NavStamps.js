@@ -4,6 +4,7 @@ import UserContext from '../../context/UserContext';
 import UserSettings from '../forms/UserSettings'
 import ProgramForm from '../forms/ProgramForm'
 import Message from '../forms/Message'
+// import NavStampJoin from './NavStampJoin'
 import NavStampHome from './NavStampHome'
 import NavStampAbout from './NavStampAbout'
 import NavStampLogout from './NavStampLogout'
@@ -40,7 +41,7 @@ export default function NavStamps({
   const toggleCreateProgram = (e) => setOpenCreateProgram(!openCreateProgram)
   const toggleSettings = (e) => setOpenSettings(!openSettings)
 
-  if (!auth || !user) return null
+  // if (!auth || !user) return null
   
   return (<>
     {habit && <>
@@ -64,17 +65,19 @@ export default function NavStamps({
       iid={program.iid}
     />}
 
+    {user &&
     <UserSettings
       open={openSettings}
       handleClose={toggleSettings}
       user={user}
       setUser={setUser}
-    />
+    />}
 
+    {user && 
     <ProgramForm
       open={openCreateProgram}
       handleClose={toggleCreateProgram}
-    />
+    />}
 
     <Message
       open={openMessage}
@@ -83,15 +86,16 @@ export default function NavStamps({
 
     <nav className="stamps">
 
-      {path === "/" && <NavStampProgram toggleCreate={toggleCreateProgram} />}
-      {habit && <NavStampHabit toggleEdit={toggleEditHabit} />}
+      {path === "/" && user && <NavStampProgram toggleCreate={toggleCreateProgram} />}
+      {habit && user && <NavStampHabit toggleEdit={toggleEditHabit} />}
       {program && <NavStampReward toggleCreate={toggleCreateReward} />}
-      {path == "/about" && <NavStampGithub />}
+      {(path == "/about" || !user) && <NavStampGithub />}
       <NavStampMessages toggleMessage={toggleMessage} />
       {path !== "/" && <NavStampHome />}
-      {path == "/" && <NavStampSettings toggleSettings={toggleSettings} />}
+      {path == "/" && user && <NavStampSettings toggleSettings={toggleSettings} />}
       <NavStampAbout />
-      <NavStampLogout setAuth={setAuth} />
+      {user && <NavStampLogout setAuth={setAuth} />}
+      {/* {!user && <NavStampJoin setAuth={setAuth} />} */}
 
     </nav>
 

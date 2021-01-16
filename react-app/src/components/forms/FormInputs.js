@@ -70,9 +70,10 @@ export function MiniDeleteButton({ handleOpen }) {
 
 
 export function ActionOrCancelButtons({ handleClose, onAction, action }) {
+
   return (
     <DialogActions>
-      <Button onClick={handleClose} color="primary">
+      <Button  onClick={handleClose} color="primary">
         Cancel
     </Button>
       <Button onClick={onAction} color="primary">
@@ -83,8 +84,9 @@ export function ActionOrCancelButtons({ handleClose, onAction, action }) {
 }
 
 
-export function AddTitle({ title, setTitle }) {
+export function AddTitle({ title, setTitle, checkKeyPress}) {
   const updateTitle = (e) => setTitle(e.target.value)
+  
   return (
     <TextField
       autoFocus
@@ -97,6 +99,7 @@ export function AddTitle({ title, setTitle }) {
       onChange={updateTitle}
       required
       maxLength={25}
+      onKeyPress={checkKeyPress}
     />
   )
 }
@@ -133,7 +136,7 @@ export function ChooseFrequency({ frequency, updateFrequency }) {
   </div>)
 }
 
-export function SetUsername({ username, setUsername }) {
+export function SetUsername({ username, setUsername, checkKeyPress }) {
   const updateUsername = (e) => setUsername(e.target.value)
   return (<>
     <TextField
@@ -144,6 +147,7 @@ export function SetUsername({ username, setUsername }) {
       label="Username"
       type="text"
       fullWidth
+      onKeyPress={checkKeyPress}
       onChange={updateUsername}
     />
   </>)
