@@ -18,7 +18,7 @@ export default function ProgramBoard() {
     <main style={{ marginTop: "1rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
 
       {con === "pbc-con-none" &&
-        <article className="msg-none lo-center th-txt-shadow">You have no programs yet.</article>
+        <article className="msg-none lo-center th-txt-shadow">You have no programs yet. Click the 'Add' stamp icon in the top-left to start a new one.</article>
       }
       
       <ul className={con}>

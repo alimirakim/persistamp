@@ -43,9 +43,9 @@ function LineGraph({ color }) {
 
   return (
     <>
-        <h3 className="lineGraphHeader hdp-subtitle">Line Graph</h3>
-        <button className="lineGraphToggle" onClick={handleClick}>{toggleTime}</button>
+        {/* <h3 className="lineGraphHeader hdp-subtitle">Line Graph</h3> */}
         <label for="toggle-select">Choose an interval</label>
+        <button className="lineGraphToggle" onClick={handleClick}>{toggleTime}</button>
 
         <LineChart padding={0} margin={0} width={600} height={400} data={dataPoints.data} >
           <Line strokeWidth={1} type="monotone" 

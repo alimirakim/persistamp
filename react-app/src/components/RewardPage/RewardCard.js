@@ -45,15 +45,15 @@ export default function RewardCard({ program, reward, redeemCount }) {
         <Divider icon={icons[reward.cid].title} />
         <blockquote className="pbc-desc">{reward.description ? `${reward.description}` : ""}</blockquote>
         <dl>
-          <dt>Limit Per Member:</dt>
-          <dd>{remainingRatio()}</dd>
-          <dt>Quantity Remaining:</dt>
-          <dd>{reward.quantity > -1 ? reward.quantity : "--"}</dd>
+          {/* <dt>Limit Per Member:</dt>
+          <dd>{remainingRatio()}</dd> */}
+          {/* <dt>Quantity Remaining:</dt>
+          <dd>{reward.quantity > -1 ? reward.quantity : "--"}</dd> */}
           {/* <dt>Cost:</dt> */}
           {/* <dd>{reward.cost} <i className={`fas fa-${icons[reward.iid].title}`}></i></dd> */}
         </dl>
         <button onClick={toggleRedeem} className="rsp-btn" disabled={disabled}>
-          <span style={disabledStyle}>Redeem: <i className={`fas fa-lg fa-${icons[program.iid].title}`}>&nbsp;{reward.cost}</i></span>
+          <span style={disabledStyle}>Redeem for <i className={`fas fa fa-${icons[program.iid].title}`}>&nbsp;{reward.cost}</i></span>
         </button>
         </div>
       </div>
