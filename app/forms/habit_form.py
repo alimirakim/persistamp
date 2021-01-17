@@ -1,12 +1,13 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, ValidationError
 from app.utils import colors, icons
+from .validators import title_char_count, desc_char_count
 
 
 class HabitForm(FlaskForm):
-    title = StringField(validators=[DataRequired()])
-    description = StringField()
+    title = StringField(validators=[DataRequired(), title_char_count])
+    description = StringField(validators=[desc_char_count])
     frequency = SelectField(validators=[DataRequired()], choices=range(1,8), default=7)
     cid = SelectField(validators=[DataRequired()], 
                         choices=range(1, len(colors)+1), 

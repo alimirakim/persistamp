@@ -2,11 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Dialog, DialogContent, DialogTitle, DialogActions, Button } from '@material-ui/core'
 
-export default function Message({
-  open,
-  handleClose,
-}) {
+export default function Message({open, handleClose}) {
 
+  
+  
   if (!open) return null
 
   return (

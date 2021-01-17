@@ -7,17 +7,16 @@
   bottom: 0;
   left: 0; */
   display: grid;
-  grid-template-columns: repeat(auto-fill, 2.5rem);
-  grid-template-rows: repeat(auto-fill, 2.5rem);
+  grid-template-columns: repeat(auto-fill, 2rem);
+  grid-template-rows: repeat(auto-fill, 2rem);
   grid-gap: 0.2rem;
   /* justify-content: center; */
   /* align-content: center; */
 }
 .rbc-col {
   min-height: 10rem;
-  height: 15rem;
 }
-
+/* style={{ display: "flex", borderBottom: "1px rgba(0,0,0,0.2) solid" }} */
 .rbc-cat {
   color: white;
   font-family: Roboto;
@@ -60,8 +59,8 @@
 /* radio-box-circle (span), create custom radio-box */
 .rbc-box {
   position: absolute;
-  height: 2.5rem;
-  width: 2.5rem;
+  height: 2rem;
+  width: 2rem;
   transition: all 0.2s ease;
 }
 
@@ -84,7 +83,7 @@
 /* Styling for foreground-checkmark-indicator variant */
 /* Create hidden check-icon */
 .rbc-checkmark {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   position: absolute;
   opacity: 0;
 }

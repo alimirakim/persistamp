@@ -3,14 +3,9 @@ import { NavLink } from 'react-router-dom';
 import turtle from '../../images/turtle-green.svg'
 import redTurtle from '../../images/turtle.svg'
 
-export default function NavStampHome({ auth, setAuth, setUser }) {
-  const [openCreate, setOpenCreate] = useState(false)
-
-  const toggleCreate = (e) => setOpenCreate(!openCreate)
-
+export default function NavStampHome() {
   return (
     <NavLink to="/"
-      onClick={toggleCreate}
       className=" nav-stamp stamp_logo"
       activeClassName="active"
     >

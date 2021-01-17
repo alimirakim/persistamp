@@ -7,12 +7,16 @@ export default function Rewards() {
 
   return (
     <article>
-      <h2 className="rsp-title">Redeem Rewards</h2>
+      <div className="th-fade-screen">
+        <h2 className="rsp-title th-metal">
+          Redeem Rewards
+      </h2>
+      </div>
       <ul className="rsp-ul">
         {Object.values(rewards).map(reward => {
           const redeemCount = Object.values(redeemed).filter(r => r.rew_id === reward.id).length
           return (
-            <li key={reward.id} style={{ color: "black" }}>
+            <li key={reward.id}>
               <RewardCard
                 reward={reward}
                 program={program}

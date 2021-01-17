@@ -3,6 +3,7 @@ from wtforms import StringField, DateField, SubmitField
 from wtforms.validators import DataRequired, Email, ValidationError
 from wtforms.widgets.html5 import (DateInput)
 from app.models import User
+from .validators import title_char_count
 
 
 def email_exists(form, field):
@@ -21,9 +22,9 @@ def username_exists(form, field):
 
 
 class SignUpForm(FlaskForm):
-    first_name = StringField(validators=[DataRequired()])
-    last_name = StringField(validators=[DataRequired()])
-    username = StringField(validators=[DataRequired(), username_exists])
+    first_name = StringField(validators=[DataRequired(), title_char_count])
+    last_name = StringField(validators=[DataRequired(), title_char_count])
+    username = StringField(validators=[DataRequired(), username_exists, title_char_count])
     birthday = StringField()
     # birthday = DateField(validators=[DateInput()])
 

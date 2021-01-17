@@ -10,45 +10,43 @@ import RewardForm from '../forms/RewardForm'
 import NavCard from '../nav/NavCard'
 
 
-export default function RewardShop({ auth }) {
+export default function RewardShop({ auth, setAuth }) {
   const { pid } = useParams()
-  const {colors, icons} = useContext(OptionsContext)
+  const { colors } = useContext(OptionsContext)
   const { program, rewards, redeemed, dispatchSetAll } = useContext(RewardShopContext)
   const [openCreate, setOpenCreate] = useState(false)
 
-
   const toggleCreate = (e) => setOpenCreate(!openCreate)
 
-
   useEffect(() => {
-    (async () => {
-      const res = await fetch(`/api/rewards/programs/${pid}`)
-      const { program_data, rewards_data, redeemed_data } = await res.json()
-      dispatchSetAll({ program: program_data, rewards: rewards_data, redeemed: redeemed_data })
-      // const { rewards_data, redeemed_data } = await fetch(`/api/rewards/programs/${pid}/users/${user.id}`).then(res => res.json())
-    })()
+    if (auth) {
+      (async () => {
+        const res = await fetch(`/api/rewards/programs/${pid}`)
+        const { program_data, rewards_data, redeemed_data } = await res.json()
+        dispatchSetAll({ program: program_data, rewards: rewards_data, redeemed: redeemed_data })
+        // const { rewards_data, redeemed_data } = await fetch(`/api/rewards/programs/${pid}/users/${user.id}`).then(res => res.json())
+      })()
+    }
   }, [])
 
-  if (!auth) <PrivatePage />
-
+  if (!auth) return <PrivatePage />
   if (!program.title || !rewards) return null
-  
+
   // Add/remove points
   return (<>
-      <NavCard auth={auth} program={program} />
-      <main className="rewardShop-container" style={{ color: colors[program.cid].hex }}>
-      <div className="rsp">
-
-        <RewardForm open={openCreate} handleClose={toggleCreate} cid={program.cid} iid={program.iid} />
-
-        <div style={{ display: "flex", justifyContent: "space-around" }}>
-
-          <Rewards />
-          <RedeemedRewardsHistory redeemed={redeemed} />
-
-        </div>
+    <NavCard auth={auth} setAuth={setAuth} program={program} />
+    <h2 className="persistamp">Reward Shop
+    <div className={`rsp-point-con ${program.points < 0 && "is-in-debt"}`}>
+        <span className="rsp-point-label">My Points: </span>
+        <span className="rsp-points">{program.points}</span>
       </div>
-
+    </h2>
+    <main className="" style={{ color: colors[program.cid].hex }}>
+      <RewardForm open={openCreate} handleClose={toggleCreate} cid={program.cid} iid={program.iid} />
+      <div className="rsp-con">
+        <Rewards />
+        <RedeemedRewardsHistory redeemed={redeemed} />
+      </div>
     </main>
   </>)
 }

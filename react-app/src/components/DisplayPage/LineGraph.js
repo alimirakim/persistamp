@@ -43,14 +43,14 @@ function LineGraph({ color }) {
 
   return (
     <>
-        {/* <h3 className="lineGraphHeader hdp-subtitle">Line Graph</h3> */}
-        {/* <button className="lineGraphToggle" onClick={handleClick}>{toggleTime}</button> */}
-        {/* <label for="toggle-select">Choose an interval</label> */}
+        <h3 className="lineGraphHeader hdp-subtitle">Line Graph</h3>
+        <button className="lineGraphToggle" onClick={handleClick}>{toggleTime}</button>
+        <label for="toggle-select">Choose an interval</label>
 
         <LineChart padding={0} margin={0} width={600} height={400} data={dataPoints.data} >
-          <Line strokeWidth={5} type="monotone" 
+          <Line strokeWidth={1} type="monotone" 
           dataKey="stamps" dot={{ strokeWidth: 3, fill: "black" }} stroke={color} />
-          <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
+          <CartesianGrid stroke="rgba(255,255,255,0.1)" />
 
           <XAxis 
           className="lineGraphLabels" 

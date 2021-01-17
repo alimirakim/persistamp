@@ -48,7 +48,7 @@ export default function ProgramCard({ program }) {
             <EditButton handleOpen={toggleEdit} />
           </div>
 
-          <RewardPoints program={program} />
+          <RewardPoints program={program} color={dark.hdr} />
 
         </header>
 

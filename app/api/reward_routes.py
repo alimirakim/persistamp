@@ -36,9 +36,8 @@ def program_rewards(pid):
 def create_reward(pid):
     form = RewardForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    
     check_exists = lambda x: x if x else -1
-    print('exists', form.data)
+    
     if form.validate():
         reward = Reward(title=form["title"].data,
                         type='custom',
@@ -62,14 +61,15 @@ def edit_reward(rid):
     """Edit a reward by id."""
     form = RewardForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    check_exists = lambda x: x if x else -1
     
     if form.validate():
         reward = Reward.query.options(joinedload(Reward.color), joinedload(Reward.icon)).get(rid)
         reward.title = form["title"].data
         reward.description = form["description"].data
         reward.cost = form["cost"].data
-        reward.quantity = form["quantity"].data
-        reward.limit_per_member = form["limit"].data
+        reward.quantity = check_exists(form["quantity"].data)
+        reward.limit_per_member = check_exists(form["limit"].data)
         reward.color_id = form["cid"].data
         reward.icon_id = form["iid"].data
         

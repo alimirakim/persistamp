@@ -5,11 +5,13 @@ import Redeemed from './Redeemed'
 
 export default function RedeemedRewardsHistory() {
   const { redeemed, rewards } = useContext(RewardShopContext)
-  const {colors, icons} = useContext(OptionsContext)
-  
+  const { colors, icons } = useContext(OptionsContext)
+
   return (
-    <article>
-      <h2 className="rsp-title">Reward History</h2>
+    <article className="rrh">
+        <h2 className="rsp-title" style={{color: "white"}}>
+          Reward History
+      </h2>
       <ul className="rsp-ul">
         {Object.values(redeemed).map(redeem => {
           return (

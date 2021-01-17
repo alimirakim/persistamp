@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 // OUR COMPONENTS
 import NavCard from '../nav/NavCard'
 import ProgramBoard from './ProgramBoard'
@@ -8,12 +8,24 @@ import UserContext from '../../context/UserContext'
 export default function Homepage({ auth, setAuth, setUser }) {
   const user = useContext(UserContext)
   const { dispatchSetAll } = useContext(ProgramBoardContext)
+  const [today, setToday] = useState(new Date().getDay())
+
+
+  useEffect(() => {
+    const stopId = setInterval(() => {
+    if (new Date().getDay() !== today) setToday(new Date().getDay())
+    }, 60000)
+    // TODO Check somehow that this cleanup does work
+    const stopInterval = () => clearInterval(stopId)
+    return stopInterval
+  }, [])
 
   useEffect(() => {
     if (!user.errors) {
       (async () => {
         const res = await fetch(`/api/users/${user.id}`, { headers: { 'Content-Type': 'application/json' } })
         const content = await res.json();
+        setToday(content.past_week[0][1])
         dispatchSetAll({
           week: content.past_week,
           programs: content.programs_data,
@@ -22,17 +34,16 @@ export default function Homepage({ auth, setAuth, setUser }) {
         })
       })()
     }
-  }, [user])
+  }, [user, today])
 
-  if (!auth) return null
-  if (!user) return null;
+  if (!auth || !user) return null;
 
   return (<main>
     <div className="hbd">
-    <h1 className="persistamp ">Persistamp</h1>
+      <h1 className="persistamp ">Persistamp</h1>
       <NavCard auth={auth} setAuth={setAuth} setUser={setUser} />
       <ProgramBoard />
-      
+
     </div>
   </main>
   )

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import {
   Button, TextField, DialogActions, InputLabel, MenuItem, Select
 } from '@material-ui/core'
-
+import CharCountIndicator from './utils/CharCountIndicator'
 
 export function IconButton({ onClick, icon }) {
   return (
@@ -73,7 +73,7 @@ export function ActionOrCancelButtons({ handleClose, onAction, action }) {
 
   return (
     <DialogActions>
-      <Button  onClick={handleClose} color="primary">
+      <Button onClick={handleClose} color="primary">
         Cancel
     </Button>
       <Button onClick={onAction} color="primary">
@@ -84,10 +84,12 @@ export function ActionOrCancelButtons({ handleClose, onAction, action }) {
 }
 
 
-export function AddTitle({ title, setTitle, checkKeyPress}) {
+
+export function AddTitle({ title, setTitle, checkKeyPress }) {
+
   const updateTitle = (e) => setTitle(e.target.value)
-  
-  return (
+
+  return (<>
     <TextField
       autoFocus
       defaultValue={title}
@@ -101,13 +103,14 @@ export function AddTitle({ title, setTitle, checkKeyPress}) {
       maxLength={25}
       onKeyPress={checkKeyPress}
     />
-  )
+    <CharCountIndicator length={title.length} maxLength={25} />
+  </>)
 }
 
 
 export function AddDescription({ description, setDescription }) {
   const updateDescription = (e) => setDescription(e.target.value)
-  return (
+  return (<>
     <TextField
       value={description}
       margin="dense"
@@ -117,7 +120,8 @@ export function AddDescription({ description, setDescription }) {
       fullWidth
       onChange={updateDescription}
     />
-  )
+    <CharCountIndicator length={description ? description.length : 0} maxLength={250} />
+  </>)
 }
 
 

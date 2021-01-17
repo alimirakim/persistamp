@@ -2,9 +2,10 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, SubmitField
 from wtforms.validators import DataRequired
 from app.utils import colors, icons
+from .validators import title_char_count, desc_char_count
 
 
-def validateDate():
+def validateDate(form, field):
     """Check that the string is a valid date."""
     pass
 

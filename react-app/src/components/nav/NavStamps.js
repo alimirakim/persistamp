@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
 import UserSettings from '../forms/UserSettings'
 import ProgramForm from '../forms/ProgramForm'
-import Message from '../forms/Message'
+import Message from './Message'
 // import NavStampJoin from './NavStampJoin'
 import NavStampHome from './NavStampHome'
 import NavStampAbout from './NavStampAbout'
@@ -18,8 +18,8 @@ import HabitEditForm from '../forms/HabitEditForm'
 import HabitDeleteForm from '../forms/HabitDeleteForm'
 import RewardForm from '../forms/RewardForm'
 
+
 export default function NavStamps({
-    auth,
     setAuth,
     setUser,
     habit,

@@ -6,23 +6,23 @@ export default function IconInput({ color, value, setValue, icons }) {
   const [open, setOpen] = useState(false)
 
   const types = {
-    "People": [],
+    "Symbols": [],
     "Nature": [],
+    "Time & Weather": [],
     "Food": [],
+    "Tools": [],
+    "Items": [],
+    "Technology": [],
+    "People": [],
+    "Activities": [],
+    "Health": [],
+    "Moods": [],
     "Places": [],
     "Transport": [],
-    "Health": [],
-    "Technology": [],
-    "Items": [],
-    "Clothing": [],
     "Communication": [],
+    "Clothing": [],
     "Furniture": [],
     "Commerce": [],
-    "Tools": [],
-    "Activities": [],
-    "Time & Weather": [],
-    "Symbols": [],
-    "Moods": [],
   }
   Object.values(icons).forEach(icon => types[icon.type].push(icon.id))
   

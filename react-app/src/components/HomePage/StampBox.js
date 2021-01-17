@@ -20,7 +20,7 @@ export default function StampBox({ day, mid, hid }) {
   const method = stampStatus === "stamped" ? "delete" : "post"
   const icon = stampStatus === "stamped" ? icons[habits[hid].iid].title : stampStatus === "fulfilled" ? "check" : "times"
   const color = stampStatus === "stamped" ? colors[habits[hid].cid].hex : "rgb(255,255,255,0.2)"
-  const stampId = habits[hid].sids.find(sid => stamps[sid].date === day[1])
+  const stampId = habits ? habits[hid].sids.find(sid => stamps[sid].date === day[1]) : ""
   const stampPath = `/api/stamps/${habits[hid].id}/programs/${habits[hid].pid}/memberships/${mid}/days/${day[1]}`
 
 

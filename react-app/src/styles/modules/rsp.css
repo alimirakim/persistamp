@@ -1,23 +1,46 @@
 /* Reward Shop Page */
-
-.rsp > h1 {
-  font-size: 3rem;
-  margin: 2rem;
-}
-
-.rsp-title {
-  border-bottom: 10px double;
-  margin: 0 1rem;
-  padding: 0.5rem;
-  border-radius: 1rem;
+.th-fade-screen {
+  width: max-content;
+  background: linear-gradient(90deg, rgba(0,0,0,0), black, rgba(0,0,0,0));
 }
 
 .rsp {
-  display: flex; 
+  /* display: flex; 
   flex-direction: column; 
   align-content: center; 
-  align-items: center;
+  align-items: center; */
 }
+.rsp-con {
+  display: flex;
+  
+}
+
+.rrh {
+  width: min-content;
+}
+
+.rsp-point-label {
+  font-size: 2rem;
+}
+.rsp-point-con {
+  line-height: 2rem;
+  text-align: right;
+  margin-right: 4rem;
+}
+.rsp-points {
+  line-height: 1rem;
+}
+
+.rsp-title {
+  /* border-bottom: 10px double; */
+  margin: 0 1rem;
+  padding: 0.5rem;
+  /* text-shadow: 2px 2px 2px black; */
+  /* background: black; */
+  font: 3rem "Berkshire Swash", "Merienda One", Courgette, Meddon;
+}
+
+
 
 .rsp-ul {
   display: flex;
@@ -26,9 +49,9 @@
 }
 
 .rsp-btn {
-  opacity: 0.7;
-  background-color: rgba(255,255,255);
-  border-radius: 1rem;
+  opacity: 0.77;
+  background-color: rgba(255,255,255,0.5);
+  /* border-radius: 1rem; */
   border-width: 0;
   margin: auto;
   width: 100%;
@@ -41,10 +64,41 @@
   opacity: 1;
 }
 
+.lo-top-left {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  visibility: hidden;
+}
+.th-inner-border:hover > .lo-top-left {
+  visibility: visible
+}
+
+.lo-align-cen {
+  text-align: center;
+  margin: 0;
+  font: 2rem "Berkshire Swash", "Merienda One", Courgette, Meddon;
+}
+.th-inner-border {
+  position: relative;
+  border: 7px double rgba(0,0,0,0.5);
+  padding: 1rem;
+}
+
 /* reward shop card */
 .rsc {
   padding: 1rem;
   margin: 1rem;
+  min-width: 20rem;
+  width: 30rem;
+  color: rgba(20,10,0,0.8);
+}
+dt {
+  font: small-caps bold 1rem Cambria, serif;
+  
+}
+dd {
+  padding-left: 1rem;
 }
 
 /* redeemed reward receipt */

@@ -12,6 +12,7 @@ Naming convention: start with `th-`. EXAMPLE: th-bg-primary */
 .msg-none {
   font: italic 1.2rem Cambria, Georgia, serif;
   color: white;
+  text-align: center;
 }
 
 .th-cap-title {

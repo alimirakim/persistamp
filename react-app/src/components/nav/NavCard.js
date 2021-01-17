@@ -20,7 +20,7 @@ export default function NavCard({
   const user = useContext(UserContext)
   const birthday = user.birthday ? new Date(user.birthday).toLocaleString('en-EN', { year: 'numeric', month: 'long', day: 'numeric' }) : "N/A"
   const path = history.location.pathname.split("/")
-  console.log("habits", habits)
+  // console.log("habits", habits)
 
   if (!user) return (
     <header
@@ -89,9 +89,9 @@ export default function NavCard({
               </>}
 
               {program && <>
-                <span className="idc-program idc-first">{program.title}</span>
+                <span className="idc-program idc-first">Membership</span>
                 <div className="th-hr-gr-fade-left" />
-                <div className="idc-rew idc-last">Reward Shop</div>
+                <div className="idc-rew idc-last">{program.title}</div>
               </>}
 
               {/* <span class="th-metal-shade">&nbsp;</span> */}
@@ -99,8 +99,8 @@ export default function NavCard({
           </div>
 
           {program &&
-            <div className="idc-line th-metal-light">
-              <dt className="idc-label"> <i className={`fas fa-${icons[program.iid].title}`}></i> Points</dt>
+            <div className="idc-line th-metal-light ">
+              <dt className="idc-label"> <i className={`fas fa-xs fa-${icons[program.iid].title}`}></i> Points</dt>
               <dd>{program.points}</dd>
             </div>
           }

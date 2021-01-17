@@ -7,14 +7,16 @@ from datetime import datetime
 class User(db.Model, UserMixin):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), nullable=False, unique=True)
-    first_name = db.Column(db.String(50), nullable=False)
-    last_name = db.Column(db.String(50))
-    email = db.Column(db.String(50), nullable=False, unique=True)
+    username = db.Column(db.String(25), nullable=False, unique=True)
+    first_name = db.Column(db.String(25), nullable=False)
+    last_name = db.Column(db.String(25))
+    email = db.Column(db.String(320), nullable=False, unique=True)
     color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)
     icon_id = db.Column(db.Integer, db.ForeignKey("icons.id"), nullable=False, default=1)
     birthday = db.Column(db.Date)
     hashed_password = db.Column(db.String(255), nullable=False)
+    # private = db.Column(db.Boolean, nullable=False, default=False)
+    # programs_order = db.Column(db.Array(db.Integer))
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     icon = db.relationship("Icon", backref="users")
@@ -66,7 +68,7 @@ class User(db.Model, UserMixin):
             "cid": self.color_id,
             "iid": self.icon_id,
             "pids": program_ids,
-            # "membership_ids": [m.id for m in self.memberships],
-            # "memberships": {m.id:m.to_dict() for m in self.memberships},
             "red_ids": [r.id for r in self.redeemed],
+            # "private": self.private,
+            # "programs_order": self.programs_order,
         }

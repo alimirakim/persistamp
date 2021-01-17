@@ -67,17 +67,20 @@ export default function FormWrapper({
     }
   }
   
+  
 if (!colorId) return null
 
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-      <DialogTitle id="form-dialog-title">{edit ? `Edit ${type}: "${edit.title}"` : `Create a ${type}`}</DialogTitle>
+      <DialogTitle id="form-dialog-title">
+      {edit ? `Edit ${type}: "${edit.title}"` : `Create a ${type}`}
+      </DialogTitle>
 
       <ErrorMessages errors={errors} />
 
-      <DialogContent>
-        <AddTitle title={title} setTitle={setTitle} checkKeyPress={checkKeyPress} />
-        <AddDescription description={description} setDescription={setDescription} />
+      <DialogContent  style={{minWidth: "25rem"}}>
+        <AddTitle title={title} setTitle={setTitle} setErrors={setErrors} checkKeyPress={checkKeyPress} />
+        <AddDescription description={description} setErrors={setErrors} setDescription={setDescription} />
         <UniqueInputs />
         
         <IconInput color={colors[colorId].hex} icons={icons} value={iconId} setValue={setIconId} />
