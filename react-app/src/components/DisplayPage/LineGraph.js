@@ -43,23 +43,28 @@ function LineGraph({ color }) {
 
   return (
     <>
-        {/* <h3 className="lineGraphHeader hdp-subtitle">Line Graph</h3> */}
-        <label for="toggle-select">Choose an interval</label>
-        <button className="lineGraphToggle" onClick={handleClick}>{toggleTime}</button>
+        <div className="toggleInterval">
+          <label for="toggle-select">Choose an interval</label>
 
+          <select onChange={handleClick} name="toggleInterval" id="toggle-select">
+              <option value="Weekly">Week</option>
+              <option value="Monthly">Month</option>
+          </select>
+        </div>
+        {/* <button className="lineGraphToggle" onClick={handleClick}>{toggleTime}</button> */}
         <LineChart padding={0} margin={0} width={600} height={400} data={dataPoints.data} >
-          <Line strokeWidth={1} type="monotone" 
+          <Line strokeWidth={1} type="monotone"
           dataKey="stamps" dot={{ strokeWidth: 3, fill: "black" }} stroke={color} />
           <CartesianGrid stroke="rgba(255,255,255,0.1)" />
 
-          <XAxis 
-          className="lineGraphLabels" 
-          dataKey="dates" 
+          <XAxis
+          className="lineGraphLabels"
+          dataKey="dates"
           stroke={color}
           label={{
               stroke: color,
               border: NamedNodeMap,
-              value: 'WEEK',
+              // value: 'WEEK',
               textShadow: "2px 2px 2px black",
               margin: "1rem",
             }}
@@ -70,7 +75,7 @@ function LineGraph({ color }) {
               offset={0}
               position="bottom"
               textShadow="2px 2px 2px black"
-              
+
             />
           </XAxis>
           <YAxis

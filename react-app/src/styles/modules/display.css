@@ -88,7 +88,15 @@ padding: 0.2rem;
 #toggle-select {
 background-color: black;
 position: relative;
+color: white;
 /* left: 630px; */
+}
+
+.toggleInterval {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 50px;
+  padding-top: 20px;
 }
 .heatMapContainer {
   display: flex;

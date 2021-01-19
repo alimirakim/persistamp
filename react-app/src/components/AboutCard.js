@@ -48,7 +48,7 @@ function AboutCard({ auth, setAuth }) {
     },
     {
       name: "David Lee",
-      email: "dyclee@umich.com",
+      email: "dyclee@umich.edu",
       links: ["https://www.github.com/dyclee", "https://www.linkedin.com/in/daveyclee"],
       image: david,
     },
