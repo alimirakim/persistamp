@@ -52,12 +52,12 @@ function AboutCard({ auth, setAuth }) {
       links: ["https://www.github.com/dyclee", "https://www.linkedin.com/in/daveyclee"],
       image: david,
     },
-    {
-      name: "Brian Wang",
-      email: "brbwang@gmail.com",
-      links: ["https://www.github.com/Awodfkai", "https://www.linkedin.com/in/brian-wang-902373163"],
-      image: brian,
-    },
+    // {
+    //   name: "Brian Wang",
+    //   email: "brbwang@gmail.com",
+    //   links: ["https://www.github.com/Awodfkai", "https://www.linkedin.com/in/brian-wang-902373163"],
+    //   image: brian,
+    // },
     // {
     //   name: "Eric Lyda",
     //   email: "lydaeric@gmail.com",

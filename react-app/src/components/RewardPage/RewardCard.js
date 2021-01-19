@@ -29,7 +29,7 @@ export default function RewardCard({ program, reward, redeemCount }) {
     return "--"
   }
 
-
+console.log("reward", reward)
   return (
     <article>
       <RewardEditForm open={openEdit} handleClose={toggleEdit} reward={reward} handleOpenDelete={toggleDelete} />
@@ -42,13 +42,15 @@ export default function RewardCard({ program, reward, redeemCount }) {
           <EditButton handleOpen={toggleEdit} />
         </div>
         <h3 className="lo-align-cen">{reward.title}</h3>
-        <Divider icon={icons[reward.cid].title} />
+        
+        <Divider icon={icons[reward.iid].title} />
+        
         <blockquote className="pbc-desc">{reward.description ? `${reward.description}` : ""}</blockquote>
         <dl>
-          {/* <dt>Limit Per Member:</dt>
-          <dd>{remainingRatio()}</dd> */}
-          {/* <dt>Quantity Remaining:</dt>
-          <dd>{reward.quantity > -1 ? reward.quantity : "--"}</dd> */}
+          <dt>Limit Per Member:</dt>
+          <dd>{remainingRatio()}</dd>
+          <dt>Quantity Remaining:</dt>
+          <dd>{reward.quantity > -1 ? reward.quantity : "--"}</dd>
           {/* <dt>Cost:</dt> */}
           {/* <dd>{reward.cost} <i className={`fas fa-${icons[reward.iid].title}`}></i></dd> */}
         </dl>

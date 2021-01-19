@@ -34,17 +34,19 @@
 }
 
 .ico-btn {
+  position: relative;
   width: 2.2rem;
   height: 2.2rem;
   border-radius: 10px; 
   border: 0;
   color: rgba(20,10,0,0.8);
-  background-color: rgba(255,255,255,0.7);
+  background-color:transparent;
 }
 
 .ico-btn:hover, .ico-btn:active {
+  /* background-color: rgba(255,255,255,0.7); */
   color: rgba(20,10,0,1);
-  background-color: rgba(255,255,255,1);
+  /* background-color: rgba(255,255,255,1); */
   transform: scale(1.2);
 }
 

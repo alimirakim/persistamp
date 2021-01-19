@@ -5,6 +5,22 @@ and font or adding drop shadows to certain modules.
 
 Naming convention: start with `th-`. EXAMPLE: th-bg-primary */
 
+.pbc-hdr.th-dark-mode, 
+.ico-btn > .th-dark-mode,
+.point-title.th-dark-mode {
+  color: rgba(255,255,255,0.8);
+}
+
+.pbc-body.th-dark-mode {
+  background-color: rgba(255,255,255,0.2);
+}
+.pbc-bg-ico.th-dark-mode {
+  color: black;
+}
+
+
+
+
 .th-txt-shadow {
   text-shadow: 2px 2px 2px black;
 }

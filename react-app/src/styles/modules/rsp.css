@@ -73,6 +73,9 @@
 .th-inner-border:hover > .lo-top-left {
   visibility: visible
 }
+.white {
+  color: white;
+}
 
 .lo-align-cen {
   text-align: center;

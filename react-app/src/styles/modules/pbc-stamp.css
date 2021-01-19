@@ -1,27 +1,19 @@
 /* program board card - stamp */
 
 .stamp-spot {
-  border: 2px solid rgba(0,0,0,0.3);
-  border-radius: 50%;
-  padding: 0;
-  height: 2rem;
-  width: 2rem;
-  flex: none;
-}
-.stamp {
   position: relative;
-  margin: 3px;
-  border-radius: 50%;
-  border: 0;
-  height: 1.5rem;
-  width: 1.5rem;
-  font-size: 1rem;
-  transform-origin: bottom right;
-  /* background-color: rgba(255,255,255,0.5); */
   background-color: rgba(0,0,0,0.2);
-  outline: none;
+  border-radius: 50%;
+  border: 6px double rgba(255,255,255,0.1);
+  /* border: 5px double rgba(0,0,0,0.2); */
+  width: 2rem;
+  height: 2rem;
+  flex: none;
 }
 
 .stamp-spot:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.stamp-spot:active {
+  background-color: rgba(255, 255, 255, 1);
 }

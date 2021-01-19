@@ -6,7 +6,7 @@ export default function ErrorMessages({ errors }) {
     <div>
       {errors.map(error => {
         console.log(error)
-        return <div className='err'>{error}</div>
+        return <div key={error} className='err'>{error}</div>
       })}
     </div>
   )

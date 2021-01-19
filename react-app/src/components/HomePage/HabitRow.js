@@ -34,7 +34,6 @@ export default function HabitRow({ habit, program }) {
       dispather={dispatchDeleteHabit}
     />
 
-    <tr key={habit.id} className="habit-row">
       <td className="habit">
         <div className="habit-btns">
 
@@ -61,6 +60,5 @@ export default function HabitRow({ habit, program }) {
           mid={program.mid}
         />
       })}
-    </tr>
   </>)
 }

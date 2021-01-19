@@ -44,20 +44,20 @@
 }
 
 .footer-user_name {
-  border-bottom: 1px solid;
+  /* border-bottom: 1px solid; */
   padding: 0.1rem 1rem;
   text-align: center;
   font-size: 0.7rem;
   white-space: nowrap;
 }
 
-
+/* 
 .footer-mira {
   color: salmon;
 }
 .footer-david {
   color: khaki;
-}
+} */
 .footer-david ~ .footer-links > a:hover {
   color: khaki;
 }

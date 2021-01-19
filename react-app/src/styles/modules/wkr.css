@@ -12,6 +12,7 @@
   font: 0.7rem Calibri;
   width: 2rem;
   text-align: center;
+  flex: none;
   
 }
 
@@ -20,6 +21,7 @@
   /* font-size: 0.8rem; */
   /* font-weight: bold; */
   font-family: monospace;
+  flex: none;
 }
 .day-num {
   font-size: 0.5rem;

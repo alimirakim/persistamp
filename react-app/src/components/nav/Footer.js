@@ -14,13 +14,13 @@ let users = [
     shortname: "david",
     //   image: david,
   },
-  {
-    name: "Brian Wang",
-    email: "brbwang@gmail.com",
-    links: ["https://www.github.com/Awodfkai", "https://www.linkedin.com/in/brian-wang-902373163"],
-    shortname: "brian",
-    //   image: brian,
-  },
+  // {
+  //   name: "Brian Wang",
+  //   email: "brbwang@gmail.com",
+  //   links: ["https://www.github.com/Awodfkai", "https://www.linkedin.com/in/brian-wang-902373163"],
+  //   shortname: "brian",
+  //   //   image: brian,
+  // },
   // {
   //   name: "Eric Lyda",
   //   email: "lydaeric@gmail.com",

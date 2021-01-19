@@ -8,7 +8,7 @@ import CharCountIndicator from './utils/CharCountIndicator'
 export function IconButton({ onClick, icon }) {
   return (
     <button className="ico-btn" onClick={onClick}>
-      <i className={`fas fa-lg fa-${icon}`}></i>
+      <i className={`lo-center fas fa-lg fa-${icon}`}></i>
     </button>
   )
 }
@@ -17,38 +17,39 @@ export function DeleteButton({ switchForms }) {
   return (
     <div>
       <button onClick={switchForms} className="del-btn">
-        <i className="fas fa-eraser" /> Delete
+        <i className="lo-center fas fa-eraser" /> Delete
       </button>
     </div>
   )
 }
 
-export function AddButton({ handleOpen }) {
+export function AddButton({ handleOpen, styles }) {
   return (
     <button className="ico-btn" onClick={handleOpen}>
-      <i className={`fas fa-2x fa-plus`}></i>
+      <i className={`lo-center fas fa-2x fa-plus ${styles}`}></i>
     </button>
   )
 }
 
-export function RewardShopButton({ path }) {
+export function RewardShopButton({ path, styles }) {
   return (
     <Link to={path}>
       <button className="ico-btn" type="button">
-        <i className={`fas fa-2x fa-store`}></i>
+        <i className={`lo-center fas fa-2x fa-store ${styles}`}></i>
       </button>
     </Link>
   )
 }
 
 
-export function EditButton({ handleOpen }) {
+export function EditButton({ handleOpen, styles }) {
   return (
     <button className="ico-btn" onClick={handleOpen}>
-      <i className={`fas fa-2x fa-pencil-alt`}></i>
+      <i className={`lo-center fas fa-2x fa-pencil-alt ${styles}`}></i>
     </button>
   )
 }
+
 
 
 export function MiniEditButton({ handleOpen }) {

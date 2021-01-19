@@ -45,8 +45,10 @@
 
 .pbc-title {
   max-width: 50%;
-  overflow: hidden;
-  white-space: nowrap;
+  /* overflow: hidden; */
+  text-overflow: hidden;
+  /* white-space: nowrap; */
+  text-align: center;
   margin: 0;
   font: 1rem Cambria;
   text-transform: uppercase;

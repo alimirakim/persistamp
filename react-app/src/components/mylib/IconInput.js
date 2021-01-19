@@ -24,6 +24,7 @@ export default function IconInput({ color, value, setValue, icons }) {
     "Furniture": [],
     "Commerce": [],
   }
+  console.log("types", types, "icons", icons)
   Object.values(icons).forEach(icon => types[icon.type].push(icon.id))
   
   const toggleOpen = (e) => setOpen(!open)

@@ -13,10 +13,10 @@ import OptionsContext from '../../context/OptionsContext'
 // straight from the source
 
 export default function StampBox({ day, mid, hid }) {
-  const {colors, icons} = useContext(OptionsContext)
+  const { colors, icons } = useContext(OptionsContext)
   const { dispatchStampDay, dispatchUnstampDay, stamps, habits, } = useContext(ProgramBoardContext)
   const [stampStatus, setStampStatus] = useState("")
-  const [transform, setTransform] = useState("0")
+  const [deg, setDeg] = useState("0")
   const method = stampStatus === "stamped" ? "delete" : "post"
   const icon = stampStatus === "stamped" ? icons[habits[hid].iid].title : stampStatus === "fulfilled" ? "check" : "times"
   const color = stampStatus === "stamped" ? colors[habits[hid].cid].hex : "rgb(255,255,255,0.2)"
@@ -25,7 +25,7 @@ export default function StampBox({ day, mid, hid }) {
 
 
   useEffect(() => {
-    if (stampId) setTransform(Math.floor(Math.random() * Math.floor(360)))
+    if (stampId) setDeg(Math.floor(Math.random() * Math.floor(360)))
   }, [])
 
   useEffect(() => {
@@ -40,27 +40,29 @@ export default function StampBox({ day, mid, hid }) {
 
   const onStamp = (method) => async (ev) => {
     ev.preventDefault()
-    console.log("time", new Date())
     const res = await fetch(stampPath, { method })
     const stamp = await res.json()
+
     if (method === "post") {
-      setTransform(Math.floor(Math.random() * Math.floor(360)))
+      setDeg(Math.floor(Math.random() * Math.floor(360)))
       dispatchStampDay(stamp)
       setStampStatus("stamped")
+
     } else if (method === "delete") {
-      setTransform("0")
+      setDeg("0")
       dispatchUnstampDay(stamp)
       setStampStatus("")
     }
   }
 
   return (
-    <td style={{ color: colors[habits[hid].cid].hex, transform: `rotate(${transform}deg)`, transition: "none"}}>
-      <form method="POST" onSubmit={onStamp(method)} className="stamp-spot" >
-        <button className="stamp" type="submit">
-          <i className={`lo-center fas fa-${icon}`} style={{ color }} ></i>
-        </button>
-      </form>
+    <td>
+      <button className="stamp-spot" type="submit" onClick={onStamp(method)}>
+        <div className="lo-center">
+          <i className={`stemp fas fa-lg fa-${icon}`}
+            style={{ color, transform: `rotate(${deg}deg)` }} />
+        </div>
+      </button>
     </td>
   )
 }
