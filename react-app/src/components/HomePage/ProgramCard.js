@@ -17,7 +17,7 @@ export default function ProgramCard({ program }) {
   const [openCreate, setOpenCreate] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
-  let dark = program.cid == 32 ? "th-dark-mode" : ""
+  let dark = program.cid == 3 ? "th-dark-mode" : ""
 
   const toggleCreate = (e) => setOpenCreate(!openCreate)
   const toggleEdit = (e) => setOpenEdit(!openEdit)
