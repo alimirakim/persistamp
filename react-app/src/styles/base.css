@@ -9,9 +9,9 @@ it probably belongs here. */
     /* min-height: 0; */
 }
 html {
-
   overflow-y: scroll !important;
 }
+
 body {
   padding: 0 !important;
   /* overflow-x: scroll !important; */

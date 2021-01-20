@@ -6,7 +6,7 @@ import HabitRow from './HabitRow'
 
 export default function ProgramCardBody({ program }) {
   const { habits } = useContext(ProgramBoardContext)
-  const [hidOrder, setHidOrder] = useState([])
+  const [hidOrder, setHidOrder] = useState(program.hids_order)
 
   useEffect(() => {
     setHidOrder(Array.from(program.hids).reverse())

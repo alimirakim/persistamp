@@ -68,6 +68,7 @@
   padding: 0 0.2rem 0.5rem;
   margin-left: 0.2rem;
   overflow: hidden;
+  text-overflow: ellipsis;
   flex: auto;
   min-width: 0;
 }
@@ -88,6 +89,7 @@
   /* position: absolute; */
   /* bottom: 0.5rem; */
   overflow: hidden;
+  text-overflow: ellipsis;
   flex: auto;
   min-width: 0;
 }

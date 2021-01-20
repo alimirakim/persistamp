@@ -30,23 +30,21 @@ def habit_details(hid, mid):
     # habitWProgram["program"] = program
     # return habitWProgram
     if habit:
-        print("\nmember", member)
         return habit.to_dict_for_user_details(member)
     return {'errors': ['User not found'] }, 404
 
 
-@habit_routes.route("/<int:hid>/switchPrivacy")
-def switchPrivacy(hid):
+@habit_routes.route("/<int:hid>/memberships/<int:mid>/switchPrivacy")
+def switchPrivacy(hid, mid):
     habit = Habit.query.get(hid)
-    program = program_schema.dump(Program.query.get(habit.to_dict()["pid"]))
+    member = Membership.query.get(mid).member
 
     if habit.private:
         habit.private = False
     else:
         habit.private = True
     db.session.commit()
-    newHabit = habit.to_dict()
-    newHabit["program"] = program
+    newHabit = habit.to_dict_for_user_details(member)
     return newHabit
 
 
@@ -73,7 +71,11 @@ def edit_habit(hid):
 def delete_habit(hid):
     """Delete a habit by id."""
     habit = Habit.query.get(hid)
+    program = Program.query.get(habit.program_id)
     db.session.delete(habit)
+    print("\nnow what", program.hids_order)
+    program.hids_order.remove(hid)
+    print("\nnow what~!", program.hids_order)
     db.session.commit()
     return "Habit is donezo~!"
 
@@ -94,7 +96,11 @@ def create_habit(pid):
             program_id=pid,
         )
         db.session.add(habit)
-        db.session.commit()
-        habit = Habit.query.get(habit.id)
+        db.session.commit() 
+        
+        program = Program.query.get(pid)
+        program.hids_order.append(habit.id)
+        db.session.commit() 
+        
         return habit.to_dict_for_user(current_user)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400

@@ -1,3 +1,4 @@
+from sqlalchemy.dialects.postgresql import ARRAY
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -15,8 +16,8 @@ class User(db.Model, UserMixin):
     icon_id = db.Column(db.Integer, db.ForeignKey("icons.id"), nullable=False, default=1)
     birthday = db.Column(db.Date)
     hashed_password = db.Column(db.String(255), nullable=False)
-    # private = db.Column(db.Boolean, nullable=False, default=False)
-    # programs_order = db.Column(db.Array(db.Integer))
+    private = db.Column(db.Boolean, nullable=False, default=False)
+    pids_order = db.Column(ARRAY(db.Integer), nullable=False, default=[])
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     icon = db.relationship("Icon", backref="users")
@@ -69,6 +70,6 @@ class User(db.Model, UserMixin):
             "iid": self.icon_id,
             "pids": program_ids,
             "red_ids": [r.id for r in self.redeemed],
-            # "private": self.private,
-            # "programs_order": self.programs_order,
+            "private": self.private,
+            "pids_order": self.pids_order,
         }

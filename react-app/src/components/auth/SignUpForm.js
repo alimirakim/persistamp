@@ -6,7 +6,7 @@ import { ActionOrCancelButtons } from '../forms/FormInputs';
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core'
 import ErrorMessages from '../mylib/ErrorMessages'
 
-const SignUpForm = ({auth, setAuth, setUser}) => {
+const SignUpForm = ({ auth, setAuth, setUser }) => {
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [birthday, setBirthday] = useState("");
@@ -32,22 +32,22 @@ const SignUpForm = ({auth, setAuth, setUser}) => {
         username,
         email,
         password,
-        );
+      );
       if (!user.errors) {
         setUser(user)
         setAuth(true)
         setOpen(false)
-      }else {
-      setErrors(user.errors)
-    }
-  };
-}
+      } else {
+        setErrors(user.errors)
+      }
+    };
+  }
 
   const updateFirstName = (e) => setFirstName(e.target.value)
   const updateLastName = (e) => setLastName(e.target.value)
   const updateBirthday = (e) => setBirthday(e.target.value)
   const updateUsername = (e) => setUsername(e.target.value)
-  const updateEmail = (e) =>  setEmail(e.target.value)
+  const updateEmail = (e) => setEmail(e.target.value)
   const updatePassword = (e) => setPassword(e.target.value)
   const updateRepeatPassword = (e) => setRepeatPassword(e.target.value)
 
@@ -55,13 +55,13 @@ const SignUpForm = ({auth, setAuth, setUser}) => {
 
   return (<>
 
-    <Button className='signUpButton'onClick={handleClickOpen} color="secondary" variant="contained">
+    <Button className='signUpButton' onClick={handleClickOpen} color="secondary" variant="contained">
       Sign up
     </Button>
     <Dialog open={open} onClose={handleClose}
-          PaperProps={{
-            style: { backgroundColor: "#FFD1D6"}
-          }}
+      PaperProps={{
+        style: { backgroundColor: "#FFD1D6" }
+      }}
     >
       <DialogTitle id="form-dialog-title">Make an account</DialogTitle>
 
@@ -99,51 +99,51 @@ const SignUpForm = ({auth, setAuth, setUser}) => {
             shrink: true,
           }}
         /> */}
-          <TextField
-            autoFocus
-            defaultValue={username}
-            margin="dense"
-            id="username"
-            label="Username"
-            type="text"
-            fullWidth
-            onChange={updateUsername}
-            required
-          />
-          <TextField
-            autoFocus
-            defaultValue={email}
-            margin="dense"
-            id="email"
-            label="Email"
-            type="email"
-            fullWidth
-            onChange={updateEmail}
-            required
-          />
-          <TextField
-            autoFocus
-            defaultValue={password}
-            margin="dense"
-            id="password"
-            label="Password"
-            type="password"
-            fullWidth
-            onChange={updatePassword}
-            required
-          />
-          <TextField
-            autoFocus
-            defaultValue={repeatPassword}
-            margin="dense"
-            id="repeat_password"
-            label="Confirm password"
-            type="password"
-            fullWidth
-            onChange={updateRepeatPassword}
-            required
-          />
-          <ActionOrCancelButtons handleClose={handleClose} onAction={onSignUp} action={"Sign up"}/>
+        <TextField
+          autoFocus
+          defaultValue={username}
+          margin="dense"
+          id="username"
+          label="Username"
+          type="text"
+          fullWidth
+          onChange={updateUsername}
+          required
+        />
+        <TextField
+          autoFocus
+          defaultValue={email}
+          margin="dense"
+          id="email"
+          label="Email"
+          type="email"
+          fullWidth
+          onChange={updateEmail}
+          required
+        />
+        <TextField
+          autoFocus
+          defaultValue={password}
+          margin="dense"
+          id="password"
+          label="Password"
+          type="password"
+          fullWidth
+          onChange={updatePassword}
+          required
+        />
+        <TextField
+          autoFocus
+          defaultValue={repeatPassword}
+          margin="dense"
+          id="repeat_password"
+          label="Confirm password"
+          type="password"
+          fullWidth
+          onChange={updateRepeatPassword}
+          required
+        />
+        <ActionOrCancelButtons handleClose={handleClose} onAction={onSignUp} action={"Sign up"} />
       </DialogContent>
     </Dialog>
   </>);

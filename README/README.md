@@ -1,8 +1,7 @@
 # Persistamp - Habit Tracker Productivity App
 
-**Team:** Alicia M Kim, David Lee, Eric Lyda, Brian Wang, Scrum Leader Sergey Gridin
+**Team:** Alicia M Kim, David Lee
 
-**NOTE-MIRA** I have commented out a lot of details that will only be relevant for later stretch goals (mainly rewards and accountability buddies) to hopefully make it easier to read the important things. Please look at the code of this readme if you wish to see any of that. The section immediately below of 'goals' is just a rough spit-out of thoughts to help start thinking about potential workflow, to give some kind of starting point. Please add your own notes as any of you see fit.
 
 ## Table Of Contents
 <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
@@ -10,151 +9,126 @@
   - [Description](#description)
 - [Persistamp - Habit Tracker Productivity App](#persistamp-habit-tracker-productivity-app)
   - [Table Of Contents](#table-of-contents)
+  - [Developers](#developers)
+    - [Alicia Mira Kim](#alicia-mira-kim)
+    - [David Lee](#david-lee)
   - [Description](#description)
   - [Technologies](#technologies)
-  - [Feature List: MVP](#feature-list-mvp)
-    - [User Account](#user-account)
-    - [Habit Tracker](#habit-tracker)
-    - [Results display](#results-display)
-  - [Feature List: Stretch Goals](#feature-list-stretch-goals)
-    - [* Extending Habit-tracker:](#extending-habit-tracker)
-    - [* Extending Results Display:](#extending-results-display)
-    - [Full New Feature: Progress Reward System](#full-new-feature-progress-reward-system)
-    - [(Low-Priority) Miscellaneous](#low-priority-miscellaneous)
+  - [Features](#features)
+    - [Create and Track Healthy Habits](#create-and-track-healthy-habits)
+    - [Categorize Your Habits within 'Programs'](#categorize-your-habits-within-programs)
+  - [Build Program Reward Shops](#build-program-reward-shops)
+  - [Redeem Rewards with Points](#redeem-rewards-with-points)
+    - [Customize Your Style](#customize-your-style)
+    - [Track Your Results](#track-your-results)
+    - [Drag-n-drop and Auto-Sort Options](#drag-n-drop-and-auto-sort-options)
+    - [Public or Private](#public-or-private)
+  - [Future: Feature Stretch Goals](#future-feature-stretch-goals)
   - [Models & Schema](#models-schema)
   - [MVP FEATURE TABLES](#mvp-feature-tables)
     - [`users`](#users)
     - [`programs`](#programs)
-    - [`members`](#members)
+    - [`memberships`](#memberships)
     - [`habits`](#habits)
-    - [`daily_stamps`](#daily_stamps)
+    - [`stamps`](#stamps)
   - [REWARD SYSTEM FEATURE](#reward-system-feature)
     - [`rewards`](#rewards)
     - [`redeemed`](#redeemed)
-  - [ACCOUNTABILITY CONNECTION FEATURE](#accountability-connection-feature)
     - [`bonds`](#bonds)
   - [Routes & Endpoints](#routes-endpoints)
     - [Frontend](#frontend)
       - [ROOT: `/`](#root)
-      - [ROOT: `/users/:uid`](#root-usersuid)
-      - [ROOT: `/settings`](#root-settings)
-      - [ROOT: `/programs`](#root-programs)
-      - [ROOT: `/programs/:pid/habits`](#root-programspidhabits)
-      - [ROOT: `/users/:uid/habits/:hid/history` MIRA I dunno' if this is the ideal routing for these LOL just winged something](#root-usersuidhabitshidhistory-mira-i-dunno-if-this-is-the-ideal-routing-for-these-lol-just-winged-something)
-      - [ROOT: `/programs/:pid/rewards`](#root-programspidrewards)
-      - [ROOT: `/rewards`](#root-rewards)
-      - [ROOT: `/programs/:pid/users`](#root-programspidusers)
-      - [ROOT: `/programs/:pid/stampers`](#root-programspidstampers)
     - [Backend](#backend)
       - [ROOT: `/users`](#root-users)
-      - [ROOT: `/programs`](#root-programs-1)
+      - [ROOT: `/programs`](#root-programs)
       - [ROOT: `/programs/:pid/members`](#root-programspidmembers)
-      - [ROOT: `/programs/:pid/habits`](#root-programspidhabits-1)
+      - [ROOT: `/programs/:pid/habits`](#root-programspidhabits)
       - [ROOT: `/programs/:pid/habits/:hid/members/:uid`](#root-programspidhabitshidmembersuid)
-      - [ROOT: `/rewards`](#root-rewards-1)
-      - [ROOT: `/programs/:pid/rewards`](#root-programspidrewards-1)
+      - [ROOT: `/rewards`](#root-rewards)
+      - [ROOT: `/programs/:pid/rewards`](#root-programspidrewards)
   - [Wireframes & Templates](#wireframes-templates)
     - [General Theming](#general-theming)
-    - [Responsive Web Design (RWD) Considerations...](#responsive-web-design-rwd-considerations)
-    - [Navigation](#navigation)
-    - [Signup (splash)/signin/logout](#signup-splashsigninlogout)
-    - [Habit tracker page](#habit-tracker-page)
-    - [Results display page(s)](#results-display-pages)
-    - [Add, delete, edit, etc. forms (popups?)](#add-delete-edit-etc-forms-popups)
-  - [User Story](#user-story)
-    - [Signup/signin/signout](#signupsigninsignout)
-    - [Navigation](#navigation-1)
-    - [Creating a habit](#creating-a-habit)
-    - [Editing/deleting a habit](#editingdeleting-a-habit)
-    - [Examining results displays](#examining-results-displays)
-    - [Navigator user settings](#navigator-user-settings)
-    - [* Browsing and 'buying' rewards](#browsing-and-buying-rewards)
-  - [Seeder Data](#seeder-data)
-    - [Users](#users-1)
-    - [User's Habits](#users-habits)
-    - [User's Habit Histories](#users-habit-histories)
-    - [User's Rewards/Points](#users-rewardspoints)
 
 <!-- /code_chunk_output -->
 
+## Developers
+### Alicia Mira Kim
+![GitHub]()
+![LinkedIn]()
+![AngelList]()
+![alicia.mira.kim@gmail.com]
+
+### David Lee
+![GitHub]()
+![LinkedIn]()
+![AngelList]()
+
 ## Description
-A minimalist productivity app that helps track habit history and review their trends over time, based on Loop Habit Tracker.
+![live site](https://persistamp.herokuapp.com)
 
-(**See Loop Habit Tracker:** https://play.google.com/store/apps/details?id=org.isoron.uhabits&hl=en_US&gl=US)
+A browser-based productivity app to help users track their healthy habits, earn points, analyze habit trends over time, and set and redeem rewards as goals.
 
-As this will be a browser app, as opposed to a phone app like the inspiration, we would like to consider features or tweaks that would
-make this app suit its platform better, and provide some benefit or feature that the other does not. 
+Inspired from the mobile app **Loop Habit Tracker:** https://play.google.com/store/apps/details?id=org.isoron.uhabits&hl=en_US&gl=US
 
-Ideas so far include showing more friendly and intuitive 'habit-health' indicator (like a plant icon), providing a simplistic and 
-minimal reward system to motivate usersto continue their habits, and some kind of sharing and/or friend-connecting/accountability 
-buddy functionality.
+Persistamp's design is inspired by reward cards and sticker reward systems. The visually appealing 'program card' system, emulating the style of loyalty reward cards, is meant to encourage users to track their habits by 'stamping' successful days on their personalized cards. The user can view each habit's history analytics, such as a line graph, calendar, and statistics like longest streak.
 
+With each stamp, the user gains points for the program the habit is included in. A program's reward shop can be stocked by the user with their own custom reward ideas ex. 'Take a day off', 'Enjoy a pumpkin spice latte', 'Play games for 1 hour', and set their cost, quantity, and custom color/icon appearance. Redeemed rewards are displayed for posterity in a receipt-style log as 'proof of their purchase'.
 
 ## Technologies
 - JavaScript
 - Python 3
+- React
+- HTML/CSS
 - PostgreSQL
 - Psycopg2
 - Flask
 - SQLAlchemy
 - Alembic
-- React
-- HTML/CSS/Sass
 - Visual Studio Code
-- ? **TODO** Any others?
+- Docker
+- Flask-WTF, WTForms
+- recharts
+- beautiful-react-dnd
+- Werkzeug
+- Marshmallow-SQLAlchemy
 
+## Features
+### Create and Track Healthy Habits
+Whether it's 'take a walk', 'draw every day', 'call Mom', or 'do the dishes', a user can create habits, set their 'frequency' (1-7x per week), and even decide the color and icon to 'stamp' off each successful day. 
 
-## Feature List: MVP
-### User Account
-- Signup/login/logout
-- User-specific dashboard
-- Store habit history
+### Categorize Your Habits within 'Programs'
+Users can create reward-card-style 'program' cards to group habits according to personal preference. ex. 'Chores', 'Creative', 'Social', 'Health'. 
 
-### Habit Tracker
-- User can create habits with a title
-- Habits are displayed in an interactive list, with check-off buttons for each previous day per habit.
-- Habits can be edited or deleted.
+## Build Program Reward Shops
+Each program comes with its own reward shop. Users can fill shops with custom-made rewards like 'Buy a new book', 'Order pizza', 'Watch TV for 1 hour', or 'Beach vacation', with settings available for cost, quantity, description, and custom appearance.
 
-### Results display
-- The user can click a habit to see a visual history of the habit.
-- The top shows a few statistics like total number and success rate
-- At least one visual display of the data:
-    - An icon-indicator that shows overall success.
-      *NOTE* Loop has a wheel that fills, but we discussed that there maybe be alternatives that
-      show 'milestone' progress, so users can feel rewarded for various levels of progress.
-      Ex. the color or size may change at 25%, 50%, 70%, 100%, or maybe it gets 'shinier' etc.
-      The idea of a bar, gauge, or loop 'filling up' with progress may still be compatible with this.
-    - Line graph (overall trends??)
-    - Bar graph/side bar graph (absolute numbers)
-    - Calendar display (color in successful days)
-    - Frequency-dot-chart (??)
+## Redeem Rewards with Points
+With every successfully stamped day, keeping up healthy habits racks up points for its associated program, which can be spent to redeem rewards in the program's reward shop. Redeemed rewards are then logged to a receipt-style log of 'shop purchases' for posterity!
 
-## Feature List: Stretch Goals
-### * Extending Habit-tracker:
-- * (high) Choose habit color
-- * Sort-by: name, color, manual (allow user to move habits)
-- * (low) Choose habit frequency (1-7 days per week)
-- * (low) Option to add description/'question' for habits.
-- * (low) Option to archive and hide-archive habits.
+### Customize Your Style
+Program cards, habits, and rewards can be customized with a unique color and icon to help easily visually differentiate them.
 
-### * Extending Results Display:
-- * (high/low) Adding addition display types (see above options in MVP). Ideally at least three total (high), max of five (low)
-- * Change display mode to daily/weekly/monthly/yearly
-    
-### Full New Feature: Progress Reward System
- - * User can accumulate reward-points with activity and spend them on a variety of minor rewards (virtual currency).
- - * Rewards should be minimal and cosmetic. Ideas/examples:
-  - * Earn 'titles' to reflect their progress. Perhaps madlib-style, or Animal-Crossing-like (choose an adjective and a noun from lists)
-  - * Unlock new colors
-  - * Unlock new avatar/progress-symbol icons (ex. fire, runner/exerciser, flower, trophy, smiley...)
-  - * Still open to thinking of other ideas as rewards. Should be low-cost(thesaurus needed).
-  
-### (Low-Priority) Miscellaneous
- - * Dark/light mode
- - * Share options. Send images of results as email, twitter, etc.
- - * (very low-vague idea only) 'Friend-Accountability': Able to friend others and see their progress.
- - * Unique/random welcome messages
- - * reminder/alarm/notification system?
+### Track Your Results
+Click a habit to see analytics for that habit's history, including a line graph, calendar, scores and statistics.
+
+### Drag-n-drop and Auto-Sort Options
+An intuitive drag-n-drop interface lets users manually sort habits and programs in any desired order, on top of options to sort by name, color, and creation date.
+
+### Public or Private
+Set the privacy mode of habits individually, so that habit history details can be shared to others or kept a secret.
+
+## Future: Feature Stretch Goals
+- Add friends
+- Accountability buddies
+- Messaging
+
+- Public/private user profile, programs
+- User Profile page
+- Custom frequency options to allow from 'out of any number', rather than only by 'week'. Ex. '3 days out of 30'.
+- Dark/light mode
+- (low) Option to archive and hide-archive habits.
+- Change display mode to daily/yearly
+- (low) Adding addition display types (see above options in MVP). Ideally at least three total (high), max of five (low)
 
 ---------
 
@@ -167,12 +141,14 @@ Is `created_at` needed for habit_days or habits on top of `date`?
 
 **TABLES LIST**
 - users
+- memberships
 - programs
-- members
 - habits
-- daily_stamps
+- stamps
 - rewards
 - redeemed
+- colors
+- icons
 - bonds
 
 
@@ -181,54 +157,61 @@ Is `created_at` needed for habit_days or habits on top of `date`?
 | users      | Constraints                                   |
 |------------|-----------------------------------------------|
 | id         | SERIAL, PRIMARY KEY                           |
-| first_name | VARCHAR(50) NOT NULL                          |
-| last_name  | VARCHAR(50) NOT NULL                          |
-| email      | VARCHAR(50), NOT NULL, UNIQUE                 |
-| hashword   | VARCHAR(250) NOT NULL                         |
+| first_name | VARCHAR(25) NOT NULL                          |
+| last_name  | VARCHAR(25) NOT NULL                          |
+| username   | VARCHAR(25) NOT NULL |
+| birthday   | DATE |
+| email      | VARCHAR(320), NOT NULL, UNIQUE                 |
+| hashword   | VARCHAR(255) NOT NULL                         |
+| color_id   | FOREIGN KEY(colors.id), NOT NULL |
+| stamp_id   | FOREIGN KEY(stamps.id), NOT NULL |
+| pids_order | ARRAY(INTEGER), NOT NULL, DEFAULT VALUE=[] |
+| is_private | BOOLEAN, NOT NULL, DEFAULT VALUE=False |
 | created_at | TIMESTAMP, NOT NULL, DEFAULT VALUE=new Date() |
-| color      | VARCHAR(7), NOT NULL, DEFAULT VALUE='#000000'  |
-| stamp      | VARCHAR(50), NOT NULL, DEFAULT VALUE='user-circle' |
 
 ### `programs`
 | columns   | Constraints                              |
 |-----------|------------------------------------------|
 | id        | SERIAL, PRIMARY KEY                      |
-| program   | VARCHAR(50), NOT NULL |
-| description | VARCHAR(250)
-| color     | VARCHAR(7), NOT NULL, DEFAULT VALUE='#000000' |
-| stamp     | VARCHAR(50), NOT NULL, DEFAULT VALUE='calendar-alt' |
+| title     | VARCHAR(25), NOT NULL |
+| description | VARCHAR(250) |
+| color_id   | FOREIGN KEY(colors.id), NOT NULL |
+| stamp_id   | FOREIGN KEY(stamps.id), NOT NULL |
+| hids_order | ARRAY(INTEGER), NOT NULL, DEFAULT VALUE=[] |
+| rew_ids_order |  ARRAY(INTEGER), NOT NULL, DEFAULT VALUE=[] |
+| is_private | BOOLEAN, NOT NULL, DEFAULT VALUE=False |
 | creator_id | INTEGER, FOREIGN KEY=users.id, NOT NULL |
 | created_at | TIMESTAMP, NOT NULL, DEFAULT VALUE=new Date() |
 
-### `members`
+### `memberships`
 | columns   | Constraints                              |
 |-----------|------------------------------------------|
 | id        | SERIAL, PRIMARY KEY                      |
 | program_id | INTEGER, FOREIGN KEY=programs.id, NOT NULL |
 | member_id  | INTEGER, FOREIGN KEY=users.id, NOT NULL |
-| stamper_id | INTEGER, FOREIGN KEY=users.id           | - null by default. if null, memberself-stamps. OR same as member id.
-| points | INTEGER, NOT NULL, DEFAULT VALUE=0 |
+| stamper_id | INTEGER, FOREIGN KEY=users.id           |
+| points     | INTEGER, NOT NULL, DEFAULT VALUE=0 |
 
 ### `habits`
 | habits      | Constraints                                   |
 |-------------|-----------------------------------------------|
 | id          | SERIAL, PRIMARY KEY                           |
-| habit       | VARCHAR(50), NOT NULL                         |
+| title       | VARCHAR(25), NOT NULL                         |
 | description | VARCHAR(250)                                  |
-| frequency   | ENUM(0, 1, 2, 3, 4, 5, 6, 7)                  |
-| color       | VARCHAR(7), NOT NULL, DEFAULT VALUE='#000000' |
-| stamp       | VARCHAR(50), NOT NULL, DEFAULT VALUE='check-circle' |
+| frequency   | INTEGER, NOT NULL, DEFAULT VALUE=1            |
+| color_id    | FOREIGN KEY(colors.id), NOT NULL |
+| stamp_id    | FOREIGN KEY(stamps.id), NOT NULL |
 | program_id  | INTEGER, FOREIGN KEY=programs.id, NOT NULL    |
 | creator_id  | INTEGER, FOREIGN KEY=users.id, NOT NULL       |
 | created_at  | TIMESTAMP, NOT NULL, DEFAULT VALUE=new Date() |
 
 
-### `daily_stamps`
+### `stamps`
 | columns     | Constraints                                   |
 |-------------|-----------------------------------------------|
 | id          | SERIAL, PRIMARY KEY                           |
 | date        | DATE, NOT NULL                                |
-| status      | ENUM('unstamped', 'pending', 'stamped'), NOT NULL, DEFAULT VALUE='unstamped' |
+| status      | VARCHAR(25), NOT NULL, DEFAULT VALUE="unstamped" |
 | member_id   | INTEGER, FOREIGN KEY=users.id, NOT NULL       |
 | habit_id    | INTEGER, FOREIGN KEY=habits.id, NOT NULL      |
 
@@ -237,17 +220,17 @@ Is `created_at` needed for habit_days or habits on top of `date`?
 | columns | Constraints                          |
 |---------|--------------------------------------|
 | id      | SERIAL, PRIMARY KEY                  |
-| type    | ENUM('color', 'stamp', 'badge', 'sprite', 'title', 'other', 'custom') |
-| reward  | VARCHAR(50), NOT NULL                |
+| type    | VARCHAR(25), DEFAULT VALUE="custom"  |
+| title   | VARCHAR(50), NOT NULL                |
 | description | VARCHAR(250) |
-| cost     | INTEGER, NOT NULL, DEFAULT VALUE=7  |
-| color    | VARCHAR(7), NOT NULL, DEFAULT VALUE='#000000' |
-| stamp    | VARCHAR(50), NOT NULL, DEFAULT VALUE='award' |
+| cost     | INTEGER, NOT NULL, DEFAULT VALUE=5  |
+| color_id   | FOREIGN KEY(colors.id), NOT NULL |
+| stamp_id   | FOREIGN KEY(stamps.id), NOT NULL |
 | limit_per_member | INTEGER, NOT NULL, DEFAULT VALUE=-1 |
-| quantity | INTEGER, NOT NULL, DEFAULT VALUE=1  | NOTE -1 = unlimited?
-| program_id | INTEGER, FOREIGN KEY=programs.id  | NULLABLE
-| creator_id | INTEGER, FOREIGN KEY=users.id | NULLABLE
-| created_at | TIMESTAMP, DEFAULT VALUE=new Date() | NULLABLE
+| quantity | INTEGER, NOT NULL, DEFAULT VALUE=1  |
+| program_id | INTEGER, FOREIGN KEY=programs.id  |
+| creator_id | INTEGER, FOREIGN KEY=users.id |
+| created_at | TIMESTAMP, DEFAULT VALUE=new Date() |
 
 ### `redeemed`
 | user_rewards | Constraints                               |
@@ -257,8 +240,6 @@ Is `created_at` needed for habit_days or habits on top of `date`?
 | reward_id    | INTEGER, FOREIGN KEY=rewards.id, NOT NULL |
 | redeemed_at  | TIMESTAMP, DEFAULT VALUE=new Date(), NOT NULL |
 
-
-## ACCOUNTABILITY CONNECTION FEATURE
 ### `bonds`
 | columns  | Constraints                             |
 |----------|-----------------------------------------|
@@ -277,131 +258,16 @@ based on how we decide to go about it.
 #### ROOT: `/`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
-| GET    | `/`        | render splash page, if no auth |
-| GET    | `/`        | renders user profile dash-page, if auth checks |
-| GET    | `/home`    | render user's habit-tracker homepage | 
-| GET    | `/signup`  | Render the signup form |
-| POST   | `/signup`  | Create new account and log them in |
-| GET    | `/signin`  | Render the sign-in form |
-| POST   | `/signin`  | Verify auth and log them in |
-| GET    | `/signout` | Render the logout form (may be unnecessary) |
-| POST   | `/signout` | Delete auth and logout |
-
-#### ROOT: `/users/:uid`
-| METHOD | Route Path | Purpose         |
-|--------|------------|-----------------|
-| GET    | `/` | renders user's public profile page |
-
-| GET    | `/redeemed` | renders user's redeemed reward history |
-| GET    | `/programs/:pid/redeemed` | renders user's redeemed reward history for a program |
-| GET    | `/programs/:pid/habits/:hid/history` | renders the public habit history page for a user's habit (MIRA not for MVP, I think, because I think having the option to make this private would be best?) | 
-| GET    | `/bonds` | renders a list of user's bonds. |
-| GET    | `/bonds/create` | renders a form to request a bond with another user. |
-| POST   | `/bonds/create` | creates a bond between users. |
-| GET    | `/bonds/remove` | renders a form to confirm removal of a bond. |
-| DELETE | `/bonds/remove` | deletes a bond between users.. |
-
-
-#### ROOT: `/settings`
-| METHOD | Route Path | Purpose         |
-|--------|------------|-----------------|
-| GET    | `/`        | renders a logged-in user's settings page. |
-| GET    | `/edit`    | Render a form to edit details of a user's account. |
-| PATCH  | `/edit`    | Edit details of a user's account. |
-| GET    | `/delete`  | Render a form to delete the logged-in user's account. |
-| DELETE | `/delete`  | Delete the logged-in user's account. |
-
-
-#### ROOT: `/programs`
-| METHOD | Route Path | Purpose         |
-|--------|------------|-----------------|
-| GET    | `/`        | renders a list of a logged-in user's programs |
-| GET    | `/create`  | Render 'create new program' form. |
-| POST   | `/create`  | Create a new program |
-| GET    | `/:pid/edit` | Edit a program | 
-| PATCH  | `/:pid/edit` | Render 'edit' form for a program. | 
-| GET    | `/:pid/delete` | Render a delete confirmation for a program. |
-| DELETE | `/:pid/delete` | Delete a program | 
-
-
-#### ROOT: `/programs/:pid/habits`
-| METHOD | Route Path | Purpose         |
-|--------|------------|-----------------|
-| GET    | `/`        | renders a logged-in user's program of habits and daily-stamps. |
-| GET    | `/create`  | Render 'create new habit' form. |
-| POST   | `/create`  | Create a new habit |
-| GET    | `/:hid/edit` | Edit a habit | 
-| PATCH  | `/:hid/edit` | Render 'edit' form for a habit. | 
-| GET    | `/:hid/delete` | Render a delete confirmation for a habit. |
-| DELETE | `/:hid/delete` | Delete a habit |
-
-#### ROOT: `/users/:uid/habits/:hid/history` MIRA I dunno' if this is the ideal routing for these LOL just winged something
-> **NOTE-MIRA:**  - I believe we agreed MVP would include line and calendar graphs and only one type of depiction (by weeks, the same as Loop Habit Tracker's default?)
-
-| METHOD | Route Path | Purpose         |
-|--------|------------|-----------------|
-| GET    |`/`         | renders page with visual data displays of specific habit's history |  
-| GET    | `/line/days`  |  |
-| GET    | `/line/weeks` | MVP |
-| GET    | `/line/months` |  |
-| GET    | `/line/years`  |  |
-| GET    | `/calendar/days`   |  |
-| GET    | `/calendar/weeks`  | MVP |
-| GET    | `/calendar/months` |  |
-| GET    | `/calendar/years`  |  |
-| GET    | `/bar/days`   |  |
-| GET    | `/bar/weeks`  |  |
-| GET    | `/bar/months` |  |
-| GET    | `/bar/years`  |  |
-| GET    | `/bubble/days`   |  |
-| GET    | `/bubble/weeks`  |  |
-| GET    | `/bubble/months` |  |
-| GET    | `/bubble/years`  |  |
-<!-- 
-| GET    | `/days`   | Not sure if day-only routes might have a use, keeping this here just in case |
-| GET    | `/weeks`  |  |
-| GET    | `/months` |  |
-| GET    | `/years`  |  | 
--->
-
-#### ROOT: `/programs/:pid/rewards`
-| GET    | `/` | render the reward shop page for a program. |
-| POST   | `/:pid/create` | create a custom reward for a program |
-| PATCH  | `/:rid/edit`   | edit a custom reward for a program |
-| DELETE | `/:rid/delete` | delete a custom reward for a program |
-| GET    | `/redeemed` | render a history of redeemed rewards for a program |
-| GET    | `/:rid/redeemed` | render a history of redemptions for one of a program's rewards | -->
-
-#### ROOT: `/rewards`
-| METHOD | Route Path | Purpose         |
-|--------|------------|-----------------|
-| GET    | `/create` | render the create-custom-reward form |
-| GET    | `/edit`   | render the edit-custom-reward form
-| GET |  | `/delete` | render the delete-confirmation reward form -->
-
-#### ROOT: `/programs/:pid/users`
-| METHOD | Route Path | Purpose         |
-|--------|------------|-----------------|
-| GET    | `/` | Render the list of users of a program |
-| GET    | `/members` | Render the list of members of a program |
-| GET    | `/stampers` | Render the list of stampers of a program |
-| GET    | `/join` | Render a form to join a program as a member or stamper. |
-| POST   | `/join` | Add a user as a member or stamper of a program. |
-| GET    | `/leave` | Render a form to leave a program. |
-| DELETE | `/leave` | Remove a user from a program. |
-| GET    | `/invite` | Render a form to invite a bonded user to a program as a member or stamper. |
-| POST   | `/invite` | Send an invite to program to a user. -->
-
-#### ROOT: `/programs/:pid/stampers`
-| METHOD | Route Path | Purpose         |
-|--------|------------|-----------------|
-| GET    |  |
-| POST   | `/programs/:pid/habits/:hid/members/:uid/stamp` | Give stamp to a user for a habit program and day.
-| POST   | `/programs/:pid/habits/:hid/members/:uid/ping` | Ping stamper for approval for a habit program and day.
-| POST   | `/programs/:pid/habits/:hid/members/:uid/unstamp` | Remove a stamp for a habit program and day.
-| POST   |  |
-| PATCH  |  | 
-| DELETE |  |
+| GET    | `/`        | splash page, if no auth |
+| GET    | `/`        | user homepage, if auth checks |
+| GET    | `/about`   | about page |
+| GET    | `/logout`   | logout user |
+| GET    | `/users/:uid` | user's public profile page |
+| GET    | `/users/:uid/redeemed` | user's redeemed reward history |
+| GET    | `/programs/:pid/redeemed` | user's redeemed reward history for a program |
+| GET    | `/habits/:hid/memberships/:mid` | public habit history page for a user's habit |
+| GET    | `/users/:uid/bonds` | user's bonds. |
+| GET    | `/programs/:pid/memberships/:mid/rewards` | reward shop for a user and program |
 
 <!-- 
 #### ROOT: ``
@@ -417,7 +283,6 @@ based on how we decide to go about it.
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
 | POST   | `/`        | Validate signup and make new user account. |
-| GET    | `/:uid/cookie` | Authenticate login, return cookie and `user` | NOTE Not quite sure yet this would be the right way to do this...
 | GET    | `/:uid`     | Get `user` information |
 | PATCH  | `/:uid`     | Authenticate and edit `user` details |
 | DELETE | `/:uid`     | Delete a `user` account |
@@ -526,115 +391,5 @@ Colorful and friendly. Dark mode first. Light mode as stretch goal.
   - maize-crayola: #f1c453ff;
   - sandy-brown: #f29e4cff;
 
-- **Fonts** (Choose 1-2 main ones, 3-5 sizes (relative), don't have more than 3 fonts, less is more)
-- **Aesthetic** (If based on Loop Habit Tracker, perhaps ex. Clean, minimal, cheerful, * slightly customizable to people's tastes with rewards)
-
-Analog-feel of paper, stamps, traditional materials, sticky notes/journals, 'reward boards', et cetera? Chalkboard?
-
-- ** Etcetera** ...
-
-
-### Responsive Web Design (RWD) Considerations...
-**TODO** Should we try a mobile-first approach for the CSS/design layout?
-**TODO** As a web-browser app, how could/should we adjust this to better-suit our platform? :S
-I feel as though compared to a phone app, 'visiting a website' each day to track habits feels less intuitive and effortless.
-Any ideas on how to mitigate that?
-...Browser extension? :S
-
-### Navigation
-Should be able to:
-- Go to habit-tracker home
-- Check settings/edit user
-- Log out
-- Misc: about, contact, help/faq
-
-### Signup (splash)/signin/logout
-Popup forms, or embedded in splash page, or both?
-Should be fairly straightforward.
-
-### Habit tracker page
-Show list of habits.
-Each habit is a row in a table: status icon, habit title, daily check-buttons for past 7 days.
-Perhaps in desktop mode, a button on the side for edit/deleting.
-'Sort by' dropdown menu.
-Links to each habit's history page.
-Buttons to add/edit/delete tasks.
-Perhaps the user's name and any user-spec
-
-### Results display page(s)
-On mobile/portrait, a column of displays, scroll down. On landscape/desktop, fit
-as a responsive grid at breakpoint.
-
-*A ? help button (or tooltip!) in the corner of data displays to explain what
-
-*Share button for each grid, and the entire page.
-
-
-### Add, delete, edit, etc. forms (popups?)
-How to present the forms for these CRUD options to the user?
-
-
----------
-
-## User Story
-
-### Signup/signin/signout
-
-
-### Navigation
-
-
-### Creating a habit
-  0. Click +habit button
-  1. Write title
-  2. * Choose a color
-  3. * Choose frequency
-  4. * Add a longer description
-  5. Submit
-
-### Editing/deleting a habit
-
-
-### Examining results displays
-  0. Click on habit to see more (perhaps 'see more...')
-  1. Show one habit, including title/description/frequency
-  2. At-a-glance overview - wheel/badge progress indicator
-  3. Statistics for last month, last year, total (percentage and ltieral amount) - last month? - simplify??
-  4. For history graphs, scroll left for more history
-  5. Display graphs by day/week/month/year - click dropdown
-  6. Remember to show easy-to-see access to 'cancel back' to habit page
-
-### Navigator user settings
-
-
-### * Browsing and 'buying' rewards
-
-
----------
-
-## Seeder Data
-**TODO** MVP 1, ideally at least 3, more would be nice but low-priority.
-
-### Users
-Different users having different styles to showcase the app's flexibility?
-
-### User's Habits
-- Exercise and health goals.
-- Social commitment goals.
-- Fun/work-life balance goals.
-- Chores/utilitarian.
-- Learning/hobbies/personal
-
-### User's Habit Histories
-- Example of a committed habit-builder
-- Volatile habit-builder
-- Failed habit builder
-- Normalish habit-builder
-
-### User's Rewards/Points
-**NOTE-MIRA** For now, just reward ideas:
-* Themes (colors)
-* Titles
-* Checkmark symbols
-* Colors
-* avatar badge? reward? 
+- **Fonts** Berkshire Swash (Google), Cambria (headers), Calibri...
+- **Aesthetic** Colorful but modern. Analog-feel of paper, stamps, traditional materials, sticky notes/journals, 'reward boards', et cetera? Chalkboard?

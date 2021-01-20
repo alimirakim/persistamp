@@ -60,7 +60,7 @@
   margin: 0;
   font: italic 0.8rem Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   text-align: center;
-  
+  z-index: 1;
 }
 .pbc-desc:before, .pbc-desc:after {
   content: '"';

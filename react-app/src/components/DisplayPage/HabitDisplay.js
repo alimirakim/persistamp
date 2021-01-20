@@ -43,7 +43,7 @@ export default function HabitDisplay({ auth, setAuth, setUser, isPrivate, setIsP
 
   const handleToggle = async (e) => {
     if (!auth) return;
-    const res = await fetch(`/api/habits/${hid}/switchPrivacy`)
+    const res = await fetch(`/api/habits/${hid}/memberships/${mid}/switchPrivacy`)
     const newHabit = await res.json();
     dispatchEditHabit(newHabit);
     setIsPrivate(newHabit.private);

@@ -9,3 +9,4 @@ from .Reward import Reward
 from .Redeemed import Redeemed
 from .Stamp import Stamp
 from .User import User
+from .MutableList import MutableList

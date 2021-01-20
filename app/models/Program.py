@@ -1,4 +1,6 @@
 from .db import db
+from sqlalchemy.dialects.postgresql import ARRAY
+from .MutableList import MutableList
 from datetime import datetime
 
 
@@ -10,9 +12,9 @@ class Program(db.Model):
     icon_id = db.Column(db.Integer, db.ForeignKey("icons.id"), nullable=False, default=2)
     color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)
     creator_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    # private = db.Column(db.Boolean, nullable=False, default=False)
-    # habits_order = db.Column(db.Array(db.Integer))
-    # rewards_order = db.Column(db.Array(db.Integer))
+    private = db.Column(db.Boolean, nullable=False, default=False)
+    hids_order = db.Column(MutableList.as_mutable(ARRAY(db.Integer)), nullable=False, default=[])
+    rew_ids_order = db.Column(ARRAY(db.Integer), nullable=False, default=[])
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     icon = db.relationship("Icon", backref="programs")
@@ -33,9 +35,9 @@ class Program(db.Model):
             "created_at": self.created_at,
             "mids": [m.id for m in self.memberships],
             "hids": [h.id for h in self.habits],
-            # "private": self.private,
-            # "habits_order": self.habits_order,
-            # "rewards_order": self.rewards_order,
+            "private": self.private,
+            "hids_order": self.hids_order,
+            "rew_ids_order": self.rew_ids_order,
         }
     
     def get_mids(self):

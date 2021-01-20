@@ -49,9 +49,7 @@ def sign_up():
     """Creates a new user and logs them in"""
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print("\nform", form.data)
     if form.validate():
-        print("\nform", form.data)
         birthday = None
         if form.data['birthday']:
             birthday = form.data['birthday']
@@ -84,6 +82,9 @@ def sign_up():
         db.session.add(membership)
         db.session.add(habit)
         db.session.commit()
+        program.hids_order = [habit.id]
+        db.session.commit()
+        print("\nnew user program", program)
 
         login_user(user)
 

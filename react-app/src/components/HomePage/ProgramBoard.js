@@ -6,13 +6,11 @@ import ProgramCard from './ProgramCard'
 export default function ProgramBoard() {
   const { programs } = useContext(ProgramBoardContext)
   const [con, setCon] = useState("")
-  const [pidOrder, setPidOrder] = useState([])
 
   useEffect(() => {
     if (Object.keys(programs).length === 0) setCon("pbc-con-none")
     else if (Object.keys(programs).length < 3) setCon("")
     else setCon("programBoards-container")
-    setPidOrder(Array.from(Object.keys(programs).reverse()))
   }, [Object.keys(programs).length])
 
   return (
@@ -23,7 +21,7 @@ export default function ProgramBoard() {
       }
 
       <ul className={`${con} program-cards`}>
-        {pidOrder.map((pid, i) => (
+        {Array.from(Object.keys(programs).reverse()).map((pid, i) => (
           <li key={pid} className="th-card-shadow" >
             <ProgramCard program={programs[pid]} />
           </li>
