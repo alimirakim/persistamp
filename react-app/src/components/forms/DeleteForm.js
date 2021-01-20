@@ -9,13 +9,12 @@ export default function DeleteForm({
   itemType,
   item,
   dispatcher,
-  setItem,
 }) {
 
   const onDelete = async (e) => {
     e.preventDefault()
     handleClose()
-    dispatcher ? dispatcher(item) : setItem("")
+    dispatcher(item)
     const res = await fetch(path, { method: "DELETE" })
   }
 
