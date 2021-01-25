@@ -59,7 +59,7 @@ export default function StampBox({ day, mid, hid }) {
     <td>
       <button className="stamp-spot" type="submit" onClick={onStamp(method)}>
         <div className="lo-center">
-          <i className={`stemp fas fa-lg fa-${icon}`}
+          <i className={`fas fa-lg fa-${icon}`}
             style={{ color, transform: `rotate(${deg}deg)` }} />
         </div>
       </button>

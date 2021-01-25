@@ -31,7 +31,7 @@ export default function ProgramCardBody({ program }) {
             ref={provided.innerRef}
           >
 
-            {hidOrder.length && <>
+            {hidOrder.length ? <>
               {hidOrder.map((hid, i) => (
                 <Draggable key={hid} draggableId={String(hid)} index={i}>
                   {(provided) => (
@@ -46,9 +46,9 @@ export default function ProgramCardBody({ program }) {
                   )}
                 </Draggable>
               ))}
-            </>}
+            </> : ""}
 
-            {!hidOrder.length && <tr className="msg-none lo-center">This program has no habits yet.</tr>}
+            {!hidOrder.length && <tr className="msg-none lo-center">This program card has no habits yet.</tr>}
 
             {provided.placeholder}
           </tbody>
