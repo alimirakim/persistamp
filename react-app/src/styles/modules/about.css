@@ -10,7 +10,7 @@
 
 
 .AboutContainer{
-  
+
   display: flex;
   flex-wrap: wrap;
   padding: 10px;
@@ -103,7 +103,7 @@
 
 .about-attrib {
   position: absolute;
-  bottom: 6rem;
+  bottom: 120px;
   width: 100%;
   /* margin: 3rem 0; */
   padding: 0.5rem 1rem;
