@@ -1,12 +1,9 @@
 <div align="center">
 <img src="readme/images/idc.png" alt="ID Navigation Card">
 
-
-<!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=3 orderedList=false} -->
-
+![JavaScript](https://img.shields.io/badge/-JavaScript-f7df1e?style=flat-square&logo=JavaScript&logoColor=black) ![React](https://img.shields.io/badge/-React-61dafb?style=flat-square&logo=React&logoColor=white) ![CSS3](https://img.shields.io/badge/-CSS3-1572b6?style=flat-square&logo=CSS3&logoColor=white) ![Docker](https://img.shields.io/badge/-Docker-2496ed?style=flat-square&logo=Docker&logoColor=white) ![Python](https://img.shields.io/badge/-Python-3776ab?style=flat-square&logo=Python&logoColor=white)  ![Flask](https://img.shields.io/badge/-Flask-black?style=flat-square&logo=Flask&logoColor=white) ![SQLAlchemy](https://img.shields.io/badge/-SQLAlchemy-d01f00?style=flat-square&logo=SQLAlchemy&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-336791?style=flat-square&logo=postgreSQL&logoColor=white)
 
 # Persistamp
-![JavaScript](https://img.shields.io/badge/-JavaScript-f7df1e?style=flat-square&logo=JavaScript&logoColor=black) ![React](https://img.shields.io/badge/-React-61dafb?style=flat-square&logo=React&logoColor=white) ![CSS3](https://img.shields.io/badge/-CSS3-1572b6?style=flat-square&logo=CSS3&logoColor=white) ![Docker](https://img.shields.io/badge/-Docker-2496ed?style=flat-square&logo=Docker&logoColor=white) ![Python](https://img.shields.io/badge/-Python-3776ab?style=flat-square&logo=Python&logoColor=white)  ![Flask](https://img.shields.io/badge/-Flask-black?style=flat-square&logo=Flask&logoColor=white) ![SQLAlchemy](https://img.shields.io/badge/-SQLAlchemy-d01f00?style=flat-square&logo=SQLAlchemy&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-336791?style=flat-square&logo=postgreSQL&logoColor=white)
 ## A Motivational 'Good Habit' Tracker
 
 **TOC** [About](#about-persistamp) ● [Features](#features) ● [How It Works](#how-it-works) ● [Development](#development) ● [Contact Us](#contact-us)
@@ -22,7 +19,7 @@ Redeem those hard-won points on rewards! 🧾
 🌻🌷🌼  
 
 🐢 **Live Website!** *(Includes demo mode)* 🐢  
-<a href="https://persistamp.herokuapp.com/"><img width="50%" src="readme/images/logo.PNG" alt="Persistamp" title="Click to try Persistamp!"></a>
+<a href="https://persistamp.herokuapp.com/"><img width="250px" src="readme/images/logo.PNG" alt="Persistamp" title="Click to try Persistamp!"></a>
 
 
 
@@ -122,7 +119,7 @@ With each stamp, the user gains points for the program the habit is included in.
 <!-- <img src="readme/images/.PNG" alt="Filled program card"> -->
 <!-- <img src="readme/images/.PNG" alt="Drag-n-drop gif"> -->
 
-
+<br><br>
 
 - To **create a habit**, click the + icon in the program card's top-left corner (hover/click card to see).
 - Add a title, description (optional), color, and icon. Tip: The color and icon default to the program's color/icon settings!
@@ -186,17 +183,17 @@ With each stamp, the user gains points for the program the habit is included in.
 - Add a title, description (optional), color, and icon. 
 - **Decide the point cost of the reward.**
 - (Optional) Specify an available quantity for the reward. Leave it blank for no limit.
-<!-- - (Optional) Specify a 'limit per member' so that no one program's member can redeem more than a set amount of it. -->
 - To **edit or delete a reward**, click the pencil in the reward certificate's top-left corner.
 - ***Tip:** The color and icon default to the program's color/icon settings!*
+<!-- - (Optional) Specify a 'limit per member' so that no one program's member can redeem more than a set amount of it. -->
 
 <br clear="both">
 
 >
 > **Reward Ideas?**
-> * Something yummy, like a snack or candy.
+> * Something yummy, like a snack, favorite drink, or candy.
 > * A guilt-free present to yourself, like a book, a new laptop, or flowers.
-> * 'Fun time': Watch a movie, 2 hours of video games, free internet time.
+> * 'Fun time' - Watch a movie, 2 hours of video games, free internet time.
 > * A dream vacation, time off work, or a night out on the town!
 >
 
@@ -219,13 +216,10 @@ With each stamp, the user gains points for the program the habit is included in.
 - If a reward is **unable to be redeemed** (not enough points, zero quantity), the Redeem button will show red and be unclickable.
 - **Note!** There are no refunds! All reward shop sales are final :) .
 
-<img src="readme/images/form-redeem.PNG" alt="Redemption form" align="left" width="63%">
-<img src="readme/images/receipt.PNG" alt="Receipt" width="33%" align="right">
+<img src="readme/images/form-redeem.PNG" alt="Redemption form" align="left" width="60%">
+<img src="readme/images/receipt.PNG" alt="Receipt" width="30%">
 
 <br clear="both">
-
----
-
 <div align="center">
 
 ## Development
@@ -267,7 +261,7 @@ The database schema evolved and changed quite a bit continually throughout the p
 
 **Original Schema and a Mid-development Schema**
 
-<img src="readme/images/schema-1.png" alt="Schema of database tables" width="48%" align="left"> <img src="readme/images/schema-3.PNG" alt="Schema of database tables" width="48%" align="right">
+<img src="readme/images/schema-1.png" alt="Schema of database tables" width="45%" align="left"> <img src="readme/images/schema-3.PNG" alt="Schema of database tables" width="45%">
 <br clear="both">
 
 **TABLES LIST**
