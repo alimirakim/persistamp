@@ -9,20 +9,17 @@
 ![JavaScript](https://img.shields.io/badge/-JavaScript-f7df1e?style=flat-square&logo=JavaScript&logoColor=black) ![React](https://img.shields.io/badge/-React-61dafb?style=flat-square&logo=React&logoColor=white) ![CSS3](https://img.shields.io/badge/-CSS3-1572b6?style=flat-square&logo=CSS3&logoColor=white) ![Docker](https://img.shields.io/badge/-Docker-2496ed?style=flat-square&logo=Docker&logoColor=white) ![Python](https://img.shields.io/badge/-Python-3776ab?style=flat-square&logo=Python&logoColor=white)  ![Flask](https://img.shields.io/badge/-Flask-black?style=flat-square&logo=Flask&logoColor=white) ![SQLAlchemy](https://img.shields.io/badge/-SQLAlchemy-d01f00?style=flat-square&logo=SQLAlchemy&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-336791?style=flat-square&logo=postgreSQL&logoColor=white)
 ## A Motivational 'Good Habit' Tracker
 
-**TOC**  
-[About](#about-persistamp) ● [Features](#features) ● [How It Works](#how-it-works) ● [Development](#development) ● [Contact Us](#contact-us)
+**TOC** [About](#about-persistamp) ● [Features](#features) ● [How It Works](#how-it-works) ● [Development](#development) ● [Contact Us](#contact-us)
 
 
- 🌻🌷🌼
- 
+🌻🌷🌼  
 **Track good habits with this productivity-positivity app!**  
 Analyze habit trends over time. 💯  
 Stay motivated by setting up rewards. 🎁  
 Create rewards in a reward shop. 🛍️  
 Earn points by keeping up good habits. 👛  
 Redeem those hard-won points on rewards! 🧾  
-
-🌻🌷🌼
+🌻🌷🌼  
 
 🐢 **Live Website!** *(Includes demo mode)* 🐢  
 <a href="https://persistamp.herokuapp.com/"><img width="50%" src="readme/images/logo.PNG" alt="Persistamp" title="Click to try Persistamp!"></a>
@@ -98,7 +95,7 @@ With each stamp, the user gains points for the program the habit is included in.
 ### 1. Make a program card
 
 <div align="center">
-<img src="readme/images/program-card-empty.PNG" alt="Program cards" width="100%">
+<img src="readme/images/program-card-empty.PNG" alt="Program cards" width="80%">
 </div>
 
 - To **create a program**, click the red + 'Add' button on your ID Card in the top-left corner.
@@ -115,17 +112,17 @@ With each stamp, the user gains points for the program the habit is included in.
 
 
 <div align="center">
-<img src="readme/images/form-program2.png" alt="Program form" width="100%">
+<img src="readme/images/form-program2.png" alt="Program form" width="80%">
 <!-- <img src="readme/images/form-program.PNG" alt="Program form" width="70%"> -->
 </div>
 
 
 ### 2. Add good habits
-<img src="readme/images/form-habit.PNG" alt="Habit form" height="600px" align="left">
+<img src="readme/images/form-habit.PNG" alt="Habit form" width="50%" align="right">
 <!-- <img src="readme/images/.PNG" alt="Filled program card"> -->
 <!-- <img src="readme/images/.PNG" alt="Drag-n-drop gif"> -->
 
-<br>
+
 
 - To **create a habit**, click the + icon in the program card's top-left corner (hover/click card to see).
 - Add a title, description (optional), color, and icon. Tip: The color and icon default to the program's color/icon settings!
@@ -134,8 +131,7 @@ With each stamp, the user gains points for the program the habit is included in.
 - Tip! Change the order of habits with drag-n-drop.
 
 
-<div style="clear: both;"></div>
-<br>
+<br clear="both">
 
 >
 > **Habit Ideas?**
@@ -145,7 +141,7 @@ With each stamp, the user gains points for the program the habit is included in.
 > * Avoiding bad habits: don't smoke, don't doomscroll more than 30min, don't eat junk food
 >
 
-<div style="clear: both;"></div>
+<br clear="both">
 
 ### 3. Stamp successful days 
 <!-- <img src="readme/images/.PNG" alt="Multiple program boards with stamps - column"> -->
@@ -159,7 +155,7 @@ With each stamp, the user gains points for the program the habit is included in.
 <img src="readme/images/habit-row.png" alt="A habit row with stamps indicating fulfilled days." width="100%">
 
 ### 4. View habit history and details
-<img src="readme/images/habit-history-3.PNG" alt="Line graph" width="48%" align="left">
+<img src="readme/images/habit-history-3.PNG" alt="Line graph" width="48%" align="right">
 
 - To **see a habit's 'details page'**, click the name of a habit.
 - **See the habit's general information** in the top-right corner.
@@ -167,7 +163,7 @@ With each stamp, the user gains points for the program the habit is included in.
 - The habit can be **edited** from this page too, with your ID card's red stamp.
 - **Note about privacy!** Check the top-right area to find a 'Private' toggle. This setting allows or restricts other people from being able to see this page.
 <!-- - Add notes explaining the types of scores, their meanings. -->
-
+<br>
 <div align="center">
 <img src="readme/images/habit-details-page.PNG" alt="Line graph" width="100%">
 </div>
@@ -175,8 +171,7 @@ With each stamp, the user gains points for the program the habit is included in.
 <!-- <img src="readme/images/habit" alt="Calendar"> -->
 <!-- <img src="readme/images/habit" alt="Statistics"> -->
 
-<div style="clear: both;"></div>
-<br>
+<br clear="both">
 
 ### 5. Create rewards
 
@@ -186,7 +181,7 @@ With each stamp, the user gains points for the program the habit is included in.
 <img src="readme/images/form-reward.PNG" alt="Reward form" align="left" width="50%">
 <br>
 
-- To **see a program's reward points and shop**, click the shop icon at the top-right corner of a program card.
+- **To *see a program's reward points and shop*, click the _shop icon_ at the top-right corner of a program card.**
 - To **create a reward**, when in the reward shop, click the red trophy icon on your ID card.
 - Add a title, description (optional), color, and icon. 
 - **Decide the point cost of the reward.**
@@ -195,8 +190,7 @@ With each stamp, the user gains points for the program the habit is included in.
 - To **edit or delete a reward**, click the pencil in the reward certificate's top-left corner.
 - ***Tip:** The color and icon default to the program's color/icon settings!*
 
-<div style="clear: both;"></div>
-<br>
+<br clear="both">
 
 >
 > **Reward Ideas?**
@@ -206,7 +200,8 @@ With each stamp, the user gains points for the program the habit is included in.
 > * A dream vacation, time off work, or a night out on the town!
 >
 
-<div align="center" style="clear: both;">
+<br clear="both">
+<div align="center">
 <img src="readme/images/reward-certificate-2.PNG" alt="Reward form" width="48%">
 <img src="readme/images/reward-certificate-3.PNG" alt="Reward form" width="48%">
 <img src="readme/images/reward-page.PNG" alt="Reward cards" width="100%">
@@ -217,26 +212,24 @@ With each stamp, the user gains points for the program the habit is included in.
 
 ### 6. Redeem rewards with points
 
-- Click the 'Redeem' button on a reward certificate.
+- To **redeem a reward**, click the 'Redeem' button on a reward certificate.
 - Confirm that you really want to redeem this reward, and the cost will be taken out from your points.
-- See previously redeemed rewards, including when they were redeemed, in the shop's Receipts History.
-- Indulge in the redeemed reward, whatever it may be, or show the receipt to whoever will treat you for it. 
-- If a reward is unable to be redeemed (not enough points, zero quantity), the Redeem button will show red and be unclickable.
-- Note! There are no refunds! All reward shop sales are final :) .
+- **See previously redeemed rewards**, including when they were redeemed, in the shop's Receipts History.
+- Indulge yourself in your redeemed reward, whatever it may be, or show the receipt to whoever will treat you for it <3 .
+- If a reward is **unable to be redeemed** (not enough points, zero quantity), the Redeem button will show red and be unclickable.
+- **Note!** There are no refunds! All reward shop sales are final :) .
 
 <img src="readme/images/form-redeem.PNG" alt="Redemption form" align="left" width="63%">
 <img src="readme/images/receipt.PNG" alt="Receipt" width="33%" align="right">
 
-<div style="clear: both;"></div>
-<br>
+<br clear="both">
 
 ---
 
 <div align="center">
 
 ## Development
-**TOC**
-[Technologies](#technologies) ● [Models](#models) ● [Routes](#routes) ● [Wireframes & Styling](#wireframes-and-styling) ● [Dev Snapshots](#development-snapshots)
+**TOC** [Technologies](#technologies) ● [Models](#models) ● [Routes](#routes) ● [Wireframes & Styling](#wireframes-and-styling) ● [Dev Snapshots](#development-snapshots)
 
 This section details the technical aspects of this project's development.
 
@@ -258,6 +251,16 @@ This section details the technical aspects of this project's development.
 - beautiful-react-dnd
 - Marshmallow-SQLAlchemy
 
+### Wireframes and Styling
+
+**(TBA - Wireframe sketches from during the design process)**
+
+- **Title Ideas** PersiStamp or Persistamp (Persistent/Stamp)
+- **Logo Ideas** A turtle stamp
+- **Aesthetic - Keywords, Ideas** Colorful but modern. Analog-feel of paper, stamps, traditional materials, sticky notes/journals, 'reward boards', et cetera? Chalkboard?
+- **Fonts** Berkshire Swash (Google), Cambria (headers), Calibri...
+- **Colors** Colorful and friendly. Accommodate any color scheme well to allow user flexibility, since they can customize the color and look of a lot of the visual elements of the site.
+
 
 ### Models
 The database schema evolved and changed quite a bit continually throughout the process to accommodate new ideas, cleaner pipelines, and future features. A few examples exist of the schemas we drew up during the process, but likely by the time of this reading, the models written here are somehow out of date.
@@ -265,8 +268,7 @@ The database schema evolved and changed quite a bit continually throughout the p
 **Original Schema and a Mid-development Schema**
 
 <img src="readme/images/schema-1.png" alt="Schema of database tables" width="48%" align="left"> <img src="readme/images/schema-3.PNG" alt="Schema of database tables" width="48%" align="right">
-<div style="clear: both;"></div>
-<br>
+<br clear="both">
 
 **TABLES LIST**
 - users
@@ -467,32 +469,24 @@ The database schema evolved and changed quite a bit continually throughout the p
 |  |  |  | 
 -->
 
-### Wireframes and Styling
-
-**(TBA - Wireframe sketches from during the design process)**
-
-- **Title Ideas** PersiStamp or Persistamp (Persistent/Stamp)
-- **Logo Ideas** A turtle stamp
-- **Aesthetic - Keywords, Ideas** Colorful but modern. Analog-feel of paper, stamps, traditional materials, sticky notes/journals, 'reward boards', et cetera? Chalkboard?
-- **Fonts** Berkshire Swash (Google), Cambria (headers), Calibri...
-- **Colors** Colorful and friendly. Accommodate any color scheme well to allow user flexibility, since they can customize the color and look of a lot of the visual elements of the site.
-
 ### Development Snapshots
 
 <div align="center">
-<img src="readme/images/dev-1.PNG" width="48%">
+<img src="readme/images/dev-1.PNG" width="32%">
+<img src="readme/images/dev-2.PNG" width="32%">
+<img src="readme/images/dev-3.PNG" width="32%">
 
-<img src="readme/images/dev-2.PNG" width="48%">
-<img src="readme/images/dev-3.PNG" width="48%">
-<img src="readme/images/dev-4.PNG" width="48%">
-<img src="readme/images/dev-5.PNG" width="48%">
 <img src="readme/images/dev-6.PNG" width="48%">
-<img src="readme/images/dev-7.PNG" width="48%">
-<img src="readme/images/dev-8.PNG" width="48%">
-<img src="readme/images/dev-9.PNG" width="48%">
 <img src="readme/images/dev-10.PNG" width="48%">
-<img src="readme/images/dev-11.PNG" width="48%">
-<img src="readme/images/dev-12.PNG" width="48%">
+
+<img src="readme/images/dev-5.PNG" width="32%">
+
+<img src="readme/images/dev-7.png" width="32%">
+<img src="readme/images/dev-8.PNG" width="32%">
+<img src="readme/images/dev-11.PNG" width="32%">
+
+<img src="readme/images/dev-9.PNG" width="32%">
+<img src="readme/images/dev-12.PNG" width="32%">
 </div>
 
   <!-- - red-violet-crayola: #af4d98ff;
@@ -516,13 +510,14 @@ The database schema evolved and changed quite a bit continually throughout the p
   - maize-crayola: #f1c453ff;
   - sandy-brown: #f29e4cff; -->
 
-<div align="center">
+---
 
- ## Contact Us
- **Alicia Mira Kim** *(Full-stack developer, Open to work)*  
- <a href="readme/Kim_Mira_Alicia_Resume.pdf" download>![Resume PDF](https://img.shields.io/badge/-Resume-f00?style=flat-square&logo=adobe-acrobat-reader&logoColor=white)</a> [![Alicia's email](https://img.shields.io/badge/alicia.mira.kim@gmail.com-f4b400?style=flat-square&logo=gmail&logoColor=black&link=mailto:alicia.mira.kim@gmail.com)](mailto:alicia.mira.kim@gmail.com) [![Blog](https://img.shields.io/badge/-Blog-21759b?style=flat-square&logo=WordPress&logoColor=white&link=https://aliciamirakim.com/)](https://aliciamirakim.com) [![Linkedin](https://img.shields.io/badge/-LinkedIn-0077b5?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/alicia-mira-kim-416a0a41)](https://www.linkedin.com/in/alicia-mira-kim-416a0a41) [![AngelList](https://img.shields.io/badge/-AngelList-black?style=flat-square&logo=AngelList&logoColor=white&link=https://angel.co/u/alicia-mira-kim)](https://angel.co/u/alicia-mira-kim) [![Portfolio](https://img.shields.io/badge/-❤_Portfolio-f58?style=flat-square&logo=a&logoColor=white&link=https://alimirakim.github.io/)](https://alimirakim.github.io) [![GitHub alimirakim](https://img.shields.io/github/followers/alimirakim?label=follow&style=social)](https://github.com/alimirakim) 
+## Contact Us
 
- **David Lee** *(Full-stack developer, Open to work)*  
- <a href="readme/Lee_David_Resume.pdf" download>![Resume PDF](https://img.shields.io/badge/-Resume-f00?style=flat-square&logo=adobe-acrobat-reader&logoColor=white)</a> [![David Lee's email](https://img.shields.io/badge/dyclee@umich.edu-f4b400?style=flat-square&logo=gmail&logoColor=black&link=mailto:dyclee@umich.edu)](mailto:dyclee@umich.edu) [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077b5?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/daveyclee/)](https://www.linkedin.com/in/daveyclee/) [![AngelList](https://img.shields.io/badge/-AngelList-black?style=flat-square&logo=AngelList&logoColor=white&link=https://angel.co/u/david-lee-332)](https://angel.co/u/david-lee-332) [![GitHub dyclee](https://img.shields.io/github/followers/dyclee?label=follow&style=social)](https://github.com/dyclee)
+Thank you for taking a look at Persistamp! :) We are both actively job-seeking full-stack developers. Please feel free to reach out and ask us anything.
 
-</div>
+**David Lee** *(Full-stack developer, Open to work)*  
+<a href="readme/Lee_David_Resume.pdf" download>![Resume PDF](https://img.shields.io/badge/-Resume-f00?style=flat-square&logo=adobe-acrobat-reader&logoColor=white)</a> [![David Lee's email](https://img.shields.io/badge/dyclee@umich.edu-f4b400?style=flat-square&logo=gmail&logoColor=black&link=mailto:dyclee@umich.edu)](mailto:dyclee@umich.edu) [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077b5?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/daveyclee/)](https://www.linkedin.com/in/daveyclee/) [![AngelList](https://img.shields.io/badge/-AngelList-black?style=flat-square&logo=AngelList&logoColor=white&link=https://angel.co/u/david-lee-332)](https://angel.co/u/david-lee-332) [![GitHub dyclee](https://img.shields.io/github/followers/dyclee?label=follow&style=social)](https://github.com/dyclee)
+ 
+**Alicia Mira Kim** *(Full-stack developer, Open to work)*  
+<a href="readme/Kim_Mira_Alicia_Resume.pdf" download>![Resume PDF](https://img.shields.io/badge/-Resume-f00?style=flat-square&logo=adobe-acrobat-reader&logoColor=white)</a> [![Alicia's email](https://img.shields.io/badge/alicia.mira.kim@gmail.com-f4b400?style=flat-square&logo=gmail&logoColor=black&link=mailto:alicia.mira.kim@gmail.com)](mailto:alicia.mira.kim@gmail.com) [![Blog](https://img.shields.io/badge/-Blog-21759b?style=flat-square&logo=WordPress&logoColor=white&link=https://aliciamirakim.com/)](https://aliciamirakim.com) [![Linkedin](https://img.shields.io/badge/-LinkedIn-0077b5?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/alicia-mira-kim-416a0a41)](https://www.linkedin.com/in/alicia-mira-kim-416a0a41) [![AngelList](https://img.shields.io/badge/-AngelList-black?style=flat-square&logo=AngelList&logoColor=white&link=https://angel.co/u/alicia-mira-kim)](https://angel.co/u/alicia-mira-kim) [![Portfolio](https://img.shields.io/badge/-❤_Portfolio-f58?style=flat-square&logo=a&logoColor=white&link=https://alimirakim.github.io/)](https://alimirakim.github.io) [![GitHub alimirakim](https://img.shields.io/github/followers/alimirakim?label=follow&style=social)](https://github.com/alimirakim) 
