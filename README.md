@@ -4,23 +4,23 @@
 <img src="readme/images/idc.png" alt="ID Navigation Card">
 
 
-# Persistamp
-## A Motivational 'Good Habits' Positivity App 🐢 
+# Persistamp 🐢
+## A Motivational 'Good Habits' Positivity App
 
-**TOC** [About](#about-persistamp) ● [Features](#features) ● [How It Works](#how-it-works) ● [Development](#development) ● [Contact Us](#contact-us)
+**TOC** || [About](#about-persistamp) ● [Features](#features) ● [How It Works](#how-it-works) ● [Development](#development) ● [Contact Us](#contact-us)
 
 
-**Try the app!** *(Includes demo mode)* 🐢  
+**Try the app!** *(Includes demo mode)*  
 <a href="https://persistamp.herokuapp.com/"><img width="250px" src="readme/images/logo.PNG" alt="Persistamp" title="Click to try Persistamp!"></a>
 
-🌻🌷🌼  
-**This productivity-'positivity' app promotes good habits with positive reinforcement! 🌱**  
-Create and keep track of your good habits. 🖍️
+**This productivity-'positivity' app**  
+**promotes good habits with positive reinforcement! 🌱**  
+Create and keep track of your good habits. 🖍️  
 Analyze habit trends over time. 💯  
 Stay motivated by creating rewards in a reward shop. 🎁  
 Earn points by keeping up good habits. 💎  
 Redeem those hard-won points on rewards! 🧾  
-🌻🌷🌼  
+<!-- 🎀🌻🌷🌼   -->
 
 
 ![Dashboard webpage for Persistamp](https://i.postimg.cc/28VZZ4pm/linkedin-persistamp-updated.png)
@@ -42,7 +42,6 @@ Persistamp's design is inspired by reward cards and sticker reward systems. The 
 With each stamp, the user gains points for the program the habit is included in. A program's reward shop can be stocked by the user with their own custom reward ideas ex. 'Take a day off', 'Enjoy a pumpkin spice latte', 'Play games for 1 hour', and set their cost, quantity, and custom color/icon appearance. Redeemed rewards are displayed for posterity in a receipt-style log as 'proof of their purchase'.
 
 <div align="center" style="clear: both;">
-<br>
 
 ## Features
 </div>
@@ -91,15 +90,15 @@ With each stamp, the user gains points for the program the habit is included in.
 
 ### 1. Make a program card
 
-<div align="center">
-<img src="readme/images/program-card-empty.PNG" alt="Program cards" width="80%">
-</div>
+<img src="readme/images/program-card-empty.PNG" alt="Program cards" width="60%" align="right">
 
 - To **create a program**, click the red + 'Add' button on your ID Card in the top-left corner.
 - Add a title, description (optional), color, and icon. 
 - To **edit or delete a program**, click the pencil in the program's top-left corner (it will appear when you hover/click the card).
 - ***Tip:** The color and icon of new programs default to your user setting icon and settings! Click the green 'Settings' button to change them.*
 <!-- - Tip! Change the order of programs with drag-n-drop. -->
+
+<br clear="both">
 
 > **Program Ideas?**
 > * Exercise, Mental Health, Healthy Diet
@@ -109,7 +108,7 @@ With each stamp, the user gains points for the program the habit is included in.
 
 
 <div align="center">
-<img src="readme/images/form-program2.png" alt="Program form" width="80%">
+<img src="readme/images/form-program2.png" alt="Program form" width="100%">
 <!-- <img src="readme/images/form-program.PNG" alt="Program form" width="70%"> -->
 </div>
 
@@ -127,9 +126,7 @@ With each stamp, the user gains points for the program the habit is included in.
 - To **edit or delete a habit**, click the circled icon on the habit's left side.
 - Tip! Change the order of habits with drag-n-drop.
 
-
 <br clear="both">
-
 >
 > **Habit Ideas?**
 > * Chores: do the dishes, wash laundry, cook a healthy meal, take out trash
@@ -176,7 +173,7 @@ With each stamp, the user gains points for the program the habit is included in.
 <img src="readme/images/program-header.png" alt="Reward shop button in the top-left corner of program card" title=""Reward shop button in the top-left corner of program card">
 </div>
 <img src="readme/images/form-reward.PNG" alt="Reward form" align="right" width="50%">
-<br><br>
+<br>
 
 - **To *see a program's reward points and shop*, click the _shop icon_ at the top-right corner of a program card.**
 - To **create a reward**, when in the reward shop, click the red trophy icon on your ID card.
