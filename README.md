@@ -7,13 +7,13 @@
 # Persistamp 🐢
 ## A Motivational 'Good Habits' Positivity App
 
-**TOC** || [About](#about-persistamp) ● [Features](#features) ● [How It Works](#how-it-works) ● [Development](#development) ● [Contact Us](#contact-us)
+**TOC** [About](#about-persistamp) ● [Features](#features) ● [How It Works](#how-it-works) ● [Development](#development) ● [Contact Us](#contact-us)
 
 
 **Try the app!** *(Includes demo mode)*  
 <a href="https://persistamp.herokuapp.com/"><img width="250px" src="readme/images/logo.PNG" alt="Persistamp" title="Click to try Persistamp!"></a>
 
-**This productivity-'positivity' app**  
+**This 'productivity-positivity' app**  
 **promotes good habits with positive reinforcement! 🌱**  
 Create and keep track of your good habits. 🖍️  
 Analyze habit trends over time. 💯  
@@ -41,7 +41,7 @@ Persistamp's design is inspired by reward cards and sticker reward systems. The 
 
 With each stamp, the user gains points for the program the habit is included in. A program's reward shop can be stocked by the user with their own custom reward ideas ex. 'Take a day off', 'Enjoy a pumpkin spice latte', 'Play games for 1 hour', and set their cost, quantity, and custom color/icon appearance. Redeemed rewards are displayed for posterity in a receipt-style log as 'proof of their purchase'.
 
-<div align="center" style="clear: both;">
+<br clear="both">
 
 ## Features
 </div>
@@ -64,9 +64,7 @@ With each stamp, the user gains points for the program the habit is included in.
 - User Profile page
 - Public/private user profile, programs
 - Custom frequency options to allow from 'out of any number', rather than only by 'week'. Ex. '3 days out of 30'.
-- Dark/light mode
 - (low) Option to archive and hide-archive habits.
-- (low) Adding addition display types (see above options in MVP). Ideally at least three total (high), max of five (low)
 
 <div align="center">
 
@@ -118,7 +116,6 @@ With each stamp, the user gains points for the program the habit is included in.
 <!-- <img src="readme/images/.PNG" alt="Filled program card"> -->
 <!-- <img src="readme/images/.PNG" alt="Drag-n-drop gif"> -->
 
-<br><br>
 
 - To **create a habit**, click the + icon in the program card's top-left corner (hover/click card to see).
 - Add a title, description (optional), color, and icon. Tip: The color and icon default to the program's color/icon settings!
@@ -127,13 +124,12 @@ With each stamp, the user gains points for the program the habit is included in.
 - Tip! Change the order of habits with drag-n-drop.
 
 <br clear="both">
->
-> **Habit Ideas?**
+
+> **Habit Ideas?**  
 > * Chores: do the dishes, wash laundry, cook a healthy meal, take out trash
 > * Socially: call mom, check e-mail, apply to jobs, send thank-you letters
 > * Hobbies: read a book, draw for 10 minutes, bake bread, try a new recipe
 > * Avoiding bad habits: don't smoke, don't doomscroll more than 30min, don't eat junk food
->
 
 <br clear="both">
 
@@ -209,9 +205,9 @@ With each stamp, the user gains points for the program the habit is included in.
 - To **redeem a reward**, click the 'Redeem' button on a reward certificate.
 - Confirm that you really want to redeem this reward, and the cost will be taken out from your points.
 - **See previously redeemed rewards**, including when they were redeemed, in the shop's Receipts History.
-- Indulge yourself in your redeemed reward, whatever it may be, or show the receipt to whoever will treat you for it <3 .
+- Indulge yourself in your redeemed reward, whatever it may be, or show the receipt to whoever will treat you for it. 💞
 - If a reward is **unable to be redeemed** (not enough points, zero quantity), the Redeem button will show red and be unclickable.
-- **Note!** There are no refunds! All reward shop sales are final :) .
+- **Note!** There are no refunds! All reward shop sales are final ;D .
 
 <img src="readme/images/form-redeem.PNG" alt="Redemption form" align="left" width="60%">
 <img src="readme/images/receipt.PNG" alt="Receipt" width="30%">
@@ -505,7 +501,12 @@ The database schema evolved and changed quite a bit continually throughout the p
 
 ## Contact Us
 
-Thank you for taking a look at Persistamp! :) We are both actively job-seeking full-stack developers. Please feel free to reach out and ask us anything.
+<div align="center">
+
+Thank you for taking a look at Persistamp! :D  
+We are both actively job-seeking full-stack developers.  
+Please feel free to reach out and ask us anything.
+</div>
 
 **David Lee** *(Full-stack developer, Open to work)*  
 <a href="readme/Lee_David_Resume.pdf" download>![Resume PDF](https://img.shields.io/badge/-Resume-f00?style=flat-square&logo=adobe-acrobat-reader&logoColor=white)</a> [![David Lee's email](https://img.shields.io/badge/dyclee@umich.edu-f4b400?style=flat-square&logo=gmail&logoColor=black&link=mailto:dyclee@umich.edu)](mailto:dyclee@umich.edu) [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077b5?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/daveyclee/)](https://www.linkedin.com/in/daveyclee/) [![AngelList](https://img.shields.io/badge/-AngelList-black?style=flat-square&logo=AngelList&logoColor=white&link=https://angel.co/u/david-lee-332)](https://angel.co/u/david-lee-332) [![GitHub dyclee](https://img.shields.io/github/followers/dyclee?label=follow&style=social)](https://github.com/dyclee)
