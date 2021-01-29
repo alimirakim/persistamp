@@ -9,16 +9,24 @@
 ## A Motivational 'Good Habit' Tracker
 ![JavaScript](https://img.shields.io/badge/-JavaScript-f7df1e?style=flat-square&logo=JavaScript&logoColor=black) ![React](https://img.shields.io/badge/-React-61dafb?style=flat-square&logo=React&logoColor=white) ![CSS3](https://img.shields.io/badge/-CSS3-1572b6?style=flat-square&logo=CSS3&logoColor=white) ![Docker](https://img.shields.io/badge/-Docker-2496ed?style=flat-square&logo=Docker&logoColor=white) ![Python](https://img.shields.io/badge/-Python-3776ab?style=flat-square&logo=Python&logoColor=white)  ![Flask](https://img.shields.io/badge/-Flask-black?style=flat-square&logo=Flask&logoColor=white) ![SQLAlchemy](https://img.shields.io/badge/-SQLAlchemy-d01f00?style=flat-square&logo=SQLAlchemy&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-336791?style=flat-square&logo=postgreSQL&logoColor=white)
 
+**TOC** 
+[Contact Us](#contact-us) ● [About Persistamp](#about-persistamp) ● [Features](#features) ● [How It Works](#how-it-works) ● [Development](#development)
 
- <!-- 🌻🌷🌼 -->
-Track good habits with this browser-based positivity app. Analyze habit trends over time. Stay motivated by setting up rewards. Create rewards in a reward shop, earn points by keeping up good habits, and redeem those points on rewards!
- <!-- 🌻🌷🌼 -->
 
-🌻🌷🌼 **Live Website!** *(Includes demo mode)* 🌻🌷🌼
+ 🌻🌷🌼
+**Track good habits with this productivity-positivity app!**
+Analyze habit trends over time. 💯
+Stay motivated by setting up rewards. 🎁
+Create rewards in a reward shop. 🛍️
+Earn points by keeping up good habits. 👛
+Redeem those hard-won points on rewards! 🧾
+🌻🌷🌼
+
+🐢 **Live Website!** *(Includes demo mode)* 🐢
+
 <a href="https://persistamp.herokuapp.com/"><img width="50%" src="readme/images/logo.PNG" alt="Persistamp" title="Click to try Persistamp!"></a>
 
 
-**TOC** [contact](#contact-us) ● [About](#about-persistamp) ● [Features](#features) ● [How It Works](#how-it-works) ● [Development](#development)
 
 ![Dashboard webpage for Persistamp](https://i.postimg.cc/28VZZ4pm/linkedin-persistamp-updated.png)
 
@@ -26,9 +34,13 @@ Track good habits with this browser-based positivity app. Analyze habit trends o
 
 >
 > ## Contact Us
+>
 > **Alicia Mira Kim** *(Full-stack developer, Open to work)*
+>
 > <a href="readme/Kim_Mira_Alicia_Resume.pdf" download>![Resume PDF](https://img.shields.io/badge/-Resume-f00?style=flat-square&logo=adobe-acrobat-reader&logoColor=white)</a> [![Alicia's email](https://img.shields.io/badge/alicia.mira.kim@gmail.com-f4b400?style=flat-square&logo=gmail&logoColor=black&link=mailto:alicia.mira.kim@gmail.com)](mailto:alicia.mira.kim@gmail.com) [![Blog](https://img.shields.io/badge/-Blog-21759b?style=flat-square&logo=WordPress&logoColor=white&link=https://aliciamirakim.com/)](https://aliciamirakim.com) [![Linkedin](https://img.shields.io/badge/-LinkedIn-0077b5?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/alicia-mira-kim-416a0a41)](https://www.linkedin.com/in/alicia-mira-kim-416a0a41) [![AngelList](https://img.shields.io/badge/-AngelList-black?style=flat-square&logo=AngelList&logoColor=white&link=https://angel.co/u/alicia-mira-kim)](https://angel.co/u/alicia-mira-kim) [![Portfolio](https://img.shields.io/badge/-❤_Portfolio-f58?style=flat-square&logo=a&logoColor=white&link=https://alimirakim.github.io/)](https://alimirakim.github.io) [![GitHub alimirakim](https://img.shields.io/github/followers/alimirakim?label=follow&style=social)](https://github.com/alimirakim) 
+>
 > **David Lee** *(Full-stack developer, Open to work)*
+>
 > <a href="readme/Lee_David_Resume.pdf" download>![Resume PDF](https://img.shields.io/badge/-Resume-f00?style=flat-square&logo=adobe-acrobat-reader&logoColor=white)</a> [![David Lee's email](https://img.shields.io/badge/dyclee@umich.edu-f4b400?style=flat-square&logo=gmail&logoColor=black&link=mailto:dyclee@umich.edu)](mailto:dyclee@umich.edu) [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077b5?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/daveyclee/)](https://www.linkedin.com/in/daveyclee/) [![AngelList](https://img.shields.io/badge/-AngelList-black?style=flat-square&logo=AngelList&logoColor=white&link=https://angel.co/u/david-lee-332)](https://angel.co/u/david-lee-332) [![GitHub dyclee](https://img.shields.io/github/followers/dyclee?label=follow&style=social)](https://github.com/dyclee)
 >
 
@@ -37,7 +49,9 @@ Track good habits with this browser-based positivity app. Analyze habit trends o
 <div align="center">
 
 ## About Persistamp
-[[Live Website]](https://persistamp.herokuapp.com) 
+
+[[ https://persistamp.herokuapp.com ]](https://persistamp.herokuapp.com) 
+
 *(Inspired by mobile app [Loop Habit Tracker](https://play.google.com/store/apps/details?id=org.isoron.uhabits&hl=en_US&gl=US).)*
 
 </div>
@@ -46,7 +60,9 @@ Persistamp's design is inspired by reward cards and sticker reward systems. The 
 
 With each stamp, the user gains points for the program the habit is included in. A program's reward shop can be stocked by the user with their own custom reward ideas ex. 'Take a day off', 'Enjoy a pumpkin spice latte', 'Play games for 1 hour', and set their cost, quantity, and custom color/icon appearance. Redeemed rewards are displayed for posterity in a receipt-style log as 'proof of their purchase'.
 
+<div align="center">
 <img src="readme/images/persistamp-1.gif" alt="Animated GIF of a program card for chore-related habits.">
+</div>
 
 <div align="center">
 
@@ -63,7 +79,7 @@ With each stamp, the user gains points for the program the habit is included in.
 * Use a program's points to redeem rewards. See it logged in a redemption history.
 * Drag-n-drop to manually sort programs, habits, and rewards.
 * Customize the appearance of programs, habits, and rewards with a choice of color and icon.
-<!-- 
+
 ### Future Stretch Goals
 - **Add friends**
 - **Accountability buddies**
@@ -73,16 +89,28 @@ With each stamp, the user gains points for the program the habit is included in.
 - Custom frequency options to allow from 'out of any number', rather than only by 'week'. Ex. '3 days out of 30'.
 - Dark/light mode
 - (low) Option to archive and hide-archive habits.
-- Change display mode to daily/yearly
-- (low) Adding addition display types (see above options in MVP). Ideally at least three total (high), max of five (low) -->
+- (low) Adding addition display types (see above options in MVP). Ideally at least three total (high), max of five (low)
 
 <div align="center">
 
 ## How It Works
-***Tip:** This ID card also works as the site's main navigation. 
-Note the **red button**; it has many important uses, depending on the webpage.*
 <img width="400px" src="readme/images/idc2.png" alt="ID Navigation Card">
+
+***Tip:** This ID card also works as the site's main navigation.*
+
+*Note the **red button**; it has many important uses, depending on the webpage.*
+
 </div>
+
+>
+> **Users can:**
+> 1. [Make a program card](#1-make-a-program-card)
+> 2. [Add good habits](#2-add-good-habits)
+> 3. [Stamp successful days](#3-stamp-successful-days)
+> 4. [View habit history & details](#4-view-habit-history-and-details)
+> 5. [Create rewards](#5-create-rewards)
+> 6. [Redeem rewards with points](#6-redeem-rewards-with-points)
+>
 
 ### 1. Make a program card
 
@@ -92,12 +120,6 @@ Note the **red button**; it has many important uses, depending on the webpage.*
 - ***Tip:** The color and icon of new programs default to your user setting icon and settings! Click the green 'Settings' button to change them.*
 <!-- - Tip! Change the order of programs with drag-n-drop. -->
 
-<div align="center">
-<img src="readme/images/form-program2.png" alt="Program form" width="100%">
-<img src="readme/images/program-card-empty.PNG" alt="Program cards" width="100%">
-<!-- <img src="readme/images/form-program.PNG" alt="Program form" width="70%"> -->
-</div>
-
 > **Program Ideas?**
 > * Exercise, Mental Health, Healthy Diet
 > * Chores, Errands, Adulting Tasks
@@ -105,10 +127,19 @@ Note the **red button**; it has many important uses, depending on the webpage.*
 > * Social Obligations, Networking, Time for Loved Ones
 
 
+<div align="center">
+<img src="readme/images/program-card-empty.PNG" alt="Program cards" width="100%">
+<img src="readme/images/form-program2.png" alt="Program form" width="100%">
+<!-- <img src="readme/images/form-program.PNG" alt="Program form" width="70%"> -->
+</div>
+
+
 ### 2. Add good habits
 <img src="readme/images/form-habit.PNG" alt="Habit form" height="600px" align="left">
 <!-- <img src="readme/images/.PNG" alt="Filled program card"> -->
 <!-- <img src="readme/images/.PNG" alt="Drag-n-drop gif"> -->
+
+<br><br>
 
 - To **create a habit**, click the + icon in the program card's top-left corner (hover/click card to see).
 - Add a title, description (optional), color, and icon. Tip: The color and icon default to the program's color/icon settings!
@@ -116,11 +147,16 @@ Note the **red button**; it has many important uses, depending on the webpage.*
 - To **edit or delete a habit**, click the circled icon on the habit's left side.
 - Tip! Change the order of habits with drag-n-drop.
 
+
+<div style="clear: both;"></div>
+
+>
 > **Habit Ideas?**
 > * Chores: do the dishes, wash laundry, cook a healthy meal, take out trash
 > * Socially: call mom, check e-mail, apply to jobs, send thank-you letters
 > * Hobbies: read a book, draw for 10 minutes, bake bread, try a new recipe
 > * Avoiding bad habits: don't smoke, don't doomscroll more than 30min, don't eat junk food
+>
 
 <div style="clear: both;"></div>
 
@@ -135,12 +171,12 @@ Note the **red button**; it has many important uses, depending on the webpage.*
 
 <img src="readme/images/habit-row.PNG" alt="A habit row with stamps indicating fulfilled days." width="100%">
 
-### 4. View habit history & details
+### 4. View habit history and details
 
 - To **see a habit's 'details page'**, click the name of a habit.
-- See the habit's general information in the top-right corner.
-- For the line graph, select from the dropdown to toggle between 'monthly' and 'weekly' view.
-- The habit can be edited from this page too, with your ID card's red stamp.
+- **See the habit's general information** in the top-right corner.
+- For the line graph, select from the dropdown to **toggle between 'monthly' and 'weekly' view**.
+- The habit can be **edited** from this page too, with your ID card's red stamp.
 - **Note about privacy!** Check the top-right area to find a 'Private' toggle. This setting allows or restricts other people from being able to see this page.
 <!-- - Add notes explaining the types of scores, their meanings. -->
 
@@ -152,8 +188,9 @@ Note the **red button**; it has many important uses, depending on the webpage.*
 <!-- <img src="readme/images/habit-history-2.PNG" alt="Line graph" width="48%"> -->
 <!-- <img src="readme/images/habit" alt="Calendar"> -->
 <!-- <img src="readme/images/habit" alt="Statistics"> -->
-<div style="clear: both;"></div>
 
+<div style="clear: both;"></div>
+<br>
 
 ### 5. Create rewards
 
@@ -172,11 +209,15 @@ Note the **red button**; it has many important uses, depending on the webpage.*
 - To **edit or delete a reward**, click the pencil in the reward certificate's top-left corner.
 - ***Tip:** The color and icon default to the program's color/icon settings!*
 
+<div style="clear: both;"></div>
+<br>
+>
 > **Reward Ideas?**
 > * Something yummy, like a snack or candy.
 > * A guilt-free present to yourself, like a book, a new laptop, or flowers.
 > * 'Fun time': Watch a movie, 2 hours of video games, free internet time.
 > * A dream vacation, time off work, or a night out on the town!
+>
 
 <div align="center" style="clear: both;">
 <img src="readme/images/reward-certificate-2.PNG" alt="Reward form" width="48%">
@@ -196,8 +237,9 @@ Note the **red button**; it has many important uses, depending on the webpage.*
 - If a reward is unable to be redeemed (not enough points, zero quantity), the Redeem button will show red and be unclickable.
 - Note! There are no refunds! All reward shop sales are final :) .
 
-<img src="readme/images/form-redeem.PNG" alt="Redemption form" align="left" width="65%">
-<img src="readme/images/receipt.PNG" alt="Receipt" width="35%">
+<img src="readme/images/form-redeem.PNG" alt="Redemption form" align="left" width="63%">
+<img src="readme/images/receipt.PNG" alt="Receipt" width="33%" align="right">
+
 <br style="clear: both;">
 
 ---
@@ -205,7 +247,9 @@ Note the **red button**; it has many important uses, depending on the webpage.*
 <div align="center">
 
 ## Development
-**TOC** [Technologies](#technologies) ● [Models](#models) ● [Routes](#routes) ● [Wireframes](#wireframes) ● [Dev Snapshots](#development-snapshots)
+**TOC**
+[Technologies](#technologies) ● [Models](#models) ● [Routes](#routes) ● [Wireframes & Styling](#wireframes-and-styling) ● [Dev Snapshots](#development-snapshots)
+
 This section details the technical aspects of this project's development.
 
 </div>
@@ -230,12 +274,10 @@ This section details the technical aspects of this project's development.
 ### Models
 The database schema evolved and changed quite a bit continually throughout the process to accommodate new ideas, cleaner pipelines, and future features. A few examples exist of the schemas we drew up during the process, but likely by the time of this reading, the models written here are somehow out of date.
 
-**Original Schema**
-![Table Models](readme/images/schema-1.png)
+**Original Schema and a Mid-development Schema**
 
-**A Mid-development Schema**
-![Table Models](readme/images/schema-3.PNG)
-
+<img src="readme/images/schema-1.png" alt="Schema of database tables" width="48%" align="left"> <img src="readme/images/schema-3.PNG" alt="Schema of database tables" width="48%" align="right">
+<div style="clear: both;"></div>
 
 **TABLES LIST**
 - users
@@ -342,7 +384,6 @@ The database schema evolved and changed quite a bit continually throughout the p
 | user_id  | INTEGER, FOREIGN KEY=users.id, NOT NULL | combo-unique
 | buddy_id | INTEGER, FOREIGN KEY=users.id, NOT NULL |
 
----------
 
 ### Routes
 
@@ -408,6 +449,8 @@ The database schema evolved and changed quite a bit continually throughout the p
 | DELETE | `/:hid`    | Delete a `habit` for a `program`. |
 
 ##### ROOT: `/programs/:pid/habits/:hid/members/:uid`
+| METHOD | Route Path | Purpose         |
+|--------|------------|-----------------|
 | POST   | `/stamp`   | Change status of associated `daily_stamp` to 'stamped' |
 | DELETE | `/`     | Change status of associated `daily_stamp` to 'unstamped' |
 | POST   | `/ping`     | Change status of associated `daily_stamp` to 'pending' | 
@@ -435,7 +478,7 @@ The database schema evolved and changed quite a bit continually throughout the p
 |  |  |  | 
 -->
 
-### Wireframes & Styling
+### Wireframes and Styling
 
 **(TBA - Wireframe sketches from during the design process)**
 
