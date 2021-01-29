@@ -50,7 +50,7 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
   right: 0;
   left: 0;
   bottom: 0;
-  background-color: rgba(0,0,0,0.5);
+  /* background-color: rgba(0,0,0,0.5); */
   pointer-events: all;
 }
 
@@ -59,7 +59,7 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
   color: white;
   background-size: cover;
   background-position: center;
-  box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.3);
+  /* box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.3); */
 }
 
 .lo-center {

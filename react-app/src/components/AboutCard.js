@@ -1,8 +1,6 @@
 import React from "react";
 import NavCard from './nav/NavCard'
-import blankPic from "../images/profiles/blank-profile-pic.png"
 import david from '../images/profiles/david-linkedin.jpg'
-import brian from '../images/profiles/brian-linkedin.jpg'
 import mira from '../images/profiles/mira-linkedin.jpg'
 
 function AboutCard({ auth, setAuth }) {
