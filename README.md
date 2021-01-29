@@ -1,26 +1,26 @@
 <div align="center">
-<img src="readme/images/idc.png" alt="ID Navigation Card">
 
 ![JavaScript](https://img.shields.io/badge/-JavaScript-f7df1e?style=flat-square&logo=JavaScript&logoColor=black) ![React](https://img.shields.io/badge/-React-61dafb?style=flat-square&logo=React&logoColor=white) ![CSS3](https://img.shields.io/badge/-CSS3-1572b6?style=flat-square&logo=CSS3&logoColor=white) ![Docker](https://img.shields.io/badge/-Docker-2496ed?style=flat-square&logo=Docker&logoColor=white) ![Python](https://img.shields.io/badge/-Python-3776ab?style=flat-square&logo=Python&logoColor=white)  ![Flask](https://img.shields.io/badge/-Flask-black?style=flat-square&logo=Flask&logoColor=white) ![SQLAlchemy](https://img.shields.io/badge/-SQLAlchemy-d01f00?style=flat-square&logo=SQLAlchemy&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-336791?style=flat-square&logo=postgreSQL&logoColor=white)
+<img src="readme/images/idc.png" alt="ID Navigation Card">
+
 
 # Persistamp
-## A Motivational 'Good Habit' Tracker
+## A Motivational 'Good Habits' Positivity App 🐢 
 
 **TOC** [About](#about-persistamp) ● [Features](#features) ● [How It Works](#how-it-works) ● [Development](#development) ● [Contact Us](#contact-us)
 
 
-🌻🌷🌼  
-**Track good habits with this productivity-positivity app!**  
-Analyze habit trends over time. 💯  
-Stay motivated by setting up rewards. 🎁  
-Create rewards in a reward shop. 🛍️  
-Earn points by keeping up good habits. 👛  
-Redeem those hard-won points on rewards! 🧾  
-🌻🌷🌼  
-
-🐢 **Live Website!** *(Includes demo mode)* 🐢  
+**Try the app!** *(Includes demo mode)* 🐢  
 <a href="https://persistamp.herokuapp.com/"><img width="250px" src="readme/images/logo.PNG" alt="Persistamp" title="Click to try Persistamp!"></a>
 
+🌻🌷🌼  
+**This productivity-'positivity' app promotes good habits with positive reinforcement! 🌱**  
+Create and keep track of your good habits. 🖍️
+Analyze habit trends over time. 💯  
+Stay motivated by creating rewards in a reward shop. 🎁  
+Earn points by keeping up good habits. 💎  
+Redeem those hard-won points on rewards! 🧾  
+🌻🌷🌼  
 
 
 ![Dashboard webpage for Persistamp](https://i.postimg.cc/28VZZ4pm/linkedin-persistamp-updated.png)
@@ -175,8 +175,8 @@ With each stamp, the user gains points for the program the habit is included in.
 <div align="center">
 <img src="readme/images/program-header.png" alt="Reward shop button in the top-left corner of program card" title=""Reward shop button in the top-left corner of program card">
 </div>
-<img src="readme/images/form-reward.PNG" alt="Reward form" align="left" width="50%">
-<br>
+<img src="readme/images/form-reward.PNG" alt="Reward form" align="right" width="50%">
+<br><br>
 
 - **To *see a program's reward points and shop*, click the _shop icon_ at the top-right corner of a program card.**
 - To **create a reward**, when in the reward shop, click the red trophy icon on your ID card.
