@@ -10,21 +10,11 @@ This section details the technical aspects of this project's development. To see
 </div>
 
 ## Technologies
-- JavaScript
-- Python 3
-- React
-- CSS
-- Alembic
-- SQLAlchemy
-- Psycopg2
-- PostgreSQL
-- Visual Studio Code
-- Flask-WTF, WTForms
-- Werkzeug
-- recharts
-- beautiful-react-dnd
-- Marshmallow-SQLAlchemy
-- Docker
+- **LANGUAGES** JavaScript, Python 3, CSS
+- **FRONTEND** React, React Router
+- **BACKEND** Flask, SQLAlchemy, PostgreSQL
+- **TOOLS** Docker, Heroku, Visual Studio Code, Kanban,
+- **LIBRARIES** recharts, beautiful-react-dnd, react-calendar-heatmap, react-heatmap-grid, FontAwesome, Material-UI, Chakra-UI, Flask-WTF, WTForms, Mashmallow-SQLAlchemy, Werkzeug
 
 ## Concept
 
@@ -239,6 +229,11 @@ The database schema evolved and changed quite a bit continually throughout the p
 |  |  |  |
 |  |  |  | 
 -->
+
+
+## Wireframes
+Drawings from design and planning process TBA.
+
 
 ## Development Snapshots
 

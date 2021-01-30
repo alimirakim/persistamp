@@ -1,6 +1,14 @@
 <div align="center">
 
-![JavaScript](https://img.shields.io/badge/-JavaScript-f7df1e?style=flat-square&logo=JavaScript&logoColor=black) ![React](https://img.shields.io/badge/-React-61dafb?style=flat-square&logo=React&logoColor=white) ![CSS3](https://img.shields.io/badge/-CSS3-1572b6?style=flat-square&logo=CSS3&logoColor=white) ![Docker](https://img.shields.io/badge/-Docker-2496ed?style=flat-square&logo=Docker&logoColor=white) ![Python](https://img.shields.io/badge/-Python-3776ab?style=flat-square&logo=Python&logoColor=white)  ![Flask](https://img.shields.io/badge/-Flask-black?style=flat-square&logo=Flask&logoColor=white) ![SQLAlchemy](https://img.shields.io/badge/-SQLAlchemy-d01f00?style=flat-square&logo=SQLAlchemy&logoColor=white) ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-336791?style=flat-square&logo=postgreSQL&logoColor=white)
+![JavaScript](https://img.shields.io/badge/-JavaScript-f7df1e?style=flat-square&logo=JavaScript&logoColor=black) 
+![React](https://img.shields.io/badge/-React-61dafb?style=flat-square&logo=React&logoColor=white) 
+![CSS3](https://img.shields.io/badge/-CSS3-1572b6?style=flat-square&logo=CSS3&logoColor=white) 
+![Docker](https://img.shields.io/badge/-Docker-2496ed?style=flat-square&logo=Docker&logoColor=white) 
+![Python](https://img.shields.io/badge/-Python-3776ab?style=flat-square&logo=Python&logoColor=white)  
+![Flask](https://img.shields.io/badge/-Flask-black?style=flat-square&logo=Flask&logoColor=white) 
+![SQLAlchemy](https://img.shields.io/badge/-SQLAlchemy-d01f00?style=flat-square&logo=SQLAlchemy&logoColor=white) 
+![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-336791?style=flat-square&logo=postgreSQL&logoColor=white)
+
 <img src="readme/images/idc.png" alt="ID Navigation Card">
 
 
@@ -33,7 +41,7 @@ Redeem those hard-won points on rewards! 🧾
 
 ## About Persistamp
 
-[[ https://persistamp.herokuapp.com ]](https://persistamp.herokuapp.com)  
+[[ WEBSITE: https://persistamp.herokuapp.com ]](https://persistamp.herokuapp.com)  
 *(Inspired by mobile app [Loop Habit Tracker](https://play.google.com/store/apps/details?id=org.isoron.uhabits&hl=en_US&gl=US).)*
 
 </div>
@@ -56,8 +64,8 @@ With each stamp, the user gains points for the program the habit is included in.
 * Share a habit's details or keep it private with a 'Public-Private' toggle.
 * Each program features a reward shop. Create rewards with a custom cost and (opt) quantity.
 * Use a program's points to redeem rewards. See it logged in a redemption history.
-* Drag-n-drop to manually sort programs, habits, and rewards.
 * Customize the appearance of programs, habits, and rewards with a choice of color and icon.
+<!-- * Drag-n-drop to manually sort programs, habits, and rewards. -->
 
 ### Future Stretch Goals
 - **Add friends**
@@ -74,7 +82,7 @@ With each stamp, the user gains points for the program the habit is included in.
 <img width="400px" src="readme/images/idc2.png" alt="ID Navigation Card">
 
 ***Tip:** This ID card also works as the site's main navigation.*  
-*Note the **red button**; it has many important uses, depending on the webpage.*
+***Note the red button!** It has many important uses, depending on the webpage.*
 
 </div>
 
@@ -91,13 +99,11 @@ With each stamp, the user gains points for the program the habit is included in.
 ### 1. Make a program card
 <img src="readme/images/program-card-empty.PNG" alt="Program cards" width="60%" align="right">
 
-- To **create a program**, click the red + 'Add' button on your ID Card in the top-left corner.
+- To **create a program**, click the red stamp icon labeled 'Add' on your ID Card in the top-left corner.
 - Add a title, description (optional), color, and icon. 
 - To **edit or delete a program**, click the pencil in the program's top-left corner (it will appear when you hover/click the card).
 - ***Tip:** The color and icon of new programs default to your user setting icon and settings! Click the green 'Settings' button to change them.*
 <!-- - Tip! Change the order of programs with drag-n-drop. -->
-
-<br clear="both">
 
 > **Program Ideas?**
 > * Exercise, Mental Health, Healthy Diet
@@ -105,10 +111,10 @@ With each stamp, the user gains points for the program the habit is included in.
 > * Learning, Self-teaching, Self-improvement
 > * Social Obligations, Networking, Time for Loved Ones
 
+<br clear="both">
 
 <div align="center">
   <img src="readme/images/form-program2.png" alt="Program form" width="100%">
-  <!-- <img src="readme/images/form-program.PNG" alt="Program form" width="70%"> -->
 </div>
 
 
@@ -118,12 +124,11 @@ With each stamp, the user gains points for the program the habit is included in.
 <!-- <img src="readme/images/.PNG" alt="Drag-n-drop gif"> -->
 
 - To **create a habit**, click the + icon in the program card's top-left corner (hover/click card to see).
-- Add a title, description (optional), color, and icon. Tip: The color and icon default to the program's color/icon settings!
+- Add a title, description (optional), color, and icon. 
 - **Select a frequency.** How many days per week is your goal?
 - To **edit or delete a habit**, click the circled icon on the habit's left side.
-- Tip! Change the order of habits with drag-n-drop.
-
-<br clear="both">
+- ***Tip:** The color and icon default to the program's color/icon settings!*
+- ***Tip:** Change the order of habits with drag-n-drop.*
 
 > **Habit Ideas?**  
 > * Chores: do the dishes, wash laundry, cook a healthy meal, take out trash
@@ -131,14 +136,16 @@ With each stamp, the user gains points for the program the habit is included in.
 > * Hobbies: read a book, draw for 10 minutes, bake bread, try a new recipe
 > * Avoiding bad habits: don't smoke, don't doomscroll more than 30min, don't eat junk food
 
+<br clear="both">
+
 
 ### 3. Stamp successful days 
 <!-- <img src="readme/images/.PNG" alt="Multiple program boards with stamps - column"> -->
 
 - To **add a stamp**, click empty spots in the habit card to mark the day fulfilled for that habit.
 - To **undo a stamp**, reclick the stamp.
-- If you have enough stamps for a **habit's frequency goal**, any unstamped spots will now **show a checkmark**.
-- **Note!** You can only add stamps for within the last seven days, so check in at least once a week.
+- With enough stamps for a **habit's frequency goal**, any unstamped spots will now **show a checkmark**.
+- **Warning!** You can only add stamps for within the last seven days, so check in at least once a week.
 
 <img src="readme/images/habit-row.png" alt="A habit row with stamps indicating fulfilled days." width="100%">
 
@@ -146,11 +153,11 @@ With each stamp, the user gains points for the program the habit is included in.
 ### 4. View habit history and details
 <img src="readme/images/habit-history-3.PNG" alt="Line graph" width="48%" align="right">
 
-- To **see a habit's 'details page'**, click the name of a habit.
+- **To see a habit's 'details page', click the name of the habit in its program card.**
 - **See the habit's general information** in the top-right corner.
-- For the line graph, select from the dropdown to **toggle between 'monthly' and 'weekly' view**.
-- The habit can be **edited** from this page too, with your ID card's red stamp.
-- **Note about privacy!** Check the top-right area to find a 'Private' toggle. This setting allows or restricts other people from being able to see this page.
+- To **toggle between 'monthly' and 'weekly' view** for the line graph, select an option from the dropdown.
+- The habit can be **edited** from this page with your ID card's red pencil icon.
+- **Note about privacy!** Check the top-right area to find a 'Private' toggle. This setting allows or restricts other people from being able to see this page. To **share your a detail page**, check that 'Private' is untoggled, then copy-paste the page's URL.
 <!-- - Add notes explaining the types of scores, their meanings. -->
 <br>
 <div align="center">
@@ -177,39 +184,36 @@ With each stamp, the user gains points for the program the habit is included in.
 - (Optional) Specify an available quantity for the reward. Leave it blank for no limit.
 - To **edit or delete a reward**, click the pencil in the reward certificate's top-left corner.
 - ***Tip:** The color and icon default to the program's color/icon settings!*
-<!-- - (Optional) Specify a 'limit per member' so that no one program's member can redeem more than a set amount of it. -->
-
-<br clear="both">
+- **Note:** The 'limit per member' option is included for a future feature that allows more than one person to subscribe to a program. It ensures that no one program's member can redeem more than a set amount of that reward. Leave it blank to default to no limit.
 
 >
 > **Reward Ideas?**
 > * Something yummy, like a snack, favorite drink, or candy.
 > * A guilt-free present to yourself, like a book, a new laptop, or flowers.
-> * 'Fun time' - Watch a movie, 2 hours of video games, free internet time.
+> * 'Fun time': Watch a movie, 2 hours of video games, free internet time.
 > * A dream vacation, time off work, or a night out on the town!
 >
 
 <br clear="both">
 <div align="center">
-<img src="readme/images/reward-certificate-2.PNG" alt="Reward form" width="48%">
-<img src="readme/images/reward-certificate-3.PNG" alt="Reward form" width="48%">
-<img src="readme/images/reward-page.PNG" alt="Reward cards" width="100%">
+<img src="readme/images/reward-certificate-2.PNG" alt="Reward certificate for ice cream" width="48%">
+<img src="readme/images/reward-certificate-3.PNG" alt="Reward certificate for a new bike" width="48%">
+<img src="readme/images/reward-page.PNG" alt="Reward shop page screenshot" width="100%">
 </div>
-<!-- <img src="readme/images/reward-certificates.PNG" alt="Reward certificates">
-<img src="readme/images/receipts.PNG" alt="Receipt" align="right"> -->
 
 
 ### 6. Redeem rewards with points
 
 - To **redeem a reward**, click the 'Redeem' button on a reward certificate.
 - Confirm that you really want to redeem this reward, and the cost will be taken out from your points.
-- **See previously redeemed rewards**, including when they were redeemed, in the shop's Receipts History.
-- Indulge yourself in your redeemed reward, whatever it may be, or show the receipt to whoever will treat you for it. 💞
+- **See previously redeemed rewards**, including when they were redeemed, in the shop's Reward History.
+- Indulge yourself in your redeemed reward, or show the receipt to whoever will treat you for it. 💞
 - If a reward is **unable to be redeemed** (not enough points, zero quantity), the Redeem button will show red and be unclickable.
-- **Note!** There are no refunds! All reward shop sales are final ;D .
+- **Warning!** It is possible to **go into debt with negative points** for a program by buying rewards, then removing more stamps from the program card than there are remaining points.
+- **Warning!** There are no refunds! All reward shop sales are final ;D .
 
-<img src="readme/images/form-redeem.PNG" alt="Redemption form" width="63%">
-<img src="readme/images/receipt.PNG" alt="Receipt" width="33%">
+<img src="readme/images/form-redeem.PNG" alt="Redemption form" width="62%">
+<img src="readme/images/receipt.PNG" alt="Receipt" width="32%">
 
 
 <div align="center">
@@ -275,15 +279,15 @@ With each stamp, the user gains points for the program the habit is included in.
   ## Development
 
   **DEV TOC**  
-  [Technologies](#technologies) ● [Concepts](#concepts) ● [Models](#models) ● [Routes](#routes) ● [Wireframes](#wireframes) ● [Dev Snapshots](#development-snapshots)
+  [Technologies](readme/development.md#technologies) ● [Concepts](readme/development.md#concepts) ● [Models](readme/development.md#models) ● [Routes](readme/development.md#routes) ● [Wireframes](readme/development.md#wireframes) ● [Dev Snapshots](readme/development.md#development-snapshots)
 
   This section is kept in a separate document [HERE](readme/development.md).  
   It details the technical aspects of this project's development.  
   A few sample snapshots are below from the development process.  
 
-  <img src="readme/images/dev-2.PNG" height="250px">
-  <img src="readme/images/dev-10.PNG" height="250px">
-  <img src="readme/images/dev-9.PNG" height="250px">
+  <img src="readme/images/dev-2.PNG" height="200px">
+  <img src="readme/images/dev-10.PNG" height="200px">
+  <img src="readme/images/dev-9.PNG" height="200px">
 
 </div>
 
@@ -300,8 +304,18 @@ With each stamp, the user gains points for the program the habit is included in.
 
 ### David Lee 
 *(Full-stack developer, Open to work)*  
-<a href="readme/Lee_David_Resume.pdf" download>![Resume PDF](https://img.shields.io/badge/-Resume-f00?style=flat-square&logo=adobe-acrobat-reader&logoColor=white)</a> [![David Lee's email](https://img.shields.io/badge/dyclee@umich.edu-f4b400?style=flat-square&logo=gmail&logoColor=black&link=mailto:dyclee@umich.edu)](mailto:dyclee@umich.edu) [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077b5?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/daveyclee/)](https://www.linkedin.com/in/daveyclee/) [![AngelList](https://img.shields.io/badge/-AngelList-black?style=flat-square&logo=AngelList&logoColor=white&link=https://angel.co/u/david-lee-332)](https://angel.co/u/david-lee-332) [![GitHub dyclee](https://img.shields.io/github/followers/dyclee?label=follow&style=social)](https://github.com/dyclee)
+<a href="readme/Lee_David_Resume.pdf" download>![Resume PDF](https://img.shields.io/badge/-Resume-f00?style=flat-square&logo=adobe-acrobat-reader&logoColor=white)</a> 
+[![David Lee's email](https://img.shields.io/badge/dyclee@umich.edu-f4b400?style=flat-square&logo=gmail&logoColor=black&link=mailto:dyclee@umich.edu)](mailto:dyclee@umich.edu) 
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077b5?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/daveyclee/)](https://www.linkedin.com/in/daveyclee/) 
+[![AngelList](https://img.shields.io/badge/-AngelList-black?style=flat-square&logo=AngelList&logoColor=white&link=https://angel.co/u/david-lee-332)](https://angel.co/u/david-lee-332) 
+[![GitHub dyclee](https://img.shields.io/github/followers/dyclee?label=follow&style=social)](https://github.com/dyclee)
  
 ### Alicia Mira Kim 
 *(Full-stack developer, Open to work)*  
-<a href="readme/Kim_Mira_Alicia_Resume.pdf" download>![Resume PDF](https://img.shields.io/badge/-Resume-f00?style=flat-square&logo=adobe-acrobat-reader&logoColor=white)</a> [![Alicia's email](https://img.shields.io/badge/alicia.mira.kim@gmail.com-f4b400?style=flat-square&logo=gmail&logoColor=black&link=mailto:alicia.mira.kim@gmail.com)](mailto:alicia.mira.kim@gmail.com) [![Blog](https://img.shields.io/badge/-Blog-21759b?style=flat-square&logo=WordPress&logoColor=white&link=https://aliciamirakim.com/)](https://aliciamirakim.com) [![Linkedin](https://img.shields.io/badge/-LinkedIn-0077b5?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/alicia-mira-kim-416a0a41)](https://www.linkedin.com/in/alicia-mira-kim-416a0a41) [![AngelList](https://img.shields.io/badge/-AngelList-black?style=flat-square&logo=AngelList&logoColor=white&link=https://angel.co/u/alicia-mira-kim)](https://angel.co/u/alicia-mira-kim) [![Portfolio](https://img.shields.io/badge/-❤_Portfolio-f58?style=flat-square&logo=a&logoColor=white&link=https://alimirakim.github.io/)](https://alimirakim.github.io) [![GitHub alimirakim](https://img.shields.io/github/followers/alimirakim?label=follow&style=social)](https://github.com/alimirakim) 
+<a href="readme/Kim_Mira_Alicia_Resume.pdf" download>![Resume PDF](https://img.shields.io/badge/-Resume-f00?style=flat-square&logo=adobe-acrobat-reader&logoColor=white)</a> 
+[![Alicia's email](https://img.shields.io/badge/alicia.mira.kim@gmail.com-f4b400?style=flat-square&logo=gmail&logoColor=black&link=mailto:alicia.mira.kim@gmail.com)](mailto:alicia.mira.kim@gmail.com) 
+[![Blog](https://img.shields.io/badge/-Blog-21759b?style=flat-square&logo=WordPress&logoColor=white&link=https://aliciamirakim.com/)](https://aliciamirakim.com) 
+[![Linkedin](https://img.shields.io/badge/-LinkedIn-0077b5?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/alicia-mira-kim-416a0a41)](https://www.linkedin.com/in/alicia-mira-kim-416a0a41) 
+[![AngelList](https://img.shields.io/badge/-AngelList-black?style=flat-square&logo=AngelList&logoColor=white&link=https://angel.co/u/alicia-mira-kim)](https://angel.co/u/alicia-mira-kim) 
+[![Portfolio](https://img.shields.io/badge/-❤_Portfolio-f58?style=flat-square&logo=a&logoColor=white&link=https://alimirakim.github.io/)](https://alimirakim.github.io) 
+[![GitHub alimirakim](https://img.shields.io/github/followers/alimirakim?label=follow&style=social)](https://github.com/alimirakim) 
