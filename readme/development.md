@@ -2,44 +2,60 @@
 
 # Development of Persistamp
 
-This section details the technical aspects of this project's development. To see what Persistamp is, its features, and how to use it, see the [README](../README.md).
+This section details the technical aspects of this project's development.  
+To learn what Persistamp is, its features, and how to use it, see the [README](../README.md).
 
 **TOC**  
 [Technologies](#technologies) ● [Concept](#wireframes-and-styling) ● [Models](#models) ● [Routes](#routes) ● [Wireframes](#wireframes) ● [Dev Snapshots](#development-snapshots) ● [Contact](#contact)
 
 </div>
 
+<div align="center">
+
 ## Technologies
+
+</div>
+
 - **LANGUAGES** JavaScript, Python 3, CSS
 - **FRONTEND** React, React Router
 - **BACKEND** Flask, SQLAlchemy, PostgreSQL
 - **TOOLS** Docker, Heroku, Visual Studio Code, Kanban,
 - **LIBRARIES** recharts, beautiful-react-dnd, react-calendar-heatmap, react-heatmap-grid, FontAwesome, Material-UI, Chakra-UI, Flask-WTF, WTForms, Mashmallow-SQLAlchemy, Werkzeug
 
+<div align="center">
+
 ## Concept
 
-**Title Ideas** PersiStamp or Persistamp (Persistent/Stamp)
+</div>
 
-**Logo Ideas** A turtle stamp
+**NAME IDEAS** PersiStamp or Persistamp (Persistent/Stamp)
 
-**Aesthetic - Keywords, Ideas** Colorful but modern. Analog-feel of paper, stamps, traditional materials, sticky notes/journals, 'reward boards', et cetera? Chalkboard?
+**LOGO** A turtle stamp
 
-**Fonts** Berkshire Swash (Google), Cambria (headers), Calibri...
+**AESTHETIC, KEYWORDS** Colorful but modern. Analog-feel of paper, stamps, traditional materials, sticky notes/journals, 'reward boards', et cetera? Chalkboard?
 
-**Colors** Colorful and friendly. Accommodate any color scheme well to allow user flexibility, since they can customize the color and look of a lot of the visual elements of the site.
+**FONTS** Berkshire Swash (Google), Cambria (headers), Calibri...
 
+**COLOR SCHEME** Colorful and friendly. Accommodate any color scheme well to allow user flexibility, since they can customize the color and look of a lot of the visual elements of the site.
+
+
+<div align="center">
 
 ## Models
+
+  **TABLES**  
+  [users](#users) | [memberships](#memberships) | [programs](#programs) | [habits](#habits) | [stamps](#stamps) | [rewards](#rewards) | [redeemed](#redeemed) | [colors](#colors) | [icons](#icons) | [bonds](#bonds)
+  
+</div>
+
 The database schema evolved and changed quite a bit continually throughout the process to accommodate new ideas, cleaner pipelines, and future features. A few examples exist of the schemas we drew up during the process, but likely by the time of this reading, the models written here are somehow out of date.
 
 <div align="center">
 
-**Original Schema and a Mid-development Schema**
+  **Original Schema and a Mid-development Schema**
 
-<img src="readme/images/schema-1.png" alt="Schema of database tables" width="48%"> <img src="readme/images/schema-3.PNG" alt="Schema of database tables" width="48%">
-
-**TABLES LIST**  
-[users](#users) | [memberships](#memberships) | [programs](#programs) | [habits](#habits) | [stamps](#stamps) | [rewards](#rewards) | [redeemed](#redeemed) | [colors](#colors) | [icons](#icons) | [bonds](#bonds)
+  <img src="images/schema-1.png" alt="Schema of database tables" width="48%"> 
+  <img src="images/schema-3.PNG" alt="Schema of database tables" width="48%">
 
 </div>
 
@@ -137,7 +153,11 @@ The database schema evolved and changed quite a bit continually throughout the p
 | buddy_id | INTEGER, FOREIGN KEY=users.id, NOT NULL |
 
 
+<div align="center">
+
 ## Routes
+
+</div>
 
 ### Frontend
 | METHOD | Route Path | Purpose         |
@@ -230,28 +250,36 @@ The database schema evolved and changed quite a bit continually throughout the p
 |  |  |  | 
 -->
 
+<div align="center">
 
 ## Wireframes
+
 Drawings from design and planning process TBA.
 
+</div>
+
+
+<div align="center">
 
 ## Development Snapshots
 
+</div>
+
 <div align="center">
-<img src="readme/images/dev-1.PNG" height="250px">
-<img src="readme/images/dev-2.PNG" height="250px">
-<img src="readme/images/dev-3.PNG" height="250px">
+<img src="images/dev-1.PNG" height="350px">
+<img src="images/dev-2.PNG" height="350px">
+<img src="images/dev-3.PNG" height="350px">
 
-<img src="readme/images/dev-6.PNG" height="250px">
-<img src="readme/images/dev-10.PNG" height="250px">
+<img src="images/dev-6.PNG" height="350px">
+<img src="images/dev-10.PNG" height="350px">
 
-<img src="readme/images/dev-5.PNG" height="250px">
-<img src="readme/images/dev-7.png" height="250px">
-<img src="readme/images/dev-8.PNG" height="250px">
+<img src="images/dev-5.PNG" height="350px">
+<img src="images/dev-7.png" height="350px">
+<img src="images/dev-8.PNG" height="350px">
 
-<img src="readme/images/dev-11.PNG" height="250px">
-<img src="readme/images/dev-9.PNG" height="250px">
-<img src="readme/images/dev-12.PNG" height="250px">
+<img src="images/dev-11.PNG" height="350px">
+<img src="images/dev-9.PNG" height="350px">
+<img src="images/dev-12.PNG" height="350px">
 </div>
 
   <!-- - red-violet-crayola: #af4d98ff;
@@ -278,12 +306,11 @@ Drawings from design and planning process TBA.
 
 ---
 
-## Contact Us
-
 <div align="center">
 
+## Contact Us
+
 Thank you for taking a look at Persistamp! :D  
-We are both actively job-seeking full-stack developers.  
 Please feel free to reach out and ask us anything.
 </div>
 

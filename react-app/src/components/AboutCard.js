@@ -89,6 +89,7 @@ function AboutCard({ auth, setAuth }) {
       <aside className="about-attrib th-shadow">
         <h2 className="th-cap-title">&nbsp;&nbsp;Attributions</h2>
         <ul>
+          <li><a href="https://thenounproject.com/term/sea-turtle/1781597/">Sea Turtle by Georgiana Ionescu from the Noun Project</a>
           <li><a href='https://www.freepik.com/photos/background'>Background photo created by denamorado - www.freepik.com</a></li>
           <li><a href='https://www.freepik.com/vectors/background'>Background vector created by BiZkettE1 - www.freepik.com</a></li>
         </ul>

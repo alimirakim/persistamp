@@ -102,7 +102,7 @@ With each stamp, the user gains points for the program the habit is included in.
 - To **create a program**, click the red stamp icon labeled 'Add' on your ID Card in the top-left corner.
 - Add a title, description (optional), color, and icon. 
 - To **edit or delete a program**, click the pencil in the program's top-left corner (it will appear when you hover/click the card).
-- ***Tip:** The color and icon of new programs default to your user setting icon and settings! Click the green 'Settings' button to change them.*
+- ***Tip:** The color and icon of new programs default to your user setting icon and settings! Click the green 'Settings' button on your ID card to change them.*
 <!-- - Tip! Change the order of programs with drag-n-drop. -->
 
 > **Program Ideas?**
@@ -145,7 +145,7 @@ With each stamp, the user gains points for the program the habit is included in.
 - To **add a stamp**, click empty spots in the habit card to mark the day fulfilled for that habit.
 - To **undo a stamp**, reclick the stamp.
 - With enough stamps for a **habit's frequency goal**, any unstamped spots will now **show a checkmark**.
-- **Warning!** You can only add stamps for within the last seven days, so check in at least once a week.
+- ***Warning!** You can only add stamps for within the last seven days, so check in at least once a week.*
 
 <img src="readme/images/habit-row.png" alt="A habit row with stamps indicating fulfilled days." width="100%">
 
@@ -157,7 +157,7 @@ With each stamp, the user gains points for the program the habit is included in.
 - **See the habit's general information** in the top-right corner.
 - To **toggle between 'monthly' and 'weekly' view** for the line graph, select an option from the dropdown.
 - The habit can be **edited** from this page with your ID card's red pencil icon.
-- **Note about privacy!** Check the top-right area to find a 'Private' toggle. This setting allows or restricts other people from being able to see this page. To **share your a detail page**, check that 'Private' is untoggled, then copy-paste the page's URL.
+- ***Note about privacy!** Check the top-right area to find a 'Private' toggle. This setting allows or restricts other people from being able to see this page. To **share your a detail page**, check that 'Private' is untoggled, then copy-paste the page's URL.*
 <!-- - Add notes explaining the types of scores, their meanings. -->
 <br>
 <div align="center">
@@ -184,7 +184,7 @@ With each stamp, the user gains points for the program the habit is included in.
 - (Optional) Specify an available quantity for the reward. Leave it blank for no limit.
 - To **edit or delete a reward**, click the pencil in the reward certificate's top-left corner.
 - ***Tip:** The color and icon default to the program's color/icon settings!*
-- **Note:** The 'limit per member' option is included for a future feature that allows more than one person to subscribe to a program. It ensures that no one program's member can redeem more than a set amount of that reward. Leave it blank to default to no limit.
+- ***Note:** The 'limit per member' option is included for a future feature that allows more than one person to subscribe to a program. It ensures that no one program's member can redeem more than a set amount of that reward. Leave it blank to default to no limit.*
 
 >
 > **Reward Ideas?**
@@ -195,6 +195,7 @@ With each stamp, the user gains points for the program the habit is included in.
 >
 
 <br clear="both">
+
 <div align="center">
 <img src="readme/images/reward-certificate-2.PNG" alt="Reward certificate for ice cream" width="48%">
 <img src="readme/images/reward-certificate-3.PNG" alt="Reward certificate for a new bike" width="48%">
@@ -208,9 +209,9 @@ With each stamp, the user gains points for the program the habit is included in.
 - Confirm that you really want to redeem this reward, and the cost will be taken out from your points.
 - **See previously redeemed rewards**, including when they were redeemed, in the shop's Reward History.
 - Indulge yourself in your redeemed reward, or show the receipt to whoever will treat you for it. 💞
-- If a reward is **unable to be redeemed** (not enough points, zero quantity), the Redeem button will show red and be unclickable.
-- **Warning!** It is possible to **go into debt with negative points** for a program by buying rewards, then removing more stamps from the program card than there are remaining points.
-- **Warning!** There are no refunds! All reward shop sales are final ;D .
+- ***Note:** If a reward is **unable to be redeemed** (not enough points, zero quantity), the Redeem button will show red and be unclickable.*
+- ***Note:** There are no refunds! All reward shop sales are final ;D .*
+- ***Warning!** It is possible to **go into debt with negative points** for a program by buying rewards, then removing more stamps from the program card than there are remaining points. Debt must be made up before earning new points.*
 
 <img src="readme/images/form-redeem.PNG" alt="Redemption form" width="62%">
 <img src="readme/images/receipt.PNG" alt="Receipt" width="32%">
@@ -237,7 +238,7 @@ With each stamp, the user gains points for the program the habit is included in.
 3. Create a `.env` file based on the example with proper settings for your
    development environment.
    
-4. Setup your PostgreSQL user, password and database and make sure it matches your `.env` file.
+4. Setup your PostgreSQL user, password, and database and make sure it matches your `.env` file.
 
 5. Get into your pipenv, migrate your database, seed your database, and run your flask app.
 
