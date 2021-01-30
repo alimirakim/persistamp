@@ -7,11 +7,8 @@
 # Persistamp 🐢
 ## A Motivational 'Good Habits' Positivity App
 
-**TOC** [About](#about-persistamp) ● [Features](#features) ● [How It Works](#how-it-works) ● [Development](#development) ● [Contact Us](#contact-us)
-
-
-**Try the app!** *(Includes demo mode)*  
-<a href="https://persistamp.herokuapp.com/"><img width="250px" src="readme/images/logo.PNG" alt="Persistamp" title="Click to try Persistamp!"></a>
+**TOC**  
+[About](#about-persistamp) ● [Features](#features) ● [How It Works](#how-it-works) ● [Installation](#installation) ● [Development](#development) ● [Contact Us](#contact-us)
 
 **This 'productivity-positivity' app**  
 **promotes good habits with positive reinforcement! 🌱**  
@@ -22,10 +19,15 @@ Earn points by keeping up good habits. 💎
 Redeem those hard-won points on rewards! 🧾  
 <!-- 🎀🌻🌷🌼   -->
 
-
 ![Dashboard webpage for Persistamp](https://i.postimg.cc/28VZZ4pm/linkedin-persistamp-updated.png)
 
+
+### Try the Demo!
+<a href="https://persistamp.herokuapp.com/"><img width="250px" src="readme/images/logo.PNG" alt="Persistamp" title="Click to try Persistamp!"></a>
+
 </div>
+
+---
 
 <div align="center">
 
@@ -87,7 +89,6 @@ With each stamp, the user gains points for the program the habit is included in.
 >
 
 ### 1. Make a program card
-
 <img src="readme/images/program-card-empty.PNG" alt="Program cards" width="60%" align="right">
 
 - To **create a program**, click the red + 'Add' button on your ID Card in the top-left corner.
@@ -106,8 +107,8 @@ With each stamp, the user gains points for the program the habit is included in.
 
 
 <div align="center">
-<img src="readme/images/form-program2.png" alt="Program form" width="100%">
-<!-- <img src="readme/images/form-program.PNG" alt="Program form" width="70%"> -->
+  <img src="readme/images/form-program2.png" alt="Program form" width="100%">
+  <!-- <img src="readme/images/form-program.PNG" alt="Program form" width="70%"> -->
 </div>
 
 
@@ -115,7 +116,6 @@ With each stamp, the user gains points for the program the habit is included in.
 <img src="readme/images/form-habit.PNG" alt="Habit form" width="50%" align="right">
 <!-- <img src="readme/images/.PNG" alt="Filled program card"> -->
 <!-- <img src="readme/images/.PNG" alt="Drag-n-drop gif"> -->
-
 
 - To **create a habit**, click the + icon in the program card's top-left corner (hover/click card to see).
 - Add a title, description (optional), color, and icon. Tip: The color and icon default to the program's color/icon settings!
@@ -131,7 +131,6 @@ With each stamp, the user gains points for the program the habit is included in.
 > * Hobbies: read a book, draw for 10 minutes, bake bread, try a new recipe
 > * Avoiding bad habits: don't smoke, don't doomscroll more than 30min, don't eat junk food
 
-<br clear="both">
 
 ### 3. Stamp successful days 
 <!-- <img src="readme/images/.PNG" alt="Multiple program boards with stamps - column"> -->
@@ -141,8 +140,8 @@ With each stamp, the user gains points for the program the habit is included in.
 - If you have enough stamps for a **habit's frequency goal**, any unstamped spots will now **show a checkmark**.
 - **Note!** You can only add stamps for within the last seven days, so check in at least once a week.
 
-
 <img src="readme/images/habit-row.png" alt="A habit row with stamps indicating fulfilled days." width="100%">
+
 
 ### 4. View habit history and details
 <img src="readme/images/habit-history-3.PNG" alt="Line graph" width="48%" align="right">
@@ -209,307 +208,100 @@ With each stamp, the user gains points for the program the habit is included in.
 - If a reward is **unable to be redeemed** (not enough points, zero quantity), the Redeem button will show red and be unclickable.
 - **Note!** There are no refunds! All reward shop sales are final ;D .
 
-<img src="readme/images/form-redeem.PNG" alt="Redemption form" align="left" width="60%">
-<img src="readme/images/receipt.PNG" alt="Receipt" width="30%">
+<img src="readme/images/form-redeem.PNG" alt="Redemption form" width="63%">
+<img src="readme/images/receipt.PNG" alt="Receipt" width="33%">
 
-<br clear="both">
+
 <div align="center">
 
-## Development
-**TOC** [Technologies](#technologies) ● [Models](#models) ● [Routes](#routes) ● [Wireframes & Styling](#wireframes-and-styling) ● [Dev Snapshots](#development-snapshots)
-
-This section details the technical aspects of this project's development.
+## Installation
 
 </div>
 
-### Technologies
-- JavaScript
-- Python 3
-- React
-- CSS
-- Alembic
-- SQLAlchemy
-- Psycopg2
-- PostgreSQL
-- Visual Studio Code
-- Flask-WTF, WTForms
-- Werkzeug
-- recharts
-- beautiful-react-dnd
-- Marshmallow-SQLAlchemy
+1. Clone this repository.
 
-### Wireframes and Styling
+   ```bash
+   git clone https://github.com/alimirakim/persistamp.git
+   ```
 
-**(TBA - Wireframe sketches from during the design process)**
+2. Install dependencies.
 
-- **Title Ideas** PersiStamp or Persistamp (Persistent/Stamp)
-- **Logo Ideas** A turtle stamp
-- **Aesthetic - Keywords, Ideas** Colorful but modern. Analog-feel of paper, stamps, traditional materials, sticky notes/journals, 'reward boards', et cetera? Chalkboard?
-- **Fonts** Berkshire Swash (Google), Cambria (headers), Calibri...
-- **Colors** Colorful and friendly. Accommodate any color scheme well to allow user flexibility, since they can customize the color and look of a lot of the visual elements of the site.
+      ```bash
+      pipenv install --dev -r dev-requirements.txt && pipenv install -r requirements.txt
+      ```
 
+3. Create a `.env` file based on the example with proper settings for your
+   development environment.
+   
+4. Setup your PostgreSQL user, password and database and make sure it matches your `.env` file.
 
-### Models
-The database schema evolved and changed quite a bit continually throughout the process to accommodate new ideas, cleaner pipelines, and future features. A few examples exist of the schemas we drew up during the process, but likely by the time of this reading, the models written here are somehow out of date.
+5. Get into your pipenv, migrate your database, seed your database, and run your flask app.
 
-**Original Schema and a Mid-development Schema**
+   ```bash
+   pipenv shell
+   ```
 
-<img src="readme/images/schema-1.png" alt="Schema of database tables" width="45%" align="left"> <img src="readme/images/schema-3.PNG" alt="Schema of database tables" width="45%">
-<br clear="both">
+   ```bash
+   flask db upgrade
+   ```
 
-**TABLES LIST**
-- users
-- memberships
-- programs
-- habits
-- stamps
-- rewards
-- redeemed
-- colors
-- icons
-- bonds
+   ```bash
+   python seeder.py
+   ```
 
-#### `users`
-| users      | Constraints                                   |
-|------------|-----------------------------------------------|
-| id         | SERIAL, PRIMARY KEY                           |
-| first_name | VARCHAR(25) NOT NULL                          |
-| last_name  | VARCHAR(25) NOT NULL                          |
-| username   | VARCHAR(25) NOT NULL |
-| birthday   | DATE |
-| email      | VARCHAR(320), NOT NULL, UNIQUE                 |
-| hashword   | VARCHAR(255) NOT NULL                         |
-| color_id   | FOREIGN KEY(colors.id), NOT NULL |
-| stamp_id   | FOREIGN KEY(stamps.id), NOT NULL |
-| pids_order | ARRAY(INTEGER), NOT NULL, DEFAULT VALUE=[] |
-| is_private | BOOLEAN, NOT NULL, DEFAULT VALUE=False |
-| created_at | TIMESTAMP, NOT NULL, DEFAULT VALUE=new Date() |
+   ```bash
+   flask run
+   ```
 
-#### `programs`
-| columns   | Constraints                              |
-|-----------|------------------------------------------|
-| id        | SERIAL, PRIMARY KEY                      |
-| title     | VARCHAR(25), NOT NULL |
-| description | VARCHAR(250) |
-| color_id   | FOREIGN KEY(colors.id), NOT NULL |
-| stamp_id   | FOREIGN KEY(stamps.id), NOT NULL |
-| hids_order | ARRAY(INTEGER), NOT NULL, DEFAULT VALUE=[] |
-| rew_ids_order |  ARRAY(INTEGER), NOT NULL, DEFAULT VALUE=[] |
-| is_private | BOOLEAN, NOT NULL, DEFAULT VALUE=False |
-| creator_id | INTEGER, FOREIGN KEY=users.id, NOT NULL |
-| created_at | TIMESTAMP, NOT NULL, DEFAULT VALUE=new Date() |
+6. To run the React App in development, `cd` into the `react-app` directory, then run `npm start`.
 
-#### `memberships`
-| columns   | Constraints                              |
-|-----------|------------------------------------------|
-| id        | SERIAL, PRIMARY KEY                      |
-| program_id | INTEGER, FOREIGN KEY=programs.id, NOT NULL |
-| member_id  | INTEGER, FOREIGN KEY=users.id, NOT NULL |
-| stamper_id | INTEGER, FOREIGN KEY=users.id           |
-| points     | INTEGER, NOT NULL, DEFAULT VALUE=0 |
+> 
+> **IMPORTANT!**
+>    If you add any python dependencies to your pipfiles, you'll need to regenerate your requirements.txt before deployment.
+>    You can do this by running:
+> 
+>    ```bash
+>    pipenv lock -r > requirements.txt
+>    ```
+> 
+> **ALSO IMPORTANT!**
+>    psycopg2-binary MUST remain a dev dependency because you can't install it on apline-linux.
+>    There is a layer in the Dockerfile that will install psycopg2 (not binary) for us.
+> 
 
-#### `habits`
-| habits      | Constraints                                   |
-|-------------|-----------------------------------------------|
-| id          | SERIAL, PRIMARY KEY                           |
-| title       | VARCHAR(25), NOT NULL                         |
-| description | VARCHAR(250)                                  |
-| frequency   | INTEGER, NOT NULL, DEFAULT VALUE=1            |
-| color_id    | FOREIGN KEY(colors.id), NOT NULL |
-| stamp_id    | FOREIGN KEY(stamps.id), NOT NULL |
-| program_id  | INTEGER, FOREIGN KEY=programs.id, NOT NULL    |
-| creator_id  | INTEGER, FOREIGN KEY=users.id, NOT NULL       |
-| created_at  | TIMESTAMP, NOT NULL, DEFAULT VALUE=new Date() |
-
-
-#### `stamps`
-| columns     | Constraints                                   |
-|-------------|-----------------------------------------------|
-| id          | SERIAL, PRIMARY KEY                           |
-| date        | DATE, NOT NULL                                |
-| status      | VARCHAR(25), NOT NULL, DEFAULT VALUE="unstamped" |
-| member_id   | INTEGER, FOREIGN KEY=users.id, NOT NULL       |
-| habit_id    | INTEGER, FOREIGN KEY=habits.id, NOT NULL      |
-
-#### `rewards`
-| columns | Constraints                          |
-|---------|--------------------------------------|
-| id      | SERIAL, PRIMARY KEY                  |
-| type    | VARCHAR(25), DEFAULT VALUE="custom"  |
-| title   | VARCHAR(50), NOT NULL                |
-| description | VARCHAR(250) |
-| cost     | INTEGER, NOT NULL, DEFAULT VALUE=5  |
-| color_id   | FOREIGN KEY(colors.id), NOT NULL |
-| stamp_id   | FOREIGN KEY(stamps.id), NOT NULL |
-| limit_per_member | INTEGER, NOT NULL, DEFAULT VALUE=-1 |
-| quantity | INTEGER, NOT NULL, DEFAULT VALUE=1  |
-| program_id | INTEGER, FOREIGN KEY=programs.id  |
-| creator_id | INTEGER, FOREIGN KEY=users.id |
-| created_at | TIMESTAMP, DEFAULT VALUE=new Date() |
-
-#### `redeemed`
-| user_rewards | Constraints                               |
-|--------------|-------------------------------------------|
-| id           | SERIAL, PRIMARY KEY                       |
-| user_id      | INTEGER, FOREIGN KEY=users.id, NOT NULL   |
-| reward_id    | INTEGER, FOREIGN KEY=rewards.id, NOT NULL |
-| redeemed_at  | TIMESTAMP, DEFAULT VALUE=new Date(), NOT NULL |
-
-### `bonds`
-| columns  | Constraints                             |
-|----------|-----------------------------------------|
-| id       | SERIAL, PRIMARY KEY                     |
-| user_id  | INTEGER, FOREIGN KEY=users.id, NOT NULL | combo-unique
-| buddy_id | INTEGER, FOREIGN KEY=users.id, NOT NULL |
-
-
-### Routes
-
-#### Frontend
-| METHOD | Route Path | Purpose         |
-|--------|------------|-----------------|
-| GET    | `/`        | splash page, if no auth |
-| GET    | `/`        | user homepage, if auth checks |
-| GET    | `/about`   | about page |
-| GET    | `/logout`  | logout user |
-| GET    | `/habits/:hid/memberships/:mid` | habit history page for a user's habit (public/private options) |
-| GET    | `/programs/:pid/memberships/:mid/rewards` | reward shop for a user and program |
-<!-- | GET    | `/users/:uid` | user's public profile page | -->
-<!-- | GET    | `/users/:uid/redeemed` | user's redeemed reward history | -->
-<!-- | GET    | `/programs/:pid/redeemed` | user's redeemed reward history for a program | -->
-<!-- | GET    | `/users/:uid/bonds` | user's bonds | -->
-
-#### Backend
-##### ROOT: `/users`
-| METHOD | Route Path | Purpose         |
-|--------|------------|-----------------|
-| POST   | `/`        | Validate signup and make new user account. |
-| GET    | `/:uid`     | Get `user` information |
-| PATCH  | `/:uid`     | Authenticate and edit `user` details |
-| DELETE | `/:uid`     | Delete a `user` account |
-| GET    | `/:uid/auth` | Not sure, but I think we may need a route just to check auth? |
-| GET    | `/:uid/programs` | Get all a `user`'s subscribed `programs`. |
-| GET    | `/:uid/redeemed` | Get all a `user`'s `redeem`ed rewards. |
-<!-- | GET    | `/:uid/bonds` | Get all a `user`'s `bond`s. | -->
-<!-- | POST   | `/:uid/bonds` | Create a `bond` with another `user`. | -->
-<!-- | DELETE | `/:uid/bonds/:bid` | Delete a `bond` with a `user`. | -->
-<!-- | GET    | `/:uid/redeemed/:type` | Get all a `user`'s `redeem`ed rewards of a specific `type`. | -->
-
-##### ROOT: `/programs`
-| METHOD | Route Path | Purpose         |
-|--------|------------|-----------------|
-| POST   | `/`        | Create a new `program`.    |
-| GET    | `/:pid`    | Get a `program`'s details. |
-| PATCH  | `/:pid`    | Edit a `program`.   |
-| DELETE | `/:pid`    | Delete a `program`. |
-| GET    | `/:pid/stampers` | Get all a `program`'s `stamper`s. |
-| GET    | `/:pid/stampers/:uid` | Get a specific `stamper` and the member(s) they are accountable for. | 
-
-##### ROOT: `/programs/:pid/members`
-| METHOD | Route Path | Purpose         |
-|--------|------------|-----------------|
-| GET    | `/`        | Get a `program`'s `member`s. |
-| POST   | `/:uid`    | Add a `member` to the `program`. |
-| DELETE | `/:uid`    | Delete a `member` from the `program`. | 
-| GET    | `/:uid/habits` | Get a `member`'s `habit`s for a `program`, including last seven days of history for each. |
-| GET    | `/:uid/habits/:hid` | Get a `user` `habit`'s details, including full history (via `stamp_checks`) |
-| GET    | `/:uid/stamper` | Get a `member`'s `stamper` in the `program`.
-| PATCH  | `/:uid/stamper` | Change a `member`'s `stamper` in the `program`.
-| DELETE | `/:uid/stamper` |  Unassign the assigned `stamper`.
-
-##### ROOT: `/programs/:pid/habits`
-| METHOD | Route Path | Purpose         |
-|--------|------------|-----------------|
-| GET    | `/`        | Get all a `program`'s `habits`, including last seven days of history for each. |
-| GET    | `/:hid`    | Get a `habit`'s details, including full histories for from all members (via `stamp_checks`) |
-| POST   | `/`        | Create a `habit` for a `program`. |
-| PATCH  | `/:hid`    | Edit a `habit` for a `program`. |
-| DELETE | `/:hid`    | Delete a `habit` for a `program`. |
-
-##### ROOT: `/programs/:pid/habits/:hid/members/:uid`
-| METHOD | Route Path | Purpose         |
-|--------|------------|-----------------|
-| POST   | `/stamp`   | Change status of associated `daily_stamp` to 'stamped' |
-| DELETE | `/`     | Change status of associated `daily_stamp` to 'unstamped' |
-| POST   | `/ping`     | Change status of associated `daily_stamp` to 'pending' | 
-
-##### ROOT: `/rewards`
-| METHOD | Route Path | Purpose         |
-|--------|------------|-----------------|
-| GET    | `/`        | Get all default rewards. |
-| GET    | `/:type`   | Get all rewards of a specific type. | <-- default-permanent options only
-
-##### ROOT: `/programs/:pid/rewards`
-| METHOD | Route Path | Purpose         |
-|--------|------------|-----------------|
-| GET    | `/`        | Get all a `program`'s custom `reward`s. |
-| POST   | `/`        | Create a new custom `reward`. |
-| PATCH  | `/:rid`    | Edit a custom `reward`.    |
-| DELETE | `/:rid`    | Delete a custom `reward`.  | 
-| POST   | `/:rid/redeem/users/:uid` | Redeem a `reward` for a `user` | <-- effects points
-
-<!--
-| METHOD | Route Path | Purpose         |
-|--------|------------|-----------------|
-|  |  |  |
-|  |  |  |
-|  |  |  | 
--->
-
-### Development Snapshots
 
 <div align="center">
-<img src="readme/images/dev-1.PNG" width="32%">
-<img src="readme/images/dev-2.PNG" width="32%">
-<img src="readme/images/dev-3.PNG" width="32%">
 
-<img src="readme/images/dev-6.PNG" width="48%">
-<img src="readme/images/dev-10.PNG" width="48%">
+  ## Development
 
-<img src="readme/images/dev-5.PNG" width="32%">
+  **DEV TOC**  
+  [Technologies](#technologies) ● [Concepts](#concepts) ● [Models](#models) ● [Routes](#routes) ● [Wireframes](#wireframes) ● [Dev Snapshots](#development-snapshots)
 
-<img src="readme/images/dev-7.png" width="32%">
-<img src="readme/images/dev-8.PNG" width="32%">
-<img src="readme/images/dev-11.PNG" width="32%">
+  This section is kept in a separate document [HERE](readme/development.md).  
+  It details the technical aspects of this project's development.  
+  A few sample snapshots are below from the development process.  
 
-<img src="readme/images/dev-9.PNG" width="32%">
-<img src="readme/images/dev-12.PNG" width="32%">
+  <img src="readme/images/dev-2.PNG" height="250px">
+  <img src="readme/images/dev-10.PNG" height="250px">
+  <img src="readme/images/dev-9.PNG" height="250px">
+
 </div>
-
-  <!-- - red-violet-crayola: #af4d98ff;
-  - wild-orchid: #d66ba0ff;
-  - pastel-pink: #e5a9a9ff;
-  - dutch-white: #f4e4baff;
-  - celeste: #baf2e9ff;
-  - granny-smith-apple: #b0f2b4ff;
-  - magic-mint: #9df7e5ff;
-  - blizzard-blue: #b8f3ffff;
-  - middle-blue: #8ac6d0ff;
-  - cadet-blue: #58a4b0ff;
-  - dark-slate-blue: #54478cff;
-  - sapphire-blue: #2c699aff;
-  - blue-munsell: #048ba8ff;
-  - keppel: #0db39eff;
-  - medium-aquamarine: #16db93ff;
-  - light-green: #83e377ff;
-  - inchworm: #b9e769ff;
-  - corn: #efea5aff;
-  - maize-crayola: #f1c453ff;
-  - sandy-brown: #f29e4cff; -->
 
 ---
 
-## Contact Us
-
 <div align="center">
 
-Thank you for taking a look at Persistamp! :D  
-We are both actively job-seeking full-stack developers.  
-Please feel free to reach out and ask us anything.
+  ## Contact Us
+
+  Thank you for taking a look at Persistamp! :D  
+  Please feel free to reach out and ask us anything.
+
 </div>
 
-**David Lee** *(Full-stack developer, Open to work)*  
+### David Lee 
+*(Full-stack developer, Open to work)*  
 <a href="readme/Lee_David_Resume.pdf" download>![Resume PDF](https://img.shields.io/badge/-Resume-f00?style=flat-square&logo=adobe-acrobat-reader&logoColor=white)</a> [![David Lee's email](https://img.shields.io/badge/dyclee@umich.edu-f4b400?style=flat-square&logo=gmail&logoColor=black&link=mailto:dyclee@umich.edu)](mailto:dyclee@umich.edu) [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077b5?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/daveyclee/)](https://www.linkedin.com/in/daveyclee/) [![AngelList](https://img.shields.io/badge/-AngelList-black?style=flat-square&logo=AngelList&logoColor=white&link=https://angel.co/u/david-lee-332)](https://angel.co/u/david-lee-332) [![GitHub dyclee](https://img.shields.io/github/followers/dyclee?label=follow&style=social)](https://github.com/dyclee)
  
-**Alicia Mira Kim** *(Full-stack developer, Open to work)*  
+### Alicia Mira Kim 
+*(Full-stack developer, Open to work)*  
 <a href="readme/Kim_Mira_Alicia_Resume.pdf" download>![Resume PDF](https://img.shields.io/badge/-Resume-f00?style=flat-square&logo=adobe-acrobat-reader&logoColor=white)</a> [![Alicia's email](https://img.shields.io/badge/alicia.mira.kim@gmail.com-f4b400?style=flat-square&logo=gmail&logoColor=black&link=mailto:alicia.mira.kim@gmail.com)](mailto:alicia.mira.kim@gmail.com) [![Blog](https://img.shields.io/badge/-Blog-21759b?style=flat-square&logo=WordPress&logoColor=white&link=https://aliciamirakim.com/)](https://aliciamirakim.com) [![Linkedin](https://img.shields.io/badge/-LinkedIn-0077b5?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/alicia-mira-kim-416a0a41)](https://www.linkedin.com/in/alicia-mira-kim-416a0a41) [![AngelList](https://img.shields.io/badge/-AngelList-black?style=flat-square&logo=AngelList&logoColor=white&link=https://angel.co/u/alicia-mira-kim)](https://angel.co/u/alicia-mira-kim) [![Portfolio](https://img.shields.io/badge/-❤_Portfolio-f58?style=flat-square&logo=a&logoColor=white&link=https://alimirakim.github.io/)](https://alimirakim.github.io) [![GitHub alimirakim](https://img.shields.io/github/followers/alimirakim?label=follow&style=social)](https://github.com/alimirakim) 
