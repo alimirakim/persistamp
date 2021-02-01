@@ -51,7 +51,7 @@ export default function HabitDisplay({ auth, setAuth, setUser, isPrivate, setIsP
 
   if (!habit) return null
   if (habit.private && !auth) return <PrivatePage />
-  const color = habit.cid === 32 ? "white" : colors[habit.cid].hex
+  const color = habit.cid === 3 ? "white" : colors[habit.cid].hex
   const title = {first: habit.username, last: `"${habit.title}"`}
 
   return (<>
@@ -89,7 +89,6 @@ export default function HabitDisplay({ auth, setAuth, setUser, isPrivate, setIsP
         <div className="displayPage">
           <div className="displayFormat">
             <div className="habitFormat">
-
 
               {/* <div className="habitDetailContainer"> */}
               {/* <br/> */}

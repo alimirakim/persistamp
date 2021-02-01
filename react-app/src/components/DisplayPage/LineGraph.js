@@ -52,9 +52,15 @@ function LineGraph({ color }) {
           </select>
         </div>
         {/* <button className="lineGraphToggle" onClick={handleClick}>{toggleTime}</button> */}
-        <LineChart padding={0} margin={0} width={600} height={400} data={dataPoints.data} >
-          <Line strokeWidth={1} type="monotone"
-          dataKey="stamps" dot={{ strokeWidth: 3, fill: "black" }} stroke={color} />
+        <LineChart style={{color: "black", textShadow: "none"}} padding={0} margin={0} width={600} height={400} data={dataPoints.data} >
+          <Line 
+          strokeWidth={2} 
+          type="monotone"
+          dataKey="stamps" 
+          dot={{ strokeWidth: 2, fill: "black" }} 
+          stroke={color}
+          color="black" 
+          />
           <CartesianGrid stroke="rgba(255,255,255,0.1)" />
 
           <XAxis
@@ -82,6 +88,7 @@ function LineGraph({ color }) {
             className="hdp-graph-label"
             label={{
               stroke: color,
+              color: color,
               border: NamedNodeMap,
               value: 'S T A M P  C O U N T',
               angle: -90,

@@ -8,8 +8,8 @@ import { DeleteButton } from '../forms/FormInputs'
 export default function RewardEditForm({ open, handleClose, reward, handleOpenDelete }) {
   const { dispatchEditReward } = useContext(RewardShopContext)
   const [cost, setCost] = useState(reward.cost)
-  const [limit, setLimit] = useState(reward.limit_per_member)
-  const [quantity, setQuantity] = useState(reward.quantity)
+  const [limit, setLimit] = useState(reward.limit_per_member === -1 ? "" : reward.limit_per_member)
+  const [quantity, setQuantity] = useState(reward.quantity === -1 ? "" : reward.quantity)
 
   const switchForms = () => {
     handleClose()

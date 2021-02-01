@@ -50,17 +50,6 @@ function AboutCard({ auth, setAuth }) {
       links: ["https://www.github.com/dyclee", "https://www.linkedin.com/in/daveyclee"],
       image: david,
     },
-    // {
-    //   name: "Brian Wang",
-    //   email: "brbwang@gmail.com",
-    //   links: ["https://www.github.com/Awodfkai", "https://www.linkedin.com/in/brian-wang-902373163"],
-    //   image: brian,
-    // },
-    // {
-    //   name: "Eric Lyda",
-    //   email: "lydaeric@gmail.com",
-    //   links: ["https://www.github.com/ELyda95"],
-    // },
   ];
   return (<>
     <NavCard auth={auth} setAuth={setAuth} />
@@ -89,7 +78,8 @@ function AboutCard({ auth, setAuth }) {
       <aside className="about-attrib th-shadow">
         <h2 className="th-cap-title">&nbsp;&nbsp;Attributions</h2>
         <ul>
-          <li><a href="https://thenounproject.com/term/sea-turtle/1781597/">Sea Turtle by Georgiana Ionescu from the Noun Project</a>
+          <li><a href="https://www.github.com/Awodfkai">Brian Wang</a> and <a href="https://www.github.com/ELyda95">Eric Lyda</a> - development contributions during the project's initial phases.</li>
+          <li><a href="https://thenounproject.com/term/sea-turtle/1781597/">Sea Turtle by Georgiana Ionescu from the Noun Project</a></li>
           <li><a href='https://www.freepik.com/photos/background'>Background photo created by denamorado - www.freepik.com</a></li>
           <li><a href='https://www.freepik.com/vectors/background'>Background vector created by BiZkettE1 - www.freepik.com</a></li>
         </ul>

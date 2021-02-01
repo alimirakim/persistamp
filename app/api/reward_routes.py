@@ -103,13 +103,20 @@ def redeem_reward(rid, mid):
     
     if membership.points < reward.cost:
         return {'errors': ["You need more points please TT_TT"]}, 400
-    
+
     if reward.quantity > 0:
         reward.quantity -= 1
-        
+
     membership.points -= reward.cost
     redeemed = Redeemed(user_id=membership.member_id,
-                        reward_id=reward.id,)
+                        reward_id=reward.id,
+                        title=reward.title,
+                        description=reward.description,
+                        color_id=reward.color_id,
+                        icon_id=reward.icon_id,
+                        cost=reward.cost,
+                        program_id=reward.program_id,
+                        )
     db.session.add(redeemed)
     db.session.commit()
 

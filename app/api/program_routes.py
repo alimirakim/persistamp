@@ -55,6 +55,7 @@ def edit_program(pid):
     """Edit a program's details."""
     form = ProgramForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print("\n\nEDIT PROGRAM ROUTE", form.data)
     
     if form.validate():
         program = Program.query.options(joinedload(Program.color), joinedload(Program.icon), joinedload(Program.creator)).get(pid)

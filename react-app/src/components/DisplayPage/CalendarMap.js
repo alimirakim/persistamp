@@ -11,7 +11,7 @@ export default function CalendarMap({ habit }) {
   const [calendarData, setCalendarData] = useState([])
   const { colors, icons } = useContext(OptionsContext)
   const { hid, mid } = useParams()
-  const color = habit.cid === 32 ? "white" : colors[habit.cid].hex
+  const color = habit.cid === 3 ? "white" : colors[habit.cid].hex
 
   useEffect(() => {
     (async () => {
@@ -59,6 +59,7 @@ export default function CalendarMap({ habit }) {
                 background: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8))`,
                 // background: `${color}`,
                 fontSize: "12px",
+                
                 // textShadow: "0 0 0",
                 // border: "1px dotted",
                 // color:`#000`

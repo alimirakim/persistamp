@@ -23,7 +23,6 @@
   margin: 0 auto;
   position: relative;
   width: 100%;
-
   top: 0;
   /* align-content: center; */
   /* justify-content: space-evenly; */
@@ -43,6 +42,8 @@
   grid-row: 1; */
   /* background-color: grey; */
 }
+
+
 
 .splashButtons {
   z-index: 1;
@@ -93,16 +94,30 @@
   border-radius: 15px;
 }
 
-.persistamp {
+.hbd-title {
   position: absolute;
   top: 1rem;
   right: 2rem;
   margin: 0;
+}
+.persistamp {
   font-size: 5rem;
   color: white;
   font-family: "Berkshire Swash", "Merienda One", Courgette, Meddon;
   text-shadow: 3px 3px 2px rgba(0,0,0,0.8);
   font-weight: normal;
+  text-align: right;
+  margin: 0;
+}
+
+.persistamp-subtitle {
+  color: white;
+  text-shadow: 3px 3px 2px rgba(0,0,0,0.8);
+  font-size: 2rem; 
+  font-family: "Berkshire Swash", "Merienda One", Courgette, Meddon;
+  font-weight: normal;
+  text-align: right;
+  margin: 0;
 }
 
 /* header */
@@ -173,7 +188,7 @@
 .instruction-3-image > img,
 .instruction-4-image > img {
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 .instruction-1-image > img,
 .instruction-2-image > img,

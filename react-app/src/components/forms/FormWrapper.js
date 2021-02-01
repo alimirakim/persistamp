@@ -28,11 +28,13 @@ export default function FormWrapper({
   const [description, setDescription] = useState(edit ? edit.description : "")
   const [colorId, setColorId] = useState(edit ? edit.cid : defaultColorId)
   const [iconId, setIconId] = useState(edit ? edit.iid : defaultIconId)
+  const [isDisabled, setIsDisabled] = useState(false)
   if (!UniqueInputs) UniqueInputs = () => (<></>)
   if (!resetUniqueInputs) resetUniqueInputs = () => null
 
   const onSubmit = async (e) => {
     e.preventDefault()
+    setIsDisabled(true)
     const res = await fetch(path, {
       method: edit ? "PATCH" : "POST",
       headers: { "Content-Type": "application/json" },
@@ -43,6 +45,7 @@ export default function FormWrapper({
     const content = await res.json()
     if (content.errors) {
       setErrors(content.errors)
+      setIsDisabled(false)
     } else {
       // console.log("content", content)
       handleClose()
@@ -54,7 +57,8 @@ export default function FormWrapper({
         setColorId(defaultColorId)
         setIconId(defaultIconId)
         resetUniqueInputs()
-      }
+        setIsDisabled(false)
+    }
     }
   }
   
@@ -85,7 +89,7 @@ if (!colorId) return null
         
         <IconInput color={colors[colorId].hex} icons={icons} value={iconId} setValue={setIconId} />
         <ColorInput icon={icons[iconId].title} colors={colors} value={colorId} setValue={setColorId} />
-        <ActionOrCancelButtons handleClose={handleClose} onAction={onSubmit} action={edit ? "Save" : "Create"} />
+        <ActionOrCancelButtons handleClose={handleClose} onAction={onSubmit} action={edit ? "Save" : "Create"} isDisabled={isDisabled} />
       </DialogContent>
 
     </Dialog>

@@ -29,7 +29,7 @@ export default function ProgramCard({ program }) {
     <ProgramDeleteForm open={openDelete} handleClose={toggleDelete} program={program} />
     <HabitForm open={openCreate} handleClose={toggleCreate} pid={program.id} cid={program.cid} iid={program.iid} />
 
-
+    <div className="th-card-shadow"></div>
     <article className="pbc" style={{ background: `linear-gradient(-45deg, rgb(20,10,0) -100%, ${colors[program.cid].hex}, rgb(255,255,255) 200%` }}>
       <i className={`pbc-bg-ico fas fa-10x fa-${icons[program.iid].title} ${dark}`}></i>
 
@@ -39,7 +39,7 @@ export default function ProgramCard({ program }) {
         <div className="pbc-title-con">
           <h3 className="pbc-title">{program.title}</h3>
           <Divider icon={icons[program.iid].title} />
-          {program.description && <blockquote className="pbc-desc">{program.description}</blockquote>}
+          {program.description && <blockquote className="pbc-desc th-quote">{program.description}</blockquote>}
         </div>
 
         {/* interactive buttons */}
@@ -57,9 +57,9 @@ export default function ProgramCard({ program }) {
           <thead>
             <CurrentWeekRow program={program} />
           </thead>
-          
+
           <ProgramCardBody program={program} />
-          
+
         </table>
       </div>
 

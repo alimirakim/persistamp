@@ -4,21 +4,6 @@
   background: linear-gradient(90deg, rgba(0,0,0,0), black, rgba(0,0,0,0));
 }
 
-.rsp {
-  /* display: flex; 
-  flex-direction: column; 
-  align-content: center; 
-  align-items: center; */
-}
-.rsp-con {
-  display: flex;
-  
-}
-
-.rrh {
-  width: min-content;
-}
-
 .rsp-point-label {
   font-size: 2rem;
 }
@@ -33,8 +18,8 @@
 
 .rsp-title {
   /* border-bottom: 10px double; */
-  margin: 0 1rem;
-  padding: 0.5rem;
+  margin: 0;
+  padding: 0;
   /* text-shadow: 2px 2px 2px black; */
   /* background: black; */
   font: 3rem "Berkshire Swash", "Merienda One", Courgette, Meddon;
@@ -51,70 +36,116 @@
 .rsp-btn {
   opacity: 0.77;
   background-color: rgba(255,255,255,0.5);
-  /* border-radius: 1rem; */
+  border-radius: 5px;
   border-width: 0;
-  margin: auto;
-  width: 100%;
+  margin: 0 auto;
+  width: 50%;
   height: 2rem;
   font-weight: bold;
   text-transform: uppercase;
   font-size: 0.8rem;
 }
 .rsp-btn:hover:enabled, rsp-btn:active:enabled {
+  cursor: pointer;
   opacity: 1;
 }
 
-.lo-top-left {
-  position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
-  visibility: hidden;
-}
 .th-inner-border:hover > .lo-top-left {
   visibility: visible
-}
-.white {
-  color: white;
-}
-
-.lo-align-cen {
-  text-align: center;
-  margin: 0;
-  font: 2rem "Berkshire Swash", "Merienda One", Courgette, Meddon;
-}
-.th-inner-border {
-  position: relative;
-  border: 7px double rgba(0,0,0,0.5);
-  padding: 1rem;
 }
 
 /* reward shop card */
 .rsc {
-  padding: 1rem;
-  margin: 0.5rem;
-  min-width: 20rem;
-  width: 30rem;
+  padding: 0.8rem;
+  min-width: 25rem;
+  width: 100%;
+  /* max-width: 30rem; */
   color: rgba(20,10,0,0.8);
+  overflow: hidden;
+  text-align: center;
+  margin-bottom: 0.5rem;
 }
-dt {
-  font: small-caps bold 1rem Cambria, serif;
-  
+
+.rsc-bg-icon {
+  z-index: 0;
+  position: absolute;
+  opacity: 0.8;
+  bottom: 1.2rem;
+  right: 0.5rem;
+  text-align: center;
+  text-shadow: -5px 5px 1px rgba(20,10,0,0.8);
 }
-dd {
-  padding-left: 1rem;
+
+.rev {
+  transform: scaleX(-1);
+}
+
+.rsp-ul {
+  max-height: 100vh;
+  overflow-y: scroll;
+}
+
+.rsc-black {
+  color: rgba(250,255,255,0.6);
+  border-color: rgba(250,255,255,0.6);
+}
+
+.rsc-meta {
+  right: 0.5rem;
+  left: 0.5rem;
+  position: absolute;
+  text-align: left;
+}
+
+.rsc-meta dt, .rsc-meta dd {
+  font-size: 0.7rem;
+  padding: 0;
+  display: inline;
+}
+
+.rrr > table {
+  width: 100%;
+  padding: 0 0.5rem 0 0;
+}
+
+.rew-con {
+  display: flex;
+  width: 100%;
+}
+
+.rrr-msg {
+  text-align: center;
+  padding-right: 1rem;
+}
+.rrr > table > tr, .rrr-msg {
+  font-family: Inconsolata, monospace, Roboto, sans-serif;
+  font-style: normal;
+  font-size: 0.8rem;
+}
+.rrr > table > tr > th {
+  width: 2.5rem;
+  height: 0.5rem;
+  padding-top: 0;
+  text-align: left;
+  vertical-align: top;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.rrr > table > tr > td {
+  text-align: right;
 }
 
 /* redeemed reward receipt */
-.rrr {
+.rrh {
   position: relative;
   margin: 2rem 1rem;
-  padding: 1rem;
-  color: black;
+  padding: 1rem 0 1rem 1rem;
+  color: rgba(0,0,10,0.8);
   background-color: rgb(240,240,250);
-  
+  width: 15rem;
 }
 
-.rrr:before {
+.rrh:before {
   background: 
     linear-gradient(-45deg, rgb(240,240,250) 1rem, transparent 0), 
     linear-gradient(45deg, rgb(240,240,250) 1rem, transparent 0);
@@ -124,13 +155,13 @@ dd {
   content: " ";
   display: block;
   position: absolute;
-  top: -1rem;
+  top: -32px;
   left: 0px;
   width: 100%;
   height: 32px;
 }
 
-.rrr:after {
+.rrh:after {
   background: 
     linear-gradient(135deg,rgb(240,240,250) 1rem, transparent 0), 
     linear-gradient(-135deg, rgb(240,240,250) 1rem, transparent 0);
@@ -140,7 +171,7 @@ dd {
   content: " ";
   display: block;
   position: absolute;
-  bottom: -1rem;
+  bottom: -32px;
   right: 0;
   width: 100%;
   height: 32px;

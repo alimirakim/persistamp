@@ -84,7 +84,6 @@ def sign_up():
         db.session.commit()
         program.hids_order = [habit.id]
         db.session.commit()
-        print("\nnew user program", program)
 
         login_user(user)
 

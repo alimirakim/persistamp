@@ -2,8 +2,9 @@
 
 .habit-row {
   position:relative;
-  
 }
+
+
 .habit-header {
   border-radius: 5px;
   /* border-bottom: 1px dotted; */
@@ -15,7 +16,16 @@
   display: flex;
   align-items: center;
   text-align: left;
+  max-width: 100%;
+  text-overflow: ellipsis;
 }
+
+.habit-btn-con {
+  display: block;
+  max-width: 80%;
+}
+
+
 .habit-btn {
   position: relative;
   display: flex;
@@ -26,7 +36,6 @@
   border-radius: 5px;
   border-bottom: 1px dotted;
   white-space: nowrap;
-  text-overflow: ellipsis;
   flex: 1 1 auto;
 }
 
@@ -60,6 +69,8 @@
 }
 
 .habit-title {
+  max-width: 100%;
+  text-overflow: ellipsis;
   color: whitesmoke;
   font-family: Calibri, Roboto, Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-variant: small-caps;
@@ -67,10 +78,6 @@
   line-height: 0;
   padding: 0 0.2rem 0.5rem;
   margin-left: 0.2rem;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex: auto;
-  min-width: 0;
 }
 .habit-freq {
   /* top: 0.7rem; */

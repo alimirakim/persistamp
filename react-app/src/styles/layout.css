@@ -21,6 +21,26 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
   width: 25%;
 }
 
+.lo-row-fill {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.lo-top-left {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  visibility: hidden;
+}
+
+.lo-align-cen {
+  text-align: center;
+  margin: 0;
+  font: 2rem "Berkshire Swash", "Merienda One", Courgette, Meddon;
+}
+
+
 .pop {
   z-index: 100;
   position: fixed;

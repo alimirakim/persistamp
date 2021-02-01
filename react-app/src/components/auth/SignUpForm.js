@@ -25,14 +25,22 @@ const SignUpForm = ({ auth, setAuth, setUser }) => {
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const user = await signUp(
-        first_name,
-        last_name,
-        birthday,
-        username,
-        email,
-        password,
-      );
+      
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          first_name,
+          last_name,
+          birthday,
+          username,
+          email,
+          password,
+        }),
+      });
+      const user = await response.json();
       if (!user.errors) {
         setUser(user)
         setAuth(true)

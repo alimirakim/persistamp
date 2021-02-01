@@ -11,6 +11,7 @@
   text-transform: uppercase;
   font: bold 1rem Roboto, sans-serif;
   background: none;
+  width: max-content;
 }
 .del-btn:hover {
   background: rgba(0,0,200,0.02);

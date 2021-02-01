@@ -18,8 +18,30 @@ Naming convention: start with `th-`. EXAMPLE: th-bg-primary */
   color: black;
 }
 
+.th-stripe-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: repeating-linear-gradient(
+  45deg,
+  rgba(0,0,0,0),
+  rgba(0,0,0,0) 10px,
+  rgba(255,255,255,0.05) 10px,
+  rgba(255,255,255,0.05) 20px
+  );
+}
 
+.th-inner-border {
+  position: relative;
+  border: 6px double rgba(0,0,0,0.5);
+  padding: 0.5rem 1rem 1rem;
+}
 
+.th-dl-oneline > dt {
+  display: inline;
+}
 
 .th-txt-shadow {
   text-shadow: 2px 2px 2px black;
@@ -111,6 +133,16 @@ Naming convention: start with `th-`. EXAMPLE: th-bg-primary */
   opacity: 0.3;
 }
 
+.th-quote:before, .th-quote:after {
+  font-style: normal;
+  font-size: 1rem;
+}
+.th-quote:before {
+  content: '❝ ';
+}
+.th-quote:after {
+  content: ' ❞';
+}
 
 .th-dark-gr {
   background: linear-gradient(-45deg, rgba(0,0,0,1), rgba(50,50,50,1));

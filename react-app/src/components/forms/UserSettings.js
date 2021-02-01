@@ -20,7 +20,6 @@ import ErrorMessages from '../mylib/ErrorMessages'
 
 export default function UserSettings({ open, handleClose, user, setUser }) {
   const { colors, icons } = useContext(OptionsContext)
-  const context = useContext(OptionsContext)
   const [colorId, setColorId] = useState("")
   const [iconId, setIconId] = useState("")
   const [errors, setErrors] = useState([])
@@ -32,12 +31,14 @@ export default function UserSettings({ open, handleClose, user, setUser }) {
 
   const toggleIcons = () => setOpenIcons(!openIcons)
 
+  
   useEffect(() => {
-    if (!user.errors && colors && icons) {
-      setColorId(user.cid)
-      setIconId(user.iid)
-    }
-  }, [user, colors, icons])
+    setColorId(user.cid)
+    setIconId(user.iid)
+    setFirstname(user.first_name)
+    setLastname(user.last_name)
+    setBirthday(user.birthday)
+  }, [user])
 
   const onUpdate = async (e) => {
     e.preventDefault()

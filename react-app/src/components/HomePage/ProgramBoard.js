@@ -14,7 +14,7 @@ export default function ProgramBoard() {
   }, [Object.keys(programs).length])
 
   return (
-    <main style={{ marginTop: "1rem", display: "flex", flexDirection: "column", alignItems: "center" }}>
+    <main>
 
       {con === "pbc-con-none" &&
         <article className="msg-none lo-center th-txt-shadow">You have no programs yet. Click the 'Add' stamp icon in the top-left to start a new one.</article>
@@ -22,7 +22,7 @@ export default function ProgramBoard() {
 
       <ul className={`${con} program-cards`}>
         {Array.from(Object.keys(programs).reverse()).map((pid, i) => (
-          <li key={pid} className="th-card-shadow" >
+          <li key={pid} className="pbc-con">
             <ProgramCard program={programs[pid]} />
           </li>
         ))}

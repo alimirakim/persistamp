@@ -1,6 +1,44 @@
 
 /* Program Board Card */
 
+.pbc-con {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.programBoards-container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+.program-cards {
+  margin: 0 auto;
+}
+
+@media all and (max-width: 25rem) {
+  .programBoards-container { 
+    transform: scale(0.8); 
+    margin: -10rem 0rem -10rem -2rem;
+  }
+}
+
+@media all and (min-width: 25rem) and (max-width: 51rem) {
+  .programBoards-container { max-width: 30rem; }
+}
+@media all and (min-width: 51rem) and (max-width: 76rem) {
+  .programBoards-container { max-width: 61rem }
+}
+@media all and (min-width: 76rem) and (max-width: 102rem) {
+  .programBoards-container { max-width: 92rem }
+}
+@media all and (min-width: 102rem) and (max-width: 122rem) {
+  .programBoards-container { max-width: 122rem }
+}
+@media all and (min-width: 122rem) {
+  .programBoards-container { max-width: 152rem }
+}
+
+
 .pbc {
   position: relative;
   color: rgba(20,10,0,0.8);
@@ -10,6 +48,7 @@
   overflow: hidden;
   min-width: 25rem;
   width: 100%;
+  max-width: 30rem;
   /* transform: scale(0.5) */
   margin-bottom: 0.5rem;
 }
@@ -62,9 +101,6 @@
   text-align: center;
   z-index: 1;
 }
-.pbc-desc:before, .pbc-desc:after {
-  content: '"';
-}
 
 /* action buttons  */
 .pbc-btns {
@@ -93,11 +129,4 @@
   visibility: visible;
   opacity: 1;
   border:rgba(20,10,0, 0.1)
-}
-
-.habit-btn-con {
-  /* display: flex; */
-  overflow: hidden;
-  flex: auto;
-  min-width: 0;
 }

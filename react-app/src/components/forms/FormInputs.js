@@ -17,7 +17,7 @@ export function DeleteButton({ switchForms }) {
   return (
     <div>
       <button onClick={switchForms} className="del-btn">
-        <i className="lo-center fas fa-eraser" /> Delete
+        <i className="fas fa-eraser" /> Delete
       </button>
     </div>
   )
@@ -70,14 +70,14 @@ export function MiniDeleteButton({ handleOpen }) {
 }
 
 
-export function ActionOrCancelButtons({ handleClose, onAction, action }) {
+export function ActionOrCancelButtons({ handleClose, onAction, action, isDisabled }) {
 
   return (
     <DialogActions>
       <Button onClick={handleClose} color="primary">
         Cancel
     </Button>
-      <Button onClick={onAction} color="primary">
+      <Button onClick={onAction} disabled={isDisabled} color="primary">
         {action}
       </Button>
     </DialogActions>
@@ -192,19 +192,43 @@ export function ChooseQuantity({ quantity, setQuantity }) {
 }
 
 
-export function ChooseCost({ cost, setCost }) {
-  const updateCost = (e) => setCost(e.target.value)
+// export function AddDescription({ description, setDescription }) {
+//   const updateDescription = (e) => setDescription(e.target.value)
+//   return (<>
+//     <TextField
+//       value={description}
+//       margin="dense"
+//       id="description"
+//       label="Description"
+//       type="text"
+//       fullWidth
+//       onChange={updateDescription}
+//     />
+//     <CharCountIndicator length={description ? description.length : 0} maxLength={250} />
+//   </>)
+// }
 
-  return (<div>
-    <InputLabel id="cost">Cost</InputLabel>
+
+export function ChooseCost({ cost, setCost }) {
+  const updateCost = (e) => {
+    setCost(e.target.value)
+  }
+
+  return (<>
+    {/* <InputLabel>Cost</InputLabel> */}
+    
     <TextField
-      onChange={updateCost}
-      label="cost"
       value={cost}
-      type="number"
-      InputProps={{ min: 1 }}
+      margin="dense"
+      id="cost"
+      label="Cost"
+      type="text"
+      fullWidth
+      onChange={updateCost}
+      // type="number"
+      // InputProps={{ min: 1 }}
     />
-  </div>)
+  </>)
 }
 
 export function UpdateFirstname({ firstname, setFirstname }) {

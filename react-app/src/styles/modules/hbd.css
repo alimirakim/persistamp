@@ -10,9 +10,12 @@ main {
   align-items: center;
 }
 
-li {
+li, .rrh {
   break-inside: avoid-column;
   /* width: min-content; */
+}
+.rrh {
+  height: max-content;
 }
 
 .programBoards-container {
@@ -23,7 +26,7 @@ li {
   column-fill: balance;
   -webkit-column-fill: balance;
   /* margin: 0.5rem 1rem 0.5rem 0; */
-  width: 95%;
+  /* width: 95%; */
   min-width: 20rem;
   margin: 0.5rem;
   

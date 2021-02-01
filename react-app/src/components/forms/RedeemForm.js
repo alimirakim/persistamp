@@ -24,18 +24,17 @@ export default function RedeemForm({ open, handleClose, reward }) {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Redeem Reward: "{reward.title}"</DialogTitle>
+      <DialogTitle>Redeem Reward "{reward.title}"</DialogTitle>
       <DialogContent>
         <blockquote>{reward.description}</blockquote>
-        <dl>
-          <dt>Limit per Member:</dt>
-          <dd>{reward.limit_per_member > -1 ? reward.limit_per_member : "--"}</dd>
+        <dl className="th-dl-oneline">
+          {/* <dt>Limit per Member:</dt> */}
+          {/* <dd>{reward.limit_per_member > -1 ? reward.limit_per_member : "--"}</dd> */}
+          <dt>Cost:</dt>
+          <dd>{reward.cost} {reward.cost === 1 ? "Point" : "Points"}</dd>
+          <br/>
           <dt>Quantity Remaining:</dt>
           <dd>{reward.quantity > -1 ? reward.quantity : "--"}</dd>
-          <dt>Cost:</dt>
-          <dd style={{ color: colors[reward.cid].hex }}>
-            <i className={`fas fa-2x fa-${icons[reward.iid].hex}`}></i> {reward.cost}
-          </dd>
         </dl>
         <ActionOrCancelButtons handleClose={handleClose} onAction={onRedeem} action={"Redeem"} />
       </DialogContent>

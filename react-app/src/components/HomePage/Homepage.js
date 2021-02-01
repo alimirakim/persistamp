@@ -13,12 +13,13 @@ export default function Homepage({ auth, setAuth, setUser }) {
 
   useEffect(() => {
     const stopId = setInterval(() => {
-    if (new Date().getDay() !== today) setToday(new Date().getDay())
+      if (new Date().getDay() !== today) setToday(new Date().getDay())
     }, 60000)
     // TODO Check somehow that this cleanup does work
     const stopInterval = () => clearInterval(stopId)
     return stopInterval
   }, [])
+
 
   useEffect(() => {
     if (!user.errors) {
@@ -40,7 +41,10 @@ export default function Homepage({ auth, setAuth, setUser }) {
 
   return (<main>
     <div className="hbd">
-      <h1 className="persistamp ">Persistamp</h1>
+      <div className="hbd-title">
+        <h1 className="persistamp">Persistamp</h1>
+        <h2 className="persistamp-subtitle">A Motivational 'Good Habit' Positivity App</h2>
+      </div>
       <NavCard auth={auth} setAuth={setAuth} setUser={setUser} />
       <ProgramBoard />
 

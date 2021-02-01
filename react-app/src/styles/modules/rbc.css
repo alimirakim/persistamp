@@ -28,6 +28,13 @@
   border-bottom: 1px solid white;
 }
 
+.rsc-desc {
+  margin: 0;
+  font: italic 1rem Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  text-align: center;
+  z-index: 1;
+}
+
 .rbc-icon-con {
   top: 0;
   right: 0;

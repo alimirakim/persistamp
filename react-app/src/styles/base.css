@@ -16,7 +16,7 @@ body {
   padding: 0 !important;
   /* overflow-x: scroll !important; */
     /* background-image: url("../images/bgs/wooden-background.jpg"); */
-    background-image: url("../images/bgs/03.jpg");
+    background: url("../images/bgs/03.jpg") no-repeat fixed;
     /* background-image: url("../images/bgs/6.jpg"); */
     /* background-image: url("../images/bgs/black-marble-patterned-texture-background-marble-thailand-abstract-natural-marble-black-white-design.jpg"); */
     /* background-image: url("../images/bgs/black-marble.jpg"); */
@@ -42,11 +42,24 @@ body {
   min-height: 100vh;
 }
 
+abbr {
+  text-decoration: none;
+}
+
+dt {
+  font: small-caps bold 1rem Cambria, serif;
+}
+dd {
+  padding-left: 1rem;
+}
+
+
 main {
   padding-bottom: 120px;
 }
 
 table {
+  table-layout: fixed;
   margin: 0;
   padding: 0.5rem;
   text-align: center;
