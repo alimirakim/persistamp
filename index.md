@@ -1,18 +1,26 @@
 <div align="center">
 
 ![JavaScript](https://img.shields.io/badge/-JavaScript-f7df1e?style=flat-square&logo=JavaScript&logoColor=black) 
+
 ![React](https://img.shields.io/badge/-React-61dafb?style=flat-square&logo=React&logoColor=white) 
+
 ![CSS3](https://img.shields.io/badge/-CSS3-1572b6?style=flat-square&logo=CSS3&logoColor=white) 
+
 ![Docker](https://img.shields.io/badge/-Docker-2496ed?style=flat-square&logo=Docker&logoColor=white) 
+
 ![Python](https://img.shields.io/badge/-Python-3776ab?style=flat-square&logo=Python&logoColor=white)  
+
 ![Flask](https://img.shields.io/badge/-Flask-black?style=flat-square&logo=Flask&logoColor=white) 
+
 ![SQLAlchemy](https://img.shields.io/badge/-SQLAlchemy-d01f00?style=flat-square&logo=SQLAlchemy&logoColor=white) 
+
 ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-336791?style=flat-square&logo=postgreSQL&logoColor=white)
 
 <img src="readme/images/idc.png" alt="ID Navigation Card">
 
 
 # Persistamp 🐢
+
 ## A Motivational 'Good Habits' Positivity App
 
 **TOC**  
