@@ -1,18 +1,18 @@
-/* program board card - habit row */
+/* program board card - activity row */
 
-.habit-row {
+.activity-row {
   position:relative;
 }
 
 
-.habit-header {
+.activity-header {
   border-radius: 5px;
   /* border-bottom: 1px dotted; */
   /* border-top: 1px dotted; */
   margin-bottom: 0.5rem;
 }
 
-.habit-btns {
+.activity-btns {
   display: flex;
   align-items: center;
   text-align: left;
@@ -20,13 +20,13 @@
   text-overflow: ellipsis;
 }
 
-.habit-btn-con {
+.activity-btn-con {
   display: block;
   max-width: 80%;
 }
 
 
-.habit-btn {
+.activity-btn {
   position: relative;
   display: flex;
   align-items: center;
@@ -39,12 +39,12 @@
   flex: 1 1 auto;
 }
 
-.habit-btn:hover {
+.activity-btn:hover {
   background: rgba(0,0,0,0.2);
   opacity: 1;
 }
 
-.habit-ico {
+.activity-ico {
   opacity: 0.8;
   position: relative;
   width: 1.5rem;
@@ -55,20 +55,20 @@
   margin-right: 0.5rem;
   background: none;
 }
-.habit-ico:hover {
+.activity-ico:hover {
   transform: scale(1.2);
   transition: all 0.1s ease;
   background-color: rgba(0,0,0,0.2);
   border: 2px solid;
 }
-.habit-ico:focus {
+.activity-ico:focus {
   outline: none;
 }
-.habit-ico:active {
+.activity-ico:active {
   color:white;
 }
 
-.habit-title {
+.activity-title {
   max-width: 100%;
   text-overflow: ellipsis;
   color: whitesmoke;
@@ -79,7 +79,7 @@
   padding: 0 0.2rem 0.5rem;
   margin-left: 0.2rem;
 }
-.habit-freq {
+.activity-freq {
   /* top: 0.7rem; */
   /* left: 2.5rem; */
   /* position: absolute; */
@@ -91,7 +91,7 @@
   /* height: 0.5rem; */
   /* line-height: 0rem; */
 }
-.habit-title-txt {
+.activity-title-txt {
   line-height: 0.7rem;
   /* position: absolute; */
   /* bottom: 0.5rem; */
@@ -101,6 +101,6 @@
   min-width: 0;
 }
 
-.habit-link:hover {
+.activity-link:hover {
   background-color: rgba(0,0,0,0.2);
 }

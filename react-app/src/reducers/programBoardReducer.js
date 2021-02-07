@@ -35,12 +35,12 @@ export const editProgram = (program) => ({ type: EDIT_PROGRAM, program })
 export const deleteProgram = (program) => ({ type: DELETE_PROGRAM, program })
 export const resetPrograms = () => ({ type: RESET_PROGRAMS })
 
-export const setHabits = (habits) => ({ type: GET_USER_HABITS, habits })
-export const addHabit = (habit) => ({ type: ADD_HABIT, habit })
-export const createHabit = (habit) => ({ type: CREATE_HABIT, habit })
-export const editHabit = (habit) => ({ type: EDIT_HABIT, habit })
-export const deleteHabit = (habit) => ({ type: DELETE_HABIT, habit })
-export const resetHabits = () => ({ type: RESET_HABITS })
+export const setActivities = (activities) => ({ type: GET_USER_HABITS, activities })
+export const addActivity = (activity) => ({ type: ADD_HABIT, activity })
+export const createActivity = (activity) => ({ type: CREATE_HABIT, activity })
+export const editActivity = (activity) => ({ type: EDIT_HABIT, activity })
+export const deleteActivity = (activity) => ({ type: DELETE_HABIT, activity })
+export const resetActivities = () => ({ type: RESET_HABITS })
 
 export const setStamps = (stamps) => ({ type: GET_STAMPS, stamps })
 export const stampDay = (stamp) => ({ type: STAMP_DAY, stamp })
@@ -50,7 +50,7 @@ export const resetStamps = () => ({ type: RESET_STAMPS })
 
 
 export default function programBoardReducer(state = {
-  programs: {}, habits: {}, stamps: {},
+  programs: {}, activities: {}, stamps: {},
 }, action) {
   const newState = { ...state }
 
@@ -66,7 +66,7 @@ export default function programBoardReducer(state = {
       newState.programs[action.program.id] = action.program
       return newState
     case DELETE_PROGRAM:
-      // delete stamps, then habits, then program
+      // delete stamps, then activities, then program
       delete newState.programs[action.program.id]
       return newState
     case EDIT_PROGRAM:
@@ -75,30 +75,30 @@ export default function programBoardReducer(state = {
 
     // HABITS      
     case GET_USER_HABITS:
-      return newState.actions = action.habits
+      return newState.actions = action.activities
     case ADD_HABIT:
-        newState.habits[action.habit.id] = action.habit
+        newState.activities[action.activity.id] = action.activity
         return newState
     case CREATE_HABIT:
-      newState.habits[action.habit.id] = action.habit
-      // Add the habit id to its program hid list
-      newState.programs[action.habit.pid].hids = [...newState.programs[action.habit.pid].hids, action.habit.id]
-      // Add the week's stamps for the habit
+      newState.activities[action.activity.id] = action.activity
+      // Add the activity id to its program aid list
+      newState.programs[action.activity.pid].aids = [...newState.programs[action.activity.pid].aids, action.activity.id]
+      // Add the week's stamps for the activity
       return newState
     case DELETE_HABIT:
-      // Delete week's stamps for habit
-      delete newState.habits[action.habit.id]
-      newState.programs[action.habit.pid].hids = newState.programs[action.habit.pid].hids.filter(hid => hid !== action.habit.id)
+      // Delete week's stamps for activity
+      delete newState.activities[action.activity.id]
+      newState.programs[action.activity.pid].aids = newState.programs[action.activity.pid].aids.filter(aid => aid !== action.activity.id)
       return newState
     case EDIT_HABIT:
-      newState.habits[action.habit.id] = action.habit
+      newState.activities[action.activity.id] = action.activity
       return newState
 
     // TODO QUESTION Why does this double the points?!?!?!???
     // STAMPS
     case STAMP_DAY:
-      // Add stamp id to habit id
-      newState.habits[action.stamp.hid].sids = [...newState.habits[action.stamp.hid].sids, action.stamp.id]
+      // Add stamp id to activity id
+      newState.activities[action.stamp.aid].sids = [...newState.activities[action.stamp.aid].sids, action.stamp.id]
       // Find program that includes membership id of the stamp
       const stampedProgram = Object.values(state.programs).find(p => p.mids.includes(action.stamp.mid))
       newState.programs[stampedProgram.id].points += 1
@@ -106,8 +106,8 @@ export default function programBoardReducer(state = {
       return newState
 
     case UNSTAMP_DAY:
-      // Remove stamp id from habit id
-      newState.habits[action.stamp.hid].sids = newState.habits[action.stamp.hid].sids.filter(sid => sid !== action.stamp.id)
+      // Remove stamp id from activity id
+      newState.activities[action.stamp.aid].sids = newState.activities[action.stamp.aid].sids.filter(sid => sid !== action.stamp.id)
       // Find program that includes membership id of the stamp
       const unstampedProgram = Object.values(state.programs).find(program => program.mids.includes(action.stamp.mid))
       newState.programs[unstampedProgram.id].points -= 1

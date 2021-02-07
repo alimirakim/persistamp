@@ -123,8 +123,8 @@
 /* only show activity btns when hovering on card */
 .pbc:hover .pbc-btns, 
 .pbc:focus .pbc-btns,
-.habit:hover .mini-ico-btn,
-.habit:focus .mini-ico-btn
+.activity:hover .mini-ico-btn,
+.activity:focus .mini-ico-btn
  {
   visibility: visible;
   opacity: 1;

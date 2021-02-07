@@ -9,18 +9,18 @@ export default function NavCard({
   auth,
   setAuth,
   setUser,
-  habit,
+  activity,
   program,
   title,
 }) {
   const history = useHistory()
-  const { hid, pid } = useParams()
+  const { aid, pid } = useParams()
   const { colors, icons } = useContext(OptionsContext)
-  const { habits } = useContext(ProgramBoardContext)
+  const { activities } = useContext(ProgramBoardContext)
   const user = useContext(UserContext)
   const birthday = user.birthday ? new Date(user.birthday).toLocaleString('en-EN', { year: 'numeric', month: 'long', day: 'numeric' }) : "N/A"
   const path = history.location.pathname.split("/")
-  // console.log("habits", habits)
+  // console.log("activities", activities)
 
   if (!user) return (
     <header
@@ -48,7 +48,7 @@ export default function NavCard({
           auth={auth}
           setAuth={setAuth}
           setUser={setUser}
-          habit={habit}
+          activity={activity}
           program={program}
         />
       </div>
@@ -82,10 +82,10 @@ export default function NavCard({
                 <div className="th-hr-gr-fade-left" />
               </>}
 
-              {habit && <>
-                <div className="idc-hh">Habit History</div>
+              {activity && <>
+                <div className="idc-hh">Activity History</div>
                 <div className="th-hr-gr-fade-left" />
-                <span className="idc-habit idc-last">{habit.title}</span>
+                <span className="idc-activity idc-last">{activity.title}</span>
               </>}
 
               {program && <>
@@ -125,7 +125,7 @@ export default function NavCard({
           auth={auth}
           setAuth={setAuth}
           setUser={setUser}
-          habit={habit}
+          activity={activity}
           program={program}
         />
       </div>

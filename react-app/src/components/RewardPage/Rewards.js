@@ -3,7 +3,7 @@ import RewardShopContext from '../../context/RewardShopContext'
 import RewardCard from './RewardCard'
 
 export default function Rewards() {
-  const { rewards, redeemed, program } = useContext(RewardShopContext)
+  const { rewards, receipts, program } = useContext(RewardShopContext)
 
   if (Object.keys(rewards).length === 0) {
     return (
@@ -14,13 +14,13 @@ export default function Rewards() {
   return (
       <ul className="programBoards-container program-cards">
         {Array.from(Object.values(rewards).reverse()).map(reward => {
-          const redeemCount = Object.values(redeemed).filter(r => r.rew_id === reward.id).length
+          const receiptCount = Object.values(receipts).filter(r => r.rew_id === reward.id).length
           return (
             <li key={reward.id}>
               <RewardCard
                 reward={reward}
                 program={program}
-                redeemCount={redeemCount}
+                receiptCount={receiptCount}
               />
             </li>
           )

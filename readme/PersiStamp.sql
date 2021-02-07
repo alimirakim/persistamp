@@ -17,9 +17,9 @@ CREATE TABLE "programs" (
   "stamp" varchar(50)
 );
 
-CREATE TABLE "habits" (
+CREATE TABLE "activities" (
   "id" SERIAL PRIMARY KEY,
-  "habit" varchar(50),
+  "activity" varchar(50),
   "program_id" int,
   "creator_id" int,
   "created_at" timestamp,
@@ -33,7 +33,7 @@ CREATE TABLE "daily_stamps" (
   "id" SERIAL PRIMARY KEY,
   "date" date,
   "status" varchar(50),
-  "habit_id" int,
+  "activity_id" int,
   "user_id" int
 );
 
@@ -59,11 +59,11 @@ CREATE TABLE "members" (
   "points" int
 );
 
-CREATE TABLE "redeemed" (
+CREATE TABLE "receipts" (
   "id" SERIAL PRIMARY KEY,
   "user_id" int,
   "reward_id" int,
-  "redeemed_at" timestamp
+  "created_at" timestamp
 );
 
 CREATE TABLE "bonds" (
@@ -72,9 +72,9 @@ CREATE TABLE "bonds" (
   "buddy_id" int
 );
 
-ALTER TABLE "habits" ADD FOREIGN KEY ("program_id") REFERENCES "programs" ("id");
+ALTER TABLE "activities" ADD FOREIGN KEY ("program_id") REFERENCES "programs" ("id");
 
-ALTER TABLE "daily_stamps" ADD FOREIGN KEY ("habit_id") REFERENCES "habits" ("id");
+ALTER TABLE "daily_stamps" ADD FOREIGN KEY ("activity_id") REFERENCES "activities" ("id");
 
 ALTER TABLE "daily_stamps" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
@@ -86,9 +86,9 @@ ALTER TABLE "members" ADD FOREIGN KEY ("member_id") REFERENCES "users" ("id");
 
 ALTER TABLE "members" ADD FOREIGN KEY ("stamper_id") REFERENCES "users" ("id");
 
-ALTER TABLE "redeemed" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
+ALTER TABLE "receipts" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 
-ALTER TABLE "redeemed" ADD FOREIGN KEY ("reward_id") REFERENCES "rewards" ("id");
+ALTER TABLE "receipts" ADD FOREIGN KEY ("reward_id") REFERENCES "rewards" ("id");
 
 ALTER TABLE "bonds" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id");
 

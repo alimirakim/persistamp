@@ -6,18 +6,18 @@ class Stamp(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.Date, nullable=False, default=date.today())
     status = db.Column(db.String, nullable=False, default="stamped") #('unstamped', 'pending', 'stamped', name="status"))
-    habit_id = db.Column(db.Integer, db.ForeignKey("habits.id"), nullable=False)
+    activity_id = db.Column(db.Integer, db.ForeignKey("activities.id"), nullable=False)
     membership_id = db.Column(db.Integer, db.ForeignKey("memberships.id"), nullable=False)
 
-    habit = db.relationship("Habit", back_populates="stamps")
+    activity = db.relationship("Activity", back_populates="stamps")
     membership = db.relationship("Membership", back_populates="stamps")
 
     def to_dict(self):
-        """"""
+        """Return dict of stamp."""
         return {
             "id": self.id,
             "date": self.date.isoformat(),
             "status": self.status,
-            "hid": self.habit_id,
+            "aid": self.activity_id,
             "mid": self.membership_id,
         }

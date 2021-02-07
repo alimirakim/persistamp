@@ -1,21 +1,21 @@
 
 from flask import Blueprint, jsonify, request
 from sqlalchemy.orm import joinedload
-from app.models import db, Habit, Stamp
-from app.schemas import habit_schema, stamp_schema
+from app.models import db, Activity, Stamp
+from app.schemas import activity_schema, stamp_schema
 from app.utils import validation_errors_to_error_messages
 from flask_login import current_user
 from datetime import date, timedelta, datetime
 import calendar
 
-habit_detail_routes = Blueprint("habit_details", __name__, url_prefix="/habit-details")
+activity_detail_routes = Blueprint("activity_details", __name__, url_prefix="/activity-details")
 
 
-@habit_detail_routes.route("<int:hid>/memberships/<int:mid>/graph/<string:interval>")
-def getWeeklyGraph(hid, interval, mid):
+@activity_detail_routes.route("<int:aid>/memberships/<int:mid>/graph/<string:interval>")
+def getWeeklyGraph(aid, interval, mid):
     # uid = current_user.id
-    habitObj = Habit.query.filter(Habit.id == hid).one()
-    habit = habit_schema.dump(habitObj)
+    activityObj = Activity.query.filter(Activity.id == aid).one()
+    activity = activity_schema.dump(activityObj)
     current_date = date.today()
     # print("CURRENT_DATE =-----------------------------------------------", current_date)
 
@@ -28,8 +28,8 @@ def getWeeklyGraph(hid, interval, mid):
             lastDate = date(int(splitDate[0]), 1, int(splitDate[2]))
         else:
             lastDate = date(lastYear, int(splitDate[1]) + 1, int(splitDate[2]))
-        habitHistory = Stamp.query.filter(Stamp.habit_id == hid, Stamp.membership_id == mid, Stamp.date >= lastDate).all()
-        stamps = [stamp_schema.dump(stamp)["date"] for stamp in habitHistory]
+        activityHistory = Stamp.query.filter(Stamp.activity_id == aid, Stamp.membership_id == mid, Stamp.date >= lastDate).all()
+        stamps = [stamp_schema.dump(stamp)["date"] for stamp in activityHistory]
 
         monthDict = {month: index for index, month in enumerate(calendar.month_abbr) if month}
 
@@ -60,7 +60,7 @@ def getWeeklyGraph(hid, interval, mid):
         # print("MONTH DATA ------------", data)
         ticks = [0,5,10,15,20,25,30,35]
         yDomain = [0,35]
-        jsonData = jsonify(data=data, habit=habit, ticks=ticks, yDomain=yDomain)
+        jsonData = jsonify(data=data, activity=activity, ticks=ticks, yDomain=yDomain)
         return jsonData
 
     past_fourteen_weeks = [(current_date - timedelta(days=i)) for i in range(98)]
@@ -79,7 +79,7 @@ def getWeeklyGraph(hid, interval, mid):
         i += 7
     newAxisLabels = list(reversed(axisLabels))
 
-    stamps = Stamp.query.filter(Stamp.habit_id == hid, Stamp.membership_id == mid, Stamp.date <= past_week_dates[0], Stamp.date >= past_week_dates[-1]).all()
+    stamps = Stamp.query.filter(Stamp.activity_id == aid, Stamp.membership_id == mid, Stamp.date <= past_week_dates[0], Stamp.date >= past_week_dates[-1]).all()
     stamps = [stamp_schema.dump(stamp)["date"] for stamp in stamps]
 
     isStamped = []
@@ -104,12 +104,12 @@ def getWeeklyGraph(hid, interval, mid):
     ticks = [0,1,2,3,4,5,6,7]
     yDomain = [0, 7]
     newData = list(reversed(data))
-    jsonData = jsonify(data=newData, habit=habit, ticks=ticks, yDomain=yDomain)
+    jsonData = jsonify(data=newData, activity=activity, ticks=ticks, yDomain=yDomain)
     return jsonData
 
 
-@habit_detail_routes.route("<int:hid>/calendar/<int:mid>")
-def getCalendarData(hid, mid):
+@activity_detail_routes.route("<int:aid>/calendar/<int:mid>")
+def getCalendarData(aid, mid):
     current_date = date.today()
     endDate = current_date.strftime("%Y-%m-%d")
 
@@ -128,7 +128,7 @@ def getCalendarData(hid, mid):
     # print("GETTING SUNDAY============================", startDate)
     stampDates = []
     values = []
-    stamps = Stamp.query.filter(Stamp.habit_id == hid, \
+    stamps = Stamp.query.filter(Stamp.activity_id == aid, \
         Stamp.membership_id == mid, \
         Stamp.date >= startDate, \
         Stamp.date <= endDate).all()
@@ -184,23 +184,23 @@ def getCalendarData(hid, mid):
     return jsonData
 
 
-@habit_detail_routes.route("/<int:hid>/stats/<int:mid>")
-def getHabitStats(hid, mid):
-    habit = habit_schema.dump(Habit.query.filter(Habit.id == hid).one())
-    habitFrequency = habit["frequency"]
+@activity_detail_routes.route("/<int:aid>/stats/<int:mid>")
+def getActivityStats(aid, mid):
+    activity = activity_schema.dump(Activity.query.filter(Activity.id == aid).one())
+    activityFrequency = activity["frequency"]
 
-    startList = habit["created_at"][0:10].split("-")
+    startList = activity["created_at"][0:10].split("-")
     startDate = date(int(startList[0]), int(startList[1]), int(startList[2]))
     oneMonthAgo = date.today() - timedelta(days=31)
     twoMonthsAgo = oneMonthAgo - timedelta(days=31)
 
-    daysOfHabit = (date.today() - startDate).days
+    daysOfActivity = (date.today() - startDate).days
 
-    attempts = (int(daysOfHabit) // 7) * int(habitFrequency) + int(habitFrequency)
+    attempts = (int(daysOfActivity) // 7) * int(activityFrequency) + int(activityFrequency)
 
-    allStamps = Stamp.query.filter(Stamp.habit_id == hid, Stamp.membership_id == mid)
-    lastMonthStamps = Stamp.query.filter(Stamp.habit_id == hid, Stamp.membership_id == mid, Stamp.date >= oneMonthAgo.strftime("%Y-%m-%d"))
-    twoMonthsAgoStamps = Stamp.query.filter(Stamp.habit_id == hid, Stamp.membership_id == mid, Stamp.date < oneMonthAgo.strftime("%Y-%m-%d"), Stamp.date >= twoMonthsAgo.strftime("%Y-%m-%d"))
+    allStamps = Stamp.query.filter(Stamp.activity_id == aid, Stamp.membership_id == mid)
+    lastMonthStamps = Stamp.query.filter(Stamp.activity_id == aid, Stamp.membership_id == mid, Stamp.date >= oneMonthAgo.strftime("%Y-%m-%d"))
+    twoMonthsAgoStamps = Stamp.query.filter(Stamp.activity_id == aid, Stamp.membership_id == mid, Stamp.date < oneMonthAgo.strftime("%Y-%m-%d"), Stamp.date >= twoMonthsAgo.strftime("%Y-%m-%d"))
 
     def dumpStamps(stamp):
         return stamp_schema.dump(stamp)
@@ -231,7 +231,7 @@ def getHabitStats(hid, mid):
     monthTrend = None
     monthPercentage = None
 
-    if daysOfHabit <= 31:
+    if daysOfActivity <= 31:
         monthTrend = "increase"
         monthPercentage = "n/a"
     elif len(lastMonthObjs) >= len(twoMonthObjs):

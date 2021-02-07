@@ -17,7 +17,7 @@
 @import url("modules/idc.css");
 /* footer */
 @import url("modules/ftr.css");
-/* habit board */
+/* activity board */
 @import url("modules/hbd.css");
 /* radio box circles */
 @import url("modules/rbc.css");
@@ -34,8 +34,8 @@
 /* program board card */
 @import url("modules/pbc.css");
 @import url("modules/pbc-hr.css");
-@import url("modules/pbc-habit.css");
+@import url("modules/pbc-activity.css");
 @import url("modules/pbc-points.css");
 @import url("modules/pbc-stamp.css");
-/* habit display page */
+/* activity display page */
 @import url("modules/hdp.css");

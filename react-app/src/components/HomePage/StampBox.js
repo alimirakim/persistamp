@@ -4,24 +4,24 @@ import OptionsContext from '../../context/OptionsContext'
 
 
 // TODO How to optimize the rerenders here????
-// Create a user slice of state. In that slice, have user's memberships, habits,
-// stamps, etc.. Have each habit have a dailystamp array in order of date.
+// Create a user slice of state. In that slice, have user's memberships, activities,
+// stamps, etc.. Have each activity have a dailystamp array in order of date.
 // ehhh...
 
-// alt 1 wrap each habit row in a habit context
+// alt 1 wrap each activity row in a activity context
 // alt 3 have each stampbox have its island state what only fetches and such
 // straight from the source
 
-export default function StampBox({ day, mid, hid }) {
+export default function StampBox({ day, mid, aid }) {
   const { colors, icons } = useContext(OptionsContext)
-  const { dispatchStampDay, dispatchUnstampDay, stamps, habits, } = useContext(ProgramBoardContext)
+  const { dispatchStampDay, dispatchUnstampDay, stamps, activities, } = useContext(ProgramBoardContext)
   const [stampStatus, setStampStatus] = useState("")
   const [deg, setDeg] = useState("0")
   const method = stampStatus === "stamped" ? "delete" : "post"
-  const icon = stampStatus === "stamped" ? icons[habits[hid].iid].title : stampStatus === "fulfilled" ? "check" : "times"
-  const color = stampStatus === "stamped" ? colors[habits[hid].cid].hex : "rgb(255,255,255,0.2)"
-  const stampId = habits ? habits[hid].sids.find(sid => stamps[sid].date === day[1]) : ""
-  const stampPath = `/api/stamps/${habits[hid].id}/programs/${habits[hid].pid}/memberships/${mid}/days/${day[1]}`
+  const icon = stampStatus === "stamped" ? icons[activities[aid].iid].title : stampStatus === "fulfilled" ? "check" : "times"
+  const color = stampStatus === "stamped" ? colors[activities[aid].cid].hex : "rgb(255,255,255,0.2)"
+  const stampId = activities ? activities[aid].sids.find(sid => stamps[sid].date === day[1]) : ""
+  const stampPath = `/api/stamps/${activities[aid].id}/programs/${activities[aid].pid}/memberships/${mid}/days/${day[1]}`
 
 
   useEffect(() => {
@@ -32,11 +32,11 @@ export default function StampBox({ day, mid, hid }) {
     let status = ""
     if (stampId) {
       status = "stamped"
-    } else if (habits[hid].sids.length >= Number(habits[hid].frequency)) {
+    } else if (activities[aid].sids.length >= Number(activities[aid].frequency)) {
       status = "fulfilled"
     }
     setStampStatus(status)
-  }, [habits[hid].sids, icon])
+  }, [activities[aid].sids, icon])
 
   const onStamp = (method) => async (ev) => {
     ev.preventDefault()

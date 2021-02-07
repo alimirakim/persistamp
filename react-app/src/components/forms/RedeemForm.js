@@ -15,8 +15,9 @@ export default function RedeemForm({ open, handleClose, reward }) {
 
   const onRedeem = async () => {
     const res = await fetch(`/api/rewards/${reward.id}/memberships/${mid}/redeem`)
-    const { redeemed_data } = await res.json()
-    dispatchRedeemReward(redeemed_data)
+    const { receipt_data } = await res.json()
+    console.log("receipt", receipt_data)
+    dispatchRedeemReward(receipt_data)
     handleClose()
   }
 

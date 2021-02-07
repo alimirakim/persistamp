@@ -10,7 +10,7 @@ import instruction4 from '../../images/screenshots/sc3.png';
 const instructions = [
   {
     number: 1,
-    text: "Create your habit goals and categories.",
+    text: "Create your activity goals and categories.",
     image: instruction1,
   },
   {

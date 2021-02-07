@@ -12,7 +12,7 @@ import SplashContainer from './components/SplashPage/SplashContainer';
 import User from "./components/UserPage";
 import Footer from "./components/nav/Footer";
 import AboutCard from './components/AboutCard'
-import HabitDisplay from './components/DisplayPage/HabitDisplay'
+import ActivityDisplay from './components/DisplayPage/ActivityDisplay'
 import RewardShop from './components/RewardPage/RewardShop'
 import Homepage from './components/HomePage/Homepage'
 import LoadingPage from './components/LoadingPage'
@@ -68,8 +68,8 @@ export default function App() {
               <Homepage auth={auth} setAuth={setAuth} setUser={setUser} />
             </Route>
 
-            <Route path="/habits/:hid/memberships/:mid" auth={auth} exact={true}>
-              <HabitDisplay auth={auth} setAuth={setAuth}  isPrivate={isPrivate} setIsPrivate={setIsPrivate} />
+            <Route path="/activities/:aid/memberships/:mid" auth={auth} exact={true}>
+              <ActivityDisplay auth={auth} setAuth={setAuth}  isPrivate={isPrivate} setIsPrivate={setIsPrivate} />
             </Route>
           </ProgramBoardContextProvider>
 

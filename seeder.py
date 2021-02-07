@@ -1,4 +1,4 @@
-from app.models import User, Program, Habit, Color, Icon, Stamp, Membership, Reward
+from app.models import User, Program, Activity, Color, Icon, Stamp, Membership, Reward
 from app import app, db
 from calendar import monthrange
 from random import *
@@ -12,34 +12,6 @@ with app.app_context():
     db.create_all()
 
     icon_sets = {
-        "People": [
-          "american-sign-language-interpreting",
-          "assistive-listening-systems",
-          "baby",
-          "chalkboard-teacher",
-          "child",
-          "deaf",
-          "female",
-          "wheelchair",
-          "fist-raised",
-          "user",
-          "user-astronaut",
-          "user-clock",
-          "user-cog",
-          "user-edit",
-          "user-friends",
-          "user-graduate",
-          "user-injured",
-          "user-lock",
-          "user-md",
-          "user-ninja",
-          "user-nurse",
-          "users",
-          "user-secret",
-          "user-shield",
-          "user-tie",
-          "male",
-        ],
         "Nature": [
           "meteor",
           "icicles",
@@ -160,6 +132,34 @@ with app.app_context():
           "rocket",
           "motorcycle",
           "helicopter",
+        ],
+        "People": [
+          "american-sign-language-interpreting",
+          "assistive-listening-systems",
+          "baby",
+          "chalkboard-teacher",
+          "child",
+          "deaf",
+          "female",
+          "wheelchair",
+          "fist-raised",
+          "user",
+          "user-astronaut",
+          "user-clock",
+          "user-cog",
+          "user-edit",
+          "user-friends",
+          "user-graduate",
+          "user-injured",
+          "user-lock",
+          "user-md",
+          "user-ninja",
+          "user-nurse",
+          "users",
+          "user-secret",
+          "user-shield",
+          "user-tie",
+          "male",
         ],
         "Health": [
           "band-aid",
@@ -717,7 +717,7 @@ with app.app_context():
                icon=icons[0],
                birthday=date(1989, 11, 19),
                )
-    demo = User(username="TheDemoUser1",
+    demo = User(username="DemoUser",
                 first_name="Demo",
                 last_name="User",
                 email="demo@gmail.com",
@@ -776,8 +776,8 @@ with app.app_context():
 
     db.session.commit()
 
-    # Habits
-    habit_workone = Habit(title="Code",
+    # Activities
+    activity_workone = Activity(title="Code",
                           description="code once a day keeps the doctor away.. ",
                           frequency=7,
                           color=colors[1],
@@ -786,7 +786,7 @@ with app.app_context():
                           creator=demo,
                           created_at=datetime(2019, 12, 1),
                           )
-    habit_worktwo = Habit(title="Team Meetings",
+    activity_worktwo = Activity(title="Team Meetings",
                           description="meet with team to discuss project",
                           frequency=5,
                           color=colors[5],
@@ -795,7 +795,7 @@ with app.app_context():
                           creator=demo,
                           created_at=datetime(2020, 1, 4),
                           )
-    habit_socialone = Habit(title="Spot",
+    activity_socialone = Activity(title="Spot",
                             description="take spot to the park",
                             frequency=4,
                             color=colors[2],
@@ -804,7 +804,7 @@ with app.app_context():
                             creator=demo,
                             created_at=datetime(2020, 5, 29),
                             )
-    habit_socialtwo = Habit(title="Date Night",
+    activity_socialtwo = Activity(title="Date Night",
                             description="love is in the air",
                             frequency=1,
                             color=colors[15],
@@ -813,7 +813,7 @@ with app.app_context():
                             creator=demo,
                             created_at=datetime(2020, 2, 18),
                             )
-    habit_socialthree = Habit(title="Gameday!",
+    activity_socialthree = Activity(title="Gameday!",
                               description="we're winning it this year",
                               frequency=1,
                               color=colors[16],
@@ -822,7 +822,7 @@ with app.app_context():
                               creator=demo,
                               created_at=datetime(2020, 11, 11),
                               )
-    habit_choresone = Habit(title="Dishes",
+    activity_choresone = Activity(title="Dishes",
                             description="you promised",
                             frequency=7,
                             color=colors[21],
@@ -831,7 +831,7 @@ with app.app_context():
                             creator=demo,
                             created_at=datetime(2020, 8, 17),
                             )
-    habit_chorestwo = Habit(title="Drive Sara to practice",
+    activity_chorestwo = Activity(title="Drive Sara to practice",
                             description="5:30 at Palmer Field",
                             frequency=3,
                             color=colors[17],
@@ -840,7 +840,7 @@ with app.app_context():
                             creator=demo,
                             created_at=datetime(2020, 7, 5),
                             )
-    habit_choresthree = Habit(title="Exercise/Gym",
+    activity_choresthree = Activity(title="Exercise/Gym",
                               description="don't forget leg day",
                               frequency=3,
                               color=colors[4],
@@ -849,76 +849,76 @@ with app.app_context():
                               creator=demo,
                               created_at=datetime(2019, 12, 31),
                               )
-    habit_veggies = Habit(title="Eat Veggies",
+    activity_veggies = Activity(title="Eat Veggies",
                           description="",
-                          frequency="ttttttt",
+                          frequency=7,
                           color=colors[16],
                           icon=icons[11],
                           program=program_mom,
                           creator=mom,
                           )
-    habit_dog = Habit(title="Walk Bentley",
+    activity_dog = Activity(title="Walk Bentley",
                       description="",
-                      frequency="ttttttt",
+                      frequency=7,
                       color=colors[13],
                       icon=icons[9],
                       program=program_mom,
                       creator=mom,
                       )
-    habit_teeth = Habit(title="Brush Teeth",
+    activity_teeth = Activity(title="Brush Teeth",
                         description="",
-                        frequency="ttttttt",
+                        frequency=7,
                         color=colors[10],
                         icon=icons[7],
                         program=program_mom,
                         creator=mom,
                         )
-    habit_hair = Habit(title="brush hair",
+    activity_hair = Activity(title="brush hair",
                        description="",
-                       frequency="ttttttt",
+                       frequency=7,
                        color=colors[2],
                        icon=icons[4],
                        program=program_me,
                        creator=sophie,
                        )
-    habit_dress = Habit(title="wear a pretty dress",
+    activity_dress = Activity(title="wear a pretty dress",
                         description="",
-                        frequency="ttttttt",
+                        frequency=7,
                         color=colors[2],
                         icon=icons[4],
                         program=program_me,
                         creator=sophie,
                         )
-    habit_draw = Habit(title="draw a picture",
+    activity_draw = Activity(title="draw a picture",
                        description="",
-                       frequency="tffffft",
+                       frequency=5,
                        color=colors[2],
                        icon=icons[6],
                        program=program_me,
                        creator=sophie,
                        )
-    habit_play = Habit(title="play with Ashe",
+    activity_play = Activity(title="play with Ashe",
                        description="",
-                       frequency="tffffft",
+                       frequency=5,
                        color=colors[2],
                        icon=icons[4],
                        program=program_me,
                        creator=sophie,
                        )
-    habit_win = Habit(title="win at mario kart",
+    activity_win = Activity(title="win at mario kart",
                       description="",
-                      frequency="tffffft",
+                      frequency=5,
                       color=colors[18],
                       icon=icons[5],
                       program=program_ashe,
                       creator=ashe,
                       )
-    habits = [habit_workone, habit_worktwo, habit_socialone, habit_socialtwo, habit_socialthree,
-              habit_choresone, habit_chorestwo, habit_choresthree, habit_dog, habit_draw, habit_dress,
-              habit_hair, habit_play, habit_teeth, habit_veggies, habit_win]
+    activities = [activity_workone, activity_worktwo, activity_socialone, activity_socialtwo, activity_socialthree,
+              activity_choresone, activity_chorestwo, activity_choresthree, activity_dog, activity_draw, activity_dress,
+              activity_hair, activity_play, activity_teeth, activity_veggies, activity_win]
 
-    for habit in habits:
-        db.session.add(habit)
+    for activity in activities:
+        db.session.add(activity)
 
     db.session.commit()
     member_demo1 = Membership(
@@ -959,7 +959,7 @@ with app.app_context():
             if d in (1, 7, 8, 15, 21, 22, 28):
                 stamp = Stamp(
                     date=date(2020, 11, d),
-                    status='stamped', habit=habit_teeth, membership=member_sophie1,
+                    status='stamped', activity=activity_teeth, membership=member_sophie1,
                 )
                 db.session.add(stamp)
 
@@ -968,13 +968,13 @@ with app.app_context():
     # n = random.randint(1,30)
     # randomlist.append(n)
     # print(randomlist)
-    # habits = [habit_workone, habit_worktwo, habit_socialone, habit_socialtwo, habit_socialthree,
-    #     habit_choresone, habit_chorestwo, habit_choresthree, habit_dog, habit_draw, habit_dress,
-    #     habit_hair, habit_play, habit_teeth, habit_veggies, habit_win]
+    # activities = [activity_workone, activity_worktwo, activity_socialone, activity_socialtwo, activity_socialthree,
+    #     activity_choresone, activity_chorestwo, activity_choresthree, activity_dog, activity_draw, activity_dress,
+    #     activity_hair, activity_play, activity_teeth, activity_veggies, activity_win]
 
 # Total_number_days = monthrange(2020, 2)[1]
 # print("\nTotal Number of Days in a Month: ",Total_number_days)
-    def createStamps(habit, membership, month, year, missedDays):
+    def createStamps(activity, membership, month, year, missedDays):
         maxDays = monthrange(year, month)[1]
         missedList = []
         while len(missedList) < missedDays:
@@ -986,115 +986,115 @@ with app.app_context():
                 stamp = Stamp(
                     date=date(year, month, d),
                     status='stamped',
-                    habit=habit,
+                    activity=activity,
                     membership_id=membership
                 )
                 db.session.add(stamp)
         db.session.commit()
 
-    createStamps(habit_workone, 1, 12, 2019, 4)
-    createStamps(habit_workone, 1, 1, 2020, 1)
-    createStamps(habit_workone, 1, 2, 2020, 3)
-    createStamps(habit_workone, 1, 3, 2020, 0)
-    createStamps(habit_workone, 1, 4, 2020, 2)
-    createStamps(habit_workone, 1, 5, 2020, 4)
-    createStamps(habit_workone, 1, 6, 2020, 6)
-    createStamps(habit_workone, 1, 7, 2020, 8)
-    createStamps(habit_workone, 1, 8, 2020, 7)
-    createStamps(habit_workone, 1, 9, 2020, 4)
-    createStamps(habit_workone, 1, 10, 2020, 3)
-    createStamps(habit_workone, 1, 11, 2020, 1)
+    createStamps(activity_workone, 1, 12, 2019, 4)
+    createStamps(activity_workone, 1, 1, 2020, 1)
+    createStamps(activity_workone, 1, 2, 2020, 3)
+    createStamps(activity_workone, 1, 3, 2020, 0)
+    createStamps(activity_workone, 1, 4, 2020, 2)
+    createStamps(activity_workone, 1, 5, 2020, 4)
+    createStamps(activity_workone, 1, 6, 2020, 6)
+    createStamps(activity_workone, 1, 7, 2020, 8)
+    createStamps(activity_workone, 1, 8, 2020, 7)
+    createStamps(activity_workone, 1, 9, 2020, 4)
+    createStamps(activity_workone, 1, 10, 2020, 3)
+    createStamps(activity_workone, 1, 11, 2020, 1)
 
-    createStamps(habit_worktwo, 1, 1, 2020, 12)
-    createStamps(habit_worktwo, 1, 2, 2020, 10)
-    createStamps(habit_worktwo, 1, 3, 2020, 8)
-    createStamps(habit_worktwo, 1, 4, 2020, 9)
-    createStamps(habit_worktwo, 1, 5, 2020, 11)
-    createStamps(habit_worktwo, 1, 6, 2020, 18)
-    createStamps(habit_worktwo, 1, 7, 2020, 20)
-    createStamps(habit_worktwo, 1, 8, 2020, 17)
-    createStamps(habit_worktwo, 1, 9, 2020, 15)
-    createStamps(habit_worktwo, 1, 10, 2020, 15)
-    createStamps(habit_worktwo, 1, 11, 2020, 17)
+    createStamps(activity_worktwo, 1, 1, 2020, 12)
+    createStamps(activity_worktwo, 1, 2, 2020, 10)
+    createStamps(activity_worktwo, 1, 3, 2020, 8)
+    createStamps(activity_worktwo, 1, 4, 2020, 9)
+    createStamps(activity_worktwo, 1, 5, 2020, 11)
+    createStamps(activity_worktwo, 1, 6, 2020, 18)
+    createStamps(activity_worktwo, 1, 7, 2020, 20)
+    createStamps(activity_worktwo, 1, 8, 2020, 17)
+    createStamps(activity_worktwo, 1, 9, 2020, 15)
+    createStamps(activity_worktwo, 1, 10, 2020, 15)
+    createStamps(activity_worktwo, 1, 11, 2020, 17)
 
-    createStamps(habit_socialone, 2, 6, 2020, 13)
-    createStamps(habit_socialone, 2, 7, 2020, 14)
-    createStamps(habit_socialone, 2, 8, 2020, 18)
-    createStamps(habit_socialone, 2, 9, 2020, 15)
-    createStamps(habit_socialone, 2, 10, 2020, 25)
-    createStamps(habit_socialone, 2, 11, 2020, 24)
+    createStamps(activity_socialone, 2, 6, 2020, 13)
+    createStamps(activity_socialone, 2, 7, 2020, 14)
+    createStamps(activity_socialone, 2, 8, 2020, 18)
+    createStamps(activity_socialone, 2, 9, 2020, 15)
+    createStamps(activity_socialone, 2, 10, 2020, 25)
+    createStamps(activity_socialone, 2, 11, 2020, 24)
 
-    createStamps(habit_socialtwo, 2, 2, 2020, 26)
-    createStamps(habit_socialtwo, 2, 3, 2020, 25)
-    createStamps(habit_socialtwo, 2, 4, 2020, 26)
-    createStamps(habit_socialtwo, 2, 5, 2020, 25)
-    createStamps(habit_socialtwo, 2, 6, 2020, 25)
-    createStamps(habit_socialtwo, 2, 7, 2020, 25)
-    createStamps(habit_socialtwo, 2, 8, 2020, 24)
-    createStamps(habit_socialtwo, 2, 9, 2020, 24)
-    createStamps(habit_socialtwo, 2, 10, 2020, 25)
-    createStamps(habit_socialtwo, 2, 11, 2020, 26)
+    createStamps(activity_socialtwo, 2, 2, 2020, 26)
+    createStamps(activity_socialtwo, 2, 3, 2020, 25)
+    createStamps(activity_socialtwo, 2, 4, 2020, 26)
+    createStamps(activity_socialtwo, 2, 5, 2020, 25)
+    createStamps(activity_socialtwo, 2, 6, 2020, 25)
+    createStamps(activity_socialtwo, 2, 7, 2020, 25)
+    createStamps(activity_socialtwo, 2, 8, 2020, 24)
+    createStamps(activity_socialtwo, 2, 9, 2020, 24)
+    createStamps(activity_socialtwo, 2, 10, 2020, 25)
+    createStamps(activity_socialtwo, 2, 11, 2020, 26)
 
     gamedays = [8, 15, 20, 22, 29]
     for day in gamedays:
         stamp = Stamp(
             date=date(2020, 11, day),
-            status='stamped', habit=habit_socialthree, membership_id=2,
+            status='stamped', activity=activity_socialthree, membership_id=2,
         )
         db.session.add(stamp)
         db.session.commit()
 
-    createStamps(habit_choresone, 3, 8, 2020, 10)
-    createStamps(habit_choresone, 3, 9, 2020, 6)
-    createStamps(habit_choresone, 3, 10, 2020, 3)
-    createStamps(habit_choresone, 3, 11, 2020, 0)
+    createStamps(activity_choresone, 3, 8, 2020, 10)
+    createStamps(activity_choresone, 3, 9, 2020, 6)
+    createStamps(activity_choresone, 3, 10, 2020, 3)
+    createStamps(activity_choresone, 3, 11, 2020, 0)
 
     # July 5/2020
-    startHabitDate = date(2020, 7, 5)
-    while startHabitDate < date.today():
+    startActivityDate = date(2020, 7, 5)
+    while startActivityDate < date.today():
         weekdays = ["Monday", "Wednesday", "Friday"]
-        if startHabitDate.strftime("%A") in weekdays:
+        if startActivityDate.strftime("%A") in weekdays:
             newStamp = Stamp(
-                date=startHabitDate.strftime("%Y-%m-%d"),
+                date=startActivityDate.strftime("%Y-%m-%d"),
                 status='stamped',
-                habit=habit_chorestwo,
+                activity=activity_chorestwo,
                 membership_id=3,
             )
             db.session.add(newStamp)
             db.session.commit()
-        startHabitDate += timedelta(days=1)
+        startActivityDate += timedelta(days=1)
 
-    createStamps(habit_choresthree, 3, 1, 2020, 5)
-    createStamps(habit_choresthree, 3, 2, 2020, 13)
-    createStamps(habit_choresthree, 3, 3, 2020, 14)
-    createStamps(habit_choresthree, 3, 4, 2020, 19)
-    createStamps(habit_choresthree, 3, 5, 2020, 20)
-    createStamps(habit_choresthree, 3, 6, 2020, 17)
-    createStamps(habit_choresthree, 3, 7, 2020, 14)
-    createStamps(habit_choresthree, 3, 8, 2020, 10)
-    createStamps(habit_choresthree, 3, 9, 2020, 12)
-    createStamps(habit_choresthree, 3, 10, 2020, 13)
-    createStamps(habit_choresthree, 3, 11, 2020, 10)
+    createStamps(activity_choresthree, 3, 1, 2020, 5)
+    createStamps(activity_choresthree, 3, 2, 2020, 13)
+    createStamps(activity_choresthree, 3, 3, 2020, 14)
+    createStamps(activity_choresthree, 3, 4, 2020, 19)
+    createStamps(activity_choresthree, 3, 5, 2020, 20)
+    createStamps(activity_choresthree, 3, 6, 2020, 17)
+    createStamps(activity_choresthree, 3, 7, 2020, 14)
+    createStamps(activity_choresthree, 3, 8, 2020, 10)
+    createStamps(activity_choresthree, 3, 9, 2020, 12)
+    createStamps(activity_choresthree, 3, 10, 2020, 13)
+    createStamps(activity_choresthree, 3, 11, 2020, 10)
 
     for d in range(1, 30):
         if d in (1, 7, 8, 14, 15, 21, 22, 26, 28, 29):
             stamp = Stamp(
                 date=date(2020, 11, d),
-                status='stamped', habit=habit_draw, membership=member_sophie2,
+                status='stamped', activity=activity_draw, membership=member_sophie2,
             )
             db.session.add(stamp)
     for d in range(1, 30):
         if d in (1, 3, 4, 14, 17, 20, 22, 28, 26):
             stamp = Stamp(
                 date=date(2020, 10, d),
-                status='stamped', habit=habit_draw, membership=member_sophie2,
+                status='stamped', activity=activity_draw, membership=member_sophie2,
             )
             db.session.add(stamp)
     for d in range(1, 30):
         if d in (1, 4, 7):
             stamp = Stamp(
                 date=date(2020, 8, d),
-                status='stamped', habit=habit_draw, membership=member_sophie2,
+                status='stamped', activity=activity_draw, membership=member_sophie2,
             )
             db.session.add(stamp)
 
@@ -1104,11 +1104,11 @@ with app.app_context():
             print(datetime(2020, 11, d))
             stamp1 = Stamp(
                 date=date(2020, 11, d),
-                status='stamped', habit=habit_hair, membership=member_sophie2,
+                status='stamped', activity=activity_hair, membership=member_sophie2,
             )
             stamp2 = Stamp(
                 date=date(2020, 11, d),
-                status='stamped', habit=habit_dress, membership=member_sophie2,
+                status='stamped', activity=activity_dress, membership=member_sophie2,
             )
             db.session.add(stamp1)
             db.session.add(stamp2)

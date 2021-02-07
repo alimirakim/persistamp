@@ -9,18 +9,18 @@ from .models import (db,
                      User,
                      Program,
                      Membership,
-                     Habit,
+                     Activity,
                      Stamp,
                      Reward,
-                     Redeemed,
+                     Receipt,
                      Bond,
                      Icon,
                      Color)
 from .api import (user_routes,
                   auth_routes,
                   program_routes,
-                  habit_routes,
-                  habit_detail_routes,
+                  activity_routes,
+                  activity_detail_routes,
                   membership_routes,
                   reward_routes,
                   stamp_routes)
@@ -49,8 +49,8 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(program_routes, url_prefix="/api/programs")
-app.register_blueprint(habit_routes, url_prefix="/api/habits")
-app.register_blueprint(habit_detail_routes, url_prefix="/api/habit-details")
+app.register_blueprint(activity_routes, url_prefix="/api/activities")
+app.register_blueprint(activity_detail_routes, url_prefix="/api/activity-details")
 app.register_blueprint(membership_routes, url_prefix="/api/memberships")
 app.register_blueprint(reward_routes, url_prefix="/api/rewards")
 app.register_blueprint(stamp_routes, url_prefix="/api/stamps")

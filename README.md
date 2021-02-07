@@ -13,17 +13,17 @@
 
 
 # Persistamp 🐢
-## A Motivational 'Good Habits' Positivity App
+## A Motivational 'Good Activities' Positivity App
 
 **TOC**  
 [About](#about-persistamp) ● [Features](#features) ● [How It Works](#how-it-works) ● [Installation](#installation) ● [Development](#development) ● [Contact Us](#contact-us)
 
 **This 'productivity-positivity' app**  
-**promotes good habits with positive reinforcement! 🌱**  
-Create and keep track of your good habits. 🖍️  
-Analyze habit trends over time. 💯  
+**promotes good activities with positive reinforcement! 🌱**  
+Create and keep track of your good activities. 🖍️  
+Analyze activity trends over time. 💯  
 Stay motivated by creating rewards in a reward shop. 🎁  
-Earn points by keeping up good habits. 💎  
+Earn points by keeping up good activities. 💎  
 Redeem those hard-won points on rewards! 🧾  
 <!-- 🎀🌻🌷🌼   -->
 
@@ -42,30 +42,30 @@ Redeem those hard-won points on rewards! 🧾
 ## About Persistamp
 
 [[ WEBSITE: https://persistamp.herokuapp.com ]](https://persistamp.herokuapp.com)  
-*(Inspired by mobile app [Loop Habit Tracker](https://play.google.com/store/apps/details?id=org.isoron.uhabits&hl=en_US&gl=US).)*
+*(Inspired by mobile app [Loop Activity Tracker](https://play.google.com/store/apps/details?id=org.isoron.uactivities&hl=en_US&gl=US).)*
 
 </div>
-<img src="readme/images/persistamp-1.gif" alt="Animated GIF of a program card for chore-related habits." width="50%" align="left">
+<img src="readme/images/persistamp-1.gif" alt="Animated GIF of a program card for chore-related activities." width="50%" align="left">
 
-Persistamp's design is inspired by reward cards and sticker reward systems. The visually playful 'program card' system, emulating the style of loyalty reward cards, is meant to encourage users to track their habits by 'stamping' successful days on their personalized cards. The user can view each habit's history analytics, such as a line graph, calendar, and statistics like longest streak.
+Persistamp's design is inspired by reward cards and sticker reward systems. The visually playful 'program card' system, emulating the style of loyalty reward cards, is meant to encourage users to track their activities by 'stamping' successful days on their personalized cards. The user can view each activity's history analytics, such as a line graph, calendar, and statistics like longest streak.
 
-With each stamp, the user gains points for the program the habit is included in. A program's reward shop can be stocked by the user with their own custom reward ideas ex. 'Take a day off', 'Enjoy a pumpkin spice latte', 'Play games for 1 hour', and set their cost, quantity, and custom color/icon appearance. Redeemed rewards are displayed for posterity in a receipt-style log as 'proof of their purchase'.
+With each stamp, the user gains points for the program the activity is included in. A program's reward shop can be stocked by the user with their own custom reward ideas ex. 'Take a day off', 'Enjoy a pumpkin spice latte', 'Play games for 1 hour', and set their cost, quantity, and custom color/icon appearance. Receipt rewards are displayed for posterity in a receipt-style log as 'proof of their purchase'.
 
 <br clear="both">
 
 ## Features
 </div>
 
-* Create custom categories for habits with 'program cards'.
-* Add habits to programs, then stamp off every day a habit is fulfilled. 
-* Set a habit's 'frequency'. Checkmarks will show when the week's goal is fulfilled.
-* Earn a 'reward point' for every habit stamp.
-* View a habit's history analytics through provided statistics, a line graph, and mini-calendar.
-* Share a habit's details or keep it private with a 'Public-Private' toggle.
+* Create custom categories for activities with 'program cards'.
+* Add activities to programs, then stamp off every day a activity is fulfilled. 
+* Set a activity's 'frequency'. Checkmarks will show when the week's goal is fulfilled.
+* Earn a 'reward point' for every activity stamp.
+* View a activity's history analytics through provided statistics, a line graph, and mini-calendar.
+* Share a activity's details or keep it private with a 'Public-Private' toggle.
 * Each program features a reward shop. Create rewards with a custom cost and (opt) quantity.
 * Use a program's points to redeem rewards. See it logged in a redemption history.
-* Customize the appearance of programs, habits, and rewards with a choice of color and icon.
-<!-- * Drag-n-drop to manually sort programs, habits, and rewards. -->
+* Customize the appearance of programs, activities, and rewards with a choice of color and icon.
+<!-- * Drag-n-drop to manually sort programs, activities, and rewards. -->
 
 ### Future Stretch Goals
 - **Add friends**
@@ -74,7 +74,7 @@ With each stamp, the user gains points for the program the habit is included in.
 - User Profile page
 - Public/private user profile, programs
 - Custom frequency options to allow from 'out of any number', rather than only by 'week'. Ex. '3 days out of 30'.
-- (low) Option to archive and hide-archive habits.
+- (low) Option to archive and hide-archive activities.
 
 <div align="center">
 
@@ -89,9 +89,9 @@ With each stamp, the user gains points for the program the habit is included in.
 >
 > **Users can:**
 > 1. [Make a program card](#1-make-a-program-card)
-> 2. [Add good habits](#2-add-good-habits)
+> 2. [Add good activities](#2-add-good-activities)
 > 3. [Stamp successful days](#3-stamp-successful-days)
-> 4. [View habit history & details](#4-view-habit-history-and-details)
+> 4. [View activity history & details](#4-view-activity-history-and-details)
 > 5. [Create rewards](#5-create-rewards)
 > 6. [Redeem rewards with points](#6-redeem-rewards-with-points)
 >
@@ -118,23 +118,23 @@ With each stamp, the user gains points for the program the habit is included in.
 </div>
 
 
-### 2. Add good habits
-<img src="readme/images/form-habit.PNG" alt="Habit form" width="50%" align="right">
+### 2. Add good activities
+<img src="readme/images/form-activity.PNG" alt="Activity form" width="50%" align="right">
 <!-- <img src="readme/images/.PNG" alt="Filled program card"> -->
 <!-- <img src="readme/images/.PNG" alt="Drag-n-drop gif"> -->
 
-- To **create a habit**, click the + icon in the program card's top-left corner (hover/click card to see).
+- To **create a activity**, click the + icon in the program card's top-left corner (hover/click card to see).
 - Add a title, description (optional), color, and icon. 
 - **Select a frequency.** How many days per week is your goal?
-- To **edit or delete a habit**, click the circled icon on the habit's left side.
+- To **edit or delete a activity**, click the circled icon on the activity's left side.
 - ***Tip:** The color and icon default to the program's color/icon settings!*
-- ***Tip:** Change the order of habits with drag-n-drop.*
+- ***Tip:** Change the order of activities with drag-n-drop.*
 
-> **Habit Ideas?**  
+> **Activity Ideas?**  
 > * Chores: do the dishes, wash laundry, cook a healthy meal, take out trash
 > * Socially: call mom, check e-mail, apply to jobs, send thank-you letters
 > * Hobbies: read a book, draw for 10 minutes, bake bread, try a new recipe
-> * Avoiding bad habits: don't smoke, don't doomscroll more than 30min, don't eat junk food
+> * Avoiding bad activities: don't smoke, don't doomscroll more than 30min, don't eat junk food
 
 <br clear="both">
 
@@ -142,30 +142,30 @@ With each stamp, the user gains points for the program the habit is included in.
 ### 3. Stamp successful days 
 <!-- <img src="readme/images/.PNG" alt="Multiple program boards with stamps - column"> -->
 
-- To **add a stamp**, click empty spots in the habit card to mark the day fulfilled for that habit.
+- To **add a stamp**, click empty spots in the activity card to mark the day fulfilled for that activity.
 - To **undo a stamp**, reclick the stamp.
-- With enough stamps for a **habit's frequency goal**, any unstamped spots will now **show a checkmark**.
+- With enough stamps for a **activity's frequency goal**, any unstamped spots will now **show a checkmark**.
 - ***Warning!** You can only add stamps for within the last seven days, so check in at least once a week.*
 
-<img src="readme/images/habit-row.png" alt="A habit row with stamps indicating fulfilled days." width="100%">
+<img src="readme/images/activity-row.png" alt="A activity row with stamps indicating fulfilled days." width="100%">
 
 
-### 4. View habit history and details
-<img src="readme/images/habit-history-3.PNG" alt="Line graph" width="48%" align="right">
+### 4. View activity history and details
+<img src="readme/images/activity-history-3.PNG" alt="Line graph" width="48%" align="right">
 
-- **To see a habit's 'details page', click the name of the habit in its program card.**
-- **See the habit's general information** in the top-right corner.
+- **To see a activity's 'details page', click the name of the activity in its program card.**
+- **See the activity's general information** in the top-right corner.
 - To **toggle between 'monthly' and 'weekly' view** for the line graph, select an option from the dropdown.
-- The habit can be **edited** from this page with your ID card's red pencil icon.
+- The activity can be **edited** from this page with your ID card's red pencil icon.
 - ***Note about privacy!** Check the top-right area to find a 'Private' toggle. This setting allows or restricts other people from being able to see this page. To **share your a detail page**, check that 'Private' is untoggled, then copy-paste the page's URL.*
 <!-- - Add notes explaining the types of scores, their meanings. -->
 <br>
 <div align="center">
-<img src="readme/images/habit-details-page.PNG" alt="Line graph" width="100%">
+<img src="readme/images/activity-details-page.PNG" alt="Line graph" width="100%">
 </div>
-<!-- <img src="readme/images/habit-history-2.PNG" alt="Line graph" width="48%"> -->
-<!-- <img src="readme/images/habit" alt="Calendar"> -->
-<!-- <img src="readme/images/habit" alt="Statistics"> -->
+<!-- <img src="readme/images/activity-history-2.PNG" alt="Line graph" width="48%"> -->
+<!-- <img src="readme/images/activity" alt="Calendar"> -->
+<!-- <img src="readme/images/activity" alt="Statistics"> -->
 
 <br clear="both">
 

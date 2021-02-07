@@ -15,12 +15,12 @@ export function RewardShopContextProvider(props) {
   const dispatchCreateReward = reward => dispatch(createReward(reward))
   const dispatchEditReward = reward => dispatch(editReward(reward))
   const dispatchDeleteReward = reward => dispatch(deleteReward(reward))
-  const dispatchRedeemReward = redeemed => dispatch(redeemReward(redeemed))
+  const dispatchRedeemReward = receipt => dispatch(redeemReward(receipt))
 
   const initState = {
     program: {},
     rewards: {},
-    redeemed: {},
+    receipts: {},
     dispatchSetAll,
     dispatchCreateReward,
     dispatchEditReward,

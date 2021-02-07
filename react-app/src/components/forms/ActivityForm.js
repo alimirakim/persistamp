@@ -4,8 +4,8 @@ import ProgramBoardContext from '../../context/ProgramBoardContext'
 import {ChooseFrequency} from './FormInputs'
 
 
-export default function HabitForm({ open, handleClose, pid, cid, iid }) {
-  const { dispatchCreateHabit } = useContext(ProgramBoardContext)
+export default function ActivityForm({ open, handleClose, pid, cid, iid }) {
+  const { dispatchCreateActivity } = useContext(ProgramBoardContext)
   const [frequency, setFrequency] = useState(1)
   const updateFrequency = (e) => setFrequency(e.target.value)
 
@@ -19,11 +19,11 @@ export default function HabitForm({ open, handleClose, pid, cid, iid }) {
   
   return (
     <FormWrapper
-      type="habit"
-      path={`/api/habits/programs/${pid}/create`}
+      type="activity"
+      path={`/api/activities/programs/${pid}/create`}
       open={open}
       handleClose={handleClose}
-      dispatcher={dispatchCreateHabit}
+      dispatcher={dispatchCreateActivity}
       uniqueContent={{frequency}}
       uniqueInputs={uniqueInputs}
       resetUniqueIniputs={resetUniqueInputs}

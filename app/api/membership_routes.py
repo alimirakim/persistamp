@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, jsonify, request
 from sqlalchemy.orm import joinedload
-from app.models import db, Membership, Program, User, Habit, Color
-from app.schemas import membership_schema, program_schema, user_schema, habit_schema, stamp_schema, color_schema
+from app.models import db, Membership, Program, User, Activity, Color
+from app.schemas import membership_schema, program_schema, user_schema, activity_schema, stamp_schema, color_schema
 from app.utils import dump_data_list
 
 membership_routes = Blueprint("memberships", __name__, url_prefix="/memberships")
@@ -42,11 +42,11 @@ def remove_member(mid):
     return "Membership has been revoked! BD"
 
 
-@membership_routes.route("/<int:mid>/habits/<int:hid>")
-def membership_habit(mid, hid):
-    """Get the full details and history of a habit for a member."""
-    habit = Habit.query.get(hid)
-    return habit.to_dict()
+@membership_routes.route("/<int:mid>/activities/<int:aid>")
+def membership_activity(mid, aid):
+    """Get the full details and history of a activity for a member."""
+    activity = Activity.query.get(aid)
+    return activity.to_dict()
 
 
 # @membership_routes.route("/<int:mid>/stamper")

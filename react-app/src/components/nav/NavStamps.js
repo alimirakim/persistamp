@@ -11,31 +11,31 @@ import NavStampLogout from './NavStampLogout'
 import NavStampMessages from './NavStampMessages'
 import NavStampProgram from './NavStampProgram'
 import NavStampSettings from './NavStampSettings'
-import NavStampHabit from './NavStampHabit'
+import NavStampActivity from './NavStampActivity'
 import NavStampReward from './NavStampReward'
 import NavStampGithub from './NavStampGithub'
-import HabitEditForm from '../forms/HabitEditForm'
-import HabitDeleteForm from '../forms/HabitDeleteForm'
+import ActivityEditForm from '../forms/ActivityEditForm'
+import ActivityDeleteForm from '../forms/ActivityDeleteForm'
 import RewardForm from '../forms/RewardForm'
 
 
 export default function NavStamps({
     setAuth,
     setUser,
-    habit,
+    activity,
     program
   }) {
   const user = useContext(UserContext)
   const [openSettings, setOpenSettings] = useState(false)
   const [openCreateProgram, setOpenCreateProgram] = useState(false)
   const [openCreateReward, setOpenCreateReward] = useState(false)
-  const [openEditHabit, setOpenEditHabit] = useState(false)
-  const [openDeleteHabit, setOpenDeleteHabit] = useState(false)
+  const [openEditActivity, setOpenEditActivity] = useState(false)
+  const [openDeleteActivity, setOpenDeleteActivity] = useState(false)
   const [openMessage, setOpenMessage] = useState(false)
   const path = useHistory().location.pathname
 
-  const toggleEditHabit = (e) => setOpenEditHabit(!openEditHabit)
-  const toggleDeleteHabit = (e) => setOpenDeleteHabit(!openDeleteHabit)
+  const toggleEditActivity = (e) => setOpenEditActivity(!openEditActivity)
+  const toggleDeleteActivity = (e) => setOpenDeleteActivity(!openDeleteActivity)
   const toggleCreateReward = (e) => setOpenCreateReward(!openCreateReward)
   const toggleMessage = (e) => setOpenMessage(!openMessage)
   const toggleCreateProgram = (e) => setOpenCreateProgram(!openCreateProgram)
@@ -44,17 +44,17 @@ export default function NavStamps({
   // if (!auth || !user) return null
   
   return (<>
-    {habit && <>
-      <HabitEditForm
-        open={openEditHabit}
-        handleClose={toggleEditHabit}
-        habit={habit}
-        handleOpenDelete={toggleDeleteHabit}
+    {activity && <>
+      <ActivityEditForm
+        open={openEditActivity}
+        handleClose={toggleEditActivity}
+        activity={activity}
+        handleOpenDelete={toggleDeleteActivity}
       />
-      <HabitDeleteForm
-        open={openDeleteHabit}
-        handleClose={toggleDeleteHabit}
-        habit={habit}
+      <ActivityDeleteForm
+        open={openDeleteActivity}
+        handleClose={toggleDeleteActivity}
+        activity={activity}
       />
     </>}
 
@@ -87,7 +87,7 @@ export default function NavStamps({
     <nav className="stamps">
 
       {path === "/" && user && <NavStampProgram toggleCreate={toggleCreateProgram} />}
-      {habit && user && <NavStampHabit toggleEdit={toggleEditHabit} />}
+      {activity && user && <NavStampActivity toggleEdit={toggleEditActivity} />}
       {program && <NavStampReward toggleCreate={toggleCreateReward} />}
       {(path == "/about" || !user) && <NavStampGithub />}
       <NavStampMessages toggleMessage={toggleMessage} />

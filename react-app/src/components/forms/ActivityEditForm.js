@@ -4,14 +4,14 @@ import { DeleteButton, ChooseFrequency } from './FormInputs'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
 
 
-export default function HabitEditForm({ 
+export default function ActivityEditForm({ 
   open, 
   handleClose, 
-  habit, 
+  activity, 
   handleOpenDelete, 
 }) {
-  const {dispatchEditHabit} = useContext(ProgramBoardContext)
-  const [frequency, setFrequency] = useState(habit.frequency)
+  const {dispatchEditActivity} = useContext(ProgramBoardContext)
+  const [frequency, setFrequency] = useState(activity.frequency)
 
   const updateFrequency = (e) => setFrequency(e.target.value)
   const switchForms = (e) => {
@@ -29,14 +29,14 @@ export default function HabitEditForm({
 
   return (
     <FormWrapper
-      type="habit"
-      path={`/api/habits/edit/${habit.id}`}
+      type="activity"
+      path={`/api/activities/edit/${activity.id}`}
       open={open}
       handleClose={handleClose}
-      dispatcher={dispatchEditHabit}
+      dispatcher={dispatchEditActivity}
       uniqueContent={{ frequency }}
       uniqueInputs={uniqueInputs}
-      edit={habit}
+      edit={activity}
     />
   )
 }

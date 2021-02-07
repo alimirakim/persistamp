@@ -2,36 +2,40 @@ from .db import db
 from datetime import datetime, date, timedelta
 from pprint import pprint
 
-class Habit(db.Model):
-    __tablename__ = "habits"
+class Activity(db.Model):
+    __tablename__ = "activities"
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(25), nullable=False)
     description = db.Column(db.String(250))
-    frequency = db.Column(db.String(7), nullable=False, default="7")
+    frequency = db.Column(db.Integer, nullable=False, default=1)
+    interval = db.Column(db.Integer, default=7)
+    stamp_value = db.Column(db.Integer, default=1)
     private = db.Column(db.Boolean, nullable=False, default=False)
     color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)
     icon_id = db.Column(db.Integer, db.ForeignKey("icons.id"), nullable=False, default=3)
     program_id = db.Column(db.Integer, db.ForeignKey("programs.id"))
     creator_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
-    # TODO habit+program should be unique
+    # TODO activity+program should be unique
 
-    icon = db.relationship("Icon", backref="habits")
-    color = db.relationship("Color", backref="habits")
-    program = db.relationship("Program", back_populates="habits")
-    creator = db.relationship("User", back_populates="created_habits")
+    icon = db.relationship("Icon", backref="activities")
+    color = db.relationship("Color", backref="activities")
+    program = db.relationship("Program", back_populates="activities")
+    creator = db.relationship("User", back_populates="created_activities")
     stamps = db.relationship("Stamp",
-        back_populates="habit",
+        back_populates="activity",
         order_by="Stamp.date",
         cascade="all, delete-orphan")
 
     def to_dict(self):
-        """Return dict of Habit"""
+        """Return dict of Activity"""
         return {
             "id": self.id,
             "title": self.title,
             "description": self.description,
             "frequency": self.frequency,
+            "interval": self.interval,
+            "stamp_value": self.stamp_value,
             "cid": self.color_id,
             "iid": self.icon_id,
             "pid": self.program_id,
@@ -41,7 +45,7 @@ class Habit(db.Model):
         }
 
     def week_stamps_for_user(self, user):
-        """Return past week's stamps for Habit and User."""
+        """Return past week's stamps for Activity and User."""
         membership_ids = [m.id for m in user.memberships]
         current_date = date.today()
         past_week = [(current_date - timedelta(days=i)) for i in range(7)]
@@ -54,7 +58,7 @@ class Habit(db.Model):
         return stamp_ids
 
     def all_stamps_for_user(self, user):
-        """Return the full history of this habit's stamps for the User"""
+        """Return the full history of this activity's stamps for the User"""
         membership_ids = [m.id for m in user.memberships]
         stamp_ids = []
         for stamp in self.stamps:
@@ -63,13 +67,13 @@ class Habit(db.Model):
         return stamp_ids
 
     def to_dict_for_user(self, user):
-        """Return dict of Habit, including past week's stamps for User."""
+        """Return dict of Activity, including past week's stamps for User."""
         stamp_ids = self.week_stamps_for_user(user)
         return {**self.to_dict(), "sids": stamp_ids}
 
     def to_dict_for_user_details(self, user):
-        """Return dict of Habit, including past week's stamps for User."""
+        """Return dict of Activity, including past week's stamps for User."""
         stamp_ids = self.all_stamps_for_user(user)
-        habit_dict = self.to_dict()
-        habit_dict["program"] = self.program.to_dict()
-        return {**habit_dict, "sids": stamp_ids, "username": user.username}
+        activity_dict = self.to_dict()
+        activity_dict["program"] = self.program.to_dict()
+        return {**activity_dict, "sids": stamp_ids, "username": user.username}

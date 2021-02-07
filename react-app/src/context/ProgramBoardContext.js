@@ -3,11 +3,11 @@ import React, { createContext, useReducer } from 'react';
 import programBoardReducer, {
   setAll, setWeek,
   setPrograms, createProgram, editProgram, deleteProgram,
-  setHabits, addHabit, createHabit, editHabit, deleteHabit,
+  setActivities, addActivity, createActivity, editActivity, deleteActivity,
   setStamps, stampDay, unstampDay,
 } from '../reducers/programBoardReducer'
 
-const defaultContext = { programs: {}, habits: {}, stamps: {} }
+const defaultContext = { programs: {}, activities: {}, stamps: {} }
 
 const ProgramBoardContext = createContext(defaultContext)
 
@@ -23,11 +23,11 @@ export function ProgramBoardContextProvider(props) {
   const dispatchEditProgram = program => dispatch(editProgram(program))
   const dispatchDeleteProgram = program => dispatch(deleteProgram(program))
 
-  const dispatchSetHabits = habits => dispatch(setHabits(habits))
-  const dispatchAddHabit = habit => dispatch(addHabit(habit))
-  const dispatchCreateHabit = habit => dispatch(createHabit(habit))
-  const dispatchEditHabit = habit => dispatch(editHabit(habit))
-  const dispatchDeleteHabit = habit => dispatch(deleteHabit(habit))
+  const dispatchSetActivities = activities => dispatch(setActivities(activities))
+  const dispatchAddActivity = activity => dispatch(addActivity(activity))
+  const dispatchCreateActivity = activity => dispatch(createActivity(activity))
+  const dispatchEditActivity = activity => dispatch(editActivity(activity))
+  const dispatchDeleteActivity = activity => dispatch(deleteActivity(activity))
 
   const dispatchSetStamps = stamps => dispatch(setStamps(stamps))
   const dispatchStampDay = stamp => dispatch(stampDay(stamp))
@@ -35,7 +35,7 @@ export function ProgramBoardContextProvider(props) {
 
   const initState = {
     programs: {},
-    habits: {},
+    activities: {},
     stamps: {},
     week: [],
     dispatchSetWeek,
@@ -44,11 +44,11 @@ export function ProgramBoardContextProvider(props) {
     dispatchCreateProgram,
     dispatchEditProgram,
     dispatchDeleteProgram,
-    dispatchSetHabits,
-    dispatchAddHabit,
-    dispatchCreateHabit,
-    dispatchEditHabit,
-    dispatchDeleteHabit,
+    dispatchSetActivities,
+    dispatchAddActivity,
+    dispatchCreateActivity,
+    dispatchEditActivity,
+    dispatchDeleteActivity,
     dispatchSetStamps,
     dispatchStampDay,
     dispatchUnstampDay,

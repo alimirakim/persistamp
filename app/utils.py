@@ -1,7 +1,7 @@
 from flask import jsonify
 from sqlalchemy.orm import joinedload
-# from app.schemas import user_schema, color_schema, icon_schema, membership_schema, program_schema, habit_schema, stamp_schema, reward_schema, redeemed_schema
-from app.models import User, Reward, Redeemed, Membership, Program
+# from app.schemas import user_schema, color_schema, icon_schema, membership_schema, program_schema, activity_schema, stamp_schema, reward_schema, redeemed_schema
+from app.models import User, Reward, Receipt, Membership, Program
 from datetime import date, timedelta
 from pprint import pprint
 
@@ -24,28 +24,28 @@ def queryUserFullData(uid):
     user = User.query.options( \
         joinedload(User.memberships) \
         .joinedload(Membership.program) \
-        .joinedload(Program.habits), \
+        .joinedload(Program.activities), \
         ).get(uid)
     
     programs = {}
-    habits = {}
+    activities = {}
     stamps = {}
     
     for membership in user.memberships:
         programs[membership.program_id] = membership.program.to_dict_for_user(uid)
-        for habit in membership.program.habits:
-            habits[habit.id] = habit.to_dict_for_user(user)
-            for stamp in habit.stamps:
+        for activity in membership.program.activities:
+            activities[activity.id] = activity.to_dict_for_user(user)
+            for stamp in activity.stamps:
                 if stamp.membership_id == membership.id:
                     stamps[stamp.id] = stamp.to_dict()
 
     print("\nuser data?")
     # pprint(programs)
-    # pprint(habits)
+    # pprint(activities)
     # pprint(stamps)
     return jsonify(
         programs_data=programs, 
-        habits_data=habits, 
+        activities_data=activities, 
         stamps_data=stamps, 
         user_data=user.to_dict(),
         past_week=get_past_week(),)
@@ -78,7 +78,7 @@ def get_past_week():
 #     return reward_data
 
 
-# def dumpRedeemedData(redeemed_data, reward):
+# def dumpReceiptData(redeemed_data, reward):
 #     """Dump reward details into a redeemed reward."""
 #     print("\n\ndumped redeem/reward", redeemed_data, reward)
 #     redeemed_data["reward"] = reward_schema.dump(reward)

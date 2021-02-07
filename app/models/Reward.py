@@ -22,12 +22,10 @@ class Reward(db.Model):
     color = db.relationship("Color", backref="rewards")
     program = db.relationship("Program", back_populates="rewards")
     creator = db.relationship("User", back_populates="created_rewards")
-    redeemed = db.relationship("Redeemed", order_by="Redeemed.redeemed_at", back_populates="reward")
+    receipts = db.relationship("Receipt", order_by="Receipt.created_at", back_populates="reward")
 
     def to_dict(self):
         """Return dict of Reward"""
-        print("\nREDEEMED", self.redeemed)
-        
         return {
           "id": self.id,
           "title": self.title,
@@ -40,6 +38,6 @@ class Reward(db.Model):
           "quantity": self.quantity,
           "type": self.type,
           "created_at": self.created_at, 
-          "redeemed_count": len(self.redeemed),
-          "last_redeemed_at": (lambda: self.redeemed[-1].redeemed_at if self.redeemed[-1:] else "")(),
+          "receipts_count": len(self.receipts),
+          "last_created_at": (lambda: self.receipts[-1].created_at if self.receipts[-1:] else "")(),
         }

@@ -2,11 +2,11 @@ from .db import db
 from .Bond import Bond
 from .Color import Color
 from .Icon import Icon
-from .Habit import Habit
+from .Activity import Activity
 from .Membership import Membership
 from .Program import Program
 from .Reward import Reward
-from .Redeemed import Redeemed
+from .Receipt import Receipt
 from .Stamp import Stamp
 from .User import User
 from .MutableList import MutableList

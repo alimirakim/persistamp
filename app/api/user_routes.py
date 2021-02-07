@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
-from app.models import db, User, Stamp, Program, Membership, Habit, Reward, Color, Stamp
-from app.schemas import user_schema, program_schema, habit_schema, membership_schema, icon_schema, color_schema, stamp_schema
+from app.models import db, User, Stamp, Program, Membership, Activity, Reward, Color, Stamp
+from app.schemas import user_schema, program_schema, activity_schema, membership_schema, icon_schema, color_schema, stamp_schema
 from sqlalchemy.orm import joinedload
 from flask_login import current_user, login_user, logout_user, login_required
 from datetime import date, timedelta
@@ -43,34 +43,34 @@ def user_programs(uid):
         .join(Membership.program).filter(Membership.member_id == uid) \
         .options(joinedload(Program.rewards), \
             joinedload(Program.memberships), \
-            joinedload(Program.habits).joinedload(Habit.stamps)) \
+            joinedload(Program.activities).joinedload(Activity.stamps)) \
         .all()
         
     programs_data = {p.id:p.to_dict() for p in user_programs}
-    habits_data = {}
+    activities_data = {}
     stamps_data = {}
     
     for program in user_programs:
         program_mids = [m.id for m in program.memberships]
         mid = next(m for m in program_mids if m in user["mids"])
-        for habit in program.habits:
-            habits_data[habit.id] = habit.to_dict()
+        for activity in program.activities:
+            activities_data[activity.id] = activity.to_dict()
             
-            # Stamps for prev week for habit
+            # Stamps for prev week for activity
             stamps = Stamp.query.filter( \
-                Stamp.habit_id == habit.id, \
+                Stamp.activity_id == activity.id, \
                 Stamp.membership_id == mid, \
                 Stamp.date <= past_week[0][1], \
                 Stamp.date >= past_week[6][1]).all()
             for stamp in stamps:
                 stamps_data[stamp.id] = stamp.to_dict()
-            habits_data[habit.id]["week_stamps"] = [s.id for s in stamps]
+            activities_data[activity.id]["week_stamps"] = [s.id for s in stamps]
         
     print("\nfinal")
     pprint(stamps_data)
     return jsonify(
         programs_data=programs_data, 
-        habits_data=habits_data, 
+        activities_data=activities_data, 
         stamps_data=stamps_data, 
         past_week=past_week,)
 

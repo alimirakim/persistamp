@@ -37,7 +37,7 @@ export default function SplashContainer({ auth, setAuth, setUser }) {
           Persistamp
           <img onClick={onDemoLogin} className="demoButton" alt="try me" src={demoButton} />
         </h1>
-        <h2 className="lo-center-x">A Motivational 'Good Habit' Positivity App</h2>
+        <h2 className="lo-center-x">A Motivational 'Good Activity' Positivity App</h2>
       </div>
       <InstructionsContainer />
     </div>

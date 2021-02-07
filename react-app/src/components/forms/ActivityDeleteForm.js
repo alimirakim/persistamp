@@ -3,18 +3,18 @@ import ProgramBoardContext from '../../context/ProgramBoardContext'
 import DeleteForm from './DeleteForm'
 
 
-export default function HabitDeleteForm({ open, handleClose, habit}) {
-const {dispatchDeleteHabit} = useContext(ProgramBoardContext)
+export default function ActivityDeleteForm({ open, handleClose, activity}) {
+const {dispatchDeleteActivity} = useContext(ProgramBoardContext)
   if (!open) return null
   
   return (
     <DeleteForm
-      path={`/api/habits/delete/${habit.id}`}
+      path={`/api/activities/delete/${activity.id}`}
       open={open}
       handleClose={handleClose}
       itemType="program"
-      item={habit}
-      dispatcher={dispatchDeleteHabit}
+      item={activity}
+      dispatcher={dispatchDeleteActivity}
     />
   )
 }

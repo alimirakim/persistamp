@@ -7,7 +7,7 @@ import ProgramDeleteForm from '../forms/ProgramDeleteForm'
 import RewardPoints from "./RewardPoints";
 import CurrentWeekRow from "./CurrentWeekRow";
 import ProgramCardBody from './ProgramCardBody'
-import HabitForm from '../forms/HabitForm'
+import ActivityForm from '../forms/ActivityForm'
 import { AddButton, EditButton } from '../forms/FormInputs'
 import Divider from './Divider'
 
@@ -27,7 +27,7 @@ export default function ProgramCard({ program }) {
 
     <ProgramEditForm open={openEdit} handleClose={toggleEdit} program={program} handleOpenDelete={toggleDelete} />
     <ProgramDeleteForm open={openDelete} handleClose={toggleDelete} program={program} />
-    <HabitForm open={openCreate} handleClose={toggleCreate} pid={program.id} cid={program.cid} iid={program.iid} />
+    <ActivityForm open={openCreate} handleClose={toggleCreate} pid={program.id} cid={program.cid} iid={program.iid} />
 
     <div className="th-card-shadow"></div>
     <article className="pbc" style={{ background: `linear-gradient(-45deg, rgb(20,10,0) -100%, ${colors[program.cid].hex}, rgb(255,255,255) 200%` }}>
@@ -68,6 +68,6 @@ export default function ProgramCard({ program }) {
 }
 
 
-{/* function HabitsOrMessage({ program, habits }) {
+{/* function ActivitiesOrMessage({ program, activities }) {
 
   } */}

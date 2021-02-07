@@ -44,7 +44,7 @@ To learn what Persistamp is, its features, and how to use it, see the [README](.
 ## Models
 
   **TABLES**  
-  [users](#users) | [memberships](#memberships) | [programs](#programs) | [habits](#habits) | [stamps](#stamps) | [rewards](#rewards) | [redeemed](#redeemed) | [colors](#colors) | [icons](#icons) | [bonds](#bonds)
+  [users](#users) | [memberships](#memberships) | [programs](#programs) | [activities](#activities) | [stamps](#stamps) | [rewards](#rewards) | [receipts](#receipts) | [colors](#colors) | [icons](#icons) | [bonds](#bonds)
   
 </div>
 
@@ -83,7 +83,7 @@ The database schema evolved and changed quite a bit continually throughout the p
 | description | VARCHAR(250) |
 | color_id   | FOREIGN KEY(colors.id), NOT NULL |
 | stamp_id   | FOREIGN KEY(stamps.id), NOT NULL |
-| hids_order | ARRAY(INTEGER), NOT NULL, DEFAULT VALUE=[] |
+| aids_order | ARRAY(INTEGER), NOT NULL, DEFAULT VALUE=[] |
 | rew_ids_order |  ARRAY(INTEGER), NOT NULL, DEFAULT VALUE=[] |
 | is_private | BOOLEAN, NOT NULL, DEFAULT VALUE=False |
 | creator_id | INTEGER, FOREIGN KEY=users.id, NOT NULL |
@@ -98,8 +98,8 @@ The database schema evolved and changed quite a bit continually throughout the p
 | stamper_id | INTEGER, FOREIGN KEY=users.id           |
 | points     | INTEGER, NOT NULL, DEFAULT VALUE=0 |
 
-### `habits`
-| habits      | Constraints                                   |
+### `activities`
+| activities      | Constraints                                   |
 |-------------|-----------------------------------------------|
 | id          | SERIAL, PRIMARY KEY                           |
 | title       | VARCHAR(25), NOT NULL                         |
@@ -119,7 +119,7 @@ The database schema evolved and changed quite a bit continually throughout the p
 | date        | DATE, NOT NULL                                |
 | status      | VARCHAR(25), NOT NULL, DEFAULT VALUE="unstamped" |
 | member_id   | INTEGER, FOREIGN KEY=users.id, NOT NULL       |
-| habit_id    | INTEGER, FOREIGN KEY=habits.id, NOT NULL      |
+| activity_id    | INTEGER, FOREIGN KEY=activities.id, NOT NULL      |
 
 ### `rewards`
 | columns | Constraints                          |
@@ -137,13 +137,13 @@ The database schema evolved and changed quite a bit continually throughout the p
 | creator_id | INTEGER, FOREIGN KEY=users.id |
 | created_at | TIMESTAMP, DEFAULT VALUE=new Date() |
 
-### `redeemed`
+### `receipts`
 | user_rewards | Constraints                               |
 |--------------|-------------------------------------------|
 | id           | SERIAL, PRIMARY KEY                       |
 | user_id      | INTEGER, FOREIGN KEY=users.id, NOT NULL   |
 | reward_id    | INTEGER, FOREIGN KEY=rewards.id, NOT NULL |
-| redeemed_at  | TIMESTAMP, DEFAULT VALUE=new Date(), NOT NULL |
+| created_at  | TIMESTAMP, DEFAULT VALUE=new Date(), NOT NULL |
 
 ## `bonds`
 | columns  | Constraints                             |
@@ -166,11 +166,11 @@ The database schema evolved and changed quite a bit continually throughout the p
 | GET    | `/`        | user homepage, if auth checks |
 | GET    | `/about`   | about page |
 | GET    | `/logout`  | logout user |
-| GET    | `/habits/:hid/memberships/:mid` | habit history page for a user's habit (public/private options) |
+| GET    | `/activities/:hid/memberships/:mid` | activity history page for a user's activity (public/private options) |
 | GET    | `/programs/:pid/memberships/:mid/rewards` | reward shop for a user and program |
 <!-- | GET    | `/users/:uid` | user's public profile page | -->
-<!-- | GET    | `/users/:uid/redeemed` | user's redeemed reward history | -->
-<!-- | GET    | `/programs/:pid/redeemed` | user's redeemed reward history for a program | -->
+<!-- | GET    | `/users/:uid/receipts` | user's receipts reward history | -->
+<!-- | GET    | `/programs/:pid/receipts` | user's receipts reward history for a program | -->
 <!-- | GET    | `/users/:uid/bonds` | user's bonds | -->
 
 ### Backend
@@ -183,11 +183,11 @@ The database schema evolved and changed quite a bit continually throughout the p
 | DELETE | `/:uid`     | Delete a `user` account |
 | GET    | `/:uid/auth` | Not sure, but I think we may need a route just to check auth? |
 | GET    | `/:uid/programs` | Get all a `user`'s subscribed `programs`. |
-| GET    | `/:uid/redeemed` | Get all a `user`'s `redeem`ed rewards. |
+| GET    | `/:uid/receipts` | Get all a `user`'s `redeem`ed rewards. |
 <!-- | GET    | `/:uid/bonds` | Get all a `user`'s `bond`s. | -->
 <!-- | POST   | `/:uid/bonds` | Create a `bond` with another `user`. | -->
 <!-- | DELETE | `/:uid/bonds/:bid` | Delete a `bond` with a `user`. | -->
-<!-- | GET    | `/:uid/redeemed/:type` | Get all a `user`'s `redeem`ed rewards of a specific `type`. | -->
+<!-- | GET    | `/:uid/receipts/:type` | Get all a `user`'s `redeem`ed rewards of a specific `type`. | -->
 
 #### ROOT: `/programs`
 | METHOD | Route Path | Purpose         |
@@ -205,22 +205,22 @@ The database schema evolved and changed quite a bit continually throughout the p
 | GET    | `/`        | Get a `program`'s `member`s. |
 | POST   | `/:uid`    | Add a `member` to the `program`. |
 | DELETE | `/:uid`    | Delete a `member` from the `program`. | 
-| GET    | `/:uid/habits` | Get a `member`'s `habit`s for a `program`, including last seven days of history for each. |
-| GET    | `/:uid/habits/:hid` | Get a `user` `habit`'s details, including full history (via `stamp_checks`) |
+| GET    | `/:uid/activities` | Get a `member`'s `activity`s for a `program`, including last seven days of history for each. |
+| GET    | `/:uid/activities/:hid` | Get a `user` `activity`'s details, including full history (via `stamp_checks`) |
 | GET    | `/:uid/stamper` | Get a `member`'s `stamper` in the `program`.
 | PATCH  | `/:uid/stamper` | Change a `member`'s `stamper` in the `program`.
 | DELETE | `/:uid/stamper` |  Unassign the assigned `stamper`.
 
-#### ROOT: `/programs/:pid/habits`
+#### ROOT: `/programs/:pid/activities`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
-| GET    | `/`        | Get all a `program`'s `habits`, including last seven days of history for each. |
-| GET    | `/:hid`    | Get a `habit`'s details, including full histories for from all members (via `stamp_checks`) |
-| POST   | `/`        | Create a `habit` for a `program`. |
-| PATCH  | `/:hid`    | Edit a `habit` for a `program`. |
-| DELETE | `/:hid`    | Delete a `habit` for a `program`. |
+| GET    | `/`        | Get all a `program`'s `activities`, including last seven days of history for each. |
+| GET    | `/:hid`    | Get a `activity`'s details, including full histories for from all members (via `stamp_checks`) |
+| POST   | `/`        | Create a `activity` for a `program`. |
+| PATCH  | `/:hid`    | Edit a `activity` for a `program`. |
+| DELETE | `/:hid`    | Delete a `activity` for a `program`. |
 
-#### ROOT: `/programs/:pid/habits/:hid/members/:uid`
+#### ROOT: `/programs/:pid/activities/:hid/members/:uid`
 | METHOD | Route Path | Purpose         |
 |--------|------------|-----------------|
 | POST   | `/stamp`   | Change status of associated `daily_stamp` to 'stamped' |

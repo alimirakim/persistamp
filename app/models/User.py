@@ -17,7 +17,9 @@ class User(db.Model, UserMixin):
     birthday = db.Column(db.Date)
     hashed_password = db.Column(db.String(255), nullable=False)
     private = db.Column(db.Boolean, nullable=False, default=False)
-    pids_order = db.Column(ARRAY(db.Integer), nullable=False, default=[])
+    program_ids_order = db.Column(ARRAY(db.Integer), nullable=False, default=[])
+    reward_ids_order = db.Column(ARRAY(db.Integer), nullable=False, default=[])
+    points = db.Column(db.Integer, nullable=False, default=0)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     icon = db.relationship("Icon", backref="users")
@@ -25,11 +27,11 @@ class User(db.Model, UserMixin):
     # programs = db.relationship("Program", secondary="Membership", foreign_keys="[Membership.member_id]", back_populates="users")
     memberships = db.relationship("Membership", foreign_keys="[Membership.member_id]", back_populates="member")
     stampers = db.relationship("Membership", foreign_keys="[Membership.stamper_id]", back_populates="stamper")
-    redeemed = db.relationship("Redeemed", back_populates="user")
+    receipts = db.relationship("Receipt", back_populates="user")
     # bonds1 = db.relationship("Bond", foreign_keys="[Bond.user1_id, Bond.user2_id]", back_populates=["bonded_user1", "bonded_user2"])
     bonds = db.relationship("Bond", foreign_keys="[Bond.user2_id]", back_populates="bond")
     created_programs = db.relationship("Program", back_populates="creator")
-    created_habits = db.relationship("Habit", back_populates="creator")
+    created_activities = db.relationship("Activity", back_populates="creator")
     created_rewards = db.relationship("Reward", back_populates="creator")
 
     @property
@@ -46,13 +48,13 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         """Return a dictionary of all user data"""
         program_ids = []
-        habit_ids = []
+        activity_ids = []
         stamp_ids = []
         for membership in self.memberships:
             program_ids.append(membership.program_id)
-            for habit in membership.program.habits:
-                habit_ids.append(habit.id)
-                for stamp in habit.stamps:
+            for activity in membership.program.activities:
+                activity_ids.append(activity.id)
+                for stamp in activity.stamps:
                     stamp_ids.append(stamp.id)
 
         birthday = None
@@ -69,7 +71,7 @@ class User(db.Model, UserMixin):
             "cid": self.color_id,
             "iid": self.icon_id,
             "pids": program_ids,
-            "red_ids": [r.id for r in self.redeemed],
+            "rec_ids": [r.id for r in self.receipts],
             "private": self.private,
-            "pids_order": self.pids_order,
+            "pids_order": self.program_ids_order,
         }

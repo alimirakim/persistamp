@@ -30,7 +30,7 @@ export default function Homepage({ auth, setAuth, setUser }) {
         dispatchSetAll({
           week: content.past_week,
           programs: content.programs_data,
-          habits: content.habits_data,
+          activities: content.activities_data,
           stamps: content.stamps_data,
         })
       })()
@@ -43,7 +43,7 @@ export default function Homepage({ auth, setAuth, setUser }) {
     <div className="hbd">
       <div className="hbd-title">
         <h1 className="persistamp">Persistamp</h1>
-        <h2 className="persistamp-subtitle">A Motivational 'Good Habit' Positivity App</h2>
+        <h2 className="persistamp-subtitle">A Motivational 'Good Activity' Positivity App</h2>
       </div>
       <NavCard auth={auth} setAuth={setAuth} setUser={setUser} />
       <ProgramBoard />

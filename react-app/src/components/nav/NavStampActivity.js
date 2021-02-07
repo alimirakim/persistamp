@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default function NavStampHabit({ toggleEdit }) {
+export default function NavStampActivity({ toggleEdit }) {
 
   return (
     <button onClick={toggleEdit}

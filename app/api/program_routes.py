@@ -42,7 +42,7 @@ def create_program():
         db.session.add(membership)
         db.session.commit()
 
-        # programs_data, habits_data, stamps_data, user_data, past_week = queryUserFullData(current_user.id)
+        # programs_data, activities_data, stamps_data, user_data, past_week = queryUserFullData(current_user.id)
         print("\nprogram...")
         pprint(program)
         return program.to_dict_for_user(current_user.id)

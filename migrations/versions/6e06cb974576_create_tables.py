@@ -73,7 +73,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['icon_id'], ['icons.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('habits',
+    op.create_table('activities',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=50), nullable=False),
     sa.Column('description', sa.String(length=250), nullable=True),
@@ -125,7 +125,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('reward_id', sa.Integer(), nullable=False),
-    sa.Column('redeemed_at', sa.DateTime(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['reward_id'], ['rewards.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -134,9 +134,9 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('date', sa.Date(), nullable=False),
     sa.Column('status', sa.String(), nullable=False),
-    sa.Column('habit_id', sa.Integer(), nullable=False),
+    sa.Column('activity_id', sa.Integer(), nullable=False),
     sa.Column('membership_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['habit_id'], ['habits.id'], ),
+    sa.ForeignKeyConstraint(['activity_id'], ['activities.id'], ),
     sa.ForeignKeyConstraint(['membership_id'], ['memberships.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -149,7 +149,7 @@ def downgrade():
     op.drop_table('redeemed')
     op.drop_table('rewards')
     op.drop_table('memberships')
-    op.drop_table('habits')
+    op.drop_table('activities')
     op.drop_table('programs')
     op.drop_table('bonds')
     op.drop_table('users')

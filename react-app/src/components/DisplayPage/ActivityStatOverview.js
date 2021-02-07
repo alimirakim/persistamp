@@ -14,12 +14,12 @@ import {
 
 
 
-export default function HabitStatOverview({ habit }) {
-  const { mid, hid } = useParams()
+export default function ActivityStatOverview({ activity }) {
+  const { mid, aid } = useParams()
   const [statData, setStatData] = useState([])
   useEffect(() => {
     (async () => {
-      let res = await fetch(`/api/habit-details/${hid}/stats/${mid}`)
+      let res = await fetch(`/api/activity-details/${aid}/stats/${mid}`)
       let obj = await res.json()
       setStatData(obj)
     })()
@@ -31,8 +31,8 @@ export default function HabitStatOverview({ habit }) {
       {/* <ChakraProvider theme={customTheme}> */}
       <div className="statContainer hdp-stats">
         <h2 className="statOverview hdp-cal" style={{margin: "1rem 0 0", fontSize: "2.5rem", color: "white"}}>
-        {/* "{habit.title}" */}
-        Habit History
+        {/* "{activity.title}" */}
+        Activity History
         </h2>
         <StatGroup className="statGroup ">
           <Stat>

@@ -7,15 +7,15 @@ from app.schemas import stamp_schema
 stamp_routes = Blueprint("stamps", __name__, url_prefix="/stamps")
 
 
-# Grab all stamps for user and habit (full history)
+# Grab all stamps for user and activity (full history)
 # get all stamps for user and program (7 days)
 # get all stamps for user (7 days)
 
-@stamp_routes.route("/habits/<int:hid>")
-def habit_stamps_full(hid):
+@stamp_routes.route("/activities/<int:aid>")
+def activity_stamps_full(aid):
     """Get all daily stamps for current user, full history."""
     stamps = Stamp.query.filter(Stamp.uid == current_user.id) \
-      .filter(Stamp.hid == hid).all()
+      .filter(Stamp.aid == aid).all()
     
     return jsonify(stamps=[stamp_schema.dump(stamp) for stamp in stamps])
 
@@ -42,15 +42,15 @@ def current_week():
     return jsonify(days=past_week_days, dates=past_week_dates, stamps=[stamp.to_dict() for stamp in stamps])
 
 
-@stamp_routes.route("/<int:hid>/programs/<int:pid>/memberships/<int:mid>/days/<day>", methods=["delete", "post"])
-def stamp_day(pid, mid, hid, day):
+@stamp_routes.route("/<int:aid>/programs/<int:pid>/memberships/<int:mid>/days/<day>", methods=["delete", "post"])
+def stamp_day(pid, mid, aid, day):
     """Change the status of a stamp to 'stamped' or 'pending'."""
     print("stamping...")
     membership = Membership.query.get(mid)
     # day = date
     if request.method == "POST":
         stamp = Stamp.query.join(Membership.stamps).filter( \
-            Stamp.habit_id == hid,  \
+            Stamp.activity_id == aid,  \
             Stamp.membership_id == mid, \
             Stamp.date == day) \
             .options(joinedload(Stamp.membership)).one_or_none()
@@ -58,12 +58,12 @@ def stamp_day(pid, mid, hid, day):
             if membership.member_id == membership.stamper_id:
                 stamp = Stamp( date=day,
                                     status='stamped',
-                                    habit_id=hid,
+                                    activity_id=aid,
                                     membership_id=mid,)
             else:
                 stamp = Stamp( date=day,
                                     status='pending',
-                                    habit_id=hid,
+                                    activity_id=aid,
                                     membership_id=mid,)
             db.session.add(stamp)
         else:
@@ -75,7 +75,7 @@ def stamp_day(pid, mid, hid, day):
         return stamp.to_dict()
     elif request.method == "DELETE":
         stamp = Stamp.query.filter( \
-            Stamp.habit_id == hid,  \
+            Stamp.activity_id == aid,  \
             Stamp.membership_id == mid, \
             Stamp.date == day).one()
         print(stamp)

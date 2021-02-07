@@ -7,15 +7,15 @@ import HeatMap from 'react-heatmap-grid';
 import OptionsContext from '../../context/OptionsContext';
 
 
-export default function CalendarMap({ habit }) {
+export default function CalendarMap({ activity }) {
   const [calendarData, setCalendarData] = useState([])
   const { colors, icons } = useContext(OptionsContext)
-  const { hid, mid } = useParams()
-  const color = habit.cid === 3 ? "white" : colors[habit.cid].hex
+  const { aid, mid } = useParams()
+  const color = activity.cid === 3 ? "white" : colors[activity.cid].hex
 
   useEffect(() => {
     (async () => {
-      let dataFetch = await fetch(`/api/habit-details/${hid}/calendar/${mid}`)
+      let dataFetch = await fetch(`/api/activity-details/${aid}/calendar/${mid}`)
       const resObj = await dataFetch.json()
       setCalendarData(resObj)
     })()
@@ -29,7 +29,7 @@ export default function CalendarMap({ habit }) {
   //     b: parseInt(result[3], 16)
   //   } : null;
   // }
-  // const habitRGB = hexToRgb(habit.cid)
+  // const activityRGB = hexToRgb(activity.cid)
 
 
   if (!calendarData.yArr) return null;
@@ -70,8 +70,8 @@ export default function CalendarMap({ habit }) {
           cellRender={(value) => {
             const day = value.day
             if (value.val === 100) {
-              return <i className={`fas fa-${icons[habit.iid].title}`} style={{ color }} ></i>
-              // return <i className={`fas fa-${icons[habit.iid].title}`} style={{ color: "black" }} ></i>
+              return <i className={`fas fa-${icons[activity.iid].title}`} style={{ color }} ></i>
+              // return <i className={`fas fa-${icons[activity.iid].title}`} style={{ color: "black" }} ></i>
             } else {
               return <i style={{ color: "#555" }} >{day}</i>
             }

@@ -9,7 +9,7 @@ export default function CurrentWeekRow() {
   return (
     <tr>
       <th className="pbc-title">
-      <div className="habit-header">Habits</div>
+      <div className="activity-header">Activities</div>
       </th>
 
       {week.map((day, i) => (

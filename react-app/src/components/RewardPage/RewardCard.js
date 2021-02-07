@@ -8,7 +8,7 @@ import { EditButton } from '../forms/FormInputs'
 import Divider from '../HomePage/Divider'
 
 
-export default function RewardCard({ program, reward, redeemCount }) {
+export default function RewardCard({ program, reward, receiptCount }) {
   const { mid } = useParams()
   const { colors, icons } = useContext(OptionsContext)
   const isBlack = reward.cid === 3 ? "rsc-black" : ""
@@ -16,7 +16,7 @@ export default function RewardCard({ program, reward, redeemCount }) {
   const [openDelete, setOpenDelete] = useState(false)
   const [openRedeem, setOpenRedeem] = useState(false)
   let insufficientPoints = program.points < reward.cost
-  let remainingLimit = reward.limit_per_member - redeemCount
+  let remainingLimit = reward.limit_per_member - receiptCount
   let disabled = insufficientPoints || remainingLimit === 0 || reward.quantity === 0
   const disabledStyle = disabled ? { color: "red" } : {}
 
@@ -83,17 +83,17 @@ export default function RewardCard({ program, reward, redeemCount }) {
                   <dd>{new Date(reward.created_at).toLocaleString('en-EN', { year: 'numeric', month: 'short', day: 'numeric' })}</dd>
                 </div>
 
-                <div><dt>Last Redeemed: </dt>
-                  {reward.last_redeemed_at &&
-                    <dd>{new Date(reward.last_redeemed_at).toLocaleString('en-EN', { dateStyle: "short" })}
+                <div><dt>Last Receipt: </dt>
+                  {reward.last_created_at &&
+                    <dd>{new Date(reward.last_created_at).toLocaleString('en-EN', { dateStyle: "short" })}
                     </dd>
                   }
-                  {!reward.last_redeemed_at && <dd> never</dd>}
+                  {!reward.last_created_at && <dd> never</dd>}
                 </div>
 
                 <div>
                   <dt>Used: </dt>
-                  <dd>{reward.redeemed_count}x</dd>
+                  <dd>{reward.receipts_count}x</dd>
                 </div>
 
                 <div>

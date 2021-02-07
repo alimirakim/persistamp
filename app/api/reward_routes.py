@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, redirect, jsonify, request
 from sqlalchemy.orm import joinedload
 from flask_login import current_user
-from app.models import db, Reward, Redeemed, Membership, Program
-from app.schemas import reward_schema, redeemed_schema, color_schema, icon_schema, user_schema, program_schema, membership_schema
+from app.models import db, Reward, Receipt, Membership, Program
+from app.schemas import reward_schema, receipt_schema, color_schema, icon_schema, user_schema, program_schema, membership_schema
 from app.utils import dump_data_list, validation_errors_to_error_messages
 from app.forms import RewardForm
 from pprint import pprint
@@ -11,18 +11,18 @@ reward_routes = Blueprint("rewards", __name__, url_prefix="/rewards")
 
 
 @reward_routes.route("/programs/<int:pid>")
-def program_and_rewards_and_redeemed(pid):
+def program_and_rewards_and_receipts(pid):
     """Get a list of a program's custom rewards."""
     program = Program.query.get(pid)
     rewards = Reward.query.filter(Reward.program_id == pid).all()
-    redeemed = Redeemed.query.join(Redeemed.reward) \
-        .filter(Redeemed.user_id == current_user.id, Reward.program_id == pid) \
-        .order_by(Redeemed.redeemed_at).all()
+    receipts = Receipt.query.join(Receipt.reward) \
+        .filter(Receipt.user_id == current_user.id, Reward.program_id == pid) \
+        .order_by(Receipt.created_at).all()
 
     return jsonify(
         program_data=program.to_dict_for_user(current_user.id), 
         rewards_data={r.id:r.to_dict() for r in rewards},
-        redeemed_data={r.id:r.to_dict() for r in redeemed})
+        receipts_data={r.id:r.to_dict() for r in receipts})
 
 
 @reward_routes.route("/programs/<int:pid>/rewards")
@@ -94,8 +94,8 @@ def redeem_reward(rid, mid):
     membership = Membership.query.filter(Membership.id == mid).one()
     
     if reward.limit_per_member > 0:
-        redeemed_count = Redeemed.query.filter(Redeemed.reward_id == reward.id, Redeemed.user_id == membership.member.id).count()
-        if redeemed_count >= reward.limit_per_member:
+        receipts_count = Receipt.query.filter(Receipt.reward_id == reward.id, Receipt.user_id == membership.member.id).count()
+        if receipts_count >= reward.limit_per_member:
             return {'errors': [f"You have too many, sorry T_T . Only {str(reward.limit_per_member)} per customer!"]}, 400
 
     if reward.quantity == 0:
@@ -108,26 +108,27 @@ def redeem_reward(rid, mid):
         reward.quantity -= 1
 
     membership.points -= reward.cost
-    redeemed = Redeemed(user_id=membership.member_id,
+    receipt = Receipt(user_id=membership.member_id,
                         reward_id=reward.id,
                         title=reward.title,
                         description=reward.description,
                         color_id=reward.color_id,
                         icon_id=reward.icon_id,
-                        cost=reward.cost,
+                        value=reward.cost,
                         program_id=reward.program_id,
                         )
-    db.session.add(redeemed)
+    db.session.add(receipt)
     db.session.commit()
+    print("\n\nRECEIPT", receipt.to_dict())
 
-    return jsonify(redeemed_data=redeemed.to_dict())
+    return jsonify(receipt_data=receipt.to_dict())
     
     
-@reward_routes.route("/programs/<int:pid>/users/<int:uid>/redeemed")
+@reward_routes.route("/programs/<int:pid>/users/<int:uid>/receipts")
 def redeemed_rewards(pid, uid):
-    """Get a list of a user's redeemed rewards, ordered by redeemed_at dates."""
-    redeemed = Redeemed.query.join(Redeemed.reward) \
-      .filter(Redeemed.user_id == uid, Reward.program_id == pid) \
-      .order_by(Redeemed.redeemed_at).all()
+    """Get a list of a user's redeemed rewards, ordered by created_at dates."""
+    receipts = Receipt.query.join(Receipt.reward) \
+      .filter(Receipt.user_id == uid, Reward.program_id == pid) \
+      .order_by(Receipt.created_at).all()
     
-    return [r.to_dict() for r in redeemed]
+    return [r.to_dict() for r in receipts]

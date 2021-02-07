@@ -6,7 +6,7 @@
   color: lavenderblush;
 }
 
-.habitHeader {
+.activityHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -42,46 +42,46 @@
   /* z-index: -1; */
 
 }
-.habitFormat {
+.activityFormat {
   /* display: flex;
   flex-direction: column;
   align-content: flex-end; */
 }
 
-.habitDetailContainer {
+.activityDetailContainer {
   position: relative;
   margin: 20px;
   width:100%;
   padding-left: 25px;
 }
-.habitDetail__title {
+.activityDetail__title {
   font-size: 30px;
   position: relative;
   left: 40px;
   margin: 20px;
 }
-.habitDetail__items {
+.activityDetail__items {
   margin: 10px;
 }
-.habitDetail__name {
+.activityDetail__name {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
 }
-.habitDetail__description {
+.activityDetail__description {
   position: relative;
 
 }
-.habitDetail__table {
+.activityDetail__table {
   /* margin: 20px; */
   table-layout: fixed;
   width: 600px;
 }
-.habitDetail-border {
+.activityDetail-border {
     /* border: 1px solid; */
 padding: 0.2rem;
   }
-.habitDetail__cell {
+.activityDetail__cell {
 /* border: 1px solid; */
   width: 25%;
 }

@@ -13,14 +13,14 @@ class Program(db.Model):
     color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)
     creator_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     private = db.Column(db.Boolean, nullable=False, default=False)
-    hids_order = db.Column(MutableList.as_mutable(ARRAY(db.Integer)), nullable=False, default=[])
-    rew_ids_order = db.Column(ARRAY(db.Integer), nullable=False, default=[])
+    activity_ids_order = db.Column(MutableList.as_mutable(ARRAY(db.Integer)), nullable=False, default=[])
+    reward_ids_order = db.Column(ARRAY(db.Integer), nullable=False, default=[])
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     icon = db.relationship("Icon", backref="programs")
     color = db.relationship("Color", backref="programs")
     memberships = db.relationship("Membership", back_populates="program", cascade="all, delete-orphan")
-    habits = db.relationship("Habit", back_populates="program", cascade="all, delete-orphan")
+    activities = db.relationship("Activity", back_populates="program", cascade="all, delete-orphan")
     rewards = db.relationship("Reward", back_populates="program")#, cascade="all, delete-orphan")
     creator = db.relationship("User", back_populates="created_programs")
 
@@ -34,10 +34,10 @@ class Program(db.Model):
             "iid": self.icon.id,
             "created_at": self.created_at,
             "mids": [m.id for m in self.memberships],
-            "hids": [h.id for h in self.habits],
+            "aids": [h.id for h in self.activities],
             "private": self.private,
-            "hids_order": self.hids_order,
-            "rew_ids_order": self.rew_ids_order,
+            "aids_order": self.activity_ids_order,
+            "rew_ids_order": self.reward_ids_order,
         }
     
     def get_mids(self):

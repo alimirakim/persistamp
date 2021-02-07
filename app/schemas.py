@@ -1,6 +1,6 @@
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow_sqlalchemy.fields import Nested
-from app.models import User, Program, Habit, Stamp, Membership, Reward, Redeemed, Bond, Icon, Color
+from app.models import User, Program, Activity, Stamp, Membership, Reward, Receipt, Bond, Icon, Color
 
 
 # class SmartNested(Nested):
@@ -41,12 +41,12 @@ class ProgramSchema(SQLAlchemyAutoSchema):
 program_schema = ProgramSchema()
 
 
-class HabitSchema(SQLAlchemyAutoSchema):
+class ActivitySchema(SQLAlchemyAutoSchema):
     class Meta:
-        model = Habit
+        model = Activity
         include_relationships = True
         load_instance = True
-habit_schema = HabitSchema()
+activity_schema = ActivitySchema()
 
 
 class IconSchema(SQLAlchemyAutoSchema):
@@ -73,12 +73,12 @@ class RewardSchema(SQLAlchemyAutoSchema):
 reward_schema = RewardSchema()
 
 
-class RedeemedSchema(SQLAlchemyAutoSchema):
+class ReceiptSchema(SQLAlchemyAutoSchema):
     class Meta:
-        model = Redeemed
+        model = Receipt
         include_relationships = True
         load_instance = True
-redeemed_schema = RedeemedSchema()
+receipt_schema = ReceiptSchema()
 
 
 class BondSchema(SQLAlchemyAutoSchema):

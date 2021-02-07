@@ -18,10 +18,10 @@ class Membership(db.Model):
     stamps = db.relationship("Stamp", back_populates="membership")
 
     def to_dict(self):
-        """"""
-        member_habit_stamps = {}
-        for habit in self.program.habits:
-            member_habit_stamps[habit.id] = sorted([s.id for s in habit.stamps if s.membership_id == self.id], reverse=True)
+        """Returns dict of Membership."""
+        member_activity_stamps = {}
+        for activity in self.program.activities:
+            member_activity_stamps[activity.id] = sorted([s.id for s in activity.stamps if s.membership_id == self.id], reverse=True)
         
         return {
           "id": self.id,

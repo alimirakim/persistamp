@@ -13,11 +13,11 @@
 
 // const BarGraph = () => {
 //   const [dataPoints, setDataPoints] = useState([])
-//   const { hid } = useParams()
+//   const { aid } = useParams()
 //   const {user} = useContext(UserContext)
 //   useEffect(() => {
 //     (async () => {
-//       const res = await fetch(`/api/habits/${hid}/graph`)
+//       const res = await fetch(`/api/activities/${aid}/graph`)
 
 //       const resObj = await res.json()
 //       setDataPoints(resObj)

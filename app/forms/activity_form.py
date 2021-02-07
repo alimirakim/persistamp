@@ -5,7 +5,7 @@ from app.utils import colors, icons
 from .validators import title_char_count, desc_char_count
 
 
-class HabitForm(FlaskForm):
+class ActivityForm(FlaskForm):
     title = StringField(validators=[DataRequired(), title_char_count])
     description = StringField(validators=[desc_char_count])
     frequency = SelectField(validators=[DataRequired()], choices=range(1,8), default=7)
