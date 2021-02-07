@@ -77,7 +77,7 @@ if (!colorId) return null
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">
-      {edit ? `Edit ${type}: "${edit.title}"` : `Create a ${type}`}
+      {edit ? `Edit ${type}: "${edit.title}"` : `Create ${type}`}
       </DialogTitle>
 
       <ErrorMessages errors={errors} />

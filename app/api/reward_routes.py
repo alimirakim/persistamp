@@ -10,6 +10,21 @@ from pprint import pprint
 reward_routes = Blueprint("rewards", __name__, url_prefix="/rewards")
 
 
+@reward_routes.route("/")
+def rewards_and_receipts():
+    """Get a list of a user's custom rewards."""
+    print("\n\nCURRENT USER", current_user.id)
+    rewards = Reward.query.filter(Receipt.user_id == current_user.id, type(Reward.program_id) != 'int').all()
+    receipts = Receipt.query \
+        .filter(Receipt.user_id == current_user.id, type(Receipt.program_id != 'int')) \
+        .order_by(Receipt.created_at).all()
+
+    return jsonify(
+        points_data=current_user.points, 
+        rewards_data={r.id:r.to_dict() for r in rewards},
+        receipts_data={r.id:r.to_dict() for r in receipts})
+
+
 @reward_routes.route("/programs/<int:pid>")
 def program_and_rewards_and_receipts(pid):
     """Get a list of a program's custom rewards."""
@@ -119,16 +134,23 @@ def redeem_reward(rid, mid):
                         )
     db.session.add(receipt)
     db.session.commit()
-    print("\n\nRECEIPT", receipt.to_dict())
 
     return jsonify(receipt_data=receipt.to_dict())
-    
     
 @reward_routes.route("/programs/<int:pid>/users/<int:uid>/receipts")
 def redeemed_rewards(pid, uid):
     """Get a list of a user's redeemed rewards, ordered by created_at dates."""
     receipts = Receipt.query.join(Receipt.reward) \
       .filter(Receipt.user_id == uid, Reward.program_id == pid) \
+      .order_by(Receipt.created_at).all()
+    
+    return [r.to_dict() for r in receipts]
+    
+@reward_routes.route("/receipts")
+def main_redeemed_rewards():
+    """Get a list of a user's redeemed rewards, ordered by created_at dates."""
+    receipts = Receipt.query.join(Receipt.reward) \
+      .filter(Receipt.user_id == current_user.id, type(Reward.program_id) != 'int') \
       .order_by(Receipt.created_at).all()
     
     return [r.to_dict() for r in receipts]

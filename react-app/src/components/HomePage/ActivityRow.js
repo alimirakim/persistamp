@@ -46,7 +46,9 @@ export default function ActivityRow({ activity, program }) {
             <div className="activity-btn">
               {/* activity title */}
               <span className="activity-title">
-                <small className="activity-freq"> {activity.frequency} / wk</small>
+                <small className="activity-freq"> {activity.frequency}/wk - </small>
+                <small className="activity-freq"> {activity.stamp_value}/pt</small>
+                
                 <div className="activity-title-txt">{activity.title}</div>
               </span>
             </div>

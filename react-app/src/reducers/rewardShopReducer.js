@@ -47,7 +47,7 @@ export default function rewardShopReducer(state, action) {
       return newState
     case REDEEM_REWARD:
       newState.receipts[action.receipt.id] = action.receipt
-      newState.program.points -= state.rewards[action.receipt.rew_id].cost
+      newState.points -= state.rewards[action.receipt.rew_id].cost
       newState.rewards[action.receipt.rew_id].quantity -= 1
       newState.rewards[action.receipt.rew_id].receipts_count += 1
       newState.rewards[action.receipt.rew_id].last_created_at = action.receipt.created_at

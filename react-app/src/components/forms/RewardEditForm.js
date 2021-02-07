@@ -18,7 +18,7 @@ export default function RewardEditForm({ open, handleClose, reward, handleOpenDe
   
 const uniqueInputs = () => (<div className="lo-row">
     <ChooseCost cost={cost} setCost={setCost} />
-    <ChooseQuantity quantity={quantity} setQuantity={setQuantity} />
+    <ChooseQuantity label="quantity" quantity={quantity} setQuantity={setQuantity} />
     <ChooseLimit limit={limit} setLimit={setLimit} />
     <DeleteButton switchForms={switchForms} />
   </div>)

@@ -40,7 +40,11 @@ export default function RewardCard({ program, reward, receiptCount }) {
       <div className={`rsc th-card-shadow ${isBlack}`} style={{ background: `linear-gradient(-45deg, rgb(20,10,0) -100%, ${colors[reward.cid].hex}, rgb(255,255,255) 200%` }}>
         <div className="th-stripe-overlay"></div>
         <div className={`th-inner-border ${isBlack}`}>
-          <i className={`rsc-bg-icon fas fa-5x rev fa-${icons[reward.iid].title}`} style={{color: colors[reward.cid].hex}}></i>
+          <i 
+          className={`rsc-bg-icon fas fa-5x rev fa-${icons[reward.iid].title}`} 
+          style={{color: reward.cid !== 3 ? colors[reward.cid].hex : 'rgba(50,50,50,1)'}}
+          >
+          </i>
 
           <div className="lo-top-left">
             <EditButton handleOpen={toggleEdit} styles={isBlack} />
@@ -49,13 +53,15 @@ export default function RewardCard({ program, reward, receiptCount }) {
             <i className={`fas fa-${icons[reward.iid].title}`}></i>
             &nbsp;&nbsp;{reward.title}
           </h3>
+<br/>
 
+          {reward.description && <>
           <Divider icon={icons[reward.iid].title} line="long" />
-
-          {reward.description &&
             <blockquote className="rsc-desc th-quote">{reward.description}</blockquote>
+          </>}
+          {!reward.description && 
+          <Divider icon={icons[reward.iid].title} />
           }
-          {!reward.description && <br/>}
 
           <dl className="th-dl-oneline" style={{ textAlign: "center" }}>
             {/* <dt>Limit Per Member:</dt> */}

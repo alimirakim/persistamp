@@ -82,7 +82,7 @@ def sign_up():
         db.session.add(membership)
         db.session.add(activity)
         db.session.commit()
-        program.aids_order = [activity.id]
+        program.activity_ids_order = [activity.id]
         db.session.commit()
 
         login_user(user)

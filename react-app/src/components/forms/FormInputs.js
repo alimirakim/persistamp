@@ -175,14 +175,13 @@ export function ChooseLimit({ limit, setLimit }) {
 }
 
 
-export function ChooseQuantity({ quantity, setQuantity }) {
+export function ChooseQuantity({ quantity, setQuantity, label }) {
   const updateQuantity = (e) => setQuantity(e.target.value)
 
   return (<div>
-    <InputLabel id="quantity">Quantity</InputLabel>
+    <InputLabel id="quantity">{label}</InputLabel>
     <TextField
       onChange={updateQuantity}
-      label="quantity"
       value={quantity}
       type="number"
       InputProps={{ min: 0 }}

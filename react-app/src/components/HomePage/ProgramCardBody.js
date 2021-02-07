@@ -13,7 +13,6 @@ export default function ProgramCardBody({ program }) {
   }, [Object.keys(activities).length])
 
   const handleOnDragEnd = (e) => {
-    console.log("drag", e)
     if (!e.destination) return;
     const items = [...aidOrder]
     const [reorderedItem] = items.splice(e.source.index, 1)

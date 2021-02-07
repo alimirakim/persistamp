@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { useParams } from 'react-router-dom'
 
+import UserContext from '../../context/UserContext'
 import OptionsContext from '../../context/OptionsContext'
 import PrivatePage from '../PrivatePage'
 import RewardShopContext from '../../context/RewardShopContext'
@@ -11,9 +11,9 @@ import NavCard from '../nav/NavCard'
 
 
 export default function RewardShop({ auth, setAuth }) {
-  const { pid } = useParams()
   const { colors } = useContext(OptionsContext)
-  const { program, receipts, dispatchSetAll } = useContext(RewardShopContext)
+  const user = useContext(UserContext)
+  const { receipts, dispatchSetAll } = useContext(RewardShopContext)
   const [openCreate, setOpenCreate] = useState(false)
 
   const toggleCreate = (e) => setOpenCreate(!openCreate)
@@ -21,30 +21,29 @@ export default function RewardShop({ auth, setAuth }) {
   useEffect(() => {
     if (auth) {
       (async () => {
-        const res = await fetch(`/api/rewards/programs/${pid}`)
-        const { program_data, rewards_data, receipts_data } = await res.json()
-        dispatchSetAll({ program: program_data, rewards: rewards_data, receipts: receipts_data })
+        const res = await fetch(`/api/rewards`)
+        const { points_data, rewards_data, receipts_data } = await res.json()
+        dispatchSetAll({ points: points_data, rewards: rewards_data, receipts: receipts_data })
         // const { rewards_data, receipts_data } = await fetch(`/api/rewards/programs/${pid}/users/${user.id}`).then(res => res.json())
       })()
     }
   }, [])
 
   if (!auth) return <PrivatePage />
-  if (!program.title) return null
 
   // Add/remove points
   return (<>
-    <NavCard auth={auth} setAuth={setAuth} program={program} />
+    <NavCard auth={auth} setAuth={setAuth} />
     <div className="hbd-title">
-    <h2 className="persistamp">Reward Shop
-    <div className={`rsp-point-con ${program.points < 0 && "is-in-debt"}`}>
+    <h2 className="persistamp">Main Reward Shop
+    <div className={`rsp-point-con ${user.points < 0 && "is-in-debt"}`}>
         <span className="rsp-point-label">My Points: </span>
-        <span className="rsp-points">{program.points}</span>
+        <span className="rsp-points">{user.points}</span>
       </div>
     </h2>
     </div>
-    <main className="" style={{ color: colors[program.cid].hex }}>
-      <RewardForm open={openCreate} handleClose={toggleCreate} cid={program.cid} iid={program.iid} />
+    <main className="" style={{ color: colors[user.cid].hex }}>
+      <RewardForm open={openCreate} handleClose={toggleCreate} cid={user.cid} iid={user.iid} />
       <div className="rew-con">
         <ReceiptRewardsHistory receipts={receipts} />
         <Rewards />

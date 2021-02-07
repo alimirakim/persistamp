@@ -14,7 +14,7 @@ export default function RewardForm({ open, handleClose, cid, iid }) {
 
   const uniqueInputs = () => (<div className="lo-row">
     <ChooseCost cost={cost} setCost={setCost} />
-    <ChooseQuantity quantity={quantity} setQuantity={setQuantity} />
+    <ChooseQuantity label="quantity" quantity={quantity} setQuantity={setQuantity} />
     <ChooseLimit limit={limit} setLimit={setLimit} />
   </div>)
   

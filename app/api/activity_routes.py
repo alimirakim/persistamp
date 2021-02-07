@@ -73,9 +73,7 @@ def delete_activity(aid):
     activity = Activity.query.get(aid)
     program = Program.query.get(activity.program_id)
     db.session.delete(activity)
-    print("\nnow what", program.aids_order)
-    program.aids_order.remove(aid)
-    print("\nnow what~!", program.aids_order)
+    program.activity_ids_order.remove(aid)
     db.session.commit()
     return "Activity is donezo~!"
 
@@ -94,12 +92,13 @@ def create_activity(pid):
             icon_id=form.data["iid"],
             creator_id=request.json['userId'],
             program_id=pid,
+            stamp_value=form.data['stampValue'],
         )
         db.session.add(activity)
         db.session.commit() 
         
         program = Program.query.get(pid)
-        program.aids_order.append(activity.id)
+        program.activity_ids_order.append(activity.id)
         db.session.commit() 
         
         return activity.to_dict_for_user(current_user)

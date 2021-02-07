@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from sqlalchemy.orm import joinedload
 from flask_login import current_user
-from app.models import db, Stamp, Membership
+from app.models import db, Activity, Stamp, Membership
 from app.schemas import stamp_schema
 
 stamp_routes = Blueprint("stamps", __name__, url_prefix="/stamps")
@@ -48,6 +48,7 @@ def stamp_day(pid, mid, aid, day):
     print("stamping...")
     membership = Membership.query.get(mid)
     # day = date
+    activity = Activity.query.get(aid)
     if request.method == "POST":
         stamp = Stamp.query.join(Membership.stamps).filter( \
             Stamp.activity_id == aid,  \
@@ -70,7 +71,7 @@ def stamp_day(pid, mid, aid, day):
             if stamp.status == 'pending' and current_user.id == stamper_id:
                 stamp.status = 'stamped'
         if stamp.status == 'stamped':
-            membership.points += 1
+            membership.points += activity.stamp_value
         db.session.commit()
         return stamp.to_dict()
     elif request.method == "DELETE":
@@ -80,7 +81,7 @@ def stamp_day(pid, mid, aid, day):
             Stamp.date == day).one()
         print(stamp)
         db.session.delete(stamp)
-        membership.points -= 1
+        membership.points -= activity.stamp_value
         db.session.commit()
 
         return stamp.to_dict()

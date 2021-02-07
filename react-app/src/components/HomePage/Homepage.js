@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 // OUR COMPONENTS
 import NavCard from '../nav/NavCard'
 import ProgramBoard from './ProgramBoard'
@@ -45,6 +46,11 @@ export default function Homepage({ auth, setAuth, setUser }) {
         <h1 className="persistamp">Persistamp</h1>
         <h2 className="persistamp-subtitle">A Motivational 'Good Activity' Positivity App</h2>
       </div>
+      
+      <Link to="/reward-shop">
+      <button onClick="">Reward Shop</button>
+      </Link>
+      
       <NavCard auth={auth} setAuth={setAuth} setUser={setUser} />
       <ProgramBoard />
 

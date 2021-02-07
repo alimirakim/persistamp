@@ -18,6 +18,7 @@ export function RewardShopContextProvider(props) {
   const dispatchRedeemReward = receipt => dispatch(redeemReward(receipt))
 
   const initState = {
+    points: "",
     program: {},
     rewards: {},
     receipts: {},

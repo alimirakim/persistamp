@@ -14,6 +14,7 @@ import Footer from "./components/nav/Footer";
 import AboutCard from './components/AboutCard'
 import ActivityDisplay from './components/DisplayPage/ActivityDisplay'
 import RewardShop from './components/RewardPage/RewardShop'
+import MainRewardShop from './components/RewardPage/MainRewardShop'
 import Homepage from './components/HomePage/Homepage'
 import LoadingPage from './components/LoadingPage'
 
@@ -74,9 +75,15 @@ export default function App() {
           </ProgramBoardContextProvider>
 
             <RewardShopContextProvider>
-              <Route path="/programs/:pid/memberships/:mid/rewards" exact={true} auth={auth}>
+            
+            <Route path="/reward-shop" exact={true} auth={auth}>
+                <MainRewardShop auth={auth} setAuth={setAuth} />
+              </Route>
+            
+              <Route path="/programs/:pid/memberships/:mid/reward-shop" exact={true} auth={auth}>
                 <RewardShop auth={auth} setAuth={setAuth} />
               </Route>
+              
             </RewardShopContextProvider>
 
           <Route path="/about" exact={true}>

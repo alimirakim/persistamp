@@ -9,7 +9,7 @@ class Activity(db.Model):
     description = db.Column(db.String(250))
     frequency = db.Column(db.Integer, nullable=False, default=1)
     interval = db.Column(db.Integer, default=7)
-    stamp_value = db.Column(db.Integer, default=1)
+    stamp_value = db.Column(db.Integer, default=1, nullable=False)
     private = db.Column(db.Boolean, nullable=False, default=False)
     color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)
     icon_id = db.Column(db.Integer, db.ForeignKey("icons.id"), nullable=False, default=3)
