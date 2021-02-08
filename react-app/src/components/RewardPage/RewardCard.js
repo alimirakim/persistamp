@@ -86,24 +86,19 @@ export default function RewardCard({ program, reward, receiptCount }) {
 
                 <div>
                   <dt>Created: </dt>
-                  <dd>{new Date(reward.created_at).toLocaleString('en-EN', { year: 'numeric', month: 'short', day: 'numeric' })}</dd>
-                </div>
-
-                <div><dt>Last Receipt: </dt>
-                  {reward.last_created_at &&
-                    <dd>{new Date(reward.last_created_at).toLocaleString('en-EN', { dateStyle: "short" })}
-                    </dd>
-                  }
-                  {!reward.last_created_at && <dd> never</dd>}
+                    <dd>{new Date(reward.created_at).toLocaleString('en-EN', { dateStyle: "short" })}</dd>
                 </div>
 
                 <div>
                   <dt>Used: </dt>
-                  <dd>{reward.receipts_count}x</dd>
+                  <dd>{reward.receipts_count} &nbsp;
+                  {!reward.last_created_at && <small>(Last N/A)</small>}
+                  {reward.last_created_at && <small>(Last {new Date(reward.last_created_at).toLocaleString('en-EN', { dateStyle: "short" })})</small>}
+                  </dd>
                 </div>
 
                 <div>
-                  <dt>Quantity: </dt>
+                  <dt><abbr title="Quantity">Qty</abbr>: </dt>
                   <dd>{reward.quantity > -1 ? reward.quantity : "--"}</dd>
                 </div>
 

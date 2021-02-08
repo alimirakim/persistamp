@@ -8,7 +8,7 @@ const DELETE_REWARD = 'DELETE REWARD'
 const GET_RECEIPT_REWARDS = 'GET RECEIPT REWARDS'
 const REDEEM_REWARD = 'REDEEM REWARD'
 const DELETE_RECEIPT = 'DELETE RECEIPT'
-const RESET_RECEIPT = 'RESET RECEIPT'
+const RESET_RECEIPTS = 'RESET RECEIPTS'
 
 // ACTION CREATORS
 export const setAll = (all) => ({ type: GET_ALL, all })
@@ -20,7 +20,7 @@ export const deleteReward = (reward) => ({ type: DELETE_REWARD, reward })
 export const setReceipt = (receipt) => ({ type: GET_RECEIPT_REWARDS, receipt })
 export const redeemReward = (receipt) => ({ type: REDEEM_REWARD, receipt })
 export const deleteReceipt = (receipt) => ({ type: DELETE_REWARD, receipt })
-export const resetReceipt = () => ({ type: RESET_RECEIPT })
+export const resetReceipt = () => ({ type: RESET_RECEIPTS })
 
 
 export default function rewardShopReducer(state, action) {
@@ -41,7 +41,6 @@ export default function rewardShopReducer(state, action) {
     case DELETE_REWARD:
       delete newState.rewards[action.reward.id]
       return newState
-
     case GET_RECEIPT_REWARDS:
       newState.receipts = action.receipts
       return newState
@@ -51,7 +50,6 @@ export default function rewardShopReducer(state, action) {
       newState.rewards[action.receipt.rew_id].quantity -= 1
       newState.rewards[action.receipt.rew_id].receipts_count += 1
       newState.rewards[action.receipt.rew_id].last_created_at = action.receipt.created_at
-      
       return newState
     case DELETE_RECEIPT:
       delete newState.receipts[action.receipt.id]

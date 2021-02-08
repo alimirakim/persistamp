@@ -42,15 +42,15 @@ export default function Homepage({ auth, setAuth, setUser }) {
 
   return (<main>
     <div className="hbd">
-      <div className="hbd-title">
-        <h1 className="persistamp">Persistamp</h1>
-        <h2 className="persistamp-subtitle">A Motivational 'Good Activity' Positivity App</h2>
-      </div>
-      
+      <h1 className="persistamp hbd-title">Persistamp</h1>
+
+      <button className="th-big-btn">Add Program</button>
+
       <Link to="/reward-shop">
-      <button onClick="">Reward Shop</button>
+        <button className="ico-btn"><i className="fas fa-10x fa-store" />
+        My Reward Shop</button>
       </Link>
-      
+
       <NavCard auth={auth} setAuth={setAuth} setUser={setUser} />
       <ProgramBoard />
 

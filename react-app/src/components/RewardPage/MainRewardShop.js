@@ -21,9 +21,9 @@ export default function RewardShop({ auth, setAuth }) {
   useEffect(() => {
     if (auth) {
       (async () => {
-        const res = await fetch(`/api/rewards`)
+        const res = await fetch(`/api/rewards/user`)
         const { points_data, rewards_data, receipts_data } = await res.json()
-        dispatchSetAll({ points: points_data, rewards: rewards_data, receipts: receipts_data })
+        dispatchSetAll({ program: {}, points: points_data, rewards: rewards_data, receipts: receipts_data })
         // const { rewards_data, receipts_data } = await fetch(`/api/rewards/programs/${pid}/users/${user.id}`).then(res => res.json())
       })()
     }
@@ -35,12 +35,12 @@ export default function RewardShop({ auth, setAuth }) {
   return (<>
     <NavCard auth={auth} setAuth={setAuth} />
     <div className="hbd-title">
-    <h2 className="persistamp">Main Reward Shop
+    {/* <h2 className="persistamp">My Reward Shop */}
     <div className={`rsp-point-con ${user.points < 0 && "is-in-debt"}`}>
         <span className="rsp-point-label">My Points: </span>
         <span className="rsp-points">{user.points}</span>
       </div>
-    </h2>
+    {/* </h2> */}
     </div>
     <main className="" style={{ color: colors[user.cid].hex }}>
       <RewardForm open={openCreate} handleClose={toggleCreate} cid={user.cid} iid={user.iid} />

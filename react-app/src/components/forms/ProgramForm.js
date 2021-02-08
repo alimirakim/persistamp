@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
 import UserContext from '../../context/UserContext'
 import FormWrapper from './FormWrapper'
@@ -7,9 +7,22 @@ import FormWrapper from './FormWrapper'
 export default function ProgramForm({ open, handleClose }) {
   const { dispatchCreateProgram } = useContext(ProgramBoardContext)
   const user = useContext(UserContext)
+  const [hasShop, setHasShop] = useState(false)
+
+  const updateHasShop = (e) => setHasShop(!hasShop)
+
+  const uniqueInputs = () => (
+    <label>Add program shop
+      <input type="checkbox" checked={hasShop} onClick={updateHasShop} />
+    </label>
+  )
+
+  const resetUniqueInputs = (e) => {
+    setHasShop(false)
+  }
 
   if (!open) return null
-  
+
   return (
     <FormWrapper
       type="program"
@@ -17,6 +30,9 @@ export default function ProgramForm({ open, handleClose }) {
       open={open}
       handleClose={handleClose}
       dispatcher={dispatchCreateProgram}
+      uniqueContent={{ hasShop }}
+      uniqueInputs={uniqueInputs}
+      resetUniqueInputs={resetUniqueInputs}
       defaultColorId={user.cid}
       defaultIconId={user.iid}
     />

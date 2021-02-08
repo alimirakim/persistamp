@@ -17,6 +17,8 @@ export default function ActivityRow({ activity, program }) {
 
   const toggleEdit = (e) => setOpenEdit(!openEdit)
   const toggleDelete = (e) => setOpenDelete(!openDelete)
+  
+  if (!activity) return null
 
   return (<>
 
