@@ -4,7 +4,6 @@ from flask_login import current_user, login_user, logout_user, login_required
 from http import cookies
 from app.models import db, User, Program, Activity, Membership
 from app.forms import LoginForm, SignUpForm
-from app.schemas import user_schema, membership_schema
 from app.utils import dump_data_list, queryUserFullData, validation_errors_to_error_messages
 from pprint import pprint
 
@@ -88,7 +87,7 @@ def sign_up():
         login_user(user)
 
         # Set cookie
-        # res = make_response(jsonify(user_schema.dump(user)))
+        # res = make_response(jsonify({key: "value"}))
         # res.set_cookie("uid_cookie", str(user.id))
 
         return user.to_dict()

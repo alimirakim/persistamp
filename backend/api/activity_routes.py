@@ -1,7 +1,6 @@
 from flask import Blueprint, redirect, jsonify, request
 from sqlalchemy.orm import joinedload
 from app.models import db, User, Program, Activity, Membership
-from app.schemas import user_schema, program_schema, activity_schema, membership_schema, stamp_schema, color_schema, stamp_schema
 from app.utils import dump_data_list, validation_errors_to_error_messages
 from app.forms import ActivityForm
 from flask_login import current_user
@@ -25,10 +24,6 @@ def activity_details(aid, mid):
     """Get a activity's details for a user, including recent history."""
     activity = Activity.query.get(aid)
     member = Membership.query.get(mid).member
-    # program = program_schema.dump(Program.query.get(activity.to_dict()["pid"]))
-    # activityWProgram = activity.to_dict()
-    # activityWProgram["program"] = program
-    # return activityWProgram
     if activity:
         return activity.to_dict_for_user_details(member)
     return {'errors': ['User not found'] }, 404

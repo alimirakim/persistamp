@@ -1,7 +1,7 @@
 from flask import Blueprint, redirect, jsonify, request
 from sqlalchemy.orm import joinedload
 from app.models import db, Membership, Program, User, Activity, Color
-from app.schemas import membership_schema, program_schema, user_schema, activity_schema, stamp_schema, color_schema
+from app.schemas import membership_schema
 from app.utils import dump_data_list
 
 membership_routes = Blueprint("memberships", __name__, url_prefix="/memberships")
@@ -47,27 +47,3 @@ def membership_activity(mid, aid):
     """Get the full details and history of a activity for a member."""
     activity = Activity.query.get(aid)
     return activity.to_dict()
-
-
-# @membership_routes.route("/<int:mid>/stamper")
-# def membership_stamper(mid):
-#     """Get the stamper for a member in a program."""
-#     # stamper = User.query.filter().one()
-#     return stamper.
-
-
-# @membership_routes.route("/<int:mid>/stamper/<int:uid>", methods=["PATCH"])
-# def change_stamper(mid, uid):
-#     """Change a member's stamper."""
-#     membership = Membership.query.filter(Membership.id == mid).one()
-#     membership.stamper_id = uid
-#     db.session.commit()
-#     return jsonify(membership_schema.dump(membership))
-
-
-# @membership_routes.route("/<int:mid>/stamper")
-# def remove_stamper():
-#     """Unassign a stamper from a member."""
-#     membership = Membership.query.filter(Membership.id == mid).one()
-#     membership.stamper_id = membership.member_id
-#     return jsonify(membership_schema.dump(membership))

@@ -1,6 +1,5 @@
 from flask import Blueprint, jsonify, request
 from app.models import db, User, Stamp, Program, Membership, Activity, Reward, Color, Stamp
-from app.schemas import user_schema, program_schema, activity_schema, membership_schema, icon_schema, color_schema, stamp_schema
 from sqlalchemy.orm import joinedload
 from flask_login import current_user, login_user, logout_user, login_required
 from datetime import date, timedelta

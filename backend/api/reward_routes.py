@@ -2,7 +2,6 @@ from flask import Blueprint, render_template, redirect, jsonify, request
 from sqlalchemy.orm import joinedload
 from flask_login import current_user
 from app.models import db, Reward, Receipt, Membership, Program
-from app.schemas import reward_schema, receipt_schema, color_schema, icon_schema, user_schema, program_schema, membership_schema
 from app.utils import dump_data_list, validation_errors_to_error_messages
 from app.forms import RewardForm
 from pprint import pprint

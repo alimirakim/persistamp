@@ -9,13 +9,14 @@ class Program(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(25), nullable=False)
     description = db.Column(db.String(250))
+    is_private = db.Column(db.Boolean, nullable=False, default=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    
+    creator_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     icon_id = db.Column(db.Integer, db.ForeignKey("icons.id"), nullable=False, default=2)
     color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)
-    creator_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    private = db.Column(db.Boolean, nullable=False, default=False)
     activity_ids_order = db.Column(MutableList.as_mutable(ARRAY(db.Integer)), nullable=False, default=[])
     reward_ids_order = db.Column(ARRAY(db.Integer), nullable=False, default=[])
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
 
     icon = db.relationship("Icon", backref="programs")
     color = db.relationship("Color", backref="programs")
@@ -35,7 +36,7 @@ class Program(db.Model):
             "created_at": self.created_at,
             "mids": [m.id for m in self.memberships],
             "aids": [h.id for h in self.activities],
-            "private": self.private,
+            "is_private": self.is_private,
             "aids_order": self.activity_ids_order,
             "rew_ids_order": self.reward_ids_order,
         }

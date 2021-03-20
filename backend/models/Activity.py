@@ -1,27 +1,31 @@
 from .db import db
+# from .Mixin import Mixin
 from datetime import datetime, date, timedelta
 from pprint import pprint
 
+
+# class Activity(Mixin, db.Model):
 class Activity(db.Model):
     __tablename__ = "activities"
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(25), nullable=False)
-    description = db.Column(db.String(250))
-    frequency = db.Column(db.Integer, nullable=False, default=1)
-    interval = db.Column(db.Integer, default=7)
     stamp_value = db.Column(db.Integer, default=1, nullable=False)
-    private = db.Column(db.Boolean, nullable=False, default=False)
-    color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)
-    icon_id = db.Column(db.Integer, db.ForeignKey("icons.id"), nullable=False, default=3)
+    frequency = db.Column(db.Integer, default=1)
+    interval = db.Column(db.Integer, default=7) # can apply if frequency applies
+    quota = db.Column(db.Integer)
+    expiry = db.Column(db.DateTime)
+    bonus = db.Column(db.Integer) # can apply if quota applies
+    
     program_id = db.Column(db.Integer, db.ForeignKey("programs.id"))
-    creator_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), nullable=False)
+    icon_id = db.Column(db.Integer, db.ForeignKey("icons.id"), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now(), nullable=False)
+    is_private = db.Column(db.Boolean, default=False, nullable=False)
+    
     # TODO activity+program should be unique
-
-    icon = db.relationship("Icon", backref="activities")
-    color = db.relationship("Color", backref="activities")
+    db.UniqueConstraint('program_id', 'id', name="program_activity")
+    color = db.relationship("Color", backref="programs")
+    icon = db.relationship("Icon", backref="programs")
     program = db.relationship("Program", back_populates="activities")
-    creator = db.relationship("User", back_populates="created_activities")
     stamps = db.relationship("Stamp",
         back_populates="activity",
         order_by="Stamp.date",
@@ -33,14 +37,17 @@ class Activity(db.Model):
             "id": self.id,
             "title": self.title,
             "description": self.description,
+            "stamp_value": self.stamp_value,
             "frequency": self.frequency,
             "interval": self.interval,
-            "stamp_value": self.stamp_value,
+            "quota": self.quota,
+            "expiry": self.expiry,
+            "bonus": self.bonus, 
             "cid": self.color_id,
             "iid": self.icon_id,
             "pid": self.program_id,
             "created_at": self.created_at,
-            "private": self.private,
+            "is_private": self.is_private,
             "program_title": self.program.title,
         }
 
