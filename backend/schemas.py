@@ -1,6 +1,6 @@
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from marshmallow_sqlalchemy.fields import Nested
-from app.models import User, Program, Activity, Stamp, Membership, Reward, Receipt, Bond, Icon, Color
+from backend.models import User, Program, Activity, Stamp, Membership, Reward, Receipt, Bond, Icon, Color
 
 
 # class SmartNested(Nested):

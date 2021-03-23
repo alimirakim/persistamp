@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, DateField, SubmitField
 from wtforms.validators import DataRequired, Email, ValidationError
 from wtforms.widgets.html5 import (DateInput)
-from app.models import User
+from backend.models import User
 from .validators import title_char_count
 
 

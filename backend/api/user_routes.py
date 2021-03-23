@@ -1,12 +1,12 @@
 from flask import Blueprint, jsonify, request
-from app.models import db, User, Stamp, Program, Membership, Activity, Reward, Color, Stamp
 from sqlalchemy.orm import joinedload
 from flask_login import current_user, login_user, logout_user, login_required
 from datetime import date, timedelta
 import calendar
 from pprint import pprint
-from app.forms import UserForm
-from app.utils import queryUserFullData, validation_errors_to_error_messages, dump_data_list, get_past_week
+from backend.models import db, User, Stamp, Program, Membership, Activity, Reward, Color, Stamp
+from backend.forms import UserForm
+from backend.utils import queryUserFullData, validation_errors_to_error_messages, dump_data_list, get_past_week
 from pprint import pprint
 
 user_routes = Blueprint('users', __name__, url_prefix="/users")

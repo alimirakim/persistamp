@@ -1,5 +1,5 @@
-from app.models import User, Program, Activity, Color, Icon, Stamp, Membership, Reward
-from app import app, db
+from backend.models import User, Program, Activity, Color, Icon, Stamp, Membership, Reward
+from . import app, db
 from calendar import monthrange
 from random import *
 from datetime import date, timedelta, datetime
@@ -734,6 +734,7 @@ with app.app_context():
     # Programs
     program_one = Program(title="Work",
                           description="bring home the bacon",
+                          has_shop=True,
                           color=colors[0],
                           creator_id=9,
                           icon_id=28,
@@ -741,6 +742,7 @@ with app.app_context():
                           )
     program_two = Program(title="Social",
                           description="family and friends",
+                          has_shop=True,
                           color=colors[22],
                           creator_id=9,
                           icon_id=8,
@@ -748,6 +750,7 @@ with app.app_context():
                           )
     program_three = Program(title="Chores and errands",
                             description="just do it",
+                            has_shop=True,
                             color=colors[11],
                             creator_id=9,
                             icon_id=6,
@@ -755,16 +758,19 @@ with app.app_context():
                             )
     program_mom = Program(title="Sophia and Mom",
                           description="",
+                          has_shop=True,
                           color=colors[11],
                           creator_id=1,
                           )
     program_me = Program(title="Promises to Me",
                          description="",
+                         has_shop=True,
                          color=colors[12],
                          creator_id=2,
                          )
     program_ashe = Program(title="Mario Kart Championships",
                            description="",
+                           has_shop=True,
                            color=colors[13],
                            creator_id=2,
                            )

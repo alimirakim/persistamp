@@ -22,7 +22,7 @@ export default function NavCard({
   const path = history.location.pathname.split("/")
   // console.log("activities", activities)
 
-  if (!user) return (
+  if (!user.id) return (
     <header
       className="th-border-thin th-border-gr th-border-metal idc th-dark-gr"
     >

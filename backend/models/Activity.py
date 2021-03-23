@@ -8,6 +8,8 @@ from pprint import pprint
 class Activity(db.Model):
     __tablename__ = "activities"
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(25), nullable=False)
+    description = db.Column(db.String(250))
     stamp_value = db.Column(db.Integer, default=1, nullable=False)
     frequency = db.Column(db.Integer, default=1)
     interval = db.Column(db.Integer, default=7) # can apply if frequency applies
@@ -15,6 +17,7 @@ class Activity(db.Model):
     expiry = db.Column(db.DateTime)
     bonus = db.Column(db.Integer) # can apply if quota applies
     
+    creator_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     program_id = db.Column(db.Integer, db.ForeignKey("programs.id"))
     color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), nullable=False)
     icon_id = db.Column(db.Integer, db.ForeignKey("icons.id"), nullable=False)
@@ -23,8 +26,9 @@ class Activity(db.Model):
     
     # TODO activity+program should be unique
     db.UniqueConstraint('program_id', 'id', name="program_activity")
-    color = db.relationship("Color", backref="programs")
-    icon = db.relationship("Icon", backref="programs")
+    creator = db.relationship("User", back_populates="created_activities")
+    color = db.relationship("Color", backref="activities")
+    icon = db.relationship("Icon", backref="activities")
     program = db.relationship("Program", back_populates="activities")
     stamps = db.relationship("Stamp",
         back_populates="activity",

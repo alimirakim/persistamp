@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
 from sqlalchemy.orm import joinedload
 from flask_login import current_user
-from app.models import db, Activity, Stamp, Membership
-from app.schemas import stamp_schema
+from backend.models import db, Activity, Stamp, Membership
+from backend.schemas import stamp_schema
 
 stamp_routes = Blueprint("stamps", __name__, url_prefix="/stamps")
 

@@ -1,8 +1,8 @@
 from flask import Blueprint, redirect, jsonify, request
 from sqlalchemy.orm import joinedload
-from app.models import db, Membership, Program, User, Activity, Color
-from app.schemas import membership_schema
-from app.utils import dump_data_list
+from backend.models import db, Membership, Program, User, Activity, Color
+from backend.schemas import membership_schema
+from backend.utils import dump_data_list
 
 membership_routes = Blueprint("memberships", __name__, url_prefix="/memberships")
 

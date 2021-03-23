@@ -23,7 +23,7 @@ export default function Homepage({ auth, setAuth, setUser }) {
 
 
   useEffect(() => {
-    if (!user.errors) {
+    if (user.id) {
       (async () => {
         const res = await fetch(`/api/users/${user.id}`, { headers: { 'Content-Type': 'application/json' } })
         const content = await res.json();

@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, redirect, jsonify, request
 from sqlalchemy.orm import joinedload
 from flask_login import current_user
-from app.models import db, Reward, Receipt, Membership, Program
-from app.utils import dump_data_list, validation_errors_to_error_messages
-from app.forms import RewardForm
+from backend.models import db, Reward, Receipt, Membership, Program
+from backend.utils import dump_data_list, validation_errors_to_error_messages
+from backend.forms import RewardForm
 from pprint import pprint
 
 reward_routes = Blueprint("rewards", __name__, url_prefix="/rewards")

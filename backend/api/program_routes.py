@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, redirect, jsonify, request
 from sqlalchemy.orm import joinedload
 from flask_login import current_user
-from app.models import db, Program, User, Membership
-from app.schemas import program_schema, user_schema, color_schema, icon_schema
-from app.forms import ProgramForm
-from app.utils import queryUserFullData, validation_errors_to_error_messages
+from backend.models import db, Program, User, Membership
+from backend.schemas import program_schema, user_schema, color_schema, icon_schema
+from backend.forms import ProgramForm
+from backend.utils import queryUserFullData, validation_errors_to_error_messages
 from pprint import pprint
 
 program_routes = Blueprint("programs", __name__, url_prefix="/programs")
@@ -30,7 +30,7 @@ def create_program():
             title=form.data["title"],
             description=form.data['description'],
             color_id=form.data['cid'],
-            icon_id=form.data["iid"],
+            icon_id=form.data['iid'],
             creator_id=request.json['userId'],
         )
         db.session.add(program)

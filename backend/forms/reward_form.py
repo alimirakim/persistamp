@@ -1,7 +1,7 @@
 from wtforms import StringField, IntegerField, SelectField, validators
 from wtforms.validators import DataRequired
 from flask_wtf import FlaskForm
-from app.utils import colors, icons
+from backend.utils import colors, icons
 from .validators import title_char_count, desc_char_count
 
 

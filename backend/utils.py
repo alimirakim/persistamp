@@ -1,6 +1,6 @@
 from flask import jsonify
 from sqlalchemy.orm import joinedload
-from app.models import User, Reward, Receipt, Membership, Program
+from backend.models import User, Reward, Receipt, Membership, Program
 from datetime import date, timedelta
 from pprint import pprint
 

@@ -1,9 +1,9 @@
 
 from flask import Blueprint, jsonify, request
 from sqlalchemy.orm import joinedload
-from app.models import db, Activity, Stamp
-from app.schemas import activity_schema, stamp_schema
-from app.utils import validation_errors_to_error_messages
+from backend.models import db, Activity, Stamp
+from backend.schemas import activity_schema, stamp_schema
+from backend.utils import validation_errors_to_error_messages
 from flask_login import current_user
 from datetime import date, timedelta, datetime
 import calendar

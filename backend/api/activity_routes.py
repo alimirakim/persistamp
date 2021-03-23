@@ -1,8 +1,8 @@
 from flask import Blueprint, redirect, jsonify, request
 from sqlalchemy.orm import joinedload
-from app.models import db, User, Program, Activity, Membership
-from app.utils import dump_data_list, validation_errors_to_error_messages
-from app.forms import ActivityForm
+from backend.models import db, User, Program, Activity, Membership
+from backend.utils import dump_data_list, validation_errors_to_error_messages
+from backend.forms import ActivityForm
 from flask_login import current_user
 
 

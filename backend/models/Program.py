@@ -9,6 +9,7 @@ class Program(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(25), nullable=False)
     description = db.Column(db.String(250))
+    has_shop = db.Column(db.Boolean, nullable=False, default=True)
     is_private = db.Column(db.Boolean, nullable=False, default=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
     
@@ -36,6 +37,7 @@ class Program(db.Model):
             "created_at": self.created_at,
             "mids": [m.id for m in self.memberships],
             "aids": [h.id for h in self.activities],
+            "has_shop": self.has_shop,
             "is_private": self.is_private,
             "aids_order": self.activity_ids_order,
             "rew_ids_order": self.reward_ids_order,
