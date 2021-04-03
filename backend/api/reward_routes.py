@@ -8,16 +8,21 @@ from pprint import pprint
 
 reward_routes = Blueprint("rewards", __name__, url_prefix="/rewards")
 
+# @reward_routes.route("/user")
+# def get_user_rewards():
+#     """Get the user's rewards for their main shop."""
+#     rewards = Reward.query.filter(Receipt.user_id == current_user.id,
 
-@reward_routes.route("/")
+@reward_routes.route("/user")
 def rewards_and_receipts():
-    """Get a list of a user's custom rewards."""
-    print("\n\nCURRENT USER", current_user.id)
-    rewards = Reward.query.filter(Receipt.user_id == current_user.id, type(Reward.program_id) != 'int').all()
+    """Get a list of a user's rewards."""
+    rewards = Reward.query.filter(Reward.creator_id == current_user.id, Reward.program_id == None).all()
     receipts = Receipt.query \
-        .filter(Receipt.user_id == current_user.id, type(Receipt.program_id != 'int')) \
+        .filter(Receipt.user_id == current_user.id, type(Receipt.program_id) != 'int') \
         .order_by(Receipt.created_at).all()
-
+    for x in rewards:
+        print(x.creator_id, type(x.program_id), type(x.program_id) != 'int')
+        print(isinstance(x.program_id, int))
     return jsonify(
         points_data=current_user.points, 
         rewards_data={r.id:r.to_dict() for r in rewards},
@@ -26,7 +31,7 @@ def rewards_and_receipts():
 
 @reward_routes.route("/programs/<int:pid>")
 def program_and_rewards_and_receipts(pid):
-    """Get a list of a program's custom rewards."""
+    """Get a list of a program's rewards."""
     program = Program.query.get(pid)
     rewards = Reward.query.filter(Reward.program_id == pid).all()
     receipts = Receipt.query.join(Receipt.reward) \
@@ -101,6 +106,36 @@ def delete_reward(rid):
     return "The reward has been smited D:"
 
 
+@reward_routes.route("/<int:rid>/redeem")
+def redeem_main_shop_reward(rid):
+    """Redeem a reward from a user's personal main shop."""
+    reward = Reward.query.filter(Reward.id == rid).one()
+    
+    if current_user.points < reward.cost:
+        return {'errors': ["You need more points please TT_TT"]}, 400
+    
+    if reward.quantity == 0:
+        return {'errors': ["There aren't any left, sorry T_T"]}, 400
+    
+    if reward.quantity > 0:
+        reward.quantity -= 1
+        
+    current_user.points -= reward.cost
+    
+    receipt = Receipt(user_id=current_user.id,
+                      reward_id=reward.id,
+                      title=reward.title,
+                      description=reward.description,
+                      color_id=reward.color_id,
+                      icon_id=reward.icon_id,
+                      value=reward.cost,
+    )
+    db.session.add(receipt)
+    db.session.commit()
+    
+    return jsonify(receipt_data=receipt.to_dict())
+    
+    
 @reward_routes.route("/<int:rid>/memberships/<int:mid>/redeem")
 def redeem_reward(rid, mid):
     """Redeem a reward for a member."""
@@ -112,12 +147,12 @@ def redeem_reward(rid, mid):
         if receipts_count >= reward.limit_per_member:
             return {'errors': [f"You have too many, sorry T_T . Only {str(reward.limit_per_member)} per customer!"]}, 400
 
-    if reward.quantity == 0:
-        return {'errors': ["There aren't any left, sorry T_T"]}, 400
-    
     if membership.points < reward.cost:
         return {'errors': ["You need more points please TT_TT"]}, 400
 
+    if reward.quantity == 0:
+        return {'errors': ["There aren't any left, sorry T_T"]}, 400
+    
     if reward.quantity > 0:
         reward.quantity -= 1
 

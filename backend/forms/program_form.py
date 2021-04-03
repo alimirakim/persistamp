@@ -1,4 +1,4 @@
-from wtforms import StringField, SelectField, SubmitField
+from wtforms import StringField, SelectField, BooleanField, SubmitField
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired
 from backend.utils import colors, icons
@@ -15,4 +15,5 @@ class ProgramForm(FlaskForm):
     iid = SelectField(validators=[DataRequired()], 
                         choices=range(1, len(icons)+1), 
                         default=2)
+    has_shop = BooleanField()
     submit = SubmitField()

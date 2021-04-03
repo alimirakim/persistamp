@@ -70,8 +70,10 @@ def stamp_day(pid, mid, aid, day):
         else:
             if stamp.status == 'pending' and current_user.id == stamper_id:
                 stamp.status = 'stamped'
-        if stamp.status == 'stamped':
+        if stamp.status == 'stamped' and membership.program.has_shop:
             membership.points += activity.stamp_value
+        else:
+            current_user.points += activity.stamp_value
         db.session.commit()
         return stamp.to_dict()
     elif request.method == "DELETE":
@@ -81,7 +83,10 @@ def stamp_day(pid, mid, aid, day):
             Stamp.date == day).one()
         print(stamp)
         db.session.delete(stamp)
-        membership.points -= activity.stamp_value
+        if membership.program.has_shop:
+            membership.points -= activity.stamp_value
+        else:
+            current_user.points -= activity.stamp_value
         db.session.commit()
 
         return stamp.to_dict()

@@ -27,7 +27,7 @@ export const RESET_STAMPS = 'RESET STAMPS'
 
 // ACTION CREATORS
 export const setAll = (all) => ({ type: GET_ALL, all })
-export const setWeek = (week) => ({type: GET_WEEK, week})
+export const setWeek = (week) => ({ type: GET_WEEK, week })
 
 export const setPrograms = (programs) => ({ type: GET_USER_PROGRAMS, programs })
 export const createProgram = (program) => ({ type: CREATE_PROGRAM, program })
@@ -50,14 +50,13 @@ export const resetStamps = () => ({ type: RESET_STAMPS })
 
 
 export default function programBoardReducer(state = {
-  programs: {}, activities: {}, stamps: {},
+  programs: {}, activities: {}, stamps: {}, points: "",
 }, action) {
   const newState = { ...state }
 
   switch (action.type) {
     case GET_ALL:
       return { ...newState, ...action.all }
-
 
     case GET_USER_PROGRAMS:
       newState.programs = action.programs
@@ -73,12 +72,12 @@ export default function programBoardReducer(state = {
       newState.programs[action.program.id] = action.program
       return newState
 
-    // ACTIVITIES      
+    // ACTIVITIES
     case GET_USER_ACTIVITIES:
       return newState.actions = action.activities
     case ADD_ACTIVITY:
-        newState.activities[action.activity.id] = action.activity
-        return newState
+      newState.activities[action.activity.id] = action.activity
+      return newState
     case CREATE_ACTIVITY:
       newState.activities[action.activity.id] = action.activity
       // Add the activity id to its program aid list
@@ -94,14 +93,17 @@ export default function programBoardReducer(state = {
       newState.activities[action.activity.id] = action.activity
       return newState
 
-    // TODO QUESTION Why does this double the points?!?!?!???
     // STAMPS
     case STAMP_DAY:
-      // Add stamp id to activity id
+      // Adds stamp id to activity
       newState.activities[action.stamp.aid].sids = [...newState.activities[action.stamp.aid].sids, action.stamp.id]
-      // Find program that includes membership id of the stamp
+      // Finds program that includes membership id of the stamp
       const stampedProgram = Object.values(state.programs).find(p => p.mids.includes(action.stamp.mid))
-      newState.programs[stampedProgram.id].points += state.activities[action.stamp.aid].stamp_value
+      if (stampedProgram.has_shop) {
+        newState.programs[stampedProgram.id].points += state.activities[action.stamp.aid].stamp_value
+      } else {
+        newState.points += state.activities[action.stamp.aid].stamp_value
+      }
       newState.stamps[action.stamp.id] = action.stamp
       return newState
 
@@ -110,7 +112,11 @@ export default function programBoardReducer(state = {
       newState.activities[action.stamp.aid].sids = newState.activities[action.stamp.aid].sids.filter(sid => sid !== action.stamp.id)
       // Find program that includes membership id of the stamp
       const unstampedProgram = Object.values(state.programs).find(program => program.mids.includes(action.stamp.mid))
-      newState.programs[unstampedProgram.id].points -= state.activities[action.stamp.aid].stamp_value
+      if (unstampedProgram.has_shop) {
+        newState.programs[unstampedProgram.id].points -= state.activities[action.stamp.aid].stamp_value
+      } else {
+        newState.points -= state.activities[action.stamp.aid].stamp_value
+      }
       delete newState.stamps[action.stamp.id]
       return newState
 

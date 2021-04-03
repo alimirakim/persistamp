@@ -74,4 +74,6 @@ class User(db.Model, UserMixin):
             "rec_ids": [r.id for r in self.receipts],
             "private": self.private,
             "pids_order": self.program_ids_order,
+            "rids_order": self.reward_ids_order,
+            "points": self.points,
         }

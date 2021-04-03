@@ -17,7 +17,9 @@ export default function ProgramBoard() {
     <main>
 
       {con === "pbc-con-none" &&
-        <article className="msg-none lo-center th-txt-shadow">You have no programs yet. Click the 'Add' stamp icon in the top-left to start a new one.</article>
+        <article className="msg-none lo-center th-txt-shadow">
+          You have no programs yet. Click the 'Add' stamp icon in the top-left to start a new one.
+        </article>
       }
 
       <ul className={`${con} program-cards`}>

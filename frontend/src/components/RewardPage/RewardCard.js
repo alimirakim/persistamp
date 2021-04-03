@@ -6,16 +6,18 @@ import RewardDeleteForm from '../forms/RewardDeleteForm'
 import RedeemForm from '../forms/RedeemForm'
 import { EditButton } from '../forms/FormInputs'
 import Divider from '../HomePage/Divider'
+import RewardShopContext from '../../context/RewardShopContext'
 
 
 export default function RewardCard({ program, reward, receiptCount }) {
   const { mid } = useParams()
   const { colors, icons } = useContext(OptionsContext)
+  const {points } = useContext(RewardShopContext)
   const isBlack = reward.cid === 3 ? "rsc-black" : ""
   const [openEdit, setOpenEdit] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
   const [openRedeem, setOpenRedeem] = useState(false)
-  let insufficientPoints = program.points < reward.cost
+  let insufficientPoints = points < reward.cost
   let remainingLimit = reward.limit_per_member - receiptCount
   let disabled = insufficientPoints || remainingLimit === 0 || reward.quantity === 0
   const disabledStyle = disabled ? { color: "red" } : {}
@@ -40,9 +42,9 @@ export default function RewardCard({ program, reward, receiptCount }) {
       <div className={`rsc th-card-shadow ${isBlack}`} style={{ background: `linear-gradient(-45deg, rgb(20,10,0) -100%, ${colors[reward.cid].hex}, rgb(255,255,255) 200%` }}>
         <div className="th-stripe-overlay"></div>
         <div className={`th-inner-border ${isBlack}`}>
-          <i 
-          className={`rsc-bg-icon fas fa-5x rev fa-${icons[reward.iid].title}`} 
-          style={{color: reward.cid !== 3 ? colors[reward.cid].hex : 'rgba(50,50,50,1)'}}
+          <i
+            className={`rsc-bg-icon fas fa-5x rev fa-${icons[reward.iid].title}`}
+            style={{ color: reward.cid !== 3 ? colors[reward.cid].hex : 'rgba(50,50,50,1)' }}
           >
           </i>
 
@@ -53,14 +55,14 @@ export default function RewardCard({ program, reward, receiptCount }) {
             <i className={`fas fa-${icons[reward.iid].title}`}></i>
             &nbsp;&nbsp;{reward.title}
           </h3>
-<br/>
+          <br />
 
           {reward.description && <>
-          <Divider icon={icons[reward.iid].title} line="long" />
+            <Divider icon={icons[reward.iid].title} line="long" />
             <blockquote className="rsc-desc th-quote">{reward.description}</blockquote>
           </>}
-          {!reward.description && 
-          <Divider icon={icons[reward.iid].title} />
+          {!reward.description &&
+            <Divider icon={icons[reward.iid].title} />
           }
 
           <dl className="th-dl-oneline" style={{ textAlign: "center" }}>
@@ -86,14 +88,14 @@ export default function RewardCard({ program, reward, receiptCount }) {
 
                 <div>
                   <dt>Created: </dt>
-                    <dd>{new Date(reward.created_at).toLocaleString('en-EN', { dateStyle: "short" })}</dd>
+                  <dd>{new Date(reward.created_at).toLocaleString('en-EN', { dateStyle: "short" })}</dd>
                 </div>
 
                 <div>
                   <dt>Used: </dt>
                   <dd>{reward.receipts_count} &nbsp;
                   {!reward.last_created_at && <small>(Last N/A)</small>}
-                  {reward.last_created_at && <small>(Last {new Date(reward.last_created_at).toLocaleString('en-EN', { dateStyle: "short" })})</small>}
+                    {reward.last_created_at && <small>(Last {new Date(reward.last_created_at).toLocaleString('en-EN', { dateStyle: "short" })})</small>}
                   </dd>
                 </div>
 
@@ -105,7 +107,6 @@ export default function RewardCard({ program, reward, receiptCount }) {
               </dl>
             </small>
           </section>
-
 
         </div>
       </div>

@@ -32,6 +32,7 @@ def create_program():
             color_id=form.data['cid'],
             icon_id=form.data['iid'],
             creator_id=request.json['userId'],
+            has_shop=form.data['has_shop'],
         )
         db.session.add(program)
         db.session.commit()
@@ -55,7 +56,7 @@ def edit_program(pid):
     """Edit a program's details."""
     form = ProgramForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print("\n\nEDIT PROGRAM ROUTE", form.data)
+    print("\n\nEDIT PROGRAM ROUTE", pid, form.data)
     
     if form.validate():
         program = Program.query.options(joinedload(Program.color), joinedload(Program.icon), joinedload(Program.creator)).get(pid)

@@ -10,13 +10,14 @@ import OptionsContext from '../../context/OptionsContext'
 
 export default function RedeemForm({ open, handleClose, reward }) {
   const {mid} = useParams()
+  const path = mid ? `/api/rewards/${reward.id}/memberships/${mid}/redeem` : `/api/rewards/${reward.id}/redeem`
   const { colors, icons } = useContext(OptionsContext)
   const { dispatchRedeemReward } = useContext(RewardShopContext)
 
   const onRedeem = async () => {
-    const res = await fetch(`/api/rewards/${reward.id}/memberships/${mid}/redeem`)
+    const res = await fetch(path)
     const { receipt_data } = await res.json()
-    console.log("receipt", receipt_data)
+    console.log("receipt data", receipt_data)
     dispatchRedeemReward(receipt_data)
     handleClose()
   }

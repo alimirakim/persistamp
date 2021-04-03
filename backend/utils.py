@@ -45,7 +45,8 @@ def queryUserFullData(uid):
     return jsonify(
         programs_data=programs, 
         activities_data=activities, 
-        stamps_data=stamps, 
+        stamps_data=stamps,
+        points_data=user.points,
         user_data=user.to_dict(),
         past_week=get_past_week(),)
 

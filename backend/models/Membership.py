@@ -28,6 +28,7 @@ class Membership(db.Model):
           "pid": self.program_id,
           "mid": self.member_id,
           "stamper_id": self.stamper_id,
+          "earns_points": self.program.has_shop, 
           "points": self.points,
           "joined_at": self.joined_at,
           # habid_id stamp_ids

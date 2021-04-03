@@ -5,12 +5,15 @@ import NavCard from '../nav/NavCard'
 import ProgramBoard from './ProgramBoard'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
 import UserContext from '../../context/UserContext'
+import ProgramForm from '../forms/ProgramForm'
+
 
 export default function Homepage({ auth, setAuth, setUser }) {
   const user = useContext(UserContext)
   const { dispatchSetAll } = useContext(ProgramBoardContext)
   const [today, setToday] = useState(new Date().getDay())
-
+  const [openCreateProgram, setOpenCreateProgram] = useState(false)
+  const toggleCreateProgram = (e) => setOpenCreateProgram(!openCreateProgram)
 
   useEffect(() => {
     const stopId = setInterval(() => {
@@ -33,6 +36,7 @@ export default function Homepage({ auth, setAuth, setUser }) {
           programs: content.programs_data,
           activities: content.activities_data,
           stamps: content.stamps_data,
+          points: content.points,
         })
       })()
     }
@@ -44,14 +48,19 @@ export default function Homepage({ auth, setAuth, setUser }) {
     <div className="hbd">
       <h1 className="persistamp hbd-title">Persistamp</h1>
 
-      <button className="th-big-btn">Add Program</button>
+      <NavCard auth={auth} setAuth={setAuth} setUser={setUser} />
 
       <Link to="/reward-shop">
-        <button className="ico-btn"><i className="fas fa-10x fa-store" />
-        My Reward Shop</button>
+        <button className="th-big-btn"><i className="fas fa-5x fa-store" />
+        <br/>My Reward Shop</button>
       </Link>
 
-      <NavCard auth={auth} setAuth={setAuth} setUser={setUser} />
+      <ProgramForm
+        open={openCreateProgram}
+        handleClose={toggleCreateProgram}
+      />
+      <button className="th-big-btn" onClick={toggleCreateProgram}>Add Program</button>
+
       <ProgramBoard />
 
     </div>
