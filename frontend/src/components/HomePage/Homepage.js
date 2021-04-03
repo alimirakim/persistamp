@@ -6,11 +6,13 @@ import ProgramBoard from './ProgramBoard'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
 import UserContext from '../../context/UserContext'
 import ProgramForm from '../forms/ProgramForm'
+import OptionsContext from '../../context/OptionsContext'
 
 
 export default function Homepage({ auth, setAuth, setUser }) {
   const user = useContext(UserContext)
   const { dispatchSetAll } = useContext(ProgramBoardContext)
+  const { colors } = useContext(OptionsContext)
   const [today, setToday] = useState(new Date().getDay())
   const [openCreateProgram, setOpenCreateProgram] = useState(false)
   const toggleCreateProgram = (e) => setOpenCreateProgram(!openCreateProgram)
@@ -46,21 +48,33 @@ export default function Homepage({ auth, setAuth, setUser }) {
 
   return (<main>
     <div className="hbd">
-      <h1 className="persistamp hbd-title">Persistamp</h1>
 
       <NavCard auth={auth} setAuth={setAuth} setUser={setUser} />
-
-      <Link to="/reward-shop">
-        <button className="th-big-btn"><i className="fas fa-5x fa-store" />
-        <br/>My Reward Shop</button>
-      </Link>
 
       <ProgramForm
         open={openCreateProgram}
         handleClose={toggleCreateProgram}
       />
-      <button className="th-big-btn" onClick={toggleCreateProgram}>Add Program</button>
+      <Link to="/reward-shop">
+        <button
+          className="th-big-btn shp-btn"
+          style={{ color: colors[user.cid].hex }}
+        >
+          <i className="fas fa-3x fa-store" /></button>
+      </Link>
 
+      <h1 className="th-h1 persistamp">Your Programs</h1>
+      
+      <button
+        className="th-big-btn th-action"
+        onClick={toggleCreateProgram}
+        style={{ backgroundColor: colors[user.cid].hex }}
+      >
+        Add Program
+      </button>
+
+      
+      
       <ProgramBoard />
 
     </div>

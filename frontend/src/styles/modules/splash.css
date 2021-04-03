@@ -106,7 +106,7 @@
   font-family: "Berkshire Swash", "Merienda One", Courgette, Meddon;
   text-shadow: 3px 3px 2px rgba(0,0,0,0.8);
   font-weight: normal;
-  text-align: right;
+  /* text-align: right; */
   margin: 0;
 }
 
@@ -116,7 +116,6 @@
   font-size: 2rem; 
   font-family: "Berkshire Swash", "Merienda One", Courgette, Meddon;
   font-weight: normal;
-  text-align: right;
   margin: 0;
 }
 

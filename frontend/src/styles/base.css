@@ -37,6 +37,12 @@ body {
     /* background-image: url("https://www.freevector.com/uploads/vector/preview/1469/FreeVector-Splash-Swoosh-Background-Image.jpg") */
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 #root {
   position: relative;
   min-height: 100vh;

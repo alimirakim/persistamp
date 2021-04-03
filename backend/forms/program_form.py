@@ -15,5 +15,5 @@ class ProgramForm(FlaskForm):
     iid = SelectField(validators=[DataRequired()], 
                         choices=range(1, len(icons)+1), 
                         default=2)
-    has_shop = BooleanField()
+    hasShop = BooleanField()
     submit = SubmitField()

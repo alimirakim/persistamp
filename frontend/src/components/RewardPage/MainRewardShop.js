@@ -28,28 +28,30 @@ export default function MainRewardShop({ auth, setAuth }) {
       })()
     }
   }, [])
-  console.log(user)
 
   if (!auth) return <PrivatePage />
 
   // Add/remove points
   return (<>
-    <NavCard auth={auth} setAuth={setAuth} />
-    <div className="hbd-title">
+    <header>
+      <NavCard auth={auth} setAuth={setAuth} />
 
-      <h2 className="persistamp">My Reward Shop
+      <h1 className="th-h1 persistamp">My Reward Shop</h1>
+      <button
+        className="th-big-btn th-action"
+        onClick={toggleCreate}
+        style={{ backgroundColor: colors[user.cid].hex }}
+      >Create Reward
+      </button>
+      <h2 className="persistamp-subtitle">
         <div className={`rsp-point-con ${points < 0 && "is-in-debt"}`}>
           <span className="rsp-point-label">My Points: </span>
           <span className="rsp-points">{points}</span>
         </div>
       </h2>
-    </div>
-
+    </header>
     <main className="" style={{ color: colors[user.cid].hex }}>
 
-      <button className="th-big-btn" onClick={toggleCreate}>
-        Create Reward
-    </button>
 
       <RewardForm open={openCreate} handleClose={toggleCreate} cid={user.cid} iid={user.iid} />
 

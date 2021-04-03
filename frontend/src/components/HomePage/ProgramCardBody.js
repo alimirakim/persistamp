@@ -29,7 +29,6 @@ export default function ProgramCardBody({ program }) {
             {...provided.droppableProps}
             ref={provided.innerRef}
           >
-
             {aidOrder.length ? <>
               {aidOrder.map((aid, i) => (
                 <Draggable key={aid} draggableId={String(aid)} index={i}>
@@ -46,9 +45,7 @@ export default function ProgramCardBody({ program }) {
                 </Draggable>
               ))}
             </> : ""}
-
-            {!aidOrder.length && <tr className="msg-none lo-center">This program card has no activities yet.</tr>}
-
+            {!aidOrder.length && <tr className="msg-none lo-center"><th>This program card has no activities yet.</th></tr>}
             {provided.placeholder}
           </tbody>
         )}

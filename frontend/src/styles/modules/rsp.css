@@ -9,8 +9,6 @@
 }
 .rsp-point-con {
   line-height: 2rem;
-  text-align: right;
-  margin-right: 4rem;
 }
 .rsp-points {
   line-height: 1rem;
@@ -117,12 +115,12 @@
   text-align: center;
   padding-right: 1rem;
 }
-.rrr > table > tr, .rrr-msg {
+.rrr tr, .rrr-msg {
   font-family: Inconsolata, monospace, Roboto, sans-serif;
   font-style: normal;
   font-size: 0.8rem;
 }
-.rrr > table > tr > th {
+.rrr tr > th {
   width: 2.5rem;
   height: 0.5rem;
   padding-top: 0;
@@ -131,7 +129,7 @@
   font-weight: 700;
   text-transform: uppercase;
 }
-.rrr > table > tr > td {
+.rrr tr > td {
   text-align: right;
 }
 

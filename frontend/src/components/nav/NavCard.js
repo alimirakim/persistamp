@@ -94,6 +94,11 @@ export default function NavCard({
                 <div className="idc-rew idc-last">{program.title}</div>
               </>}
 
+              {history.location.pathname === "/reward-shop" && <>
+                <span className="idc-program idc-first">Reward Card</span>
+                <div className="th-hr-gr-fade-left" />
+                <div className="idc-rew idc-last">{user.first_name} {user.last_name}</div>
+              </>}
               {/* <span class="th-metal-shade">&nbsp;</span> */}
             </h1>
           </div>
@@ -104,6 +109,15 @@ export default function NavCard({
               <dd>{program.points}</dd>
             </div>
           }
+
+
+          {user && !program &&
+            <div className="idc-line th-metal-light ">
+              <dt className="idc-label"> <i className={`fas fa-xs fa-${icons[user.iid].title}`}></i> Points</dt>
+              <dd>{user.points}</dd>
+            </div>
+          }
+
           {/* {history.location.pathname === "/" &&
             <div className="idc-details">
               <div className="idc-line th-metal-light">

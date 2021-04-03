@@ -3,12 +3,11 @@ import { useHistory } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
 import UserSettings from '../forms/UserSettings'
 import ProgramForm from '../forms/ProgramForm'
-import Message from './Message'
 // import NavStampJoin from './NavStampJoin'
 import NavStampHome from './NavStampHome'
 import NavStampAbout from './NavStampAbout'
 import NavStampLogout from './NavStampLogout'
-import NavStampMessages from './NavStampMessages'
+import NavStampRewardShop from './NavStampRewardShop'
 import NavStampProgram from './NavStampProgram'
 import NavStampSettings from './NavStampSettings'
 import NavStampActivity from './NavStampActivity'
@@ -31,13 +30,11 @@ export default function NavStamps({
   const [openCreateReward, setOpenCreateReward] = useState(false)
   const [openEditActivity, setOpenEditActivity] = useState(false)
   const [openDeleteActivity, setOpenDeleteActivity] = useState(false)
-  const [openMessage, setOpenMessage] = useState(false)
   const path = useHistory().location.pathname
 
   const toggleEditActivity = (e) => setOpenEditActivity(!openEditActivity)
   const toggleDeleteActivity = (e) => setOpenDeleteActivity(!openDeleteActivity)
   const toggleCreateReward = (e) => setOpenCreateReward(!openCreateReward)
-  const toggleMessage = (e) => setOpenMessage(!openMessage)
   const toggleCreateProgram = (e) => setOpenCreateProgram(!openCreateProgram)
   const toggleSettings = (e) => setOpenSettings(!openSettings)
 
@@ -58,11 +55,11 @@ export default function NavStamps({
       />
     </>}
 
-    {program && <RewardForm
+    {path.includes("reward") && <RewardForm
       open={openCreateReward}
       handleClose={toggleCreateReward}
-      cid={program.cid}
-      iid={program.iid}
+      cid={program ? program.cid : user.cid}
+      iid={program ? program.iid : user.iid}
     />}
 
     {user &&
@@ -79,19 +76,14 @@ export default function NavStamps({
       handleClose={toggleCreateProgram}
     />}
 
-    <Message
-      open={openMessage}
-      handleClose={toggleMessage}
-    />
-
     <nav className="stamps">
 
+      <NavStampHome />
+      {(path == "/about" || !user) && <NavStampGithub />}
+      <NavStampRewardShop />
       {path === "/" && user && <NavStampProgram toggleCreate={toggleCreateProgram} />}
       {activity && user && <NavStampActivity toggleEdit={toggleEditActivity} />}
-      {program && <NavStampReward toggleCreate={toggleCreateReward} />}
-      {(path == "/about" || !user) && <NavStampGithub />}
-      <NavStampMessages toggleMessage={toggleMessage} />
-      {path !== "/" && <NavStampHome />}
+      {path.includes("reward") && <NavStampReward toggleCreate={toggleCreateReward} />}
       {path == "/" && user && <NavStampSettings toggleSettings={toggleSettings} />}
       <NavStampAbout />
       {user && <NavStampLogout setAuth={setAuth} />}

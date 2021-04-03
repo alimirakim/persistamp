@@ -39,3 +39,31 @@
 @import url("modules/pbc-stamp.css");
 /* activity display page */
 @import url("modules/hdp.css");
+
+
+
+.th-h1 {
+  width: max-content;
+  display: inline-block;
+  margin: 0.5rem 1rem;
+}
+
+.th-action {
+  font-family: "Berkshire Swash", "Merienda One", Courgette, Meddon;
+  color: rgba(30,30,20,0.8);
+  text-transform: none;
+  margin: 0 2rem;
+}
+
+.shp-btn {
+  background: none;
+  font-family: "Berkshire Swash", "Merienda One", Courgette, Meddon;
+  text-transform: none;
+  letter-spacing: 0.1rem;
+  font-weight: normal;
+  transition: all 0.1s ease-in;
+}
+
+.shp-btn:hover {
+  transform: scale(1.1);
+}
