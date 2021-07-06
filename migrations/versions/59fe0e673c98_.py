@@ -1,16 +1,16 @@
-"""create tables
+"""empty message
 
-Revision ID: 6e06cb974576
+Revision ID: 59fe0e673c98
 Revises: 
-Create Date: 2021-01-12 21:47:21.219316
+Create Date: 2021-07-06 19:10:13.540865
 
 """
 from alembic import op
 import sqlalchemy as sa
-
+from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
-revision = '6e06cb974576'
+revision = '59fe0e673c98'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -36,14 +36,18 @@ def upgrade():
     )
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('username', sa.String(length=50), nullable=False),
-    sa.Column('first_name', sa.String(length=50), nullable=False),
-    sa.Column('last_name', sa.String(length=50), nullable=True),
-    sa.Column('email', sa.String(length=50), nullable=False),
+    sa.Column('username', sa.String(length=25), nullable=False),
+    sa.Column('first_name', sa.String(length=25), nullable=False),
+    sa.Column('last_name', sa.String(length=25), nullable=True),
+    sa.Column('email', sa.String(length=320), nullable=False),
     sa.Column('color_id', sa.Integer(), nullable=True),
     sa.Column('icon_id', sa.Integer(), nullable=False),
     sa.Column('birthday', sa.Date(), nullable=True),
     sa.Column('hashed_password', sa.String(length=255), nullable=False),
+    sa.Column('private', sa.Boolean(), nullable=False),
+    sa.Column('program_ids_order', postgresql.ARRAY(sa.Integer()), nullable=False),
+    sa.Column('reward_ids_order', postgresql.ARRAY(sa.Integer()), nullable=False),
+    sa.Column('points', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['color_id'], ['colors.id'], ),
     sa.ForeignKeyConstraint(['icon_id'], ['icons.id'], ),
@@ -62,11 +66,14 @@ def upgrade():
     )
     op.create_table('programs',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('title', sa.String(length=50), nullable=False),
+    sa.Column('title', sa.String(length=25), nullable=False),
     sa.Column('description', sa.String(length=250), nullable=True),
     sa.Column('icon_id', sa.Integer(), nullable=False),
     sa.Column('color_id', sa.Integer(), nullable=True),
     sa.Column('creator_id', sa.Integer(), nullable=False),
+    sa.Column('private', sa.Boolean(), nullable=False),
+    sa.Column('activity_ids_order', postgresql.ARRAY(sa.Integer()), nullable=False),
+    sa.Column('reward_ids_order', postgresql.ARRAY(sa.Integer()), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['color_id'], ['colors.id'], ),
     sa.ForeignKeyConstraint(['creator_id'], ['users.id'], ),
@@ -75,9 +82,11 @@ def upgrade():
     )
     op.create_table('activities',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('title', sa.String(length=50), nullable=False),
+    sa.Column('title', sa.String(length=25), nullable=False),
     sa.Column('description', sa.String(length=250), nullable=True),
-    sa.Column('frequency', sa.String(length=7), nullable=False),
+    sa.Column('frequency', sa.Integer(), nullable=False),
+    sa.Column('interval', sa.Integer(), nullable=True),
+    sa.Column('stamp_value', sa.Integer(), nullable=False),
     sa.Column('private', sa.Boolean(), nullable=False),
     sa.Column('color_id', sa.Integer(), nullable=True),
     sa.Column('icon_id', sa.Integer(), nullable=False),
@@ -105,13 +114,13 @@ def upgrade():
     op.create_table('rewards',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('type', sa.String(length=50), nullable=False),
+    sa.Column('title', sa.String(length=50), nullable=False),
     sa.Column('description', sa.String(length=250), nullable=True),
     sa.Column('color_id', sa.Integer(), nullable=True),
     sa.Column('icon_id', sa.Integer(), nullable=False),
     sa.Column('cost', sa.Integer(), nullable=False),
     sa.Column('limit_per_member', sa.Integer(), nullable=False),
     sa.Column('quantity', sa.Integer(), nullable=False),
-    sa.Column('title', sa.String(length=50), nullable=False),
     sa.Column('program_id', sa.Integer(), nullable=True),
     sa.Column('creator_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=False),
@@ -121,11 +130,21 @@ def upgrade():
     sa.ForeignKeyConstraint(['program_id'], ['programs.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('redeemed',
+    op.create_table('receipts',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.Column('reward_id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.Column('activity_id', sa.Integer(), nullable=True),
+    sa.Column('reward_id', sa.Integer(), nullable=True),
+    sa.Column('program_id', sa.Integer(), nullable=True),
+    sa.Column('title', sa.String(length=50), nullable=False),
+    sa.Column('description', sa.String(length=250), nullable=True),
+    sa.Column('color_id', sa.Integer(), nullable=False),
+    sa.Column('icon_id', sa.Integer(), nullable=False),
+    sa.Column('value', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['color_id'], ['colors.id'], ),
+    sa.ForeignKeyConstraint(['icon_id'], ['icons.id'], ),
+    sa.ForeignKeyConstraint(['program_id'], ['programs.id'], ),
     sa.ForeignKeyConstraint(['reward_id'], ['rewards.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -146,7 +165,7 @@ def upgrade():
 def downgrade():
     # ### commands auto generated by Alembic - please adjust! ###
     op.drop_table('stamps')
-    op.drop_table('redeemed')
+    op.drop_table('receipts')
     op.drop_table('rewards')
     op.drop_table('memberships')
     op.drop_table('activities')
