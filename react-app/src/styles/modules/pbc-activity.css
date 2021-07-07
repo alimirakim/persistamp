@@ -22,6 +22,7 @@
 
 .activity-btn-con {
   display: block;
+  width: 100%;
   max-width: 80%;
 }
 

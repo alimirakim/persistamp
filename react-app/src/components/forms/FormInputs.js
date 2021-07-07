@@ -161,33 +161,31 @@ export function SetUsername({ username, setUsername, checkKeyPress }) {
 export function ChooseLimit({ limit, setLimit }) {
   const updateLimit = (e) => setLimit(e.target.value)
 
-  return (<div>
-    <InputLabel id="limit">Limit per Member</InputLabel>
+  return (
     <TextField
       onChange={updateLimit}
-      label="limit"
+      label="Limit per Member"
+      placeholder="(optional)"
       value={limit}
       type="number"
       InputProps={{ min: 1 }}
-    />
-
-  </div>)
+    />)
 }
 
 
 export function ChooseQuantity({ quantity, setQuantity, label }) {
   const updateQuantity = (e) => setQuantity(e.target.value)
 
-  return (<div>
-    <InputLabel id="quantity">{label}</InputLabel>
+  return (
     <TextField
+      label="Quantity"
+      placeholder="(optional)"
       onChange={updateQuantity}
       value={quantity}
       type="number"
       InputProps={{ min: 0 }}
     />
-
-  </div>)
+  )
 }
 
 
@@ -213,21 +211,16 @@ export function ChooseCost({ cost, setCost }) {
     setCost(e.target.value)
   }
 
-  return (<>
-    {/* <InputLabel>Cost</InputLabel> */}
-    
+  return (
     <TextField
       value={cost}
-      margin="dense"
       id="cost"
       label="Cost"
-      type="text"
-      fullWidth
+      type="number"
       onChange={updateCost}
-      // type="number"
-      // InputProps={{ min: 1 }}
+      InputProps={{ min: 1 }}
     />
-  </>)
+  )
 }
 
 export function UpdateFirstname({ firstname, setFirstname }) {

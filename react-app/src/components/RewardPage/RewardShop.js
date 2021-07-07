@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 
 import OptionsContext from '../../context/OptionsContext'
 import PrivatePage from '../PrivatePage'
@@ -35,12 +35,12 @@ export default function RewardShop({ auth, setAuth }) {
   // Add/remove points
   return (<>
       <div className="header-container">
-        <h2 className="persistamp">Reward Shop</h2>
+      <Link to="/"><h2 className="persistamp">Persistamp</h2></Link>
         <NavCard auth={auth} setAuth={setAuth} program={program} />
         <div className="hbd-title">
 
           <div className={`persistamp rsp-point-con ${program.points < 0 && "is-in-debt"}`}>
-            <div className="rsp-point-label">My Points: </div>
+            <div className="rsp-point-label">Reward Points: </div>
             <div className="rsp-points">{program.points}</div>
           </div>
       </div>

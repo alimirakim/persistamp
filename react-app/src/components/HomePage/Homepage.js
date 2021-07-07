@@ -10,7 +10,7 @@ import OptionsContext from '../../context/OptionsContext'
 
 export default function Homepage({ auth, setAuth, setUser }) {
   const user = useContext(UserContext)
-  const {colors} = useContext(OptionsContext)
+  const { colors, icons } = useContext(OptionsContext)
   const { dispatchSetAll } = useContext(ProgramBoardContext)
   const [today, setToday] = useState(new Date().getDay())
   const userColor = colors[user.cid].hex
@@ -68,7 +68,7 @@ export default function Homepage({ auth, setAuth, setUser }) {
           <div className="rwd-btn-container">
             <Link to="/reward-shop">
               <div className="lo-center">
-                <i className="fas fa-4x fa-store " />
+                <i className={`fas fa-4x fa-${icons[user.iid].title}`} />
                 <h2>Rewards</h2>
               </div>
             </Link>

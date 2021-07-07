@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { Link } from 'react-router-dom';
 
 import OptionsContext from '../../context/OptionsContext'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
@@ -10,9 +11,11 @@ import ProgramCardBody from './ProgramCardBody'
 import ActivityForm from '../forms/ActivityForm'
 import { AddButton, EditButton } from '../forms/FormInputs'
 import Divider from './Divider'
+import UserContext from "../../context/UserContext";
 
 export default function ProgramCard({ program }) {
   const { colors, icons } = useContext(OptionsContext)
+  const user = useContext(UserContext)
 
   const [openCreate, setOpenCreate] = useState(false)
   const [openEdit, setOpenEdit] = useState(false)
@@ -49,6 +52,11 @@ export default function ProgramCard({ program }) {
         </div>
 
         {program.has_shop && <RewardPoints program={program} styles={dark} />}
+        {!program.has_shop && <Link to="/reward-shop">
+          <button className="ico-btn pbc-points" type="button">
+            <i className={`lo-center fas fa-2x fa-${icons[user.iid].title} ${dark}`}/>
+          </button>
+        </Link>}
 
       </header>
 

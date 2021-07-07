@@ -13,16 +13,12 @@ export default function Message({open, handleClose}) {
       <DialogTitle id="form-dialog-title">Thank you, friend! 😊</DialogTitle>
 
       <DialogContent style={{ textAlign: "center" }}>
-        <p>We appreciate your interest! Under construction: friends, messaging, and accountability buddies! Please look forward to it!</p>
-
-        <p>Find our repo here: </p>
         <a href="https://github.com/alimirakim/persistamp" target="_blank">
           <Button variant="contained" size="large" color="secondary">GitHub: Persistamp</Button>
         </a>
 
-        <h3><strong>NOTICE!</strong></h3>
-        <p>David Lee and Alicia Kim are job-seeking!</p>
-        <p>Check <Link to="/about">[About Us]</Link> for more!</p>
+        <p>Future: friends, messaging, and accountability buddies!</p>
+        <p>Please look forward to it!</p>
 
         <DialogActions>
           <Button onClick={handleClose} color="primary">

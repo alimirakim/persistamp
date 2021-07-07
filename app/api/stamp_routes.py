@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from sqlalchemy.orm import joinedload
 from flask_login import current_user
-from app.models import db, Activity, Stamp, Membership
+from app.models import db, Activity, Stamp, Membership, Program
 from app.schemas import stamp_schema
 
 stamp_routes = Blueprint("stamps", __name__, url_prefix="/stamps")
@@ -45,7 +45,7 @@ def current_week():
 @stamp_routes.route("/<int:aid>/programs/<int:pid>/memberships/<int:mid>/days/<day>", methods=["delete", "post"])
 def stamp_day(pid, mid, aid, day):
     """Change the status of a stamp to 'stamped' or 'pending'."""
-    print("stamping...")
+    print("stamping...", current_user.id)
     membership = Membership.query.get(mid)
     # day = date
     activity = Activity.query.get(aid)
@@ -71,7 +71,10 @@ def stamp_day(pid, mid, aid, day):
             if stamp.status == 'pending' and current_user.id == stamper_id:
                 stamp.status = 'stamped'
         if stamp.status == 'stamped':
-            membership.points += activity.stamp_value
+            if Program.query.get(membership.program_id).has_shop:
+                membership.points += activity.stamp_value
+            else:
+                current_user.points += activity.stamp_value
         db.session.commit()
         return stamp.to_dict()
     elif request.method == "DELETE":
@@ -81,7 +84,10 @@ def stamp_day(pid, mid, aid, day):
             Stamp.date == day).one()
         print(stamp)
         db.session.delete(stamp)
-        membership.points -= activity.stamp_value
+        if Program.query.get(membership.program_id).has_shop:
+            membership.points -= activity.stamp_value
+        else:
+            current_user.points -= activity.stamp_value
         db.session.commit()
 
         return stamp.to_dict()

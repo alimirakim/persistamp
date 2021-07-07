@@ -30,6 +30,8 @@ export function ProgramBoardContextProvider(props) {
   const dispatchDeleteActivity = activity => dispatch(deleteActivity(activity))
 
   const dispatchSetStamps = stamps => dispatch(setStamps(stamps))
+  
+  // TODO: Update these two to also handle updating user points
   const dispatchStampDay = stamp => dispatch(stampDay(stamp))
   const dispatchUnstampDay = stamp => dispatch(unstampDay(stamp))
 

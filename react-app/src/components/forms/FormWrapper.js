@@ -20,6 +20,7 @@ export default function FormWrapper({
   defaultColorId,
   defaultIconId,
   edit,
+  children
 }) {
   const user = useContext(UserContext)
   const { colors, icons } = useContext(OptionsContext)
@@ -85,7 +86,7 @@ if (!colorId) return null
       <DialogContent  style={{minWidth: "25rem"}}>
         <AddTitle title={title} setTitle={setTitle} setErrors={setErrors} checkKeyPress={checkKeyPress} />
         <AddDescription description={description} setErrors={setErrors} setDescription={setDescription} />
-        <UniqueInputs />
+        {children}
         
         <IconInput color={colors[colorId].hex} icons={icons} value={iconId} setValue={setIconId} />
         <ColorInput icon={icons[iconId].title} colors={colors} value={colorId} setValue={setColorId} />

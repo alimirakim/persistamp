@@ -13,9 +13,9 @@ export default function RewardForm({ open, handleClose, cid, iid }) {
   const [quantity, setQuantity] = useState("")
 
   const uniqueInputs = () => (<div className="lo-row">
-    <ChooseCost cost={cost} setCost={setCost} />
+    <ChooseCost key={'reward-cost'} cost={cost} setCost={setCost} />
     <ChooseQuantity label="quantity" quantity={quantity} setQuantity={setQuantity} />
-    <ChooseLimit limit={limit} setLimit={setLimit} />
+    {pid && <ChooseLimit limit={limit} setLimit={setLimit} />}
   </div>)
   
   const resetUniqueInputs = (e) => {
@@ -38,6 +38,12 @@ export default function RewardForm({ open, handleClose, cid, iid }) {
       resetUniqueInputs={resetUniqueInputs}
       defaultColorId={cid}
       defaultIconId={iid}
-    />
+    >
+      <div className="lo-row">
+        <ChooseCost key={'reward-cost'} cost={cost} setCost={setCost} />
+        <ChooseQuantity label="quantity" quantity={quantity} setQuantity={setQuantity} />
+        {pid && <ChooseLimit limit={limit} setLimit={setLimit} />}
+      </div>
+      </FormWrapper>
   )
 }

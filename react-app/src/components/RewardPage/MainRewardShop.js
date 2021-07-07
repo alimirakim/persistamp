@@ -22,7 +22,7 @@ export default function RewardShop({ auth, setAuth }) {
   useEffect(() => {
     if (auth) {
       (async () => {
-        const res = await fetch(`/api/rewards/user`)
+        const res = await fetch(`/api/rewards/`)
         const { points_data, rewards_data, receipts_data } = await res.json()
         dispatchSetAll({ program: {}, points: points_data, rewards: rewards_data, receipts: receipts_data })
         // const { rewards_data, receipts_data } = await fetch(`/api/rewards/programs/${pid}/users/${user.id}`).then(res => res.json())

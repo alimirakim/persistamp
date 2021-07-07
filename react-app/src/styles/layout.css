@@ -17,6 +17,9 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
   display: flex;
   justify-content: space-around;
 }
+.lo-row > * {
+  width: 30%;
+}
 .lo-third {
   width: 25%;
 }

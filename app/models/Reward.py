@@ -12,7 +12,7 @@ class Reward(db.Model):
     icon_id = db.Column(db.Integer, db.ForeignKey("icons.id"), nullable=False, default=4)
     cost = db.Column(db.Integer, nullable=False, default=7)
     quantity = db.Column(db.Integer, nullable=False, default=-1)
-    limit_per_member = db.Column(db.Integer, default=1)
+    limit_per_member = db.Column(db.Integer, default=-1)
     program_id = db.Column(db.Integer, db.ForeignKey("programs.id"))
     creator_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
