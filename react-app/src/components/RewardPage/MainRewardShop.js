@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
+import {Link} from 'react-router-dom'
 
 import UserContext from '../../context/UserContext'
 import OptionsContext from '../../context/OptionsContext'
@@ -32,16 +33,21 @@ export default function RewardShop({ auth, setAuth }) {
   if (!auth) return <PrivatePage />
 
   // Add/remove points
+
+  console.log("points", user)
   return (<>
-    <NavCard auth={auth} setAuth={setAuth} />
-    <div className="hbd-title">
-    {/* <h2 className="persistamp">My Reward Shop */}
-    <div className={`rsp-point-con ${user.points < 0 && "is-in-debt"}`}>
-        <span className="rsp-point-label">My Points: </span>
-        <span className="rsp-points">{user.points}</span>
+    <div className="header-container">
+      <Link to="/"><h2 className="persistamp">Persistamp</h2></Link> 
+      <NavCard auth={auth} setAuth={setAuth} />
+      <div className="hbd-title">
+        <div className={`persistamp rsp-point-con ${user.points < 0 && "is-in-debt"}`}>
+          <div className="rsp-point-label">My Points: </div>
+          <div className="rsp-points">{user.points}</div>
+        </div>
       </div>
-    {/* </h2> */}
+
     </div>
+
     <main className="" style={{ color: colors[user.cid].hex }}>
       <RewardForm open={openCreate} handleClose={toggleCreate} cid={user.cid} iid={user.iid} />
       <div className="rew-con">

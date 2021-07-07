@@ -33,6 +33,7 @@ export default function NavStamps({
   const [openDeleteActivity, setOpenDeleteActivity] = useState(false)
   const [openMessage, setOpenMessage] = useState(false)
   const path = useHistory().location.pathname
+  const isRewardShop = program || path === "/reward-shop"
 
   const toggleEditActivity = (e) => setOpenEditActivity(!openEditActivity)
   const toggleDeleteActivity = (e) => setOpenDeleteActivity(!openDeleteActivity)
@@ -58,11 +59,11 @@ export default function NavStamps({
       />
     </>}
 
-    {program && <RewardForm
+    {isRewardShop && <RewardForm
       open={openCreateReward}
       handleClose={toggleCreateReward}
-      cid={program.cid}
-      iid={program.iid}
+      cid={program?.cid || user.cid}
+      iid={program?.iid || user.iid}
     />}
 
     {user &&
@@ -88,11 +89,11 @@ export default function NavStamps({
 
       {path === "/" && user && <NavStampProgram toggleCreate={toggleCreateProgram} />}
       {activity && user && <NavStampActivity toggleEdit={toggleEditActivity} />}
-      {program && <NavStampReward toggleCreate={toggleCreateReward} />}
-      {(path == "/about" || !user) && <NavStampGithub />}
+      {isRewardShop && <NavStampReward toggleCreate={toggleCreateReward} />}
+      {(path === "/about" || !user) && <NavStampGithub />}
       <NavStampMessages toggleMessage={toggleMessage} />
       {path !== "/" && <NavStampHome />}
-      {path == "/" && user && <NavStampSettings toggleSettings={toggleSettings} />}
+      {path === "/" && user && <NavStampSettings toggleSettings={toggleSettings} />}
       <NavStampAbout />
       {user && <NavStampLogout setAuth={setAuth} />}
       {/* {!user && <NavStampJoin setAuth={setAuth} />} */}

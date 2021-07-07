@@ -24,7 +24,7 @@ Naming convention: start with `th-`. EXAMPLE: th-bg-primary */
   border-radius: 0.5rem;
   font-size: 1.5rem;
   border: none;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   font-weight: bold;
 }
 

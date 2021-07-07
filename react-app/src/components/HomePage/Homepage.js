@@ -3,14 +3,22 @@ import { Link } from 'react-router-dom'
 // OUR COMPONENTS
 import NavCard from '../nav/NavCard'
 import ProgramBoard from './ProgramBoard'
+import ProgramForm from '../forms/ProgramForm'
 import ProgramBoardContext from '../../context/ProgramBoardContext'
 import UserContext from '../../context/UserContext'
+import OptionsContext from '../../context/OptionsContext'
 
 export default function Homepage({ auth, setAuth, setUser }) {
   const user = useContext(UserContext)
+  const {colors} = useContext(OptionsContext)
   const { dispatchSetAll } = useContext(ProgramBoardContext)
   const [today, setToday] = useState(new Date().getDay())
+  const userColor = colors[user.cid].hex
+  const [openCreateProgram, setOpenCreateProgram] = useState(false)
 
+  const toggleCreateProgram = (e) => setOpenCreateProgram(!openCreateProgram)
+
+  console.log("colors", colors, colors[user.cid].hex, userColor)
 
   useEffect(() => {
     const stopId = setInterval(() => {
@@ -41,17 +49,39 @@ export default function Homepage({ auth, setAuth, setUser }) {
   if (!auth || !user) return null;
 
   return (<main>
+
     <div className="hbd">
-      <h1 className="persistamp hbd-title">Persistamp</h1>
+      <div class="header-container">
+        <div>
+          <h1 className="persistamp hbd-title">Persistamp</h1>
+          <button 
+            onClick={toggleCreateProgram}
+            className="th-big-btn action-btn"
+            style={{backgroundColor: colors[user.cid].hex}}
+          >
+            Add Program
+          </button>
+        </div>
+        <NavCard auth={auth} setAuth={setAuth} setUser={setUser} />
 
-      <button className="th-big-btn">Add Program</button>
+        <div>
+          <div className="rwd-btn-container">
+            <Link to="/reward-shop">
+              <div className="lo-center">
+                <i className="fas fa-4x fa-store " />
+                <h2>Rewards</h2>
+              </div>
+            </Link>
+          </div>
+        </div>
 
-      <Link to="/reward-shop">
-        <button className="ico-btn"><i className="fas fa-10x fa-store" />
-        My Reward Shop</button>
-      </Link>
+        <ProgramForm
+          open={openCreateProgram}
+          handleClose={toggleCreateProgram}
+        />
+      </div>
 
-      <NavCard auth={auth} setAuth={setAuth} setUser={setUser} />
+
       <ProgramBoard />
 
     </div>

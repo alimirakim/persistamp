@@ -63,3 +63,47 @@
 .ico:hover {
   color: gray;
 }
+
+.rwd-btn-container {
+  position: relative;
+  height: 10rem;
+  width: 10rem;
+  margin: 1rem;
+  border-radius: 50%;
+  border: 1rem double;
+  color: rgba(255,255,255,1);
+  font-family: "Berkshire Swash", Cambria, serif;
+  text-align: center;
+  overflow: hidden;
+  transition: all 0.1s ease;
+  float: right;
+}
+
+.rwd-btn-container > a {
+  color: rgba(255,255,255,1);
+}
+
+.rwd-btn-container:hover {
+  background-color: rgba(0,0,0,0.2);
+}
+
+.rwd-btn-container h2 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.action-btn {
+  border-radius: 2rem;
+  padding: 0.5rem 2.5rem;
+  color: white;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.5);
+  font: 2.5rem "Berkshire Swash", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  letter-spacing: 0.04rem;
+  transition: all 0.1s ease;
+}
+
+.action-btn:hover {
+  color: white;
+  cursor: pointer;
+  text-shadow: 2px 2px 0 rgba(0,0,0,0.8);
+}

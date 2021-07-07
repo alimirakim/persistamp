@@ -48,7 +48,7 @@ export default function ProgramCard({ program }) {
           <EditButton handleOpen={toggleEdit} styles={dark} />
         </div>
 
-        <RewardPoints program={program} styles={dark} />
+        {program.has_shop && <RewardPoints program={program} styles={dark} />}
 
       </header>
 

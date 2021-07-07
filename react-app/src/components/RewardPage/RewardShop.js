@@ -34,15 +34,18 @@ export default function RewardShop({ auth, setAuth }) {
 
   // Add/remove points
   return (<>
-    <NavCard auth={auth} setAuth={setAuth} program={program} />
-    <div className="hbd-title">
-    <h2 className="persistamp">Reward Shop
-    <div className={`rsp-point-con ${program.points < 0 && "is-in-debt"}`}>
-        <span className="rsp-point-label">My Points: </span>
-        <span className="rsp-points">{program.points}</span>
+      <div className="header-container">
+        <h2 className="persistamp">Reward Shop</h2>
+        <NavCard auth={auth} setAuth={setAuth} program={program} />
+        <div className="hbd-title">
+
+          <div className={`persistamp rsp-point-con ${program.points < 0 && "is-in-debt"}`}>
+            <div className="rsp-point-label">My Points: </div>
+            <div className="rsp-points">{program.points}</div>
+          </div>
       </div>
-    </h2>
     </div>
+
     <main className="" style={{ color: colors[program.cid].hex }}>
       <RewardForm open={openCreate} handleClose={toggleCreate} cid={program.cid} iid={program.iid} />
       <div className="rew-con">

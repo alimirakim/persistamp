@@ -18,9 +18,18 @@
 }
 
 .idc-label {
-  /* display: inline; */
-  font-size: 0.6rem;
   margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  font-size: 2rem;
+}
+
+.idc-points {
+  position: absolute;
+}
+
+.idc-points-num {
+  font-size: 3rem;
 }
 
 .idc-title {

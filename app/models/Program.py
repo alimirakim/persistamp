@@ -11,11 +11,12 @@ class Program(db.Model):
     description = db.Column(db.String(250))
     icon_id = db.Column(db.Integer, db.ForeignKey("icons.id"), nullable=False, default=2)
     color_id = db.Column(db.Integer, db.ForeignKey("colors.id"), default=1)
-    creator_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     private = db.Column(db.Boolean, nullable=False, default=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    creator_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     activity_ids_order = db.Column(MutableList.as_mutable(ARRAY(db.Integer)), nullable=False, default=[])
     reward_ids_order = db.Column(ARRAY(db.Integer), nullable=False, default=[])
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now())
+    has_shop = db.Column(db.Boolean, default=True)
 
     icon = db.relationship("Icon", backref="programs")
     color = db.relationship("Color", backref="programs")
@@ -38,6 +39,7 @@ class Program(db.Model):
             "private": self.private,
             "aids_order": self.activity_ids_order,
             "rew_ids_order": self.reward_ids_order,
+            "has_shop": self.has_shop,
         }
     
     def get_mids(self):

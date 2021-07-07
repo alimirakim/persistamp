@@ -6,19 +6,21 @@ import RewardDeleteForm from '../forms/RewardDeleteForm'
 import RedeemForm from '../forms/RedeemForm'
 import { EditButton } from '../forms/FormInputs'
 import Divider from '../HomePage/Divider'
+import UserContext from '../../context/UserContext'
 
 
 export default function RewardCard({ program, reward, receiptCount }) {
   const { mid } = useParams()
   const { colors, icons } = useContext(OptionsContext)
+  const user = useContext(UserContext)
   const isBlack = reward.cid === 3 ? "rsc-black" : ""
   const [openEdit, setOpenEdit] = useState(false)
   const [openDelete, setOpenDelete] = useState(false)
   const [openRedeem, setOpenRedeem] = useState(false)
-  let insufficientPoints = program.points < reward.cost
+  let insufficientPoints = program?.points ? program.points < reward.cost : user.points < reward.cost;
   let remainingLimit = reward.limit_per_member - receiptCount
-  let disabled = insufficientPoints || remainingLimit === 0 || reward.quantity === 0
-  const disabledStyle = disabled ? { color: "red" } : {}
+  let isDisabled = insufficientPoints || remainingLimit === 0 || reward.quantity === 0
+  const disabledStyle = isDisabled ? { color: "red" } : {}
 
   const toggleEdit = (e) => setOpenEdit(!openEdit)
   const toggleDelete = (e) => setOpenDelete(!openDelete)
@@ -30,6 +32,8 @@ export default function RewardCard({ program, reward, receiptCount }) {
     }
     return "--"
   }
+
+  console.log("Reward", program, user)
 
   return (
     <article>
@@ -70,7 +74,7 @@ export default function RewardCard({ program, reward, receiptCount }) {
             {/* <dt>Cost:</dt> */}
             {/* <dd>{reward.cost} <i className={`fas fa-${icons[reward.iid].title}`}></i></dd> */}
           </dl>
-          <button onClick={toggleRedeem} className="rsp-btn" disabled={disabled}>
+          <button onClick={toggleRedeem} className="rsp-btn" disabled={isDisabled}>
             <span style={disabledStyle}>Redeem ({reward.cost} <small>Points</small>)</span>
           </button>
           <br />

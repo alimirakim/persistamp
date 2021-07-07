@@ -29,7 +29,7 @@ export default function RewardForm({ open, handleClose, cid, iid }) {
   return (
     <FormWrapper
       type="reward"
-      path={`/api/rewards/programs/${pid}/create`}
+      path={pid ? `/api/rewards/programs/${pid}/create` : `/api/rewards/create`}
       open={open}
       handleClose={handleClose}
       dispatcher={dispatchCreateReward}

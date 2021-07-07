@@ -189,3 +189,13 @@ Naming convention: 'lo-'. EXAMPLE: 'lo-left-sidebar'*/
   height: 500px;
 
 }
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+  margin: 1rem 4%;
+}
+.header-container > * {
+  width: 30%;
+}

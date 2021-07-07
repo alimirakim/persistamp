@@ -48,7 +48,7 @@ def program_rewards(pid):
 
 
 @reward_routes.route("/programs/<int:pid>/create", methods=["POST"])
-def create_reward(pid):
+def create_program_reward(pid):
     form = RewardForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     check_exists = lambda x: x if x else -1
@@ -70,6 +70,29 @@ def create_reward(pid):
         return reward.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
+@reward_routes.route("/create", methods=["POST"])
+def create_user_reward():
+    form = RewardForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    check_exists = lambda x: x if x else -1
+    
+    if form.validate():
+        reward = Reward(title=form["title"].data,
+                        type='custom',
+                        description=form['description'].data,
+                        color_id=form['cid'].data,
+                        icon_id=form["iid"].data,
+                        cost=form['cost'].data,
+                        # TODO: this should not be required
+                        limit_per_member=check_exists(form['limit'].data),
+                        quantity=check_exists(form['quantity'].data),
+                        creator_id=request.json['userId'],
+                        )
+        db.session.add(reward)
+        db.session.commit()
+            
+        return reward.to_dict()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
 @reward_routes.route("/<int:rid>/edit", methods=["PATCH"])
 def edit_reward(rid):

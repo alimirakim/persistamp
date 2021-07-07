@@ -1,8 +1,10 @@
 import React, { useContext } from 'react'
 import RewardShopContext from '../../context/RewardShopContext'
+import UserContext from '../../context/UserContext'
 import RewardCard from './RewardCard'
 
 export default function Rewards() {
+  const { user } = useContext(UserContext)
   const { rewards, receipts, program } = useContext(RewardShopContext)
 
   if (Object.keys(rewards).length === 0) {
@@ -19,6 +21,7 @@ export default function Rewards() {
             <li key={reward.id}>
               <RewardCard
                 reward={reward}
+                user={user}
                 program={program}
                 receiptCount={receiptCount}
               />

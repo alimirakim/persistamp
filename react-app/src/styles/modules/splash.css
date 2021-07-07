@@ -95,10 +95,7 @@
 }
 
 .hbd-title {
-  position: absolute;
-  top: 1rem;
-  left: 2rem;
-  margin: 0;
+
 }
 .persistamp {
   font-size: 5rem;
@@ -106,7 +103,7 @@
   font-family: "Berkshire Swash", "Merienda One", Courgette, Meddon;
   text-shadow: 3px 3px 2px rgba(0,0,0,0.8);
   font-weight: normal;
-  text-align: right;
+  /* text-align: right; */
   margin: 0;
 }
 

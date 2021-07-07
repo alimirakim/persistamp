@@ -91,17 +91,24 @@ export default function NavCard({
               {program && <>
                 <span className="idc-program idc-first">Membership</span>
                 <div className="th-hr-gr-fade-left" />
-                <div className="idc-rew idc-last">{program.title}</div>
+                <div className="idc-rew idc-last">{program.title} Program</div>
+              </>}
+
+              {history.location.pathname === "/reward-shop" && <>
+                <span className="idc-program idc-first">{user.username}'s </span>
+                <div className="th-hr-gr-fade-left" />
+                <div className="idc-rew idc-last">Reward Shop</div>
               </>}
 
               {/* <span class="th-metal-shade">&nbsp;</span> */}
             </h1>
           </div>
 
-          {program &&
-            <div className="idc-line th-metal-light ">
-              <dt className="idc-label"> <i className={`fas fa-xs fa-${icons[program.iid].title}`}></i> Points</dt>
-              <dd>{program.points}</dd>
+          {(history.location.pathname === "/" || history.location.pathname.includes('reward-shop')) &&
+            <div className="idc-line th-metal-light idc-points">
+              <dt className="idc-label"> 
+                <i className={`fas fa-${icons[program ? program.iid : user.iid].title}`}></i> {program ? program.points : user.points}
+              </dt>
             </div>
           }
           {/* {history.location.pathname === "/" &&

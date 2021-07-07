@@ -10,10 +10,10 @@
 .rsp-point-con {
   line-height: 2rem;
   text-align: right;
-  margin-right: 4rem;
+  /* margin: 1rem; */
 }
 .rsp-points {
-  line-height: 1rem;
+  line-height: 5rem;
 }
 
 .rsp-title {

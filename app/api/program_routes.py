@@ -32,6 +32,7 @@ def create_program():
             color_id=form.data['cid'],
             icon_id=form.data["iid"],
             creator_id=request.json['userId'],
+            has_shop=form.data["hasShop"],
         )
         db.session.add(program)
         db.session.commit()
