@@ -18,8 +18,6 @@ export default function Homepage({ auth, setAuth, setUser }) {
 
   const toggleCreateProgram = (e) => setOpenCreateProgram(!openCreateProgram)
 
-  console.log("colors", colors, colors[user.cid].hex, userColor)
-
   useEffect(() => {
     const stopId = setInterval(() => {
       if (new Date().getDay() !== today) setToday(new Date().getDay())

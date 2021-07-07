@@ -15,13 +15,6 @@ export default function RewardEditForm({ open, handleClose, reward, handleOpenDe
     handleClose()
     handleOpenDelete()
   }
-  
-const uniqueInputs = () => (<div className="lo-row">
-    <ChooseCost cost={cost} setCost={setCost} />
-    <ChooseQuantity label="quantity" quantity={quantity} setQuantity={setQuantity} />
-    <ChooseLimit limit={limit} setLimit={setLimit} />
-    <DeleteButton switchForms={switchForms} />
-  </div>)
 
 if (!open) return null
 
@@ -33,8 +26,14 @@ if (!open) return null
       handleClose={handleClose}
       dispatcher={dispatchEditReward}
       uniqueContent={{cost, limit, quantity}}
-      uniqueInputs={uniqueInputs}
       edit={reward}
-    />
+    >
+      <div className="lo-row">
+        <ChooseCost cost={cost} setCost={setCost} />
+        <ChooseQuantity label="quantity" quantity={quantity} setQuantity={setQuantity} />
+        <ChooseLimit limit={limit} setLimit={setLimit} />
+        <DeleteButton switchForms={switchForms} />
+      </div>
+    </FormWrapper>
   )
 }

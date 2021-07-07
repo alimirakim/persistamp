@@ -16,7 +16,6 @@ export default function FormWrapper({
   dispatcher,
   uniqueContent,
   resetUniqueInputs,
-  uniqueInputs: UniqueInputs,
   defaultColorId,
   defaultIconId,
   edit,
@@ -30,7 +29,6 @@ export default function FormWrapper({
   const [colorId, setColorId] = useState(edit ? edit.cid : defaultColorId)
   const [iconId, setIconId] = useState(edit ? edit.iid : defaultIconId)
   const [isDisabled, setIsDisabled] = useState(false)
-  if (!UniqueInputs) UniqueInputs = () => (<></>)
   if (!resetUniqueInputs) resetUniqueInputs = () => null
 
   const onSubmit = async (e) => {

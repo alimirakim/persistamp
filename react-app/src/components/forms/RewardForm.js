@@ -12,12 +12,6 @@ export default function RewardForm({ open, handleClose, cid, iid }) {
   const [limit, setLimit] = useState("")
   const [quantity, setQuantity] = useState("")
 
-  const uniqueInputs = () => (<div className="lo-row">
-    <ChooseCost key={'reward-cost'} cost={cost} setCost={setCost} />
-    <ChooseQuantity label="quantity" quantity={quantity} setQuantity={setQuantity} />
-    {pid && <ChooseLimit limit={limit} setLimit={setLimit} />}
-  </div>)
-  
   const resetUniqueInputs = (e) => {
     setCost(5)
     setLimit("")
@@ -34,7 +28,6 @@ export default function RewardForm({ open, handleClose, cid, iid }) {
       handleClose={handleClose}
       dispatcher={dispatchCreateReward}
       uniqueContent={{ cost, limit, quantity }}
-      uniqueInputs={uniqueInputs}
       resetUniqueInputs={resetUniqueInputs}
       defaultColorId={cid}
       defaultIconId={iid}

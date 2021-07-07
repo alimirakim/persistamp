@@ -11,12 +11,6 @@ export default function ProgramForm({ open, handleClose }) {
 
   const updateHasShop = (e) => setHasShop(!hasShop)
 
-  const uniqueInputs = () => (
-    <label>Add program shop
-      <input type="checkbox" checked={hasShop} onClick={updateHasShop} />
-    </label>
-  )
-
   const resetUniqueInputs = (e) => {
     setHasShop(false)
   }
@@ -31,10 +25,13 @@ export default function ProgramForm({ open, handleClose }) {
       handleClose={handleClose}
       dispatcher={dispatchCreateProgram}
       uniqueContent={{ hasShop }}
-      uniqueInputs={uniqueInputs}
       resetUniqueInputs={resetUniqueInputs}
       defaultColorId={user.cid}
       defaultIconId={user.iid}
-    />
+    >
+      <label>Add program shop
+        <input type="checkbox" checked={hasShop} onClick={updateHasShop} />
+      </label>
+    </FormWrapper>
   )
 }

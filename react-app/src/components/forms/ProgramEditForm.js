@@ -13,8 +13,6 @@ export default function ProgramEditForm({ open, handleClose, program, handleOpen
     handleOpenDelete()
   }
   
-  const uniqueInputs = () => (<DeleteButton switchForms={switchForms} />)
-  
   if (!open) return null
   
   return (
@@ -24,8 +22,9 @@ export default function ProgramEditForm({ open, handleClose, program, handleOpen
       open={open}
       handleClose={handleClose}
       dispatcher={dispatchEditProgram}
-      uniqueInputs={uniqueInputs}
       edit={program}
-    />
+    >
+      <DeleteButton switchForms={switchForms} />
+    </FormWrapper>
   )
 }

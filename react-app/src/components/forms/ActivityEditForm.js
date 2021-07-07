@@ -20,13 +20,6 @@ export default function ActivityEditForm({
     handleOpenDelete()
   }
 
-  const uniqueInputs = () => (<>
-    <ChooseFrequency frequency={frequency} updateFrequency={updateFrequency} />
-    <ChooseQuantity label="Stamp Value" quantity={stampValue} setQuantity={setStampValue} />
-    <DeleteButton switchForms={switchForms} />
-
-  </>)
-
   if (!open) return null
 
   return (
@@ -37,8 +30,11 @@ export default function ActivityEditForm({
       handleClose={handleClose}
       dispatcher={dispatchEditActivity}
       uniqueContent={{ frequency, stampValue }}
-      uniqueInputs={uniqueInputs}
       edit={activity}
-    />
+    >    
+      <ChooseFrequency frequency={frequency} updateFrequency={updateFrequency} />
+      <ChooseQuantity label="Stamp Value" quantity={stampValue} setQuantity={setStampValue} />
+      <DeleteButton switchForms={switchForms} />
+    </FormWrapper>
   )
 }
