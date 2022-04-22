@@ -1,28 +1,23 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
 import OptionsContext from '../../context/OptionsContext'
-// import ActivityContext from '../../context/ActivityContext'
-import UserContext from '../../context/UserContext'
-
-// import ActivityEditForm from '../forms/ActivityEditForm'
-// import ActivityDeleteForm from '../forms/ActivityDeleteForm'
 import LineGraph from './LineGraph'
 import CalendarMap from './CalendarMap';
 import ActivityStatOverview from './ActivityStatOverview';
 import PrivatePage from '../PrivatePage';
-import NavCard from '../nav/NavCard'
+import NavCard from '../nav/NavCard';
 import ProgramBoardContext from '../../context/ProgramBoardContext';
 import ActivityTable from './ActivityTable'
+
 
 export default function ActivityDisplay({ auth, setAuth, setUser, isPrivate, setIsPrivate }) {
   const history = useHistory()
   const { aid, mid } = useParams()
-  const user = useContext(UserContext)
-  const { activities, programs, dispatchSetAll, dispatchAddActivity, dispatchEditActivity } = useContext(ProgramBoardContext)
+  const { activities, programs, dispatchAddActivity, dispatchEditActivity } = useContext(ProgramBoardContext)
   const activity = activities[aid]
   const { colors, icons } = useContext(OptionsContext)
 
@@ -89,18 +84,6 @@ export default function ActivityDisplay({ auth, setAuth, setUser, isPrivate, set
         <div className="displayPage">
           <div className="displayFormat">
             <div className="activityFormat">
-
-              {/* <div className="activityDetailContainer"> */}
-              {/* <br/> */}
-              {/* <div className="activityHeader"> */}
-              {/* <h1 style={{ fontSize: "4rem" }} className={`cam activityDetail__title`}>
-                      {console.log("inside", activity)}
-                      <i className={`fas fa-${icons[activity.iid].title}`}></i>
-                      &nbsp;{activity.title}
-                    </h1> */}
-              {/* </div> */}
-              {/* </div> */}
-
               <ActivityStatOverview activity={activity} />
               <LineGraph color={color} />
             </div>

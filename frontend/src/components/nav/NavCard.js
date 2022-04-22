@@ -1,9 +1,11 @@
 import React, { useContext } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
+
 import OptionsContext from '../../context/OptionsContext'
 import ProgramBoardContext from '../../context/ProgramBoardContext';
 import UserContext from '../../context/UserContext'
 import NavStamps from './NavStamps'
+
 
 export default function NavCard({
   auth,
@@ -16,11 +18,13 @@ export default function NavCard({
   const history = useHistory()
   const { aid, pid } = useParams()
   const { colors, icons } = useContext(OptionsContext)
-  const { activities } = useContext(ProgramBoardContext)
+  const pbContext = useContext(ProgramBoardContext)
+  console.log(pbContext)
+  const { activities, points } = pbContext
   const user = useContext(UserContext)
   const birthday = user.birthday ? new Date(user.birthday).toLocaleString('en-EN', { year: 'numeric', month: 'long', day: 'numeric' }) : "N/A"
   const path = history.location.pathname.split("/")
-  // console.log("activities", activities)
+  console.log("points", points)
 
   if (!user.id) return (
     <header
@@ -30,7 +34,6 @@ export default function NavCard({
 
         <div className="idc-title idc-line th-metal">
           <h1 className="idc-name">
-
             {title && <>
               <span className="idc-first">{title.first}</span>
               <div className="th-hr-gr-fade-left" />
@@ -44,6 +47,7 @@ export default function NavCard({
             </>}
           </h1>
         </div>
+        
         <NavStamps
           auth={auth}
           setAuth={setAuth}
@@ -110,8 +114,14 @@ export default function NavCard({
             </div>
           }
 
-
-          {user && !program &&
+          {points && !program &&
+            <div className="idc-line th-metal-light ">
+              <dt className="idc-label"> <i className={`fas fa-xs fa-${icons[user.iid].title}`}></i> Points</dt>
+              <dd>{points}</dd>
+            </div>
+          }
+          
+          {history.location.pathname === "/reward-shop" &&
             <div className="idc-line th-metal-light ">
               <dt className="idc-label"> <i className={`fas fa-xs fa-${icons[user.iid].title}`}></i> Points</dt>
               <dd>{user.points}</dd>

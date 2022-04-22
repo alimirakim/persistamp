@@ -24,7 +24,6 @@ export default function RewardShop({ auth, setAuth }) {
         const res = await fetch(`/api/rewards/programs/${pid}`)
         const { program_data, rewards_data, receipts_data } = await res.json()
         dispatchSetAll({ program: program_data, rewards: rewards_data, receipts: receipts_data })
-        // const { rewards_data, receipts_data } = await fetch(`/api/rewards/programs/${pid}/users/${user.id}`).then(res => res.json())
       })()
     }
   }, [])
@@ -51,7 +50,6 @@ export default function RewardShop({ auth, setAuth }) {
         <span className="rsp-points">{program.points}</span>
       </div>
     </h2>
-    
     
     <main className="" style={{ color: colors[program.cid].hex }}>
       <RewardForm open={openCreate} handleClose={toggleCreate} cid={program.cid} iid={program.iid} />

@@ -12,21 +12,7 @@ let users = [
     email: "dyclee@umich.com",
     links: ["https://www.github.com/dyclee", "https://www.linkedin.com/in/daveyclee"],
     shortname: "david",
-    //   image: david,
   },
-  // {
-  //   name: "Brian Wang",
-  //   email: "brbwang@gmail.com",
-  //   links: ["https://www.github.com/Awodfkai", "https://www.linkedin.com/in/brian-wang-902373163"],
-  //   shortname: "brian",
-  //   //   image: brian,
-  // },
-  // {
-  //   name: "Eric Lyda",
-  //   email: "lydaeric@gmail.com",
-  //   links: ["https://www.github.com/ELyda95"],
-  //   shortname: "eric",
-  // },
 ];
 
 const renderUser = (user) => {
@@ -54,13 +40,14 @@ const renderUser = (user) => {
   )
 }
 
+
 export default function Footer() {
 
   return <footer className="footer">
     <div className="footer-container">
       <div className="th-cap-title footer-header">
         Developed by
-                </div>
+      </div>
       <div className="footer-users">
         {users.map((user) => {
           return renderUser(user)

@@ -1,11 +1,10 @@
 import React from 'react'
 
-function CalenderGraph() {
+
+export default function CalenderGraph() {
     return (
         <div>
             <h1>Calender Graph</h1>
         </div>
     )
 }
-
-export default CalenderGraph

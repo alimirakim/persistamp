@@ -51,7 +51,6 @@ export function EditButton({ handleOpen, styles }) {
 }
 
 
-
 export function MiniEditButton({ handleOpen }) {
   return (
     <button className="mini-ico-btn" onClick={handleOpen}>
@@ -83,7 +82,6 @@ export function ActionOrCancelButtons({ handleClose, onAction, action, isDisable
     </DialogActions>
   )
 }
-
 
 
 export function AddTitle({ title, setTitle, checkKeyPress }) {
@@ -141,6 +139,7 @@ export function ChooseFrequency({ frequency, updateFrequency }) {
   </div>)
 }
 
+
 export function SetUsername({ username, setUsername, checkKeyPress }) {
   const updateUsername = (e) => setUsername(e.target.value)
   return (<>
@@ -157,6 +156,7 @@ export function SetUsername({ username, setUsername, checkKeyPress }) {
     />
   </>)
 }
+
 
 export function ChooseLimit({ limit, setLimit }) {
   const updateLimit = (e) => setLimit(e.target.value)
@@ -191,30 +191,12 @@ export function ChooseQuantity({ quantity, setQuantity, label }) {
 }
 
 
-// export function AddDescription({ description, setDescription }) {
-//   const updateDescription = (e) => setDescription(e.target.value)
-//   return (<>
-//     <TextField
-//       value={description}
-//       margin="dense"
-//       id="description"
-//       label="Description"
-//       type="text"
-//       fullWidth
-//       onChange={updateDescription}
-//     />
-//     <CharCountIndicator length={description ? description.length : 0} maxLength={250} />
-//   </>)
-// }
-
-
 export function ChooseCost({ cost, setCost }) {
   const updateCost = (e) => {
     setCost(e.target.value)
   }
 
   return (<>
-    {/* <InputLabel>Cost</InputLabel> */}
     
     <TextField
       value={cost}
@@ -224,11 +206,10 @@ export function ChooseCost({ cost, setCost }) {
       type="text"
       fullWidth
       onChange={updateCost}
-      // type="number"
-      // InputProps={{ min: 1 }}
     />
   </>)
 }
+
 
 export function UpdateFirstname({ firstname, setFirstname }) {
   const updateName = (e) => {
@@ -245,6 +226,7 @@ export function UpdateFirstname({ firstname, setFirstname }) {
   )
 }
 
+
 export function UpdateLastname({ lastname, setLastname }) {
   const updateName = (e) => setLastname(e.target.value)
 
@@ -257,6 +239,7 @@ export function UpdateLastname({ lastname, setLastname }) {
     />
   )
 }
+
 
 export function UpdateBirthday({ birthday, setBirthday }) {
   const updateBirthday = (e) => {

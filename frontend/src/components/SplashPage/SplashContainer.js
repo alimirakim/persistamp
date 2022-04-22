@@ -1,8 +1,10 @@
 import React from 'react';
+
 import LoginForm from '../auth/LoginForm';
 import SignUpForm from '../auth/SignUpForm';
 import InstructionsContainer from './InstructionsContainer';
 import demoButton from '../../images/persistamp-demoButton.png';
+
 
 export default function SplashContainer({ auth, setAuth, setUser }) {
 

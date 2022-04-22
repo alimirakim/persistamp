@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
-import { signUp } from '../../services/auth';
 import { TextField, Button } from '@material-ui/core';
 import { ActionOrCancelButtons } from '../forms/FormInputs';
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core'
 import ErrorMessages from '../mylib/ErrorMessages'
 
-const SignUpForm = ({ auth, setAuth, setUser }) => {
+
+export default function SignUpForm({ auth, setAuth, setUser }) {
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [birthday, setBirthday] = useState("");
@@ -18,14 +18,13 @@ const SignUpForm = ({ auth, setAuth, setUser }) => {
   const [open, setOpen] = React.useState(false);
   const [errors, setErrors] = useState([])
 
-
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false)
 
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      
+
       const response = await fetch("/api/auth/signup", {
         method: "POST",
         headers: {
@@ -63,7 +62,12 @@ const SignUpForm = ({ auth, setAuth, setUser }) => {
 
   return (<>
 
-    <Button className='signUpButton' onClick={handleClickOpen} color="secondary" variant="contained">
+    <Button
+      className='signUpButton'
+      onClick={handleClickOpen}
+      color="secondary"
+      variant="contained"
+    >
       Sign up
     </Button>
     <Dialog open={open} onClose={handleClose}
@@ -83,7 +87,6 @@ const SignUpForm = ({ auth, setAuth, setUser }) => {
           id="first_name"
           label="First name"
           type="text"
-
           onChange={updateFirstName}
           required
         />
@@ -97,16 +100,6 @@ const SignUpForm = ({ auth, setAuth, setUser }) => {
           onChange={updateLastName}
           required
         />
-        {/* <TextField
-          id="birthday"
-          label="Birthday"
-          type="date"
-          defaultValue={birthday}
-          onChange={updateBirthday}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        /> */}
         <TextField
           autoFocus
           defaultValue={username}
@@ -151,10 +144,11 @@ const SignUpForm = ({ auth, setAuth, setUser }) => {
           onChange={updateRepeatPassword}
           required
         />
-        <ActionOrCancelButtons handleClose={handleClose} onAction={onSignUp} action={"Sign up"} />
+        <ActionOrCancelButtons
+          handleClose={handleClose}
+          onAction={onSignUp}
+          action={"Sign up"} />
       </DialogContent>
     </Dialog>
   </>);
 };
-
-export default SignUpForm

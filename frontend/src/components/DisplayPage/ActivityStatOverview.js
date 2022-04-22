@@ -10,11 +10,7 @@ import {
 } from "@chakra-ui/stat";
 
 
-
-
-
-
-export default function ActivityStatOverview({ activity }) {
+export default function ActivityStatOverview() {
   const { mid, aid } = useParams()
   const [statData, setStatData] = useState([])
   useEffect(() => {
@@ -28,10 +24,8 @@ export default function ActivityStatOverview({ activity }) {
 
   return (
     <>
-      {/* <ChakraProvider theme={customTheme}> */}
       <div className="statContainer hdp-stats">
         <h2 className="statOverview hdp-cal" style={{margin: "1rem 0 0", fontSize: "2.5rem", color: "white"}}>
-        {/* "{activity.title}" */}
         Activity History
         </h2>
         <StatGroup className="statGroup ">
@@ -60,7 +54,6 @@ export default function ActivityStatOverview({ activity }) {
           </Stat>
         </StatGroup>
       </div>
-      {/* </ChakraProvider> */}
     </>
   )
 }

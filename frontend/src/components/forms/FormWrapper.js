@@ -47,7 +47,6 @@ export default function FormWrapper({
       setErrors(content.errors)
       setIsDisabled(false)
     } else {
-      // console.log("content", content)
       handleClose()
       dispatcher(content)
       setErrors([])
@@ -58,35 +57,30 @@ export default function FormWrapper({
         setIconId(defaultIconId)
         resetUniqueInputs()
         setIsDisabled(false)
-    }
+      }
     }
   }
-  
+
   const checkKeyPress = (e) => {
-    console.log("enter", e.key)
-    if (e.key === "Enter") {
-      onSubmit(e)
-    } else if (e.key === "Esc") {
-      handleClose()
-    }
+    if (e.key === "Enter") onSubmit(e)
+    else if (e.key === "Esc") handleClose()
   }
-  
-  
-if (!colorId) return null
+
+  if (!colorId) return null
 
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
       <DialogTitle id="form-dialog-title">
-      {edit ? `Edit ${type}: "${edit.title}"` : `Create ${type}`}
+        {edit ? `Edit ${type}: "${edit.title}"` : `Create ${type}`}
       </DialogTitle>
 
       <ErrorMessages errors={errors} />
 
-      <DialogContent  style={{minWidth: "25rem"}}>
+      <DialogContent style={{ minWidth: "25rem" }}>
         <AddTitle title={title} setTitle={setTitle} setErrors={setErrors} checkKeyPress={checkKeyPress} />
         <AddDescription description={description} setErrors={setErrors} setDescription={setDescription} />
         <UniqueInputs />
-        
+
         <IconInput color={colors[colorId].hex} icons={icons} value={iconId} setValue={setIconId} />
         <ColorInput icon={icons[iconId].title} colors={colors} value={colorId} setValue={setColorId} />
         <ActionOrCancelButtons handleClose={handleClose} onAction={onSubmit} action={edit ? "Save" : "Create"} isDisabled={isDisabled} />

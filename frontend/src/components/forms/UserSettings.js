@@ -31,7 +31,6 @@ export default function UserSettings({ open, handleClose, user, setUser }) {
 
   const toggleIcons = () => setOpenIcons(!openIcons)
 
-  
   useEffect(() => {
     setColorId(user.cid)
     setIconId(user.iid)
@@ -59,12 +58,8 @@ export default function UserSettings({ open, handleClose, user, setUser }) {
   }
   
   const checkKeyPress = (e) => {
-    console.log("enter", e.key)
-    if (e.key === "Enter") {
-      onUpdate(e)
-    } else if (e.key === "Esc") {
-      handleClose()
-    }
+    if (e.key === "Enter") onUpdate(e)
+    else if (e.key === "Esc") handleClose()
   }
 
   if (!open) return null

@@ -7,10 +7,10 @@ export default function PrivatePage() {
     <main className="privatePage">
       <h1 className="persistamp">Sorry, It's Private!</h1>
       <article className="lo-center">
-      <p className="msg-none th-txt-shadow"><strong>This page is private</strong></p>
+      <p className="msg-none th-txt-shadow"><strong>This page is private.</strong></p>
       <Link to='/'>
         <Button variant="contained" color="secondary">
-          Return to Homepage
+          Return to Homepage >
             </Button>
       </Link>
       </article>

@@ -17,7 +17,7 @@ export default function ActivityRow({ activity, program }) {
 
   const toggleEdit = (e) => setOpenEdit(!openEdit)
   const toggleDelete = (e) => setOpenDelete(!openDelete)
-  
+
   if (!activity) return null
 
   return (<>
@@ -36,33 +36,42 @@ export default function ActivityRow({ activity, program }) {
       dispather={dispatchDeleteActivity}
     />
 
-      <td className="activity">
-        <div className="activity-btns">
+    <td className="activity">
+      <div className="activity-btns">
 
-          {/* activity icon */}
-          <button className="activity-ico" onClick={toggleEdit} style={{ color: colors[activity.cid].hex }}>
-            <i className={`lo-center fas fa-${icons[activity.iid].title}`} data-fa-transform="shrink-6" data-fa-mask="fas fa-circle"></i>
-          </button>
+        {/* activity icon */}
+        <button
+          className="activity-ico"
+          onClick={toggleEdit}
+          style={{ color: colors[activity.cid].hex }}
+        >
+          <i
+            className={`lo-center fas fa-${icons[activity.iid].title}`}
+            data-fa-transform="shrink-6" data-fa-mask="fas fa-circle" />
+        </button>
 
-          <Link className="activity-btn-con" to={`/activities/${activity.id}/memberships/${program.mid}`} style={{ color: colors[activity.cid].hex }}>
-            <div className="activity-btn">
-              {/* activity title */}
-              <span className="activity-title">
-                <small className="activity-freq"> {activity.frequency}/wk - </small>
-                <small className="activity-freq"> {activity.stamp_value}/pt</small>
-                
-                <div className="activity-title-txt">{activity.title}</div>
-              </span>
-            </div>
-          </Link>
-        </div>
-      </td>
-      {week.map(day => {
-        return <StampBox key={day}
-          day={day}
-          aid={activity.id}
-          mid={program.mid}
-        />
-      })}
+        <Link
+          className="activity-btn-con"
+          to={`/activities/${activity.id}/memberships/${program.mid}`}
+          style={{ color: colors[activity.cid].hex }}
+        >
+          <div className="activity-btn">
+            {/* activity title */}
+            <span className="activity-title">
+              <small className="activity-freq"> {activity.frequency}/wk - </small>
+              <small className="activity-freq"> {activity.stamp_value}/pt</small>
+              <div className="activity-title-txt">{activity.title}</div>
+            </span>
+          </div>
+        </Link>
+      </div>
+    </td>
+    {week.map(day => {
+      return <StampBox key={day}
+        day={day}
+        aid={activity.id}
+        mid={program.mid}
+      />
+    })}
   </>)
 }

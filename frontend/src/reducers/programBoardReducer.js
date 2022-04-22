@@ -50,7 +50,7 @@ export const resetStamps = () => ({ type: RESET_STAMPS })
 
 
 export default function programBoardReducer(state = {
-  programs: {}, activities: {}, stamps: {}, points: "",
+  programs: {}, activities: {}, stamps: {}, points: 0,
 }, action) {
   const newState = { ...state }
 

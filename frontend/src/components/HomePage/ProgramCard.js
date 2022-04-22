@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 
 import OptionsContext from '../../context/OptionsContext'
-import ProgramBoardContext from '../../context/ProgramBoardContext'
 import ProgramEditForm from '../forms/ProgramEditForm'
 import ProgramDeleteForm from '../forms/ProgramDeleteForm'
 import RewardPoints from "./RewardPoints";
@@ -66,8 +65,3 @@ export default function ProgramCard({ program }) {
     </article>
   </>)
 }
-
-
-{/* function ActivitiesOrMessage({ program, activities }) {
-
-  } */}

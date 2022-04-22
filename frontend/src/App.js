@@ -27,8 +27,6 @@ export default function App() {
   const [icons, setIcons] = useState("")
   const [isPrivate, setIsPrivate] = useState(true);
 
-  // const updateUser = (user) => dispatchPB(resetPrograms())
-
   // When the page loads, load the user. Do only once!!
   useEffect(() => {
     (async () => {
@@ -42,8 +40,6 @@ export default function App() {
       }
 
       const { colors_data, icons_data } = await fetch(`/api/options`).then(res => res.json())
-      // console.log("color count", colors_data)
-      // console.log("icon count", icons_data)
       setIcons(icons_data)
       setColors(colors_data)
       setLoaded(true)
@@ -60,36 +56,42 @@ export default function App() {
       <UserContext.Provider value={user}>
         <OptionsContext.Provider value={{ colors, icons }}>
 
+          {/* Splash */}
           <Route path="/" exact={true}>
             <SplashContainer auth={auth} setAuth={setAuth} setUser={setUser} />
           </Route>
 
           <ProgramBoardContextProvider>
+            {/* Homepage with program dashboard */}
             <Route path="/" exact={true} auth={auth}>
               <Homepage auth={auth} setAuth={setAuth} setUser={setUser} />
             </Route>
 
+            {/* Activity Display Page */}
             <Route path="/activities/:aid/memberships/:mid" auth={auth} exact={true}>
-              <ActivityDisplay auth={auth} setAuth={setAuth}  isPrivate={isPrivate} setIsPrivate={setIsPrivate} />
+              <ActivityDisplay auth={auth} setAuth={setAuth} isPrivate={isPrivate} setIsPrivate={setIsPrivate} />
             </Route>
           </ProgramBoardContextProvider>
 
-            <RewardShopContextProvider>
-            
-            <Route path="/reward-shop" exact={true} auth={auth}>
-                <MainRewardShop auth={auth} setAuth={setAuth} />
-              </Route>
-            
-              <Route path="/programs/:pid/memberships/:mid/reward-shop" exact={true} auth={auth}>
-                <RewardShop auth={auth} setAuth={setAuth} />
-              </Route>
-              
-            </RewardShopContextProvider>
 
+          <RewardShopContextProvider>
+            {/* Main Reward Shop */}
+            <Route path="/reward-shop" exact={true} auth={auth}>
+              <MainRewardShop auth={auth} setAuth={setAuth} />
+            </Route>
+
+            {/* Program Reward Shop */}
+            <Route path="/programs/:pid/memberships/:mid/reward-shop" exact={true} auth={auth}>
+              <RewardShop auth={auth} setAuth={setAuth} />
+            </Route>
+          </RewardShopContextProvider>
+
+          {/* About Page */}
           <Route path="/about" exact={true}>
             <AboutCard auth={auth} setAuth={setAuth} />
           </Route>
 
+          {/* User Page */}
           <Route path="/users/:uid" exact={true} auth={auth}>
             <User auth={auth} setAuth={setAuth} />
           </Route>

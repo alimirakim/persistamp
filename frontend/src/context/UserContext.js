@@ -1,7 +1,13 @@
 import React, { createContext, useReducer } from 'react';
-import userReducer, { logoutUser, setUser, updateUser } from '../reducers/userReducer';
+import userReducer, {
+  logoutUser,
+  setUser,
+  updateUser
+} from '../reducers/userReducer';
+
 
 const UserContext = createContext("No user");
+
 
 export default UserContext;
 

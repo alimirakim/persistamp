@@ -125,9 +125,9 @@ Naming convention: start with `th-`. EXAMPLE: th-bg-primary */
 
 .th-metal-fore {
   color: linear-gradient(#b9b18e 75%, #865 85%);
-  /* -webkit-background-clip: text; */
-  /* -webkit-text-fill-color: transparent; */
-  /* -webkit-border-fill-color: transparent; */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-border-fill-color: transparent;
   /* color: #543; */
 }
 

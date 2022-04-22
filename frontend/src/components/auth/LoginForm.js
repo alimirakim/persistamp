@@ -6,6 +6,7 @@ import { ActionOrCancelButtons } from '../forms/FormInputs';
 import { Dialog, DialogContent, DialogTitle } from '@material-ui/core'
 import ErrorMessages from '../mylib/ErrorMessages'
 
+
 export default function LoginForm({ auth, setAuth, setUser }) {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
@@ -37,13 +38,18 @@ export default function LoginForm({ auth, setAuth, setUser }) {
   if (auth) return <Redirect to="/" />
 
   return (<>
-    <Button className='loginButton' onClick={handleClickOpen} variant="contained" color="secondary">
+    <Button
+      className='loginButton'
+      onClick={handleClickOpen}
+      variant="contained"
+      color="secondary"
+    >
       Log in
     </Button>
 
     <Dialog open={open} onClose={handleClose}
       PaperProps={{
-        style: { backgroundColor: "#FFD1D6"}
+        style: { backgroundColor: "#FFD1D6" }
       }}
     >
       <DialogTitle id="form-dialog-title">Log in</DialogTitle>
@@ -73,7 +79,12 @@ export default function LoginForm({ auth, setAuth, setUser }) {
           onChange={updatePassword}
           required
         />
-        <ActionOrCancelButtons handleClose={handleClose} onAction={onLogin} action={"Log in"} />
+        <ActionOrCancelButtons
+          handleClose={handleClose}
+          onAction={onLogin}
+          action={"Log in"}
+
+        />
       </DialogContent>
     </Dialog>
   </>)

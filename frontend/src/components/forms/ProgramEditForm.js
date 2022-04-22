@@ -8,7 +8,6 @@ export default function ProgramEditForm({ open, handleClose, program, handleOpen
   const { dispatchEditProgram } = useContext(ProgramBoardContext)
 
   const switchForms = (e) => {
-    console.log("what is you", handleOpenDelete)
     handleClose()
     handleOpenDelete()
   }

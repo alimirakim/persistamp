@@ -34,6 +34,7 @@ export function ProgramBoardContextProvider(props) {
   const dispatchUnstampDay = stamp => dispatch(unstampDay(stamp))
 
   const initState = {
+    points: 0,
     programs: {},
     activities: {},
     stamps: {},

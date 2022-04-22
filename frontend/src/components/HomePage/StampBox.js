@@ -4,13 +4,6 @@ import OptionsContext from '../../context/OptionsContext'
 
 
 // TODO How to optimize the rerenders here????
-// Create a user slice of state. In that slice, have user's memberships, activities,
-// stamps, etc.. Have each activity have a dailystamp array in order of date.
-// ehhh...
-
-// alt 1 wrap each activity row in a activity context
-// alt 3 have each stampbox have its island state what only fetches and such
-// straight from the source
 
 export default function StampBox({ day, mid, aid }) {
   const { colors, icons } = useContext(OptionsContext)

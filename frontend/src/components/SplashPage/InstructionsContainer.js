@@ -1,6 +1,6 @@
 import React from 'react';
-import { InstructionBox } from './InstructionBox';
 
+import { InstructionBox } from './InstructionBox';
 import instruction1 from '../../images/screenshots/sc1.png';
 import instruction2 from '../../images/screenshots/sc5.png';
 import instruction3 from '../../images/screenshots/sc4.png';

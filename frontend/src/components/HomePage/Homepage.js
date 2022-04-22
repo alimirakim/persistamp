@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+
 // OUR COMPONENTS
 import NavCard from '../nav/NavCard'
 import ProgramBoard from './ProgramBoard'
@@ -38,7 +39,7 @@ export default function Homepage({ auth, setAuth, setUser }) {
           programs: content.programs_data,
           activities: content.activities_data,
           stamps: content.stamps_data,
-          points: content.points,
+          points: content.points_data,
         })
       })()
     }

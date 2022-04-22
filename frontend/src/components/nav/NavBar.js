@@ -1,9 +1,11 @@
 import React, { useState, useContext } from 'react';
-import { NavLink, Link, useHistory } from 'react-router-dom';
+
+import { NavLink, useHistory } from 'react-router-dom';
 import UserContext from '../../context/UserContext';
 import UserSettings from '../forms/UserSettings'
 import { logout } from "../../services/auth";
 import turtle from '../images/turtle.svg'
+
 
 export default function NavBar({ auth, setAuth, setUser }) {
   const user = useContext(UserContext)
@@ -48,12 +50,6 @@ export default function NavBar({ auth, setAuth, setUser }) {
 
     </>)
   } else {
-    return (<>
-      {/* <nav className="stickers">
-        <NavLink to='/login' className="sticker sticker_logo-link" activeClassName="active">
-          <img className="sticker_logo" src={turtle} alt="Persistamp Logo: a red turtle stamp" />
-        </NavLink>
-      </nav> */}
-    </>)
+    return (<>tba?</>)
   }
 }

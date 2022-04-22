@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-export default function NavStampMessages({toggleMessage}) {
+export default function NavStampMessages() {
 
   return (
     <a href="https://github.com/alimirakim/persistamp"
