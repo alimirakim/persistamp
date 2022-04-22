@@ -64,7 +64,6 @@ CORS(app)
 
 @app.before_request
 def redirect_https():
-    # print("REQUEST", request.url)
     if os.environ.get("FLASK_ENV") == "production":
         if request.headers.get('X-Forwarded-Proto') == 'http':
             url = request.url.replace('http://', 'https://', 1)
@@ -90,7 +89,6 @@ def inject_csrf_token(response):
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def react_root(path):
-    print("path:", path)
     if path == 'favicon.ico':
         return app.send_static_file('favicon.ico')
     return app.send_static_file('index.html')

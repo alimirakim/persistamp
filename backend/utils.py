@@ -9,9 +9,7 @@ def dump_data_list(instances, schema):
     """Deserialize a list of model instances into jsonify-able objects."""
     data = []
     for instance in instances:
-        # print("instance", instance)
         data.append(schema.dump(instance))
-    # print("\nDUMPING data list", data)
     return data
 
 
@@ -38,10 +36,6 @@ def queryUserFullData(uid):
                 if stamp.membership_id == membership.id:
                     stamps[stamp.id] = stamp.to_dict()
 
-    print("\nuser data?")
-    # pprint(programs)
-    # pprint(activities)
-    # pprint(stamps)
     return jsonify(
         programs_data=programs, 
         activities_data=activities, 

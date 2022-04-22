@@ -24,7 +24,7 @@ export default function NavCard({
   const user = useContext(UserContext)
   const birthday = user.birthday ? new Date(user.birthday).toLocaleString('en-EN', { year: 'numeric', month: 'long', day: 'numeric' }) : "N/A"
   const path = history.location.pathname.split("/")
-  console.log("points", points)
+  console.log({points, user})
 
   if (!user.id) return (
     <header

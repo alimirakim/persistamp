@@ -3,11 +3,9 @@ from sqlalchemy.orm import joinedload
 from flask_login import current_user, login_user, logout_user, login_required
 from datetime import date, timedelta
 import calendar
-from pprint import pprint
 from backend.models import db, User, Stamp, Program, Membership, Activity, Reward, Color, Stamp
 from backend.forms import UserForm
 from backend.utils import queryUserFullData, validation_errors_to_error_messages, dump_data_list, get_past_week
-from pprint import pprint
 
 user_routes = Blueprint('users', __name__, url_prefix="/users")
 
@@ -65,8 +63,6 @@ def user_programs(uid):
                 stamps_data[stamp.id] = stamp.to_dict()
             activities_data[activity.id]["week_stamps"] = [s.id for s in stamps]
         
-    print("\nfinal")
-    pprint(stamps_data)
     return jsonify(
         programs_data=programs_data, 
         activities_data=activities_data, 
@@ -77,9 +73,7 @@ def user_programs(uid):
 @user_routes.route("/settings", methods=['PUT'])
 @login_required
 def update_user():
-    print("\nreq", request.data)
     form = UserForm()
-    print("\nupdated", form.data)
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate():

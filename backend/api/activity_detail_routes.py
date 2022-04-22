@@ -13,11 +13,9 @@ activity_detail_routes = Blueprint("activity_details", __name__, url_prefix="/ac
 
 @activity_detail_routes.route("<int:aid>/memberships/<int:mid>/graph/<string:interval>")
 def getWeeklyGraph(aid, interval, mid):
-    # uid = current_user.id
     activityObj = Activity.query.filter(Activity.id == aid).one()
     activity = activity_schema.dump(activityObj)
     current_date = date.today()
-    # print("CURRENT_DATE =-----------------------------------------------", current_date)
 
     if interval == "Monthly":
         currentStrDate = current_date.strftime("%Y-%m-%d")
@@ -44,7 +42,6 @@ def getWeeklyGraph(aid, interval, mid):
                 if stampMonthNum == monthNum:
                     monthAxisLabels[month] += 1
                 continue
-        # print("MONTH AXIS LABELS", monthAxisLabels)
         data = []
         for month, stampCount in monthAxisLabels.items():
             data.append({ "dates": month, "stamps": stampCount })
@@ -57,7 +54,6 @@ def getWeeklyGraph(aid, interval, mid):
             data.append(lastMonth)
             break
 
-        # print("MONTH DATA ------------", data)
         ticks = [0,5,10,15,20,25,30,35]
         yDomain = [0,35]
         jsonData = jsonify(data=data, activity=activity, ticks=ticks, yDomain=yDomain)
@@ -95,7 +91,6 @@ def getWeeklyGraph(aid, interval, mid):
         count = 0
         for day in range(7):
             checkDay = isStamped.pop(0)
-            # print("CHECK DAY:   ---------------------------", checkDay)
             if checkDay == True:
                 count += 1
         obj = {"dates": newAxisLabels.pop(-1), "stamps": count }
@@ -114,7 +109,6 @@ def getCalendarData(aid, mid):
     endDate = current_date.strftime("%Y-%m-%d")
 
     splitDate = endDate.split("-")
-    # firstDayStr = f'{splitDate[0]}-{splitDate[1]}-01'
     firstDayOfMonth = date(int(splitDate[0]), int(splitDate[1]), 1)
 
     startDate = None
@@ -125,7 +119,6 @@ def getCalendarData(aid, mid):
             startDate = start.strftime("%Y-%m-%d")
             startObj = start
             break
-    # print("GETTING SUNDAY============================", startDate)
     stampDates = []
     values = []
     stamps = Stamp.query.filter(Stamp.activity_id == aid, \
@@ -146,13 +139,10 @@ def getCalendarData(aid, mid):
     yArrIndex = 0
 
     while startObj <= current_date:
-        print("\nday", startObj.strftime("%d"))
         if startObj.strftime("%Y-%m-%d") in stampDates:
             yArr[yArrIndex].append({"val": 100, "day": startObj.strftime("%d")})
-            # dateVals[yArrIndex].append(startObj.strftime("%d").lstrip("0").replace(" 0", " "))
         else:
             yArr[yArrIndex].append({"val": 99, "day": startObj.strftime("%d")})
-            # dateVals[yArrIndex].append(startObj.strftime("%d").lstrip("0").replace(" 0", " "))
 
         if len(yArr[yArrIndex]) == 7:
             yArr.append([])
@@ -171,12 +161,7 @@ def getCalendarData(aid, mid):
         yLabels.pop(-1)
         if int(date.today().strftime("%d").lstrip("0").replace(" 0", " ")) < 8:
             yLabels.append(date.today().strftime("%b"))
-        # else:
-            # yLabels.append(date.today().strftime("%d").lstrip("0").replace(" 0", " "))
 
-    # print("XLABELS SWITCH", xLabels)
-    # print("YLABELS SWITCH", yLabels)
-    # print("Data--------------------------", yArr)
     jsonData = jsonify(values=values, startDate=startDate, endDate=endDate,
             xLabels=xLabels,
             yLabels=yLabels,
@@ -222,7 +207,6 @@ def getActivityStats(aid, mid):
         checkDate += timedelta(days=1)
     longestStreak = max(streakArr)
     currentStreak = streakArr[-1]
-    # print("LONGEST STREAK _____________", longestStreak)
     total = len(stampObjs)
 
     scoreFraction = f'{total} / {attempts}'
@@ -245,7 +229,6 @@ def getActivityStats(aid, mid):
         lastTwo = len(twoMonthObjs)
         monthPercentage = '{:.1%}'.format((lastMonth - lastTwo) / 31)
 
-    # print("MONTH PERCENTAGE", monthPercentage, monthTrend)
     jsonData = jsonify(total=total,
                     score=score,
                     scoreFraction=scoreFraction,

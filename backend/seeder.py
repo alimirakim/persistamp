@@ -959,6 +959,7 @@ with app.app_context():
 
     db.session.commit()
 
+
     def create_stamps(year=2020, month=11):
         """Generate stamp instances and add to db session."""
         for d in range(1, 30):
@@ -969,17 +970,7 @@ with app.app_context():
                 )
                 db.session.add(stamp)
 
-    # randomlist = []
-    # for i in range(0,5):
-    # n = random.randint(1,30)
-    # randomlist.append(n)
-    # print(randomlist)
-    # activities = [activity_workone, activity_worktwo, activity_socialone, activity_socialtwo, activity_socialthree,
-    #     activity_choresone, activity_chorestwo, activity_choresthree, activity_dog, activity_draw, activity_dress,
-    #     activity_hair, activity_play, activity_teeth, activity_veggies, activity_win]
 
-# Total_number_days = monthrange(2020, 2)[1]
-# print("\nTotal Number of Days in a Month: ",Total_number_days)
     def createStamps(activity, membership, month, year, missedDays):
         maxDays = monthrange(year, month)[1]
         missedList = []
@@ -1106,8 +1097,6 @@ with app.app_context():
 
     for d in range(1, 30):
         if d not in (1, 7, 8, 14, 15, 21, 22, 23, 24, 25, 29):
-            print("\nDATE", d)
-            print(datetime(2020, 11, d))
             stamp1 = Stamp(
                 date=date(2020, 11, d),
                 status='stamped', activity=activity_hair, membership=member_sophie2,

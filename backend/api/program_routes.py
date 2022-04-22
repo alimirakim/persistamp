@@ -43,9 +43,6 @@ def create_program():
         db.session.add(membership)
         db.session.commit()
 
-        # programs_data, activities_data, stamps_data, user_data, past_week = queryUserFullData(current_user.id)
-        print("\nprogram...")
-        pprint(program)
         return program.to_dict_for_user(current_user.id)
     return {'errors': validation_errors_to_error_messages(form.errors)}, 400
 
@@ -56,7 +53,6 @@ def edit_program(pid):
     """Edit a program's details."""
     form = ProgramForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print("\n\nEDIT PROGRAM ROUTE", pid, form.data)
     
     if form.validate():
         program = Program.query.options(joinedload(Program.color), joinedload(Program.icon), joinedload(Program.creator)).get(pid)

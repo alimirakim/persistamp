@@ -45,7 +45,6 @@ def current_week():
 @stamp_routes.route("/<int:aid>/programs/<int:pid>/memberships/<int:mid>/days/<day>", methods=["delete", "post"])
 def stamp_day(pid, mid, aid, day):
     """Change the status of a stamp to 'stamped' or 'pending'."""
-    print("stamping...")
     membership = Membership.query.get(mid)
     # day = date
     activity = Activity.query.get(aid)
@@ -81,7 +80,6 @@ def stamp_day(pid, mid, aid, day):
             Stamp.activity_id == aid,  \
             Stamp.membership_id == mid, \
             Stamp.date == day).one()
-        print(stamp)
         db.session.delete(stamp)
         if membership.program.has_shop:
             membership.points -= activity.stamp_value

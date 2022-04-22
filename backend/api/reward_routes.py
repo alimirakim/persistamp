@@ -8,11 +8,8 @@ from pprint import pprint
 
 reward_routes = Blueprint("rewards", __name__, url_prefix="/rewards")
 
-# @reward_routes.route("/user")
-# def get_user_rewards():
-#     """Get the user's rewards for their main shop."""
-#     rewards = Reward.query.filter(Receipt.user_id == current_user.id,
 
+# MIRA I don't believe this is being used
 @reward_routes.route("/user")
 def rewards_and_receipts():
     """Get a list of a user's rewards."""
@@ -21,12 +18,10 @@ def rewards_and_receipts():
         .filter(Receipt.user_id == current_user.id, type(Receipt.program_id) != 'int') \
         .order_by(Receipt.created_at).all()
     for x in rewards:
-        print(x.creator_id, type(x.program_id), type(x.program_id) != 'int')
-        print(isinstance(x.program_id, int))
-    return jsonify(
-        points_data=current_user.points, 
-        rewards_data={r.id:r.to_dict() for r in rewards},
-        receipts_data={r.id:r.to_dict() for r in receipts})
+        return jsonify(
+            points_data=current_user.points, 
+            rewards_data={r.id:r.to_dict() for r in rewards},
+            receipts_data={r.id:r.to_dict() for r in receipts})
 
 
 @reward_routes.route("/programs/<int:pid>")
