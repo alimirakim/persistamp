@@ -47,3 +47,15 @@
 11. profit
 
 Thanks to Instructor Bart Dorsey! 💓
+
+## Updates to Database
+If you have modified the database structure, you may need to delete and recreate your Heroku app's
+database to match.
+
+In the browser, go the your Heroku dashboard and into your app's dashboard.
+Go to **Resources** tab.
+
+For the **Heroku Postgres** database, click the far right button to Delete. Confirm you want to 
+delete it.
+
+Use the Search bar to find Heroku Postgres addon again, and add as 'Hobby Dev - Free'.
