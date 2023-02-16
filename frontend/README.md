@@ -121,6 +121,10 @@ There is a layer in the Dockerfile that will install psycopg2 (not binary) for u
 
 11. profit
 
+## Access Heroku's db with Postbird etc. tools
+
+See [Medium Article: How to Set Up Postico 3 to Connect to a Remote PostgreSQL Server with Heroku](https://danielnmai.medium.com/how-to-set-up-postico-3-to-connect-to-a-remote-postgresql-server-heroku-f9704e1b7643#:~:text=Go%20to%20your%20Heroku%20dashboard,display%20your%20app%20config%20settings.)
+
 # The C# Player's Guide (Fourth Edition) by RB Whitaker
 
 > **Technologies:** C# 9, .NET5, Visual Studio 2019

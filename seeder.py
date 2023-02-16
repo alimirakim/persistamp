@@ -1,5 +1,7 @@
+# IMPORTANT In the top-level, run `pipenv shell`, then run `python seeder.py`. This file should be in the top-level.
+
 from backend.models import User, Program, Activity, Color, Icon, Stamp, Membership, Reward
-from . import app, db
+from backend import app, db
 from calendar import monthrange
 from random import *
 from datetime import date, timedelta, datetime

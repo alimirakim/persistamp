@@ -33,6 +33,7 @@ export default function App() {
       const res = await fetch('/api/auth/', {
         headers: { 'Content-Type': 'application/json' }
       })
+      console.log("what is res", res)
       const user_data = await res.json()
       if (!user_data.errors) {
         setUser(user_data)

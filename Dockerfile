@@ -28,4 +28,4 @@ RUN pip install -r backend/requirements.txt
 RUN pip install psycopg2
 
 # Run flask environment
-CMD gunicorn backend:app
+CMD gunicorn backend:__init__

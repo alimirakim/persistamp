@@ -17,7 +17,7 @@ export default function RewardForm({ open, handleClose, cid, iid }) {
     <ChooseQuantity label="quantity" quantity={quantity} setQuantity={setQuantity} />
     <ChooseLimit limit={limit} setLimit={setLimit} />
   </div>)
-  
+
   const resetUniqueInputs = (e) => {
     setCost(5)
     setLimit("")
@@ -25,7 +25,8 @@ export default function RewardForm({ open, handleClose, cid, iid }) {
   }
 
   if (!open) return null
-  
+  console.log({ cost, limit, quantity, })
+
   return (
     <FormWrapper
       type="reward"
